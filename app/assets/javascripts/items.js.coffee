@@ -13,6 +13,7 @@
       EventForm.addMoreHours()
       EventForm.moneyMask()
       EventForm.moreDetails()
+      EventForm.datePickerTime()
       return
 
 
@@ -121,6 +122,30 @@
         return
 
       return
+
+
+    datePickerTime: ->
+      jQuery('#date_timepicker_start').datetimepicker
+        lang: 'pt-BR'
+        format: 'd/m/Y'
+        onShow: (ct) ->
+          @setOptions
+            maxDate: if jQuery('#date_timepicker_end').val() then jQuery('#date_timepicker_end').val() else false
+            formatDate:'d/m/Y'
+          return
+        timepicker: false
+      jQuery('#date_timepicker_end').datetimepicker
+        lang: 'pt-BR'
+        format: 'd/m/Y'
+        onShow: (ct) ->
+          @setOptions
+            minDate: if jQuery('#date_timepicker_start').val() then jQuery('#date_timepicker_start').val() else false
+            formatDate:'d/m/Y'
+          return
+        timepicker: false
+
+      return
+
 
 
   $ ->

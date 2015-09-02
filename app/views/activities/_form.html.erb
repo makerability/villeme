@@ -2,8 +2,8 @@
 
 <!-- HEAD -->
 
-<%= stylesheet_link_tag params[:controller], 'events/FormEvent', 'bu' %>
-<%= javascript 'gmaps-builder', 'autocomplete' %>
+<%= stylesheet_link_tag params[:controller], 'events/FormEvent', 'datetimepicker/jquery.datetimepicker.css' %>
+<%= javascript_include_tag 'gmaps-builder', 'autocomplete', 'datetimepicker/jquery.datetimepicker.js' %>
 
 
 
@@ -50,23 +50,26 @@
           <div class="form-group has-helper"  helper="<b>Dica:</b> A data inicial deve ser o dia que é possivel praticar a atividade, independente se a atividade durar meses (pôr do sol no Gasômetro, etc). A data de termino deve ser o ultimo dia possivel de praticar a atividade.<br><br><b>Obrigações:</b><ul><li>O dia de início deve ser preenchido.</li></ul></b>">
             <label class="control-label col-lg-3">Periodo<br/> <small>(quando e possivel praticar a atividade?)</small></label>
             <div class="col-lg-9 u-no-padding">
-              <div class="col-lg-12">
-                <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início do periodo</span>
-              </div>
-              <!-- <div class="col-lg-5">
-                <span style="float: left; margin: -15px 0px 6px;">Hora de início do evento</span>
-              </div>  -->
-              <div class="col-lg-12">
-                <%= f.input :date_start, as: :date, input_html: {class: "form-control"}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
-              </div>
-              <div class="col-lg-12" style="margin-top: 12px;">
-                <span class="info">Dia de termino do periodo</span>
-              </div>
-              <div class="col-lg-12 not-required">
-                <%= f.input :date_finish, as: :date, input_html: {class: "form-control"}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
-              </div>
-            </div>
 
+              <div class="col-lg-6">
+                <div class="col-lg-12">
+                  <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início do periodo</span>
+                </div>
+                <div class="col-lg-12">
+                  <%= f.input :date_start, as: :string, input_html: {class: 'form-control', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="col-lg-12">
+                  <span class="info">Dia de termino do periodo</span>
+                </div>
+                <div class="col-lg-12 not-required">
+                  <%= f.input :date_finish, as: :string, input_html: {class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                </div>
+              </div>
+
+            </div>
           </div>
 
 

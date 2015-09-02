@@ -23,6 +23,7 @@
     "tests"
   ],
   "dependencies": {
+    "datetimepicker": "~2.4.5",
     "jqueryte": "~1.4.0"
   }
 }
