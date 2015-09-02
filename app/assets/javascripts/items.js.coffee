@@ -13,6 +13,7 @@
       EventForm.addMoreHours()
       EventForm.moneyMask()
       EventForm.moreDetails()
+      EventForm.descriptionTextTools()
       EventForm.datePickerTime()
       return
 
@@ -123,6 +124,16 @@
 
       return
 
+
+    descriptionTextTools: ->
+      $("#js-item-description").jqte
+        focus: ->
+          $(".jqte_editor").height(450)
+          return
+        blur: ->
+          $(".jqte_editor").height(100)
+          return
+      return
 
     datePickerTime: ->
       jQuery('#date_timepicker_start').datetimepicker

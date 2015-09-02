@@ -2,8 +2,8 @@
 
 <!-- HEAD -->
 
-<%= stylesheet_link_tag params[:controller], 'events/FormEvent', 'datetimepicker/jquery.datetimepicker.css' %>
-<%= javascript_include_tag 'gmaps-builder', 'autocomplete', 'datetimepicker/jquery.datetimepicker.js' %>
+<%= stylesheet_link_tag 'events/FormEvent', 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', params[:controller] %>
+<%= javascript_include_tag 'gmaps-builder', 'autocomplete', 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', params[:controller] %>
 
 
 
@@ -39,7 +39,7 @@
           <div class="form-group has-helper" helper="<b>Dicas:</b> A descrição fica mais legal se for bem organizada, explicar o que acontece e o que é possível fazer no evento.<br><br>Use as opções de negrito e numeração para organizar melhor a descrição.<br><br><b>Obrigações:</b><ul><li>Ter mais de 140 caracteres.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Detalhes</label>
             <div class="col-lg-9">
-              <%= f.input :description, input_html: {class: "form-control has-focus-transition", rows: "5", data:{"max-length" => 25, "min-length" => 2}} %>
+              <%= f.input :description, input_html: {class: 'form-control has-focus-transition', id: 'js-item-description', rows: '5', data:{'max-length' => 25, 'min-length' => 2}} %>
             </div>
           </div>
 
@@ -97,11 +97,11 @@
                 <span class="info">Hora de termino</span>
               </div>
               <div class="col-lg-5">
-                <%= f.input :hour_start_first, input_html: {class: "form-control"}, as: :time, prompt: '--' %>
+                <%= f.input :hour_start_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
                 <%= f.input :allday, label: 'O evento acontece o dia todo', value: true, input_html: {class: 'FormEvent-alldayInput'}, label_html: {class: 'FormEvent-alldayLabel'}, wrapper_html: {class: 'FormEvent-alldayWrapper'} %>
               </div>
               <div class="col-lg-5 not-required">
-                <%= f.input :hour_finish_first, input_html: {class: "form-control"}, as: :time, prompt: '--' %>
+                <%= f.input :hour_finish_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
               </div>
               <div class="col-lg-2 no-require">
                 <span class="AddHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -118,7 +118,7 @@
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Preço</label>
             <div class="col-lg-3">
               <input id="event_cost_fake" value="<%= @item.cost unless @item.cost.blank? %>" class="string optional has-tooltip form-control has-focus-transition" data-max-length="12" data-min-length="1" title="A partir de" type="text" size="10" name="" placeholder="R$ 0,00" maxlength="10">
-              <%= f.input :cost, as: :hidden, input_html:{maxlength: "10", class: "form-control has-focus-transition", data:{"max-length" => 25, "min-length" => 2}}  %>
+              <%= f.input :cost, as: :hidden, input_html:{maxlength: '10', class: 'form-control has-focus-transition', data:{"max-length" => 25, "min-length" => 2}}  %>
             </div>
             <label class="control-label col-lg-2">Detalhes</label>
             <div class="col-lg-4 not-required">
@@ -152,7 +152,7 @@
 
             </div>
             <div class="col-lg-6">
-              <%= f.input :image, as: :file, input_html: {class: "event-file form-control"}, wrapper_html: false %>
+              <%= f.input :image, as: :file, input_html: {class: 'event-file form-control'}, wrapper_html: false %>
               <a class="remove-img hint">Remover</a>
             </div>
           </div>
@@ -173,7 +173,7 @@
                 <div class="col-lg-9 place-div">
 
                   <!-- <input id="place" class="string optional place-inputs has-tooltip col-lg-7 ui-autocomplete-input" type="text" title="" size="255" placeholder="Ex:. Parque Farroupilha" name="" maxlength="255" autocomplete="off" data-original-title="Busque pelo nome do lugar aqui"> -->
-                  <%= p.input :name, placeholder: 'por exemplo: Parque Farroupilha', input_html: {id: "place", class: 'place-inputs form-control has-tooltip col-lg-7 ui-autocomplete-input has-helper', helper: "<b>Dica:</b> Escreva o nome do lugar completo, se ele ja existir você pode selecionar na lista que irá aparecer ou caso o lugar ainda não exista, você pode criá-lo.<br><br><b>Obrigações:</b><ul><li>O lugar deve ser selecionado ou criado.</li><li>O nome deve ter mais de 3 caracteres.</li>"} %>
+                  <%= p.input :name, placeholder: 'por exemplo: Parque Farroupilha', input_html: {id: "place", class: 'place-inputs form-control has-tooltip col-lg-7 ui-autocomplete-input has-helper', helper: '<b>Dica:</b> Escreva o nome do lugar completo, se ele ja existir você pode selecionar na lista que irá aparecer ou caso o lugar ainda não exista, você pode criá-lo.<br><br><b>Obrigações:</b><ul><li>O lugar deve ser selecionado ou criado.</li><li>O nome deve ter mais de 3 caracteres.</li>'} %>
 
                 </div>
 
