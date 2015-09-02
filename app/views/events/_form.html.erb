@@ -21,7 +21,7 @@
 
     <div class="panel-body">
 
-      <%= simple_form_for @item, defaults:{ label: false, wrapper_html: false}, :html => { multipart: true, class: "form-horizontal", id: "event-form" } do |f| %>
+      <%= simple_form_for @item, defaults:{ label: false, wrapper_html: false}, :html => { multipart: true, class: 'form-horizontal', id: 'event-form'} do |f| %>
 
 
           <!-- NAME -->
@@ -29,7 +29,7 @@
           <div class="form-group has-helper" helper="<b>Dica:</b> O nome do evento fica mais legal se for curto e com uma palavra descritiva. <br><br><b>Exemplo:</b><ul><li>Nome original: Hell.</li> <li>Nome legal: <i>Peça de Teatro</i> Hell.</li></ul><br><b>Obrigações:</b><ul><li>O nome deve ter mais de 6 caracteres.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Nome do evento</label>
             <div class="col-lg-9">
-              <%= f.input :name, input_html:{class: "form-control has-focus-transition", data:{"max-length" => 140, "min-length" => 2, "tip" => "Precisa ser maior que 2 caracteres."}} %>
+              <%= f.input :name, placeholder:'por exemplo: Feira de Antiguidades da Redenção', input_html:{class: 'form-control has-focus-transition', data:{'max-length' => 140, 'min-length' => 2, 'tip' => 'Precisa ser maior que 2 caracteres.'}} %>
               <div class="tip"></div>
             </div>
           </div>
@@ -38,7 +38,7 @@
           <!-- DESCRIPTION -->
 
           <div class="form-group has-helper" helper="<b>Dicas:</b> A descrição fica mais legal se for bem organizada, explicar o que acontece e o que é possível fazer no evento.<br><br>Use as opções de negrito e numeração para organizar melhor a descrição.<br><br><b>Obrigações:</b><ul><li>Ter mais de 140 caracteres.</li></ul>">
-            <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Descrição</label>
+            <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Detalhes</label>
             <div class="col-lg-9">
               <%= f.input :description, input_html: {class: "form-control has-focus-transition", rows: "5", data:{"max-length" => 25, "min-length" => 2}} %>
             </div>
@@ -56,7 +56,7 @@
                   <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início do evento</span>
                 </div>
                 <div class="col-lg-12">
-                  <%= f.input :date_start, as: :string, input_html: {class: 'form-control', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                 </div>
               </div>
 
@@ -65,7 +65,7 @@
                   <span class="info">Dia de termino do evento</span>
                 </div>
                 <div class="col-lg-12 not-required">
-                  <%= f.input :date_finish, as: :string, input_html: {class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_finish, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                 </div>
               </div>
 
@@ -123,7 +123,7 @@
             </div>
             <label class="control-label col-lg-2">Detalhes</label>
             <div class="col-lg-4 not-required">
-              <%= f.input :cost_details, as: :text, input_html:{rows: "2", class: "form-control"}  %>
+              <%= f.input :cost_details, as: :text, placeholder: 'por exemplo: Adultos R$10,00, Crianças R$6,00', input_html:{rows: "2", class: "form-control"}  %>
             </div>
           </div>
 
@@ -174,7 +174,7 @@
                 <div class="col-lg-9 place-div">
 
                   <!-- <input id="place" class="string optional place-inputs has-tooltip col-lg-7 ui-autocomplete-input" type="text" title="" size="255" placeholder="Ex:. Parque Farroupilha" name="" maxlength="255" autocomplete="off" data-original-title="Busque pelo nome do lugar aqui"> -->
-                  <%= p.input :name, input_html: {id: "place", class: "place-inputs form-control has-tooltip col-lg-7 ui-autocomplete-input has-helper", placeholder: "Ex:. Parque Farroupilha", helper: "<b>Dica:</b> Escreva o nome do lugar completo, se ele ja existir você pode selecionar na lista que irá aparecer ou caso o lugar ainda não exista, você pode criá-lo.<br><br><b>Obrigações:</b><ul><li>O lugar deve ser selecionado ou criado.</li><li>O nome deve ter mais de 3 caracteres.</li>"} %>
+                  <%= p.input :name, placeholder: 'por exemplo: Parque Farroupilha', input_html: {id: "place", class: 'place-inputs form-control has-tooltip col-lg-7 ui-autocomplete-input has-helper', helper: "<b>Dica:</b> Escreva o nome do lugar completo, se ele ja existir você pode selecionar na lista que irá aparecer ou caso o lugar ainda não exista, você pode criá-lo.<br><br><b>Obrigações:</b><ul><li>O lugar deve ser selecionado ou criado.</li><li>O nome deve ter mais de 3 caracteres.</li>"} %>
 
                 </div>
 
@@ -252,14 +252,17 @@
             <div class="form-group has-helper" helper="<b>Dica:</b> Para deixar as informações mais confiaveis, insira os dados de contato do organizador ou local.">
               <label class="control-label col-lg-3">Contato e informações</label>
               <div class="col-lg-4">
-                <%= f.input :email, input_html:{class: "form-control has-focus-transition"}, placeholder: "email" %>
+                <span class="info">Email do local ou responsavel</span>
+                <%= f.input :email, input_html:{class: 'form-control has-focus-transition'}, placeholder: 'ex: joao@gmail.com' %>
               </div>
               <div class="col-lg-5">
-                <%= f.input :phone, as: :string, input_html:{class: "form-control has-focus-transition"}, placeholder: "telefone" %>
+                <span class="info">Telefone do local ou responsavel</span>
+                <%= f.input :phone, as: :string, input_html:{class: 'form-control has-focus-transition'}, placeholder: 'ex: 51 1234.4321' %>
               </div>
               <div class="control-label col-lg-3" style="margin-top:15px"></div>
               <div class="col-lg-9" style="margin-top:15px">
-                <%= f.input :link, input_html:{class: "form-control has-focus-transition", data:{"max-length" => 500, "min-length" => 0}}, placeholder: "link ou site" %>
+                <span class="info">Site para se obter maiores informações</span>
+                <%= f.input :link, input_html:{class: 'form-control has-focus-transition', data:{'max-length' => 500, 'min-length' => 0}}, placeholder: 'ex: www.prefeituradeportoalegre.com.br/feira-da-redencao' %>
               </div>
             </div>
 
