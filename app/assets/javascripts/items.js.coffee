@@ -127,11 +127,26 @@
 
     descriptionTextTools: ->
       $("#js-item-description").jqte
+        center: false
+        color: false
+        fsize: false
+        funit: false
+        format: false
+        indent: false
+        left: false
+        right: false
+        outdent: false
+        rule: false
+        source: false
+        sub: false
+        sup: false
         focus: ->
-          $(".jqte_editor").height(450)
+          $(".jqte_editor").animate
+            'height': 360
           return
         blur: ->
-          $(".jqte_editor").height(100)
+          $(".jqte_editor").animate
+            'height': 100
           return
       return
 
