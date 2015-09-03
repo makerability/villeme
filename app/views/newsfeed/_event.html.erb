@@ -38,7 +38,7 @@
 
               <div class="caption">
                 <span class="Event-subCat">
-                  <%= event.subcategory.name unless event.subcategory.nil? %>
+                  <%= event.subcategories.first.name unless event.subcategories.empty? %>
                 </span>
 
                 <h2 class="Event-title">

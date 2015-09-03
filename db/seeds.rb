@@ -250,6 +250,24 @@ puts "\n"
 puts "\n"
 
 
+puts '=== Subcategories fakers creator ==='
+
+puts "\n"
+puts "\n"
+
+SUBCATEGORIES = ["Cinema", "Teatro", "Show", "Passeio"]
+
+SUBCATEGORIES.each do |name|
+    subcategory = Subcategory.create(
+        name: name
+    )
+    puts "Subcategory #{subcategory.name} created with success!"
+end
+
+puts "\n"
+puts "\n"
+
+
 puts '=== Weeks fakers creator ==='
 
 puts "\n"
