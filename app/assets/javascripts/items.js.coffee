@@ -1,4 +1,5 @@
-#=require events/input
+#= require events/input
+#= require modules/Form
 
 (($) ->
 
