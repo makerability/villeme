@@ -15,6 +15,7 @@
       EventForm.moreDetails()
       EventForm.descriptionTextTools()
       EventForm.datePickerTime()
+      EventForm.daysOfWeekBetweenTwoDates()
       EventForm.dateTimeSectionHideShow()
       return
 
@@ -131,6 +132,74 @@
         $('.js-datetime-section-hide-show').removeClass('is-Hidden').addClass('is-Visible')
         return
       return
+
+
+    daysOfWeekBetweenTwoDates: ->
+
+      Date::addDays = (days) ->
+        dat = new Date(@valueOf())
+        dat.setDate dat.getDate() + days
+        dat
+
+      stringToDate = (_date, _format, _delimiter) ->
+        formatLowerCase = _format.toLowerCase()
+        formatItems = formatLowerCase.split(_delimiter)
+        dateItems = _date.split(_delimiter)
+        monthIndex = formatItems.indexOf('mm')
+        dayIndex = formatItems.indexOf('dd')
+        yearIndex = formatItems.indexOf('yyyy')
+        month = parseInt(dateItems[monthIndex])
+        month -= 1
+        formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex])
+        formatedDate
+
+
+      getDates = (dateStart, dateEnd) ->
+        oneDay = 24 * 3600 * 1000
+        arrayOfDaysOfWeek = []
+        dateStartForm = dateStart * 1
+        dateEndForm = dateEnd * 1
+
+        if dateStartForm == dateEndForm
+          [new Date(dateStartForm).getDay()]
+        else
+          while dateStartForm < dateEndForm
+            arrayOfDaysOfWeek.push new Date(dateStartForm).getDay()
+            dateStartForm += oneDay
+
+          arrayOfDaysOfWeek.push new Date(dateEndForm).getDay()
+          return arrayOfDaysOfWeek
+
+
+      jQuery('#date_timepicker_start, #date_timepicker_end').datetimepicker
+        onSelectDate: ->
+          if $('#date_timepicker_start').val() and $('#date_timepicker_end').val()
+            dateStart = $('#date_timepicker_start').val()
+            dateEnd = $('#date_timepicker_end').val()
+            arrayOfWeeks = getDates(stringToDate(dateStart, 'dd/MM/yyyy', '/'), stringToDate(dateEnd, 'dd/MM/yyyy', '/'))
+
+            $('.js-days-of-week').prop 'checked', false
+
+            arrayOfWeeks.forEach (day) ->
+              if day == 0
+                $('.js-day-0').prop 'checked', true
+              else if day == 1
+                $('.js-day-1').prop 'checked', true
+              else if day == 2
+                $('.js-day-2').prop 'checked', true
+              else if day == 3
+                $('.js-day-3').prop 'checked', true
+              else if day == 4
+                $('.js-day-4').prop 'checked', true
+              else if day == 5
+                $('.js-day-5').prop 'checked', true
+              else if day == 6
+                $('.js-day-6').prop 'checked', true
+              else
+              return
+
+      return
+
 
     descriptionTextTools: ->
       $("#js-item-description").jqte

@@ -255,19 +255,15 @@ puts '=== Weeks fakers creator ==='
 puts "\n"
 puts "\n"
 
-WEEKS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-n = 1
-i = 6
+WEEKS = [["Sunday", 0, 7], ["Monday", 1, 1], ["Tuesday", 2, 2], ["Wednesday", 3, 3,], ["Thursday", 4, 4], ["Friday", 5, 5], ["Saturday", 6, 6]]
 
-WEEKS.each do |name|
+WEEKS.each do |day|
   week = Week.create(
-      name: name,
-      slug: name.downcase,
-      organizer_id: n,
-      binary: i
+      name: day[0],
+      slug: day[0].downcase,
+      binary: day[1],
+      organizer_id: day[2]
   )
-  n += 1
-  i -= 1
   puts "Week #{week.name} created with success!"
 end
 
