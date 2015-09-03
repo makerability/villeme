@@ -55,7 +55,7 @@
                   <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início do evento</span>
                 </div>
                 <div class="col-lg-12">
-                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                 </div>
               </div>
 
@@ -73,43 +73,44 @@
 
 
 
+          <div class="FormGroup--sub is-Hidden js-datetime-section-hide-show">
 
-          <!-- DIAS DA SEMANA -->
+            <!-- DIAS DA SEMANA -->
 
-          <div class="form-group has-helper" helper="<b>Dica:</b> Marque os dias da semana que o evento acontece.<br><br><b>Obrigações:</b><ul><li>Pelo menos um dia da semana deve estar marcado.</li></ul></b>">
-            <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Dias da semana</label>
-            <div class="col-lg-9">
-              <%= f.association :weeks, collection: Week.order('organizer_id ASC'), as: :check_boxes, include_blank: false %>
-            </div>
-          </div>
-
-
-
-          <!-- HORARIOS -->
-
-          <div class="form-group has-helper hour-block"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
-            <label class="control-label col-lg-3">1º Horario</label>
-            <div class="col-lg-9 u-no-padding">
-              <div class="col-lg-5">
-                <span class="info">Hora de inicio</span>
-              </div>
-              <div class="col-lg-7">
-                <span class="info">Hora de termino</span>
-              </div>
-              <div class="col-lg-5">
-                <%= f.input :hour_start_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
-                <%= f.input :allday, label: 'O evento acontece o dia todo', value: true, input_html: {class: 'FormEvent-alldayInput'}, label_html: {class: 'FormEvent-alldayLabel'}, wrapper_html: {class: 'FormEvent-alldayWrapper'} %>
-              </div>
-              <div class="col-lg-5 not-required">
-                <%= f.input :hour_finish_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
-              </div>
-              <div class="col-lg-2 no-require">
-                <span class="AddHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+            <div class="form-group has-helper" helper="<b>Dica:</b> Marque os dias da semana que o evento acontece.<br><br><b>Obrigações:</b><ul><li>Pelo menos um dia da semana deve estar marcado.</li></ul></b>">
+              <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Dias da semana</label>
+              <div class="col-lg-9">
+                <%= f.association :weeks, collection: Week.order('organizer_id ASC'), as: :check_boxes, include_blank: false %>
               </div>
             </div>
+
+
+
+            <!-- HORARIOS -->
+
+            <div class="form-group has-helper hour-block"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+              <label class="control-label col-lg-3">1º Horario</label>
+              <div class="col-lg-9 u-no-padding">
+                <div class="col-lg-5">
+                  <span class="info">Hora de inicio</span>
+                </div>
+                <div class="col-lg-7">
+                  <span class="info">Hora de termino</span>
+                </div>
+                <div class="col-lg-5">
+                  <%= f.input :hour_start_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
+                  <%= f.input :allday, label: 'O evento acontece o dia todo', value: true, input_html: {class: 'FormEvent-alldayInput'}, label_html: {class: 'FormEvent-alldayLabel'}, wrapper_html: {class: 'FormEvent-alldayWrapper'} %>
+                </div>
+                <div class="col-lg-5 not-required">
+                  <%= f.input :hour_finish_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
+                </div>
+                <div class="col-lg-2 no-require">
+                  <span class="AddHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                </div>
+              </div>
+            </div>
+
           </div>
-
-
 
 
           <!-- PREÇO -->

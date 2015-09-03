@@ -15,6 +15,7 @@
       EventForm.moreDetails()
       EventForm.descriptionTextTools()
       EventForm.datePickerTime()
+      EventForm.dateTimeSectionHideShow()
       return
 
 
@@ -124,6 +125,12 @@
 
       return
 
+
+    dateTimeSectionHideShow: ->
+      $('.js-date-timepicker').focus ->
+        $('.js-datetime-section-hide-show').removeClass('is-Hidden').addClass('is-Visible')
+        return
+      return
 
     descriptionTextTools: ->
       $("#js-item-description").jqte

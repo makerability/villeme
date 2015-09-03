@@ -4,9 +4,11 @@
 
 
 @import 'variables';
+@import 'style/Form';
 @import 'modules/InformationBox';
 @import 'modules/Event--single';
 @import 'modules/Sidebar--single';
+
 
 select > option {
     border-bottom: 1px solid #d7d9da;
@@ -44,7 +46,7 @@ select > option {
 }
 
 .not-required{
-  opacity: 0.25;
+  opacity: 0.5;
 }
 
 .not-required-block{
@@ -270,3 +272,6 @@ textarea.tip:focus{
 .checkbox input{
   margin: 7px 0 0 0;
 }
+
+
+
