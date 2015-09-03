@@ -14,7 +14,8 @@
       EventForm.moneyMask()
       EventForm.moreDetails()
       EventForm.descriptionTextTools()
-      EventForm.datePickerTime()
+      EventForm.datePickerTimeToPeriod()
+      EventForm.datePickerTimeToTime()
       EventForm.daysOfWeekBetweenTwoDates()
       EventForm.dateTimeSectionHideShow()
       return
@@ -226,7 +227,9 @@
           return
       return
 
-    datePickerTime: ->
+
+
+    datePickerTimeToPeriod: ->
       jQuery('#date_timepicker_start').datetimepicker
         lang: 'pt-BR'
         format: 'd/m/Y'
@@ -248,6 +251,13 @@
 
       return
 
+
+
+    datePickerTimeToTime: ->
+      jQuery('.js-date-picker-time').datetimepicker
+        datepicker: false
+        format: 'H:i'
+      return
 
 
   $ ->

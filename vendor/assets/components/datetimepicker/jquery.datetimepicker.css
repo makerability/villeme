@@ -242,8 +242,8 @@
 }
 
 .xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
-	background: #33aaff;
-	box-shadow: #178fe5 0 1px 3px 0 inset;
+	background: #38ba5e;
+	box-shadow: #38ba5e 0 1px 3px 0 inset;
 	color: #fff;
 	font-weight: 700;
 }
@@ -298,7 +298,7 @@
 }
 
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_today {
-	color: #33aaff;
+	color: #38ba5e;
 }
 
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_highlighted_default {
@@ -315,8 +315,8 @@
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
-	background: #33aaff;
-	box-shadow: #178fe5 0 1px 3px 0 inset;
+	background: #38ba5e;
+	box-shadow: #339049 0 1px 3px 0 inset;
 	color: #fff;
 	font-weight: 700;
 }
@@ -343,8 +343,8 @@
 
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current.xdsoft_disabled:hover,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div.xdsoft_current.xdsoft_disabled:hover {
-	background: #33aaff !important;
-	box-shadow: #178fe5 0 1px 3px 0 inset !important;
+	background: #38ba5e !important;
+	box-shadow: #2a8643 0 1px 3px 0 inset !important;
 	color: #fff !important;
 }
 
@@ -423,7 +423,7 @@
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover {
 	color: #000;
-	background: #007fff;
+	background: #38ba5e;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current {
@@ -461,7 +461,7 @@
 }
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_highlighted_mint {
 	background: #c1ffc9;
-	box-shadow: #00dd1c 0 1px 4px 0 inset;
+	box-shadow: #38ba5e 0 1px 4px 0 inset;
 	color:#000;
 }
 
@@ -476,7 +476,7 @@
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td:hover,
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_timepicker .xdsoft_time_box >div >div:hover {
 	color: #000 !important;
-	background: #007fff !important;
+	background: #38ba5e !important;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar th {

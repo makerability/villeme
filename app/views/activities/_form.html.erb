@@ -94,11 +94,11 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
+                  <%= f.input :hour_start_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                   <%= f.input :allday, label: 'A tividade pode ser praticada o dia todo', value: true, input_html: {class: 'FormEvent-allday'}, label_html: {class: 'FormEvent-allday Label info'}, wrapper_html: {class: 'FormEvent-alldayWrapper'} %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_first, input_html: {class: 'form-control'}, as: :time, prompt: '--' %>
+                  <%= f.input :hour_finish_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="AddHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
