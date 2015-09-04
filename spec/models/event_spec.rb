@@ -2,10 +2,6 @@ require 'rails_helper'
 
 describe Event, type: :model do
 
-  before(:all) do
-    I18n.locale = :en
-  end
-
   let(:event){ build(:event) }
 
   describe 'associations' do
