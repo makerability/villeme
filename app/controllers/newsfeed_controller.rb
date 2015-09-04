@@ -143,14 +143,14 @@ class NewsfeedController < ApplicationController
   def render_newsfeed_for_guest_user
 
     @city = City.find_by(slug: params[:city])
-    @events = Event.where(city_name: @city.name).upcoming
-    @events_today = Event.all_today(current_or_guest_user, limit: 3)
-    @events_persona = Event.all_persona_in_city(current_or_guest_user, limit: 3).upcoming
-    @events_neighborhood = Event.all_in_neighborhood(current_or_guest_user, limit: 3).upcoming
-    @events_fun = Event.all_fun_in_city(current_or_guest_user, limit: 3).upcoming
-    @events_education = Event.all_education_in_city(current_or_guest_user, limit: 2).upcoming
-    @events_health = Event.all_health_in_city(current_or_guest_user, limit: 2).upcoming
-    @events_trends = Event.all_trends_in_city(current_or_guest_user, limit: 5).upcoming
+    @events = @city.events.upcoming
+    @events_today = Event.all_today(city: @city, limit: 5)
+    @events_persona = Event.all_persona_in_city(current_or_guest_user.personas, @city, limit: 2).upcoming
+    @events_neighborhood = Event.all_in_neighborhood(current_or_guest_user.neighborhood, limit: 2).upcoming
+    @events_fun = Event.all_fun_in_city(@city, limit: 2).upcoming
+    @events_education = Event.all_education_in_city(@city, limit: 2).upcoming
+    @events_health = Event.all_health_in_city(@city, limit: 2).upcoming
+    @events_trends = Event.all_trends_in_city(@city, limit: 5).upcoming
 
     @number_of_events = @events.count
 

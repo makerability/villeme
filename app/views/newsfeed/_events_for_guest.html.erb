@@ -41,7 +41,7 @@
 
               <div class="caption">
 
-                <span class="Event-subCat"><%= event.subcategory.name unless event.subcategory.nil? %></span>
+                <span class="Event-subCat"><%= event.try(:subcategories).try(:first).try(:name) %></span>
 
                 <h2 class="Event-title"><%= link_to event.name_with_limit, event_path(event), data: { push: true } %></h2>
                 <span class="description"><%= strip_tags event.description_with_limit %></span>

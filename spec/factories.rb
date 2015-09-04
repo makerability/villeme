@@ -1,10 +1,10 @@
-FactoryGirl.define do  factory :item do
-    
-  end
+require 'faker'
+
+FactoryGirl.define do
 
   factory :user do
     name "John Doe"
-    email "user@gmail.com"
+    email {Faker::Internet.email}
     username "johndoe"
     locale "en"
     account_complete true
@@ -24,7 +24,7 @@ FactoryGirl.define do  factory :item do
     after(:create) {|user| user.personas << create(:persona)}
   end
 
-  # This will use the User class (Admin would have been guessed)
+
   factory :admin, class: User do
     name "Admin"
     email "admin@gmail.com"
@@ -63,9 +63,46 @@ FactoryGirl.define do  factory :item do
     slug "campus-party"
   end
 
+  factory :event_faker, class: Event do
+    name {Faker::Lorem.sentence(2, false, 4)}
+    description Faker::Lorem.paragraph(5..30)
+    neighborhood_name "Pine Hills"
+    city_name "Albany"
+    state_name "New York"
+    country_name "United States"
+    country_code "US"
+    address "502 Washington Avenue, Albany, NY 12203, USA"
+    latitude 42.663
+    longitude -73.774
+    cost 1200
+    date_start Date.parse('2014-11-17')
+    date_finish Date.parse('2014-11-28')
+    hour_start_first Faker::Time.between(Date.today, Date.tomorrow, :all)
+    place_id 1
+    image_file_name 'test.jpg'
+    image_content_type 'image/jpg'
+    image_file_size 1024
+    moderate 1
+    type "Event"
+    slug "campus-party"
+  end
+
   factory :place do
     sequence(:id)
     name "New York State Museum"
+    neighborhood_name "Park South"
+    city_name "Albany"
+    state_name "New York"
+    country_name "United States"
+    country_code "US"
+    address "544 Madison Ave, Albany, NY 12208, USA"
+    latitude 42.6531078197085
+    longitude -73.7729633802915
+  end
+
+  factory :place_faker, class: Place do
+    sequence(:id)
+    name {Faker::Lorem.sentence(2, false, 4)}
     neighborhood_name "Park South"
     city_name "Albany"
     state_name "New York"
@@ -83,8 +120,26 @@ FactoryGirl.define do  factory :item do
     slug "albany"
   end
 
+  factory :city_faker, class: City do
+    name {Faker::Lorem.sentence(2, false, 4)}
+    goal 250
+    address "544 Madison Ave, Albany, NY 12208, USA"
+    slug "albany"
+  end
+
   factory :neighborhood do
     name "Park South"
+    city_name "Albany"
+    state_name "New York"
+    state_code "NY"
+    country_name "United States"
+    country_code "US"
+    latitude 42.6531078197085
+    longitude -73.7729633802915
+  end
+
+  factory :neighborhood_faker, class: Neighborhood do
+    name {Faker::Lorem.sentence(1, false, 2)}
     city_name "Albany"
     state_name "New York"
     state_code "NY"
@@ -104,6 +159,10 @@ FactoryGirl.define do  factory :item do
 
   factory :persona do
     name "Entrepreneur"
+  end
+
+  factory :persona_faker, class: Persona do
+    name {Faker::Lorem.sentence(2, false, 3)}
   end
 
   factory :invite do
