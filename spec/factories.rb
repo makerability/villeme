@@ -88,7 +88,6 @@ FactoryGirl.define do
   end
 
   factory :place do
-    sequence(:id)
     name "New York State Museum"
     neighborhood_name "Park South"
     city_name "Albany"
@@ -101,8 +100,7 @@ FactoryGirl.define do
   end
 
   factory :place_faker, class: Place do
-    sequence(:id)
-    name {Faker::Lorem.sentence(2, false, 4)}
+    name {Faker::Lorem.sentence(1, false, 2)}
     neighborhood_name "Park South"
     city_name "Albany"
     state_name "New York"

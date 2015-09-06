@@ -19,21 +19,23 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_today' if @events[:today] %>
+            <%= render 'events_today' unless @events[:today].blank? %>
 
-            <%= render 'events_persona' if @events[:persona] %>
+            <%= render 'events_persona' unless @events[:persona].blank? %>
 
-            <%= render 'events_neighborhood' if @events[:neighborhood] %>
+            <%= render 'events_neighborhood' unless @events[:neighborhood].blank? %>
 
-            <%= render 'events_fun' if @events[:fun] %>
+            <%= render 'events_fun' unless @events[:fun].blank? %>
 
-            <%= render 'events_education' if @events[:education] %>
+            <%= render 'events_education' unless @events[:education].blank? %>
 
-            <%= render 'events_health' if @events[:health] %>
+            <%= render 'events_health' unless @events[:health].blank? %>
 
-            <%= render 'events_trends' if @events[:trends] %>
+            <%= render 'events_trends' unless @events[:trends].blank? %>
 
-            <%= render 'events_city' if @events[:all] %>
+            <%= render 'events_city' unless @events[:all].blank? %>
+
+            <%= render 'events_scheduled' unless @events[:scheduled].blank? %>
 
           </div>
         </div>

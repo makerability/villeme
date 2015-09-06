@@ -120,8 +120,10 @@ class NewsfeedController < ApplicationController
   def myagenda
 
     # filter events from user agenda
-    @events = current_user.agenda_items.upcoming
-    @number_of_events = @events.count
+    @events = {
+        scheduled: current_user.agenda_items.upcoming
+    }
+    @number_of_events = @events[:scheduled].count
     @message_for_none_events = "Não há eventos no momento em sua agenda."
 
     # user location
@@ -129,7 +131,7 @@ class NewsfeedController < ApplicationController
     gon.longitude = current_user.longitude
 
     # array with places for map navigator on sidebar
-    gon.events_local_formatted = format_for_map_this(@events)
+    gon.events_local_formatted = format_for_map_this(@events[:scheduled])
 
     render :index
 
