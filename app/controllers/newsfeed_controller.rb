@@ -33,16 +33,18 @@ class NewsfeedController < ApplicationController
       render_newsfeed_for_guest_user
     elsif params[:city]
       @city = City.find_by(slug: params[:city])
-      @events = @city.events.upcoming
-      @events_today = Event.all_today(city: @city, limit: 5)
-      @events_persona = Event.all_persona_in_city(current_or_guest_user.personas, @city, limit: 2).upcoming
-      @events_neighborhood = Event.all_in_neighborhood(current_or_guest_user.neighborhood, limit: 2).upcoming
-      @events_fun = Event.all_fun_in_city(@city, limit: 2).upcoming
-      @events_education = Event.all_education_in_city(@city, limit: 2).upcoming
-      @events_health = Event.all_health_in_city(@city, limit: 2).upcoming
-      @events_trends = Event.all_trends_in_city(@city, limit: 5).upcoming
+      @events = {
+          all: @city.events.upcoming,
+          today: Event.all_today(city: @city, limit: 5),
+          persona: Event.all_persona_in_city(current_or_guest_user.personas, @city, limit: 2).upcoming,
+          neighborhood: Event.all_in_neighborhood(current_or_guest_user.neighborhood, limit: 2).upcoming,
+          fun: Event.all_fun_in_city(@city, limit: 2).upcoming,
+          education: Event.all_education_in_city(@city, limit: 2).upcoming,
+          health: Event.all_health_in_city(@city, limit: 2).upcoming,
+          trends: Event.all_trends_in_city(@city, limit: 5).upcoming
+      }
 
-      @number_of_events = @events.count
+      @number_of_events = @events[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."
       @feedback = Feedback.new
 
@@ -51,7 +53,7 @@ class NewsfeedController < ApplicationController
       gon.longitude = current_or_guest_user.longitude
 
       # array with places for map navigator on sidebar
-      gon.events_local_formatted = format_for_map_this(@events)
+      gon.events_local_formatted = format_for_map_this(@events[:all])
 
       render :index
     end
@@ -143,16 +145,18 @@ class NewsfeedController < ApplicationController
   def render_newsfeed_for_guest_user
 
     @city = City.find_by(slug: params[:city])
-    @events = @city.events.upcoming
-    @events_today = Event.all_today(city: @city, limit: 5)
-    @events_persona = Event.all_persona_in_city(current_or_guest_user.personas, @city, limit: 2).upcoming
-    @events_neighborhood = Event.all_in_neighborhood(current_or_guest_user.neighborhood, limit: 2).upcoming
-    @events_fun = Event.all_fun_in_city(@city, limit: 2).upcoming
-    @events_education = Event.all_education_in_city(@city, limit: 2).upcoming
-    @events_health = Event.all_health_in_city(@city, limit: 2).upcoming
-    @events_trends = Event.all_trends_in_city(@city, limit: 5).upcoming
+    @events = {
+        all: @city.events.upcoming,
+        today: Event.all_today(city: @city, limit: 5),
+        persona: Event.all_persona_in_city(current_or_guest_user.personas, @city, limit: 2).upcoming,
+        neighborhood: Event.all_in_neighborhood(current_or_guest_user.neighborhood, limit: 2).upcoming,
+        fun: Event.all_fun_in_city(@city, limit: 2).upcoming,
+        education: Event.all_education_in_city(@city, limit: 2).upcoming,
+        health: Event.all_health_in_city(@city, limit: 2).upcoming,
+        trends: Event.all_trends_in_city(@city, limit: 5).upcoming
+    }
 
-    @number_of_events = @events.count
+    @number_of_events = @events[:all].count
 
     @message_for_none_events = "Não há eventos no momento em #{@city.name}."
     @feedback = Feedback.new
@@ -162,7 +166,7 @@ class NewsfeedController < ApplicationController
     gon.longitude = @city.longitude
 
     # array with places for map navigator on sidebar
-    gon.events_local_formatted = format_for_map_this(@events)
+    gon.events_local_formatted = format_for_map_this(@events[:all])
 
     render :index
   end

@@ -10,12 +10,12 @@
     <%= render 'alert_none_events' %>
 
     <% if current_or_guest_user.guest? %>
-        <%= render 'events_for_guest', events: @events %>
+        <%= render 'events_for_guest', events: @events[:all] %>
     <% else %>
-        <%= render 'event', events: @events_today %>
+        <%= render 'event', events: @events[:today] %>
     <% end %>
 
-    <%= render 'alert_create_new_event', events: @events_today %>
+    <%= render 'alert_create_new_event', events: @events[:today] %>
 
   </div>
 </section>
