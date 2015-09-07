@@ -82,18 +82,22 @@ class Item < ActiveRecord::Base
 	end
 
 	def self.all_persona_in_city(personas, city, options = {limit: false})
-		if options[:limit]
+		if options[:limit] and city.try(:events)
 			city.events.includes(:personas).where(personas: { id: personas.pluck(:id) }).limit(options[:limit])
-		else
+		elsif city.try(:events)
 			city.events.includes(:personas).where(personas: { id: personas.pluck(:id) })
+		else
+			Event.none
 		end
 	end
 
 	def self.all_in_neighborhood(neighborhood, limit: false)
-		if limit
+		if limit and neighborhood.try(:events)
 			neighborhood.events.limit(limit)
-		else
+		elsif neighborhood.try(:events)
 			neighborhood.events
+		else
+			Event.none
 		end
 	end
 

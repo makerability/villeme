@@ -45,14 +45,6 @@ describe 'Open the newsfeed with two events' do
     end
 
     it 'display button to guest user do login' do
-      event_a = create(:event_faker, date_start: Date.current - 3, date_finish: Date.current + 10)
-        allow(event_a).to receive(:place).and_return(create(:place_faker))
-      event_b = create(:event_faker, date_start: Date.current - 3, date_finish: Date.current + 10)
-        allow(event_b).to receive(:place).and_return(create(:place_faker))
-      event_c = create(:event_faker, date_start: Date.current - 30, date_finish: Date.current + -3)
-        allow(event_c).to receive(:place).and_return(create(:place_faker))
-      neighborhood = create(:neighborhood)
-        allow(neighborhood).to receive(:events).and_return([event_a, event_b, event_c])
 
       visit ('/newsfeed')
 
@@ -85,14 +77,6 @@ describe 'Open the newsfeed with two events' do
     end
 
     it 'display the button to current_user do logout' do
-      event_a = create(:event_faker, date_start: Date.current - 3, date_finish: Date.current + 10)
-        allow(event_a).to receive(:place).and_return(create(:place_faker))
-      event_b = create(:event_faker, date_start: Date.current - 3, date_finish: Date.current + 10)
-        allow(event_b).to receive(:place).and_return(create(:place_faker))
-      event_c = create(:event_faker, date_start: Date.current - 30, date_finish: Date.current + -3)
-        allow(event_c).to receive(:place).and_return(create(:place_faker))
-      neighborhood = create(:neighborhood)
-        allow(neighborhood).to receive(:events).and_return([event_a, event_b, event_c])
 
       visit ('/newsfeed')
 
