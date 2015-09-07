@@ -10,10 +10,10 @@ describe AccountsController, type: :controller do
         allow(@user).to receive(:city_slug).and_return(:albany)
       end
 
-      it 'should redirect to newsfeed' do
+      it 'should redirect to user account' do
         put :update, id: @user.id, user: @user.attributes
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(user_account_path(@user))
       end
 
     end
