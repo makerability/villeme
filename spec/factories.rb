@@ -87,6 +87,30 @@ FactoryGirl.define do
     slug "campus-party"
   end
 
+  factory :activity do
+    name 'Campus Party'
+    description Faker::Lorem.paragraph(5..30)
+    neighborhood_name 'Pine Hills'
+    city_name 'Albany'
+    state_name 'New York'
+    country_name 'United States'
+    country_code 'US'
+    address '502 Washington Avenue, Albany, NY 12203, USA'
+    latitude 42.663
+    longitude -73.774
+    cost 1200
+    date_start Date.parse('2014-11-17')
+    date_finish Date.parse('2014-11-28')
+    hour_start_first Faker::Time.between(Date.today, Date.tomorrow, :all)
+    place_id 1
+    image_file_name 'test.jpg'
+    image_content_type 'image/jpg'
+    image_file_size 1024
+    moderate 1
+    type 'Activity'
+    slug 'campus-party'
+  end
+
   factory :place do
     name "New York State Museum"
     neighborhood_name "Park South"

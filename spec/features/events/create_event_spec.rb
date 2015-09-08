@@ -9,7 +9,7 @@ feature 'Create an event', js: true do
       @user = create(:user, invited: true, account_complete: true)
       login_as(@user, :scope => :user)
 
-      @event_attributes = build_stubbed(:event)
+      @activity_attributes = build_stubbed(:event)
 
       weeks = [["Sunday", 0, 7], ["Monday", 1, 1], ["Tuesday", 2, 2], ["Wednesday", 3, 3,], ["Thursday", 4, 4], ["Friday", 5, 5], ["Saturday", 6, 6]]
 
@@ -32,8 +32,8 @@ feature 'Create an event', js: true do
     scenario 'should create an event' do
       visit('/en/events/new')
 
-        page.fill_in 'event[name]', with: @event_attributes.name
-        page.evaluate_script("$('.jqte_editor').text('#{@event_attributes.description}')")
+        page.fill_in 'event[name]', with: @activity_attributes.name
+        page.evaluate_script("$('.jqte_editor').text('#{@activity_attributes.description}')")
         page.fill_in 'event[date_start]', with: Date.current.strftime('%d/%m/%Y')
         page.fill_in 'event[date_finish]', with: (Date.current + 10).strftime('%d/%m/%Y')
 
@@ -50,7 +50,7 @@ feature 'Create an event', js: true do
 
         sleep 3
 
-        page.fill_in 'event[address]', with: @event_attributes.address
+        page.fill_in 'event[address]', with: @activity_attributes.address
 
 
       page.click_button 'Criar evento'
@@ -58,10 +58,10 @@ feature 'Create an event', js: true do
       sleep 3
 
       expect(page).to have_css('.EventSingle')
-      expect(page).to have_text(@event_attributes.name)
-      expect(page).to have_text(@event_attributes.description[0..360].html_safe)
+      expect(page).to have_text(@activity_attributes.name)
+      expect(page).to have_text(@activity_attributes.description[0..360].html_safe)
       expect(page).to have_text('Parque da Redenção')
-      expect(page).to have_text(@event_attributes.address)
+      expect(page).to have_text(@activity_attributes.address)
       expect(page).to have_text("#{Date.current.strftime('%d/%m')} - #{(Date.current + 10).strftime('%d/%m')}")
       expect(page).to have_text('09:00h até 20:30h')
     end
