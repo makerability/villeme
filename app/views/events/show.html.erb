@@ -40,7 +40,7 @@
 
               <!-- =Title -->
               <span class="EventSingle-subCat">
-                <%= @item.subcategory.name unless @item.subcategory.nil? %>
+                <%= @item.subcategories.first.name unless @item.subcategories.blank? %>
               </span>
               <h1 class="EventSingle-title">
                 <%= @item.name %>

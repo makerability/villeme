@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Edit an event' do
 
   context 'when current user DO NOT create the event' do
-    it 'should open the page with success' do
+    it 'should redirect to newsfeed' do
       user = create(:user)
              login_as(user, :scope => :user)
       event = create(:event, place_id: 1)
