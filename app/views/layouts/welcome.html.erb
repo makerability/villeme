@@ -74,7 +74,7 @@
 
         <!-- Plataforms -->
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 plataforms hidden-xs u-no-padding">
-          <% if TRY_ACTIVATED and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
+          <% if FEATURE_TRY_VILLEME_SWITCH and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
           <%= link_to newsfeed_city_path('porto-alegre') do %>
               <div class="ButtonTryPortoAlegre Button Button--extraLarge u-width-450px u-margin-x-auto">
                 Experimente agora em Porto Alegre <span class='glyphicon glyphicon-play'></span>
@@ -259,7 +259,7 @@
 
 
 
-<% if TRY_ACTIVATED and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
+<% if FEATURE_TRY_VILLEME_SWITCH and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
     <div class="row">
       <div class="col-lg-12 u-centralize">
         <div class="MoreInfo">
@@ -292,7 +292,7 @@
               <%= image_tag 'welcome/beneficio-a.png', class: 'img-responsive' %>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-              <h3 class="m-0 p-6-0"><%= t('welcome.attributes.event.title') %></h3>
+              <h3 class="u-margin-0 p-6-0"><%= t('welcome.attributes.event.title') %></h3>
               <span class="font-12"><%= t('welcome.attributes.event.description') %></span>
             </div>
           </div>
@@ -304,7 +304,7 @@
               <%= image_tag 'welcome/beneficio-b.png', class: 'img-responsive' %>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-              <h3 class="m-0 p-6-0"><%= t('welcome.attributes.activity.title') %></h3>
+              <h3 class="u-margin-0 p-6-0"><%= t('welcome.attributes.activity.title') %></h3>
               <span class="font-12"><%= t('welcome.attributes.activity.description') %></span>
             </div>
           </div>
@@ -316,7 +316,7 @@
               <%= image_tag 'welcome/beneficio-c.png', class: 'img-responsive' %>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-              <h3 class="m-0 p-6-0"><%= t('welcome.attributes.family.title') %></h3>
+              <h3 class="u-margin-0 p-6-0"><%= t('welcome.attributes.family.title') %></h3>
               <span class="font-12"><%= t('welcome.attributes.family.description') %></span>
             </div>
           </div>
@@ -330,7 +330,7 @@
               <%= image_tag 'welcome/beneficio-d.png', class: 'img-responsive' %>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-              <h3 class="m-0 p-6-0"><%= t('welcome.attributes.health.title') %></h3>
+              <h3 class="u-margin-0 p-6-0"><%= t('welcome.attributes.health.title') %></h3>
               <span class="font-12"><%= t('welcome.attributes.health.description') %></span>
             </div>
           </div>
@@ -342,7 +342,7 @@
               <%= image_tag 'welcome/beneficio-e.png', class: 'img-responsive' %>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-              <h3 class="m-0 p-6-0"><%= t('welcome.attributes.friends.title') %></h3>
+              <h3 class="u-margin-0 p-6-0"><%= t('welcome.attributes.friends.title') %></h3>
               <span class="font-12"><%= t('welcome.attributes.friends.description') %></span>
             </div>
           </div>
@@ -355,7 +355,7 @@
               <%= image_tag 'welcome/beneficio-f.png', class: 'img-responsive' %>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-              <h3 class="m-0 p-6-0"><%= t('welcome.attributes.services.title') %></h3>
+              <h3 class="u-margin-0 p-6-0"><%= t('welcome.attributes.services.title') %></h3>
               <span class="font-12"><%= t('welcome.attributes.services.description') %></span>
             </div>
           </div>
@@ -363,7 +363,7 @@
 
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 centralize-lg">
-          <% if TRY_ACTIVATED and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
+          <% if FEATURE_TRY_VILLEME_SWITCH and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
               <%= link_to newsfeed_city_path('porto-alegre') do %>
                   <div class="Button Button--primary Button--large u-width-350px u-margin-x-auto">
                     <%= t('welcome.attributes.try') %> <span class='glyphicon glyphicon-play'></span>

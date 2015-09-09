@@ -105,14 +105,14 @@
 
                       <div class="caption">
 
-                        <span class="sub-cat"><%= event.subcategory.name unless event.subcategory.nil? %></span>
+                        <span class="sub-cat"><%= event.subcategories.first.name unless event.subcategories.blank? %></span>
 
                         <h2 class="title"><%= link_to event.name_with_limit, event_path(event), data: { push: true } %></h2>
                         <span class="description"><%= strip_tags event.description_with_limit %></span>
 
                         <div class="infos">
                     <span class="preco <%= cost(event.cost) == 'Gratuito' ? 'green-font' : nil %>">
-                        <%= number_to_currency(event.price, locale: I18n.locale) %>
+                        <%= number_to_currency(event.price[:value], locale: I18n.locale) %>
                     </span>
 
                     <span class="hora">

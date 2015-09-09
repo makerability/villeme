@@ -18,12 +18,12 @@ class PlacesController < ApplicationController
   # GET /places/1
   # GET /places/1.json
   def show
-    @events = @place.events
+    @events = @place.items
   end
 
   # GET /places/new
   def new
-    @place = current_user.places.new
+    @place = current_user.items.new
 
     gon.latitude = @place.latitude.blank? ? current_user.city.latitude : @place.latitude
     gon.longitude = @place.longitude.blank? ? current_user.city.longitude : @place.longitude
@@ -47,7 +47,7 @@ class PlacesController < ApplicationController
   def create
 
     # Cria o lugar com os parametros enviados pelo formulario
-    @place = current_user.places.new(place_params)
+    @place = current_user.items.new(place_params)
 
     # Busca o 'id' do bairro selecionado no mapa
     @neighborhood = Neighborhood.find_by(name: place_params[:neighborhood])
