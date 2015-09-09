@@ -76,9 +76,7 @@
               <!-- =Contacts -->
               <div>
                 <% if @item.email.blank? == false or @item.phone.blank? == false or @item.link.blank? == false %>
-                    <div class="list-group-item">
-                      <%= render 'events/show/contacts' %>
-                    </div>
+                    <%= render 'events/show/contacts' %>
                 <% end %>
               </div>
 

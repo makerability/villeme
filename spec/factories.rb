@@ -50,10 +50,13 @@ FactoryGirl.define do
     address "502 Washington Avenue, Albany, NY 12203, USA"
     latitude 42.663
     longitude -73.774
-    cost 1200
+    cost 12.00
     date_start Date.parse('2014-11-17')
     date_finish Date.parse('2014-11-28')
     hour_start_first Faker::Time.between(Date.today, Date.tomorrow, :all)
+    link 'http://www.google.com'
+    email 'email@gmail.com'
+    phone '51 1234.5678'
     place_id 1
     image_file_name 'test.jpg'
     image_content_type 'image/jpg'

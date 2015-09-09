@@ -6,7 +6,7 @@
   <div class="panel panel-default sidebar single-event-sidebar">
     <div id="single-map" style="height:215px"></div>
     <div class="panel-body">
-      <div class="place"><b><%= link_to @item.try(:place).try(:name), place_path(@item.place) %></b><br/><%= @item.full_address %></div>
+      <div class="place"><b><%= link_to_if @item.place, @item.try(:place).try(:name), place_path(@item.place) %></b><br/><%= @item.full_address %></div>
     </div>
   </div> 
   <% end %>
