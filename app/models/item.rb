@@ -222,7 +222,7 @@ class Item < ActiveRecord::Base
     if rates.empty?
       nil
     else
-      rates.average(:stars).to_f
+			'%.1f' % rates.average(:stars)
     end
 	end
 
