@@ -117,7 +117,7 @@ gem 'postmark-rails'
 gem 'koala', '~> 1.10.0rc'
 
 # System of rating
-gem 'ratyrate'
+gem 'ratyrate', github: 'jonatassalgado/ratyrate'
 
 # New relic web service
 gem 'newrelic_rpm'

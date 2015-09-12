@@ -236,6 +236,10 @@ class Item < ActiveRecord::Base
 		end
 	end
 
+	def rates_cache
+		Rate.where(rateable_id: self.id).last.updated_at
+	end
+
 	def geocode_event
 		Villeme::UseCases::GeocodeEvent.new(self).geocoded_by_address(self.address)
 	end

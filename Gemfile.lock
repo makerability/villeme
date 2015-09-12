@@ -5,6 +5,12 @@ GIT
     geocoder (1.2.7)
 
 GIT
+  remote: git://github.com/jonatassalgado/ratyrate.git
+  revision: f384bc52a574bb20eb91f921956b9fd4b2348ebf
+  specs:
+    ratyrate (1.2.2.alpha)
+
+GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: 1d93c5a77049b3d21d17c847ad0531d7714fa229
   branch: bootstrap3
@@ -228,7 +234,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    ratyrate (1.2.2.alpha)
     rdoc (4.2.0)
       json (~> 1.4)
     request_store (1.1.0)
@@ -364,7 +369,7 @@ DEPENDENCIES
   rails (= 4.0.3)
   rails-i18n (~> 4.0.0)
   rails_12factor
-  ratyrate
+  ratyrate!
   rspec
   rspec-rails
   sass-rails

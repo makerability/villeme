@@ -1,5 +1,6 @@
 
-<% cache [current_user, @item, @item.agended_by_count[:count]], expires: 1.hour do %>
+<% cache [current_user, @item, @item.agended_by_count[:count], @item.rates_cache], expires: 1.hour do %>
+
 
     <% wiselinks_title(@item.name + ' em ' + @item.city_name + ' — Villeme') %>
     <%= content_for :title, @item.name + ' em ' + @item.city_name %>
@@ -54,7 +55,7 @@
 
                 <div class="col-lg-5 u-no-padding u-centralize">
                   <div class="EventSingle-rating">
-                    <%= rating_for @item, "geral", half_show: false %>
+                    <%= rating_for @item, "geral", half_show: false, disable_after_rate: true %>
                     <span class="block p-10-0-0-0 font-10"><span class="glyphicon glyphicon-user"></span> <%= @item.rates_count %></span>
                   </div>
                 </div>

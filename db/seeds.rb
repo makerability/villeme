@@ -449,6 +449,7 @@ puts "\n"
       country_code: place.country_code,
       address: place.address,
       formatted_address: nil,
+      type: 'Event',
       user_id: User.order("RANDOM()").first.id,
       place_id: place.id,
       moderate: 1,
