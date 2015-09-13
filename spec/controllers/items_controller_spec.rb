@@ -2,6 +2,35 @@ require 'rails_helper'
 
 describe ItemsController do
 
+  context 'when current user is NOT admin' do
+    describe '#index' do
+      it 'should redirect user to newsfeed' do
+        set_user_logged_in
+        create(:event_faker)
+        create(:event_faker)
+
+        get(:index, {locale: :en})
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
+  context 'when current user is ADMIN' do
+    describe '#index' do
+      it 'should redirect user to newsfeed' do
+        set_admin_logged_in
+        create(:event_faker)
+        create(:event_faker)
+
+        get(:index, {locale: :en})
+
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+
   context 'when current user created the event' do
     describe '#edit' do
       it 'should load page with success' do

@@ -1,25 +1,52 @@
-<h1>Listing items</h1>
+<div class="panel panel-default">
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <div class="panel-heading">
+    <h2>Eventos</h2>
+  </div>
 
-  <tbody>
-    <% @items.each do |item| %>
+  <div class="panel-body">
+    <table id="table" class="table table-striped">
+      <thead>
       <tr>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nome</th>
+        <th>Periodo</th>
+        <th>Status</th>
+        <th>Ações</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+      <% @items.each do |event| %>
+          <tr>
+            <td><%= link_to event.name, event %></td>
+            <td><%= "#{event.date_start.strftime('%d/%m')} até #{event.date_finish.strftime('%d/%m/%Y')}" %></td>
+            <td><%= event.moderate == 1 ? 'Aprovado' : 'Em moderação' %></td>
+            <td>
+              <%= button_to 'Editar',
+                            edit_event_path(event), method: :get, :class => 'btn btn-default btn-xs' %>
 
-<br>
+              <%= button_to 'Excluir',
+                            event_path(event),
+                            method: :delete,
+                            data: { anchor: "tr"},
+                            class: 'btn btn-xs btn-danger excluir',
+                            remote: true %>
 
-<%= link_to 'New Item', new_item_path %>
+              <%= button_to 'Aprovar',
+                            item_aprove_path(event.id),
+                            method: :put,
+                            remote: true,
+                            class: 'btn btn-xs aprovar' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'Criar evento',
+                new_event_path,
+                :class => 'btn btn-primary pull-right' %>
+
+
+  </div>
+
+</div>

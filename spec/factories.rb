@@ -26,16 +26,25 @@ FactoryGirl.define do
 
 
   factory :admin, class: User do
-    name "Admin"
+    name "Admin User"
     email "admin@gmail.com"
+    username "johndoe"
     locale "en"
-    password "password"
-    password_confirmation "password"
     account_complete true
     invited true
+    guest false
     admin true
+    latitude 42.670443
+    longitude -73.788397
+    address "544 Madison Ave, Albany, NY 12208, USA"
+    password "password"
+    password_confirmation "password"
+    neighborhood_name "Park South"
     city_name "Albany"
-    after(:create) {|admin| admin.personas << create(:persona)}
+    state_name "New York"
+    country_name "United States"
+    level
+    after(:create) {|user| user.personas << create(:persona)}
   end
 
 

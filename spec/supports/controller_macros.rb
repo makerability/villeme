@@ -1,9 +1,8 @@
 module ControllerMacros
-  def set_admin_logged_in
-    before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:admin]
-      sign_in create(:admin) # Using factory girl as an example
-    end
+  def set_admin_logged_in(admin_attributes={})
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @user = create(:admin, admin_attributes)
+    sign_in @user
   end
 
   def set_user_logged_in(user_attributes={})
