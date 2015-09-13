@@ -76,7 +76,7 @@ FactoryGirl.define do
   end
 
   factory :event_faker, class: Event do
-    name {Faker::Lorem.sentence(2, false, 4)}
+    name {Faker::Lorem.sentence(1, false, 3)}
     description Faker::Lorem.paragraph(5..30)
     neighborhood_name "Pine Hills"
     city_name "Albany"
