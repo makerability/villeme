@@ -33,7 +33,8 @@ module NewsfeedHelper
       count = Event.count
       event_max_updated_at = Event.maximum(:updated_at).try(:utc).try(:to_s, :number)
       agenda_max_updated_at = current_user.agendas.maximum(:updated_at).try(:utc).try(:to_s, :number)
-      "events/all-#{count}-#{event_max_updated_at}-#{agenda_max_updated_at}"
+      rating_max_updated_at = Rate.where(rater_id: current_user.id).maximum(:updated_at).try(:utc).try(:to_s, :number)
+      "events/all-#{count}-#{event_max_updated_at}-#{agenda_max_updated_at}-#{rating_max_updated_at}"
     end
   end
 

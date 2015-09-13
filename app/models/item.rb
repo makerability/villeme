@@ -237,7 +237,7 @@ class Item < ActiveRecord::Base
 	end
 
 	def rates_cache
-		Rate.where(rateable_id: self.id).last.updated_at
+		Rate.where(rateable_id: self.id).empty? ? nil : Rate.where(rateable_id: self.id).maximum(:updated_at).try(:utc).try(:to_s, :number)
 	end
 
 	def geocode_event
