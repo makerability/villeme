@@ -12,11 +12,11 @@
       <div class="Navbar-logo">
         <% if current_or_guest_user.guest? %>
             <%= link_to welcome_path do %>
-                <%= image_tag "logo.png", title: "Vivêncie a Cidade", alt: "logo cidadevocê" %>
+                <%= image_tag 'logo.png', title: 'Eventos e atividades na cidade', alt: "logo cidadevocê" %>
             <% end %>
         <% else %>
             <%= link_to root_path do %>
-                <%= image_tag "logo.png", title: "Vivêncie a Cidade", alt: "logo cidadevocê" %>
+                <%= image_tag 'logo.png', title: 'Eventos e atividades na cidade', alt: "logo cidadevocê" %>
             <% end %>
         <% end %>
       </div>
