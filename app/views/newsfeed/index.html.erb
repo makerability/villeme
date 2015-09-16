@@ -19,7 +19,7 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_today' unless @events[:today].blank? %>
+            <%= render 'events_today' unless @events[:today][:preview].blank? %>
 
             <%= render 'events_persona' unless @events[:persona].blank? %>
 

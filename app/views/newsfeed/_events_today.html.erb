@@ -12,10 +12,14 @@
     <% if current_or_guest_user.guest? %>
         <%= render 'events_for_guest', events: @events[:all] %>
     <% else %>
-        <%= render 'event', events: @events[:today] %>
+        <%= render 'event', events: @events[:today][:preview] %>
     <% end %>
 
-    <%= render 'alert_create_new_event', events: @events[:today] %>
+    <% if @events[:today][:count] > 3 %>
+        <%= render 'alert_see_more_items', events: @events[:today] %>
+    <% else %>
+        <%= render 'alert_create_item' %>
+    <% end %>
 
   </div>
 </section>

@@ -22,7 +22,7 @@
 
   <section class="SidebarLeft-section">
     <ul class="SidebarLeft-nav">
-      <% unless @events[:today].blank? %>
+      <% unless @events[:today][:events].blank? %>
           <li><a href="#" data-scroll="today">Acontecendo hoje</a></li>
       <% end %>
       <% unless @events[:persona].blank? %>

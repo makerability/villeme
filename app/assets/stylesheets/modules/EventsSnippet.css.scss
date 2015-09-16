@@ -1,0 +1,99 @@
+@import 'variables';
+
+.EventsSnippet{
+
+  &-content{
+    min-height: 325px;
+    position: relative;
+    background-color: $white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  &-seeAllEvents{
+    font-size: 12px;
+    text-align: center;
+    background: $grey-lightness;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  &-lineGroup{
+    float: left;
+  }
+
+  &-line{
+    border-bottom: 1px solid $border-color;
+    float: left;
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 13px;
+
+    &:last-child{
+      border-bottom: 0;
+    }
+
+    & a{
+
+      color: $grey;
+    }
+
+    &Principal{
+      padding: 0 0 6px;
+    }
+
+    &Second{
+      font-size: 10px;
+
+      &Item{
+        padding: 0 8px 0 0;
+      }
+    }
+  }
+
+  &-image{
+    width: 60px;
+    height: 50px;
+    float: left;
+    background-size: cover;
+    background-position: center;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+  }
+
+  &-eventName{
+    font-weight: bold;
+
+    & a:hover{
+      color: $green;
+    }
+  }
+
+  &-eventDay{
+
+  }
+
+  &-eventRating{
+
+  }
+
+  &-eventPrice{
+
+    &.is-highlight{
+      font-weight: bold;
+    }
+
+    &.is-free{
+      font-weight: bold;
+      color: $green;
+    }
+  }
+
+
+
+}
