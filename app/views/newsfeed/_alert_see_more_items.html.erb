@@ -1,18 +1,19 @@
-<%= stylesheet_link_tag 'modules/EventsSnippet' %>
+<% if events[:today][:count] > 3 %>
 
+    <%= stylesheet_link_tag 'modules/EventsSnippet' %>
 
-<div class="EventsSnippet Grid-cell u-size4of12">
-  <div class="EventsSnippet-content">
-    <ul class="EventsSnippet-lineGroup">
-      <% events[:snippet].each do |event| %>
-          <li class="EventsSnippet-line">
-            <div class="EventsSnippet-image" style="background-image: url('<%= event.image.url(:thumb) %>')"></div>
-            <div class="EventsSnippet-linePrincipal u-sizeFull">
+    <div class="EventsSnippet Grid-cell u-size4of12">
+      <div class="EventsSnippet-content">
+        <ul class="EventsSnippet-lineGroup">
+          <% events[:snippet].each do |event| %>
+              <li class="EventsSnippet-line">
+                <div class="EventsSnippet-image" style="background-image: url('<%= event.image.url(:thumb) %>')"></div>
+                <div class="EventsSnippet-linePrincipal u-sizeFull">
                 <span class="EventsSnippet-eventName">
                   <%= link_to event.name, event_path(event) %>
                 </span>
-            </div>
-            <div class="EventsSnippet-lineSecond">
+                </div>
+                <div class="EventsSnippet-lineSecond">
                 <span class="EventsSnippet-eventDay EventsSnippet-lineSecondItem">
                   <%= event.day_of_week %>
                 </span>
@@ -22,19 +23,22 @@
                 <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem <%= event.price[:css_attributes] %>">
                     <%= event.price[:value] %>
                 </span>
-              <% if event.rates_media %>
+                  <% if event.rates_media %>
                 <span class="EventsSnippet-eventRating EventsSnippet-lineSecondItem">
                   <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>
                   <%= event.rates_media %>
                 </span>
-              <% end %>
-            </div>
-          </li>
-      <% end %>
-    </ul>
-    <div class="EventsSnippet-seeAllEvents">
-      Veja todos os <%= events[:count] %> eventos
+                  <% end %>
+                </div>
+              </li>
+          <% end %>
+        </ul>
+        <div class="EventsSnippet-seeAllEvents">
+          Veja todos os <%= events[:count] %> eventos
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
+<% else %>
+    <%= render 'alert_create_item' %>
+<% end %>

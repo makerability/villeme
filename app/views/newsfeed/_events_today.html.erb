@@ -15,11 +15,7 @@
         <%= render 'event', events: @events[:today][:preview] %>
     <% end %>
 
-    <% if @events[:today][:count] > 3 %>
-        <%= render 'alert_see_more_items', events: @events[:today] %>
-    <% else %>
-        <%= render 'alert_create_item' %>
-    <% end %>
-
+    <%= render 'alert_see_more_items', events: @events[:today] %>
+    
   </div>
 </section>
