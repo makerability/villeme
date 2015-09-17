@@ -8,7 +8,7 @@
     <ul>
       <li>
         <% if user_signed_in? %>
-            <%= link_to my_agenda_events_path, data: { push: true } do %>
+            <%= link_to agenda_path(current_or_guest_user), data: { push: true } do %>
                 Minha agenda<span id="agenda-count" class="badge"><%= current_user.agenda_items.upcoming.count if current_user.agenda_items.upcoming.count >= 1 %></span>
             <% end %>
         <% else %>

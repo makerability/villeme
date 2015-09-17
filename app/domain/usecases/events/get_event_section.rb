@@ -3,11 +3,11 @@ module Villeme
     class GetEventsSection
       class << self
 
-        def create_all_sections(city, user)
+        def get_all_sections(city, user)
           {
-              all: create_section_all_events(city),
-              today: create_section_today_events(city: city, limit: 15),
-              persona: create_section_persona_events(user.personas, city, {limit: 2}),
+              all: get_section_all_events(city),
+              today: get_section_today_events(city: city, limit: 15),
+              persona: create_section_persona_events(user.personas_name, city, {limit: 15}),
               neighborhood: create_section_neighborhood_events(user.neighborhood, {limit: 2}),
               fun: create_section_fun_events(city, {limit: 2}),
               education: create_section_education_events(city, {limit: 2}),
@@ -16,22 +16,30 @@ module Villeme
           }
         end
 
-        def create_section_all_events(city)
+        def get_section_all_events(city)
           city.events.upcoming
         end
 
-        def create_section_today_events(options = {city: false, limit: 5})
-          event_all_today = Event.all_today(options)
+        def get_section_today_events(options = {city: false, limit: 5})
+          events_all_today = Event.all_today(options)
 
           {
-              preview: event_all_today[0...2],
-              snippet: event_all_today[2...12],
-              count: event_all_today.count
+              preview: events_all_today[0...2],
+              snippet: events_all_today[2...12],
+              count: events_all_today.count,
+              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city])
           }
         end
 
         def create_section_persona_events(personas, city, options = {limit: 5})
-          Event.all_persona_in_city(personas, city, options).upcoming
+          events_all_persona = Event.all_persona_in_city(personas, city, options).upcoming
+
+          {
+              preview: events_all_persona[0...2],
+              snippet: events_all_persona[2..12],
+              count: events_all_persona.count,
+              link: Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: city, personas: personas.join('+'))
+          }
         end
 
         def create_section_neighborhood_events(neighborhood, options = {limit: 5})

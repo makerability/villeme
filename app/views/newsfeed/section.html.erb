@@ -19,23 +19,21 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_today', events: @events[:today], title: 'Eventos acontecendo hoje' unless @events[:today][:preview].blank? %>
+            <section class="Section" data-anchor="today">
 
-            <%= render 'events_today', events: @events[:persona], title: 'Eventos indicados para você' unless @events[:persona][:preview].blank? %>
+              <div class="Section-header">
+                <h1 class="Section-title"><%= @text %></h1>
+                <span class="Section-description"></span>
+              </div>
 
-            <%= render 'events_neighborhood' unless @events[:neighborhood].blank? %>
+              <div class="Grid Grid--withGutter">
 
-            <%= render 'events_fun' unless @events[:fun].blank? %>
+                <%= render 'alert_none_events' %>
 
-            <%= render 'events_education' unless @events[:education].blank? %>
+                <%= render 'event', events: @events %>
 
-            <%= render 'events_health' unless @events[:health].blank? %>
-
-            <%= render 'events_trends' unless @events[:trends].blank? %>
-
-            <%= render 'events_city' unless @events[:all].blank? %>
-
-            <%= render 'events_scheduled' unless @events[:scheduled].blank? %>
+              </div>
+            </section>
 
           </div>
         </div>

@@ -54,17 +54,13 @@ CidadeVc::Application.routes.draw do
     post "bussola/selecionado"
 
 
-    # /mypersona -> filtra os eventos pela persona do current_user
-    get 'mypersona/', to: 'newsfeed#mypersona', as: :my_persona_events
 
-    # /category/:category -> filtra os eventos por categoria
-    get 'category/:category/', to: 'newsfeed#category', as: :newsfeed_category
 
     # /myneighborhood -> filtra os eventos por bairro para o current_user
     get 'myneighborhood/', to: 'newsfeed#myneighborhood', as: :my_neighborhood_events
 
     # /myagenda -> filtra os eventos da minha agenda
-    get 'myagenda/', to: 'newsfeed#myagenda', as: :my_agenda_events
+    get 'user/:user/agenda/', to: 'newsfeed#agenda', as: :agenda
 
 
     # Notifications
@@ -106,9 +102,12 @@ CidadeVc::Application.routes.draw do
     get 'user/:id/', to: 'users#show', as: :show_user
 
     # /city
-    get 'city/:city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_neighborhood
-    get 'city/:city', to: 'newsfeed#city', as: :newsfeed_city
     get 'newsfeed', to: 'newsfeed#index', as: :root
+    get ':city', to: 'newsfeed#city', as: :newsfeed_city
+    get ':city/today', to: 'newsfeed#today', as: :newsfeed_city_today
+    get ':city/persona=(:personas)', to: 'newsfeed#persona', as: :newsfeed_city_persona
+    get ':city/category/:category/', to: 'newsfeed#category', as: :newsfeed_city_category
+    get ':city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_city_neighborhood
 
 
     # AJAX ------------------------------------------

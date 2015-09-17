@@ -121,6 +121,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def personas_name
+    personas.pluck(:name)
+  end
+
   def city_slug
     Villeme::UseCases::GetCitySlug.from_user(self)
   end
