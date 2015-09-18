@@ -1,14 +1,22 @@
 @import 'variables';
 
 .EventsSnippet{
+  position: relative;
 
   &-content{
-    min-height: 325px;
+    overflow: hidden;
     position: relative;
     background-color: $white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
     border-radius: 10px;
-    overflow: hidden;
+  }
+
+  &-scroll{
+    min-height: 160px;
+    max-height: 292px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0 0 35px 0;
   }
 
   &-seeAllEvents{
