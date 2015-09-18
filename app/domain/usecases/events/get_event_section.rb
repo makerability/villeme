@@ -8,7 +8,7 @@ module Villeme
               all: get_section_all_events(city),
               today: get_section_today_events(city: city, limit: 15),
               persona: create_section_persona_events(user.personas_name, city, {limit: 15}),
-              neighborhood: create_section_neighborhood_events(user.neighborhood, {limit: 2}),
+              neighborhood: create_section_neighborhood_events(user.neighborhood, {limit: 15}),
               fun: create_section_fun_events(city, {limit: 2}),
               education: create_section_education_events(city, {limit: 2}),
               health: create_section_health_events(city, {limit: 2}),
@@ -27,7 +27,8 @@ module Villeme
               preview: events_all_today[0...2],
               snippet: events_all_today[2...12],
               count: events_all_today.count,
-              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city])
+              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city]),
+              city_name: options[:city].name
           }
         end
 
@@ -43,7 +44,15 @@ module Villeme
         end
 
         def create_section_neighborhood_events(neighborhood, options = {limit: 5})
-          Event.all_in_neighborhood(neighborhood, options).upcoming
+          events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options).upcoming
+          {
+              preview: events_all_neighborhood[0...2],
+              snippet: events_all_neighborhood[2...12],
+              count: events_all_neighborhood.count,
+              link: nil,
+              neighborhood_name: neighborhood.name
+          }
+
         end
 
         def create_section_fun_events(city, options = {limit: 5})

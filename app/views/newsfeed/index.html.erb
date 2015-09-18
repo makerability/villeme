@@ -19,11 +19,11 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_today', events: @events[:today], title: 'Eventos acontecendo hoje' unless @events[:today][:preview].blank? %>
+            <%= render 'events_today', events: @events[:today], title: "Eventos acontecendo hoje em #{@events[:today][:city_name]}" unless @events[:today][:preview].blank? %>
 
             <%= render 'events_today', events: @events[:persona], title: 'Eventos indicados para você' unless @events[:persona][:preview].blank? %>
 
-            <%= render 'events_neighborhood' unless @events[:neighborhood].blank? %>
+            <%= render 'events_today', events: @events[:neighborhood], title: "Eventos acontecendo no bairro #{@events[:neighborhood][:neighborhood_name]}" unless @events[:neighborhood][:preview].blank? %>
 
             <%= render 'events_fun' unless @events[:fun].blank? %>
 

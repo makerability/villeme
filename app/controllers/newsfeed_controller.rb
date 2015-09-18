@@ -72,7 +72,7 @@ class NewsfeedController < ApplicationController
 
   def neighborhood
     @neighborhood = Neighborhood.find_by(slug: params[:neighborhood])
-    @events = Event.all_in_neighborhood(@neighborhood)
+    @events = Event.all_in_neighborhood(@neighborhood).upcoming
     @text = "Eventos no bairro #{@neighborhood.name}"
     set_items_in_map(current_or_guest_user, @events)
     render :section, layout: 'main_and_right_sidebar'
