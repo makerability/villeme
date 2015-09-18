@@ -19,24 +19,19 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_today', events: @events[:today], title: "Eventos acontecendo hoje em #{@events[:today][:city_name]}" unless @events[:today][:preview].blank? %>
+            <%= render 'events_section', events: @events[:today], title: "Eventos acontecendo hoje em #{@events[:today][:city_name]}" unless @events[:today][:preview].blank? %>
 
-            <%= render 'events_today', events: @events[:persona], title: 'Eventos indicados para você' unless @events[:persona][:preview].blank? %>
+            <%= render 'events_section', events: @events[:persona], title: 'Eventos indicados para você' unless @events[:persona][:preview].blank? %>
 
-            <%= render 'events_today', events: @events[:neighborhood], title: "Eventos acontecendo no bairro #{@events[:neighborhood][:neighborhood_name]}" unless @events[:neighborhood][:preview].blank? %>
+            <%= render 'events_section', events: @events[:neighborhood], title: "Eventos acontecendo no bairro #{@events[:neighborhood][:neighborhood_name]}" unless @events[:neighborhood][:preview].blank? %>
 
-            <%= render 'events_fun' unless @events[:fun].blank? %>
+            <%= render 'events_section', events: @events[:fun], title: 'Eventos para se divertir' unless @events[:fun][:preview].blank? %>
 
-            <%= render 'events_education' unless @events[:education].blank? %>
+            <%= render 'events_section', events: @events[:education], title: 'Aprender algo novo' unless @events[:education][:preview].blank? %>
 
-            <%= render 'events_health' unless @events[:health].blank? %>
+            <%= render 'events_section', events: @events[:health], title: 'Cuidar da saude' unless @events[:health][:preview].blank? %>
 
-            <%= render 'events_trends' unless @events[:trends].blank? %>
-
-            <%= render 'events_city' unless @events[:all].blank? %>
-
-            <%= render 'events_scheduled' unless @events[:scheduled].blank? %>
-
+            <%=# render 'events_today', events: @events[:trends], title: 'Eventos em alta' unless @events[:trends][:preview].blank? %>
           </div>
         </div>
 

@@ -6,13 +6,13 @@ module Villeme
         def get_all_sections(city, user)
           {
               all: get_section_all_events(city),
-              today: get_section_today_events(city: city, limit: 15),
-              persona: create_section_persona_events(user.personas_name, city, {limit: 15}),
-              neighborhood: create_section_neighborhood_events(user.neighborhood, {limit: 15}),
-              fun: create_section_fun_events(city, {limit: 2}),
-              education: create_section_education_events(city, {limit: 2}),
-              health: create_section_health_events(city, {limit: 2}),
-              trends: create_section_trends_events(city, {limit: 5})
+              today: get_section_today_events(city: city),
+              persona: create_section_persona_events(user.personas_name, city),
+              neighborhood: create_section_neighborhood_events(user.neighborhood),
+              fun: create_section_fun_events(city),
+              education: create_section_education_events(city),
+              health: create_section_health_events(city),
+              trends: create_section_trends_events(city)
           }
         end
 
@@ -20,7 +20,7 @@ module Villeme
           city.events.upcoming
         end
 
-        def get_section_today_events(options = {city: false, limit: 5})
+        def get_section_today_events(options = {city: false, limit: nil})
           events_all_today = Event.all_today(options)
 
           {
@@ -32,7 +32,7 @@ module Villeme
           }
         end
 
-        def create_section_persona_events(personas, city, options = {limit: 5})
+        def create_section_persona_events(personas, city, options = {limit: nil})
           events_all_persona = Event.all_persona_in_city(personas, city, options).upcoming
 
           {
@@ -43,7 +43,7 @@ module Villeme
           }
         end
 
-        def create_section_neighborhood_events(neighborhood, options = {limit: 5})
+        def create_section_neighborhood_events(neighborhood, options = {limit: nil})
           events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options).upcoming
           {
               preview: events_all_neighborhood[0...2],
@@ -55,20 +55,48 @@ module Villeme
 
         end
 
-        def create_section_fun_events(city, options = {limit: 5})
-          Event.all_fun_in_city(city, options).upcoming
+        def create_section_fun_events(city, options = {limit: nil})
+          events_all_fun = Event.all_fun_in_city(city, options).upcoming
+
+          {
+              preview: events_all_fun[0...2],
+              snippet: events_all_fun[2...12],
+              count: events_all_fun.count,
+              link: nil
+          }
         end
 
-        def create_section_education_events(city, options = {limit: 5})
-          Event.all_education_in_city(city, options).upcoming
+        def create_section_education_events(city, options = {limit: nil})
+          events_all_education = Event.all_education_in_city(city, options).upcoming
+
+          {
+              preview: events_all_education[0...2],
+              snippet: events_all_education[2...12],
+              count: events_all_education.count,
+              link: nil
+          }
         end
 
-        def create_section_health_events(city, options = {limit: 5})
-          Event.all_health_in_city(city, options).upcoming
+        def create_section_health_events(city, options = {limit: nil})
+          events_all_health = Event.all_health_in_city(city, options).upcoming
+
+          {
+              preview: events_all_health[0...2],
+              snippet: events_all_health[2...12],
+              count: events_all_health.count,
+              link: nil
+          }
         end
 
-        def create_section_trends_events(city, options = {limit: 5})
-          Event.all_trends_in_city(city, options).upcoming
+        def create_section_trends_events(city, options = {limit: nil})
+          events_all_trends = Event.all_trends_in_city(city, options).upcoming
+
+          {
+              preview: events_all_trends[0...2],
+              snippet: events_all_trends[2...12],
+              count: events_all_trends.count,
+              link: nil
+          }
         end
 
       end
