@@ -152,6 +152,7 @@ FactoryGirl.define do
     goal 250
     address '544 Madison Ave, Albany, NY 12208, USA'
     slug 'albany'
+    launch true
   end
 
   factory :city_faker, class: City do

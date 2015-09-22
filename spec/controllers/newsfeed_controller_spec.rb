@@ -61,7 +61,7 @@ describe NewsfeedController do
 
   end
 
-  describe '#mypersona' do
+  describe '#persona' do
 
     context 'current_user logged in and invited' do
 
@@ -69,13 +69,13 @@ describe NewsfeedController do
         set_user_logged_in
       end
 
-      it 'should redirect to #index' do
+      it 'should render section template' do
         allow(@user).to receive(:persona).and_return(create(:persona))
         allow(controller).to receive(:current_user){ @user }
 
-        get :mypersona, locale: :en
+        get :persona, locale: :en
 
-        expect(response).to render_template(:index)
+        expect(response).to render_template(:section)
       end
 
     end
@@ -83,7 +83,7 @@ describe NewsfeedController do
   end
 
 
-  describe '#myagenda' do
+  describe '#agenda' do
 
     context 'current_user logged in and invited' do
 
@@ -91,12 +91,12 @@ describe NewsfeedController do
         set_user_logged_in
       end
 
-      it 'should redirect_to #index' do
+      it 'should render section template' do
         allow(@user).to receive_message_chain(:agenda_items, :upcoming).and_return(nil)
 
-        get :myagenda, locale: :en
+        get :agenda, locale: :en
 
-        expect(response.status).to eq(200)
+        expect(response).to render_template(:section)
       end
 
     end

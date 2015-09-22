@@ -41,7 +41,7 @@ describe Event, type: :model do
              user.personas << persona
              allow(user).to receive(:city).and_return create(:city)
 
-      expect(Event.all_persona_in_city(user.personas, user.city).count).to eq(3)
+      expect(Event.all_persona_in_city(user.personas_name, user.city).count).to eq(3)
     end
   end
 

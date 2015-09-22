@@ -23,7 +23,7 @@ describe 'See my schedule Events' do
 
       @user.agenda_items << [event_a, event_b]
 
-      visit('/en/myagenda')
+      visit("/en/user/#{@user.slug}/agenda")
 
       expect(page).to have_content('First Event scheduled')
       expect(page).to have_content('Second Event scheduled')
