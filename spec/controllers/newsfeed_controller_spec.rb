@@ -71,9 +71,10 @@ describe NewsfeedController do
 
       it 'should render section template' do
         allow(@user).to receive(:persona).and_return(create(:persona))
+        allow(@user).to receive(:city).and_return(create(:city))
         allow(controller).to receive(:current_user){ @user }
 
-        get :persona, locale: :en
+        get :persona, locale: :en, city: @user.city, personas: "#{@user.personas_query}"
 
         expect(response).to render_template(:section)
       end
@@ -94,7 +95,7 @@ describe NewsfeedController do
       it 'should render section template' do
         allow(@user).to receive_message_chain(:agenda_items, :upcoming).and_return(nil)
 
-        get :agenda, locale: :en
+        get :agenda, locale: :en, user: @user
 
         expect(response).to render_template(:section)
       end

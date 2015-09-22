@@ -122,7 +122,11 @@ class User < ActiveRecord::Base
   end
 
   def personas_name
-    personas.pluck(:name)
+    Persona.get_names(personas)
+  end
+
+  def personas_query
+    Persona.to_query(personas)
   end
 
   def city_slug
