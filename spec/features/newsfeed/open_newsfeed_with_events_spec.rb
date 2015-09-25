@@ -9,8 +9,9 @@ describe 'Open the newsfeed with two events' do
 
   before(:each) do
     DatabaseCleaner.start
-    create(:persona_faker)
-    create(:city_faker, launch: true)
+    @persona = create(:persona_faker)
+    @city = create(:city, launch: true)
+    @neighborhood = create(:neighborhood)
   end
 
   after(:each) do
@@ -24,8 +25,8 @@ describe 'Open the newsfeed with two events' do
 
   context 'when user is a guest' do
     before(:each) do
-      user = create(:user, guest: true)
-      login_as(user, :scope => :user)
+      @user = create(:user, guest: true)
+      login_as(@user, :scope => :user)
     end
 
     it 'display the newsfeed with two events from the first city' do
@@ -35,13 +36,14 @@ describe 'Open the newsfeed with two events' do
         allow(event_b).to receive(:place).and_return(create(:place_faker))
       event_c = create(:event_faker, date_start: Date.current - 30, date_finish: Date.current + -3)
         allow(event_c).to receive(:place).and_return(create(:place_faker))
-      neighborhood = create(:neighborhood)
-        allow(neighborhood).to receive(:events).and_return([event_a, event_b, event_c])
+
+      allow(Event).to receive(:all_today).and_return([event_a, event_b, event_c])
 
       visit ('/newsfeed')
 
-      expect(page).to have_content(event_a.name)
-      expect(page).to have_content(event_b.name)
+      expect(page).to have_content(City.first.name)
+      expect(page).to have_content(event_a.name[0..10])
+      expect(page).to have_content(event_b.name[0..10])
     end
 
     it 'display button to guest user do login' do
@@ -55,29 +57,29 @@ describe 'Open the newsfeed with two events' do
 
   context 'when user is logged' do
     before(:each) do
-      user = create(:user, guest: false, invited: true)
-      login_as(user, :scope => :user)
+      @user = create(:user, guest: false, invited: true)
+             login_as(@user, :scope => :user)
+             allow(@user).to receive(:city).and_return(@city)
     end
 
-    it 'display the newsfeed with two events from the first city' do
+    it 'display the newsfeed with two events user in city' do
       event_a = create(:event_faker, date_start: Date.current - 3, date_finish: Date.current + 10)
         allow(event_a).to receive(:place).and_return(create(:place_faker))
       event_b = create(:event_faker, date_start: Date.current - 3, date_finish: Date.current + 10)
         allow(event_b).to receive(:place).and_return(create(:place_faker))
       event_c = create(:event_faker, date_start: Date.current - 30, date_finish: Date.current + -3)
         allow(event_c).to receive(:place).and_return(create(:place_faker))
-      neighborhood = create(:neighborhood)
-        allow(neighborhood).to receive(:events).and_return([event_a, event_b, event_c])
+
+        allow(Event).to receive(:all_today).and_return([event_a, event_b, event_c])
 
       visit ('/newsfeed')
 
-      expect(page).to have_content(event_a.name)
-      expect(page).to have_content(event_b.name)
-      expect(page).should_not have_content(event_c.name)
+      expect(page).to have_content(event_a.name[0..10])
+      expect(page).to have_content(event_b.name[0..10])
+      expect(page).should_not have_content(event_c.name[0..10])
     end
 
     it 'display the button to current_user do logout' do
-
       visit ('/newsfeed')
 
       expect(page).to have_content('Sair')

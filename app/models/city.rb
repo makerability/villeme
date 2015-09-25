@@ -25,6 +25,9 @@ class City < ActiveRecord::Base
   def events
     Event.where(city_name: name)
   end
-  
+
+  def items
+    Item.where(city_name: name)
+  end
 
 end

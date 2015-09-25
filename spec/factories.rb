@@ -174,7 +174,7 @@ FactoryGirl.define do
   end
 
   factory :neighborhood_faker, class: Neighborhood do
-    name {Faker::Lorem.sentence(1, false, 2)}
+    name {Faker::Lorem.sentence(2, false, 2)}
     city_name 'Albany'
     state_name 'New York'
     state_code 'NY'

@@ -83,9 +83,9 @@ class Item < ActiveRecord::Base
 
 	def self.all_persona_in_city(personas, city, options = {limit: false})
 		if options[:limit] and city.try(:events)
-			city.events.includes(:personas).where(personas: { name: personas }).limit(options[:limit])
+			city.items.includes(:personas).where(personas: { name: personas }).limit(options[:limit])
 		elsif city.try(:events)
-			city.events.includes(:personas).where(personas: { name: personas })
+			city.items.includes(:personas).where(personas: { name: personas })
 		else
 			Event.none
 		end

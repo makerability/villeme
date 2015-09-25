@@ -32,12 +32,10 @@ class NewsfeedController < ApplicationController
     if current_or_guest_user.guest?
       render_newsfeed_for_guest_user
     elsif params[:city]
-
       require_relative '../../app/domain/usecases/events/get_event_section'
 
       @city = City.find_by(slug: params[:city])
       @events = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
-
       @number_of_events = @events[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."
       @feedback = Feedback.new
@@ -106,21 +104,11 @@ class NewsfeedController < ApplicationController
   end
 
   def render_newsfeed_for_guest_user
+    require_relative '../../app/domain/usecases/events/get_event_section'
 
     @city = City.find_by(slug: params[:city])
-    @events = {
-        all: @city.events.upcoming,
-        today: Event.all_today(city: @city, limit: 5),
-        persona: Event.all_persona_in_city(current_or_guest_user.personas, @city, limit: 2).upcoming,
-        neighborhood: Event.all_in_neighborhood(current_or_guest_user.neighborhood, limit: 2).upcoming,
-        fun: Event.all_fun_in_city(@city, limit: 2).upcoming,
-        education: Event.all_education_in_city(@city, limit: 2).upcoming,
-        health: Event.all_health_in_city(@city, limit: 2).upcoming,
-        trends: Event.all_trends_in_city(@city, limit: 5).upcoming
-    }
-
+    @events = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
     @number_of_events = @events[:all].count
-
     @message_for_none_events = "Não há eventos no momento em #{@city.name}."
     @feedback = Feedback.new
 
