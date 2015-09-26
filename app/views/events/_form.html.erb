@@ -2,7 +2,7 @@
 
 <!-- HEAD -->
 
-<%= stylesheet_link_tag 'events/FormEvent', 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', params[:controller] %>
+<%= stylesheet_link_tag 'events/EventForm', 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', params[:controller] %>
 <%= javascript_include_tag 'gmaps-builder', 'autocomplete', 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', params[:controller] %>
 
 
@@ -88,7 +88,7 @@
 
             <!-- HORARIOS -->
 
-            <div class="form-group has-helper hour-block"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+            <div class="EventForm-hour form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
               <label class="control-label col-lg-3">1º Horario</label>
               <div class="col-lg-9 u-no-padding">
                 <div class="col-lg-5">
@@ -105,7 +105,112 @@
                   <%= f.input :hour_finish_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
-                  <span class="AddHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="EventForm-hour is-hidden form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+              <label class="control-label col-lg-3">2º Horario</label>
+              <div class="col-lg-9 u-no-padding">
+                <div class="col-lg-5">
+                  <span class="info">Hora de inicio</span>
+                </div>
+                <div class="col-lg-7">
+                  <span class="info">Hora de termino</span>
+                </div>
+                <div class="col-lg-5">
+                  <%= f.input :hour_start_second, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-5 not-required">
+                  <%= f.input :hour_finish_second, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-2 no-require">
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="EventForm-hour is-hidden form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+              <label class="control-label col-lg-3">3º Horario</label>
+              <div class="col-lg-9 u-no-padding">
+                <div class="col-lg-5">
+                  <span class="info">Hora de inicio</span>
+                </div>
+                <div class="col-lg-7">
+                  <span class="info">Hora de termino</span>
+                </div>
+                <div class="col-lg-5">
+                  <%= f.input :hour_start_third, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-5 not-required">
+                  <%= f.input :hour_finish_third, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-2 no-require">
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="EventForm-hour is-hidden form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+              <label class="control-label col-lg-3">4º Horario</label>
+              <div class="col-lg-9 u-no-padding">
+                <div class="col-lg-5">
+                  <span class="info">Hora de inicio</span>
+                </div>
+                <div class="col-lg-7">
+                  <span class="info">Hora de termino</span>
+                </div>
+                <div class="col-lg-5">
+                  <%= f.input :hour_start_fourth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-5 not-required">
+                  <%= f.input :hour_finish_fourth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-2 no-require">
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="EventForm-hour is-hidden form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+              <label class="control-label col-lg-3">5º Horario</label>
+              <div class="col-lg-9 u-no-padding">
+                <div class="col-lg-5">
+                  <span class="info">Hora de inicio</span>
+                </div>
+                <div class="col-lg-7">
+                  <span class="info">Hora de termino</span>
+                </div>
+                <div class="col-lg-5">
+                  <%= f.input :hour_start_fifth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-5 not-required">
+                  <%= f.input :hour_finish_fifth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-2 no-require">
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="EventForm-hour is-hidden form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
+              <label class="control-label col-lg-3">6º Horario</label>
+              <div class="col-lg-9 u-no-padding">
+                <div class="col-lg-5">
+                  <span class="info">Hora de inicio</span>
+                </div>
+                <div class="col-lg-7">
+                  <span class="info">Hora de termino</span>
+                </div>
+                <div class="col-lg-5">
+                  <%= f.input :hour_start_sixth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-5 not-required">
+                  <%= f.input :hour_finish_sixth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                </div>
+                <div class="col-lg-2 no-require">
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
                 </div>
               </div>
             </div>

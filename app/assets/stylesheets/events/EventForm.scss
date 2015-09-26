@@ -1,0 +1,25 @@
+.EventForm{
+
+  &-hour{
+    clear: both;
+    display: table;
+    margin: 0 -15px;
+    padding: 10px 0 15px;
+
+    &.is-hidden{
+      display:none;
+    }
+  }
+
+  &-alldayInput{
+    padding: 1px 0 0 ;
+  }
+
+  &-alldayLabel{
+    padding: 0px 0 0 4px;
+  }
+
+  &-alldayWrapper{
+    margin: 6px 0 0 0;
+  }
+}

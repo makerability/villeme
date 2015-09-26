@@ -94,8 +94,9 @@
       return
 
     addMoreHours: ->
-      $(".AddHour").click ->
-        $(this).parents(".hour-block").next(".hour-block").fadeIn()
+      $(".js-addHour").click ->
+        $(this).hide()
+        $(this).parents(".EventForm-hour").next(".EventForm-hour.is-hidden").removeClass("is-hidden")
         return
 
       return

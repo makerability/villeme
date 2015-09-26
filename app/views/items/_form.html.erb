@@ -2,7 +2,7 @@
 
 <!-- HEAD -->
 
-<%= stylesheet_link_tag 'events/FormEvent', 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', params[:controller] %>
+<%= stylesheet_link_tag 'events/EventForm', 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', params[:controller] %>
 <%= javascript_include_tag 'gmaps-builder', 'autocomplete', 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', params[:controller] %>
 
 
@@ -103,7 +103,7 @@
                   <%= f.input :hour_finish_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
-                  <span class="AddHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
+                  <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
                 </div>
               </div>
             </div>
