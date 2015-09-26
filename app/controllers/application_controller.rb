@@ -369,6 +369,8 @@ class ApplicationController < ActionController::Base
                       formatted_url.sub /.com.br.+/, ".com.br"
                     elsif formatted_url.include?(".com")
                       formatted_url.sub /.com.+/, ".com"
+                    else
+                      formatted_url
                     end
 
     formatted_url.length > 24 ? "#{formatted_url[0..24]}..." : formatted_url
