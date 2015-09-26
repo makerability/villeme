@@ -183,7 +183,7 @@ class ItemsController < ApplicationController
 
 
   def full_description
-    @item = Item.friendly.find params[get_item_class(text: true).downcase]
+    @item = Item.friendly.find(params[:id])
     render json:{full_description: @item.description}
   end
 

@@ -31,14 +31,17 @@ CidadeVc::Application.routes.draw do
 
     resources :items do
       get :schedule, on: :member
+      get :fulldescription, to: 'items#full_description'
     end
 
     resources :events, controller: 'items', type: 'Event' do
       get :schedule, on: :member
+      get :fulldescription, to: 'events#full_description'
     end
 
     resources :activities, controller: 'items', type: 'Activity' do
       get :schedule, on: :member
+      get :fulldescription, to: 'activities#full_description'
     end
 
     # Account
