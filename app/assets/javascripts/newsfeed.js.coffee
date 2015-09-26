@@ -51,7 +51,7 @@
     eventEvents: ->
 
       # event mouseenter
-      $(".Event--newsFeed .panel").mouseenter ->
+      $(".js-EventNewsfeedTransitions").mouseenter ->
         # limpa o timeout
         i = 0
         while i < timeouts.length
@@ -101,7 +101,7 @@
 
 
       # event mouseleave
-      $(".Event--newsFeed .panel").mouseleave ->
+      $(".js-EventNewsfeedTransitions").mouseleave ->
         $(".infobox").hide().text("")
 
 

@@ -2,12 +2,18 @@
 
     <%= stylesheet_link_tag 'modules/EventsSnippet' %>
 
+    <!-- TODO: Remove this messy each -->
+    <% i = 0 %>
+
     <div class="EventsSnippet Grid-cell u-size4of12">
       <div class="EventsSnippet-content">
         <div class="EventsSnippet-scroll">
           <ul class="EventsSnippet-lineGroup">
             <% events[:snippet].each do |event| %>
-                <li class="EventsSnippet-line">
+                <% i += 1 %>
+                <% distance = current_user.distance_until(event, :minutes) %>
+
+                <li class="EventsSnippet-line js-EventNewsfeedTransitions" data-place="<%= event.try(:place).try(:name) %>" data-address="<%= event.full_address %>" data-latitude="<%= event.latitude.blank? ? event.place.latitude : event.latitude %>" data-longitude="<%= event.longitude.blank? ? event.place.longitude : event.longitude %>" data-bus="<%= distance[:bus] %>min." data-car="<%= distance[:car] %>min." data-walk="<%= distance[:walk] %>" data-bike="<%= distance[:bike] %>min." data-letter="<%= event.id %>">
                   <%= link_to event_path(event) do %>
                       <div class="EventsSnippet-image" style="background-image: url('<%= event.image.url(:thumb) %>')"></div>
                   <% end %>
