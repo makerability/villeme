@@ -78,12 +78,17 @@
             event.find(".js-EventButtonText").text("Agendar")
             event.find(".js-EventDayButton").removeClass("is-schedule")
 
-          $("#agenda-count").text("").text(agenda_new_count)
+          _agendaCounterRefresh(agenda_new_count)
           event.find(".js-agendedByCount").text("").text(agended_by_new_count)
           event.find(".js-agendedByCount").attr("title", new_title)
 
           return
         return
+
+      _agendaCounterRefresh = (new_value) ->
+        $(".js-agendaCounter").text("").text(new_value)
+        return
+
       return
 
 
