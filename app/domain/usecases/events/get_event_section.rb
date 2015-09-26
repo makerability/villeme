@@ -24,11 +24,13 @@ module Villeme
           events_all_today = Event.all_today(options)
 
           {
+              title: "Eventos acontecendo hoje em #{options[:city].name}",
               preview: events_all_today[0...2],
               snippet: events_all_today[2...12],
               count: events_all_today.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city]),
-              city_name: options[:city].name
+              city_name: options[:city].name,
+              type: 'today'
           }
         end
 
@@ -36,21 +38,25 @@ module Villeme
           events_all_persona = Event.all_persona_in_city(personas, city, options).upcoming
 
           {
+              title: "Eventos indicados para você",
               preview: events_all_persona[0...2],
               snippet: events_all_persona[2..12],
               count: events_all_persona.count,
-              link: Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: city, personas: personas.join('+'))
+              link: Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: city, personas: personas.join('+')),
+              type: 'persona'
           }
         end
 
         def create_section_neighborhood_events(neighborhood, options = {limit: nil})
           events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options).upcoming
           {
+              title: "Eventos acontecendo no bairro #{neighborhood.name}",
               preview: events_all_neighborhood[0...2],
               snippet: events_all_neighborhood[2...12],
               count: events_all_neighborhood.count,
               link: nil,
-              neighborhood_name: neighborhood.name
+              neighborhood_name: neighborhood.name,
+              type: 'neighborhood'
           }
 
         end
@@ -59,10 +65,12 @@ module Villeme
           events_all_fun = Event.all_fun_in_city(city, options).upcoming
 
           {
+              title: "Eventos para se divertir",
               preview: events_all_fun[0...2],
               snippet: events_all_fun[2...12],
               count: events_all_fun.count,
-              link: nil
+              link: nil,
+              type: 'fun'
           }
         end
 
@@ -70,10 +78,12 @@ module Villeme
           events_all_education = Event.all_education_in_city(city, options).upcoming
 
           {
+              title: "Eventos para aprender algo novo",
               preview: events_all_education[0...2],
               snippet: events_all_education[2...12],
               count: events_all_education.count,
-              link: nil
+              link: nil,
+              type: 'learn'
           }
         end
 
@@ -81,10 +91,12 @@ module Villeme
           events_all_health = Event.all_health_in_city(city, options).upcoming
 
           {
+              title: "Eventos para cuidar da saude",
               preview: events_all_health[0...2],
               snippet: events_all_health[2...12],
               count: events_all_health.count,
-              link: nil
+              link: nil,
+              type: 'health'
           }
         end
 
@@ -92,10 +104,12 @@ module Villeme
           events_all_trends = Event.all_trends_in_city(city, options).upcoming
 
           {
+              title: "Eventos em alta",
               preview: events_all_trends[0...2],
               snippet: events_all_trends[2...12],
               count: events_all_trends.count,
-              link: nil
+              link: nil,
+              type: 'trends'
           }
         end
 

@@ -1,39 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
 
-    <%= render 'layouts/head' %>
+  <%= render 'layouts/head' %>
 
-  </head>
-  <body>
+</head>
+<body>
 
-    <%= bootstrap_flash %>
+<%= bootstrap_flash %>
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-      <%= render 'layouts/header' %>
+  <%= render 'layouts/header' %>
 
+  <div class="content">
 
-      <div class="content">
+    <%= render 'layouts/sidebar_left' %>
 
-        <%= render 'layouts/sidebar_left' %>
-
-
-        <div id="main" class="row">
-
-       		<%= yield %>
-
-        </div>
-
-      </div>
-
-
-
-      <%= render 'layouts/footer' %>
-
+    <div id="main" class="row">
+      <%= yield %>
     </div>
 
-  </body>
+  </div>
+
+  <%= render 'layouts/footer' %>
+
+</div>
+
+</body>
 
 <%= render 'layouts/analitycs' %>
 

@@ -14,7 +14,7 @@ class NewsfeedController < ApplicationController
 
 
   # Layout newsfeed
-  layout 'main_and_left_and_right_sidebars'
+  layout 'full-width'
 
 
   def index

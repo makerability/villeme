@@ -13,23 +13,25 @@
 
     <!-- MAIN -->
 
+    <%= render 'layouts/sidebar_left' %>
+
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
       <div class="row">
         <div class="col-lg-12">
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_section', events: @events[:today], title: "Eventos acontecendo hoje em #{@events[:today][:city_name]}" unless @events[:today][:preview].blank? %>
+            <%= render 'events_section', events: @events[:today] unless @events[:today][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:persona], title: 'Eventos indicados para você' unless @events[:persona][:preview].blank? %>
+            <%= render 'events_section', events: @events[:persona] unless @events[:persona][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:neighborhood], title: "Eventos acontecendo no bairro #{@events[:neighborhood][:neighborhood_name]}" unless @events[:neighborhood][:preview].blank? %>
+            <%= render 'events_section', events: @events[:neighborhood] unless @events[:neighborhood][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:fun], title: 'Eventos para se divertir' unless @events[:fun][:preview].blank? %>
+            <%= render 'events_section', events: @events[:fun] unless @events[:fun][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:education], title: 'Aprender algo novo' unless @events[:education][:preview].blank? %>
+            <%= render 'events_section', events: @events[:education] unless @events[:education][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:health], title: 'Cuidar da saude' unless @events[:health][:preview].blank? %>
+            <%= render 'events_section', events: @events[:health] unless @events[:health][:preview].blank? %>
 
 
           </div>
