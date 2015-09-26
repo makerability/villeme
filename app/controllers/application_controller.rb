@@ -344,15 +344,31 @@ class ApplicationController < ActionController::Base
 
 
   def clean_url(url)
-  	if url.include?("https://")
-  		url.gsub(/https:../) { |match|  }
-  	elsif url.include?("http://")
-  		url.gsub(/http:../) { |match|  }
-		end
+    cleaned_url = if url.include?("https://")
+                    url.gsub(/https:../) { |match|  }
+                  elsif url.include?("http://")
+                    url.gsub(/http:../) { |match|  }
+                  else
+                    url
+                  end
+
+    cleaned_url.length > 24 ? "#{cleaned_url[0..24]}..." : cleaned_url
   end
 
   helper_method :clean_url
 
+
+  def to_url(url)
+    formatted_url = if url.include?("https://") or url.include?("http://")
+                      url
+                    else
+                      "http://#{url}"
+                    end
+
+    formatted_url.length > 24 ? "#{formatted_url[0..24]}..." : formatted_url
+  end
+
+  helper_method :to_url
 
 
   def to_slug slug 

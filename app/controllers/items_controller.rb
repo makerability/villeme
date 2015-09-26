@@ -124,7 +124,7 @@ class ItemsController < ApplicationController
 
     @item.update_attributes(item_params)
 
-    object_place_name = params[get_item_class.downcase][:place_attributes][:name]
+    object_place_name = params[get_item_class(text: true).downcase][:place_attributes][:name]
 
     place = Place.find_by(name: object_place_name)
 
