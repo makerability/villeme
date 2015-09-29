@@ -36,11 +36,8 @@ feature 'Create an event', js: true do
         page.evaluate_script("$('.jqte_editor').text('#{@activity_attributes.description}')")
         page.fill_in 'event[date_start]', with: Date.current.strftime('%d/%m/%Y')
         page.fill_in 'event[date_finish]', with: (Date.current + 10).strftime('%d/%m/%Y')
-
-        sleep 3
-
-        page.check 'Monday'
-        page.check 'Sunday'
+        # page.check 'Monday'
+        # page.check 'Sunday'
         page.fill_in 'event[hour_start_first]', with: '09:00'
         page.fill_in 'event[hour_finish_first]', with: '20:30'
         attach_file 'event[image]', "#{Rails.root}/public/images/default-event-image.jpg"
