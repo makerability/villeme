@@ -17,7 +17,7 @@ class Persona < ActiveRecord::Base
 	end
 
 	def self.query_to_array(personas_query)
-		personas_query.split('+')
+		personas_query ? personas_query.split('+') : []
 	end
 
 

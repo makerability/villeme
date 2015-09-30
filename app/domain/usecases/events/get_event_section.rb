@@ -69,7 +69,7 @@ module Villeme
               preview: events_all_fun[0...2],
               snippet: events_all_fun[2...12],
               count: events_all_fun.count,
-              link: nil,
+              link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:fun].map(&:capitalize), key: false)),
               type: 'fun'
           }
         end
@@ -82,7 +82,7 @@ module Villeme
               preview: events_all_education[0...2],
               snippet: events_all_education[2...12],
               count: events_all_education.count,
-              link: nil,
+              link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:education].map(&:capitalize), key: false)),
               type: 'learn'
           }
         end
@@ -95,11 +95,12 @@ module Villeme
               preview: events_all_health[0...2],
               snippet: events_all_health[2...12],
               count: events_all_health.count,
-              link: nil,
+              link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:health].map(&:capitalize), key: false)),
               type: 'health'
           }
         end
 
+        # TODO: Create a route system to trends events
         def create_section_trends_events(city, options = {limit: nil})
           events_all_trends = Event.all_trends_in_city(city, options).upcoming
 

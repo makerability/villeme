@@ -113,25 +113,25 @@ class Item < ActiveRecord::Base
 
 	def self.all_fun_in_city(city, limit: false)
 		if limit
-			city.events.includes(:categories).where(categories: { slug: ['leisure', 'culture']}).limit(limit)
+			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).limit(limit)
 		else
-			city.events.includes(:categories).where(categories: { slug: ['leisure', 'culture'] })
+			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun] })
 		end
 	end
 
 	def self.all_education_in_city(city, limit: false)
 		if limit
-			city.events.includes(:categories).where(categories: { slug: ['education']}).limit(limit)
+			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:education]}).limit(limit)
 		else
-			city.events.includes(:categories).where(categories: { slug: ['education'] })
+			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:education] })
 		end
 	end
 
 	def self.all_health_in_city(city, limit: false)
 		if limit
-			city.events.includes(:categories).where(categories: { slug: ['health', 'sport']}).limit(limit)
+			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:health]}).limit(limit)
 		else
-			city.events.includes(:categories).where(categories: { slug: ['health', 'sport'] })
+			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:health] })
 		end
 	end
 
@@ -142,6 +142,8 @@ class Item < ActiveRecord::Base
 			city.events.where('agendas_count > 1').order('agendas_count DESC')
 		end
 	end
+
+
 
 	def name_with_limit
 		Villeme::UseCases::EventAttributes.name_with_limit(self)
