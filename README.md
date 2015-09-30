@@ -67,25 +67,24 @@ Open [http://localhost:3000](http://localhost:3000)
 
 This is a product being built by the Assembly community. You can help push this idea forward by visiting [assembly.com/villeme](https://assembly.com/villeme).
 
-## The plan
-
-Villeme is a "open startup", where anyone can contribute.
-The plan is this: [assembly.com/villeme/plan](https://assembly.com/villeme/plan)
-
-#### How Assembly community works
-
-Assembly products are like open-source and made with contributions from the community. Assembly handles the boring stuff like hosting, support, financing, legal, etc. Once the product launches we collect the revenue and split the profits amongst the contributors.
-
-Visit [assembly.com](https://assembly.com) to learn more.
-
-
 
 ## Collaborate
 
+Villeme is a "open startup", where anyone can contribute.
 
-##### Know the current tasks
+#### The plan - If you are a marketing guy ;)
 
-Go to [assembly.com/villeme/bounties](https://assembly.com/villeme/bounties) and see the tasks and histories to develop 
+Go to: [assembly.com/villeme](https://assembly.com/villeme)
+
+#### Current tasks - If you are a programmer ;)
+
+User Mapping -> Go to [villeme.storiesonboard.com](https://villeme.storiesonboard.com/m/villeme) and see the tasks and histories context.
+
+Kanban       -> Go to [trello.com/villeme-tasks](https://trello.com/b/DNjA2KLc/villeme-tasks) and see the tasks to develop.
+
+#### Style Guide - If you are a designer ;)
+
+Go to [frontify.com/villeme-style-guide](https://app.frontify.com/d/sirfXbGEnYuj/villeme-style-guide). If you want to edit, request access (the tool accept only people in team can edit).
 
 ##### Tips
 
@@ -175,11 +174,10 @@ It usually helps them address the problem more quickly, so everyone wins!
 
 ## Best practices 
 
-* **Make part of Assembly community:** [assembly.com/villeme](https://assembly.com/villeme)
 * **Style guide for Ruby:** https://github.com/bbatsov/ruby-style-guide
 * **Style Guide for Coffeescriot:** [github.com/coffeescript-style-guide](https://github.com/polarmobile/coffeescript-style-guide)
 * **Pattern for Javascript:** [thoughtbot.com/module-pattern](http://robots.thoughtbot.com/module-pattern-in-javascript-and-coffeescript)
-* **Tests for Ruby in RSpec** (not obrigatory if you don't know to do) for each scenario of the feature you are trying to implement.
+* **Tests for Ruby in RSpec** (not obligatory if you don't know to do) for each scenario of the feature you are trying to implement.
 
 
 
