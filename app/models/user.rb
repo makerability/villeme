@@ -129,14 +129,6 @@ class User < ActiveRecord::Base
     Persona.to_query(personas)
   end
 
-  def categories_name
-    Category.get_names(categories)
-  end
-
-  def categories_query(categories)
-    Category.to_query(categories)
-  end
-
   def city_slug
     Villeme::UseCases::GetCitySlug.from_user(self)
   end
