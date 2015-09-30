@@ -62,7 +62,7 @@ describe Event, type: :model do
     end
   end
 
-  describe '.all_in_my_neighborhood' do
+  describe '.all_in_neighborhood' do
     it 'should return 3 events' do
       3.times do
         event = create(:event, neighborhood_name: 'Pine Hills', address: '502 Washington Avenue, Albany, NY 12203, USA', name: Faker::Lorem.sentence(2, false, 4))
@@ -75,7 +75,7 @@ describe Event, type: :model do
     end
   end
 
-  describe '.all_fun_in_my_city' do
+  describe '.all_fun_in_city' do
     it 'should return 2 events' do
       categories = [build(:category, slug: 'leisure'), build(:category, slug: 'culture')]
 
@@ -113,7 +113,7 @@ describe Event, type: :model do
     end
   end
 
-  describe '.all_education_in_my_city' do
+  describe '.all_education_in_city' do
     it 'should return 2 events' do
       categories = [build(:category, slug: 'education')]
 
@@ -132,7 +132,7 @@ describe Event, type: :model do
     end
   end
 
-  describe '.all_health_in_my_city' do
+  describe '.all_health_in_city' do
     it 'should return 2 events' do
       categories = [build(:category, slug: 'sport'), build(:category, slug: 'health')]
 
@@ -151,7 +151,7 @@ describe Event, type: :model do
     end
   end
 
-  describe '.all_trends_in_my_city' do
+  describe '.all_trends_in_city' do
     it 'should return 2 events' do
       2.times do
         event = create(:event, city_name: 'Albany', name: Faker::Lorem.sentence(2, false, 4))
