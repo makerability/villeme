@@ -420,15 +420,17 @@ puts "\n"
 
 
 
-puts '=========== Events fakers creator ==========='
+puts '=========== Itens fakers creator ==========='
 
 puts "\n"
 puts "\n"
+
+types_array = ['Event', 'Activity']
 
 30.times do
   place = Place.order("RANDOM()").first
   faker_address = Faker::Address
-  event = Event.create(
+  item = Item.create(
       name: Faker::Lorem.sentence(2, false, 4),
       description: Faker::Lorem.paragraph(5..20),
       date_start: Faker::Date.between(30.days.ago, Date.today),
@@ -449,13 +451,14 @@ puts "\n"
       country_code: place.country_code,
       address: place.address,
       formatted_address: nil,
-      type: 'Event',
+      type: types_array.shuffle.first,
       user_id: User.order("RANDOM()").first.id,
       place_id: place.id,
       moderate: 1,
       image: File.new("#{Rails.root}/app/assets/images/default-event-image.jpg")
   )
-  puts event.save ? "Event #{event.name} created with success!" : 'Error on create event'
+
+  puts item.save ? "#{item.type} #{item.name} created with success!" : 'Error on create item'
 end
 
 puts "\n"
@@ -466,7 +469,7 @@ puts Event.last.latitude.nil? ? 'ERROR: You need access to internet to seed' : '
 puts "\n"
 puts "\n"
 
-Event.all.each do |event|
+Item.all.each do |event|
     weeks = Week.order("RANDOM()")
     event.weeks << [weeks[0], weeks[1], weeks[2]]
     puts event.weeks.count > 0 ? 'Weeks added with success' : 'Error on added weeks'
