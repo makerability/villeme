@@ -109,7 +109,7 @@ CidadeVc::Application.routes.draw do
     get ':city', to: 'newsfeed#city', as: :newsfeed_city
     get ':city/today', to: 'newsfeed#today', as: :newsfeed_city_today
     get ':city/persona=(:personas)', to: 'newsfeed#persona', as: :newsfeed_city_persona
-    get ':city/category/:category/', to: 'newsfeed#category', as: :newsfeed_city_category
+    get ':city/category=(:categories)', to: 'newsfeed#category', as: :newsfeed_city_category
     get ':city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_city_neighborhood
 
 

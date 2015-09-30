@@ -61,7 +61,7 @@ class NewsfeedController < ApplicationController
 
   def persona
     @city = City.find_by(slug: params[:city])
-    personas = params[:personas].split('+')
+    personas = Persona.query_to_array(params[:personas])
     @events = Event.all_persona_in_city(personas, @city).upcoming
     @text = "Eventos indicados para você"
     set_items_in_map(current_or_guest_user, @events)
@@ -78,8 +78,8 @@ class NewsfeedController < ApplicationController
 
   def category
     @city = City.find_by(slug: params[:city])
-    @category = Category.friendly.find params[:category]
-    @events = @category.items.where(city_name: @city.name).upcoming
+    categories = Category.query_to_array(params[:categories])
+    @events = Event.all_categories_in_city(categories, @city).upcoming
     set_items_in_map(current_or_guest_user, @events)
     render :section, layout: 'main_and_right_sidebar'
   end

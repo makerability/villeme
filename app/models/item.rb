@@ -84,10 +84,20 @@ class Item < ActiveRecord::Base
 	def self.all_persona_in_city(personas, city, options = {limit: false})
 		if options[:limit] and city.try(:events)
 			city.items.includes(:personas).where(personas: { name: personas }).limit(options[:limit])
-		elsif city.try(:events)
+		elsif city.try(:items)
 			city.items.includes(:personas).where(personas: { name: personas })
 		else
-			Event.none
+			Item.none
+		end
+	end
+
+	def self.all_categories_in_city(categories, city, options = {limit: false})
+		if options[:limit] and city.try(:items)
+			city.items.includes(:categories).where(categories: { name: categories }).limit(options[:limit])
+		elsif city.try(:items)
+			city.items.includes(:categories).where(categories: { name: categories })
+		else
+			Item.none
 		end
 	end
 

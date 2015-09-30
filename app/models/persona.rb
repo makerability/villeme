@@ -16,5 +16,9 @@ class Persona < ActiveRecord::Base
 		"persona=#{personas.pluck(:name).join('+')}"
 	end
 
+	def self.query_to_array(personas_query)
+		personas_query.split('+')
+	end
+
 
 end

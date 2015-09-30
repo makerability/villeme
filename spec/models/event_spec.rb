@@ -45,6 +45,23 @@ describe Event, type: :model do
     end
   end
 
+  describe '.all_categories_in_city' do
+    it 'should return 2 events from leisure and art categories' do
+      categories = [build(:category), build(:category, name: 'Art')]
+
+      2.times do
+        event = create(:event, name: Faker::Lorem.sentence(2, false, 4))
+        event.categories << categories
+      end
+      create(:event)
+
+      city = create(:city)
+             allow(city).to receive(:items).and_return(Event.all)
+
+      expect(Event.all_categories_in_city(['Leisure', 'Art'], city).count).to eq(2)
+    end
+  end
+
   describe '.all_in_my_neighborhood' do
     it 'should return 3 events' do
       3.times do
