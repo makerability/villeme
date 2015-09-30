@@ -54,7 +54,7 @@ module Villeme
               preview: events_all_neighborhood[0...2],
               snippet: events_all_neighborhood[2...12],
               count: events_all_neighborhood.count,
-              link: nil,
+              link: Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(city: neighborhood.city, neighborhood: neighborhood),
               neighborhood_name: neighborhood.name,
               type: 'neighborhood'
           }
