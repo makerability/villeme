@@ -44,4 +44,7 @@ CidadeVc::Application.configure do
   Bullet.console = true
   Bullet.bullet_logger = true
 
+  # Iron Cache
+  config.cache_store = :iron_cache
+
 end
