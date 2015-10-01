@@ -219,7 +219,7 @@ class Item < ActiveRecord::Base
 
 		# pega os dias da semana do evento
 		week_of_event = self.weeks.select([:id, :name, :slug])
-		week = Week.all.select([:id, :name, :slug])
+		week = Week.all.includes(:translations).select([:id, :name, :slug])
 
 		# compara os dias do evento com o de uma semana comum
 		week.each do |day|
