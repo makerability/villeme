@@ -3,6 +3,7 @@ module Gmaps
 
   private
 
+  # TODO: Fix the return of no one image when do not exist
   def format_for_map_this(events)
     letter = ('A'..'Z').to_a
     i = 0
