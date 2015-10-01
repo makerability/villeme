@@ -36,7 +36,12 @@ SimpleCov.start
 Capybara.javascript_driver = :poltergeist
 Capybara.default_wait_time = 5
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false, debug: true, inspector: true)
+  Capybara::Poltergeist::Driver.new(app,
+                                    js_errors: false,
+                                    debug: true,
+                                    inspector: true,
+                                    timeout: 60,
+  )
 end
 
 RSpec.configure do |config|

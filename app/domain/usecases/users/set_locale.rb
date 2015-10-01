@@ -6,12 +6,13 @@ module Villeme
         @user = entity
       end
 
-      def set_locale(params = nil)
-        @params = params
+      def set_locale(options = {locale: nil, test: false})
+        @options = options
         set_user_locale
       end
 
-      def set_locale_from_ip(requested_ip)
+      def set_locale_from_ip(requested_ip, options = {test: false})
+        @options = options
         @user_ip = requested_ip
         set_i18n_locale_from_user_ip(@user_ip)
       end
@@ -37,18 +38,26 @@ module Villeme
       end
 
       def set_i18n_locale_equal_parameter_locale
-        I18n.locale = @params[:locale]
+        I18n.locale = @options[:locale]
         true
       end
 
       def set_i18n_locale_from_user_ip(ip)
-        country_code = Geocoder.search(ip).try(:first).try(:country_code).try(:downcase)
+        country_code = geocoding(ip)
         if country_code
           set_i18n_locale_if_exist_traductions(country_code)
           true
         else
           I18n.locale = :en
           false
+        end
+      end
+
+      def geocoding(ip)
+        if @options[:test]
+          'br'
+        else
+          Geocoder.search(ip).try(:first).try(:country_code).try(:downcase)
         end
       end
 
@@ -73,7 +82,7 @@ module Villeme
       end
 
       def params_locale?
-        if @params && @params[:locale]
+        if @options && @options[:locale]
           true
         else
           false

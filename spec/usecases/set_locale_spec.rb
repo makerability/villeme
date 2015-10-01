@@ -15,7 +15,7 @@ describe 'UseCases::SetLocale' do
         subject{ Villeme::UseCases::SetLocale.new(@user).set_locale }
 
         it 'should settable I18n.locale = @user.locale' do
-          Villeme::UseCases::SetLocale.new(@user).set_locale
+          Villeme::UseCases::SetLocale.new(@user).set_locale(test: true)
           expect(I18n.locale).to eq(@user.locale)
         end
 
@@ -27,14 +27,14 @@ describe 'UseCases::SetLocale' do
       context 'when current_user DO NOT have :locale and controller have :locale parameter' do
         before(:each) do
           @user = double('User', locale: nil)
-          @params = {locale: :fr}
+          @options = {locale: :fr}
           I18n.locale = :en
         end
 
-        subject{ Villeme::UseCases::SetLocale.new(@user).set_locale(@params) }
+        subject{ Villeme::UseCases::SetLocale.new(@user).set_locale(@options) }
 
         it 'should i18n.locale settable equal parameter' do
-          Villeme::UseCases::SetLocale.new(@user).set_locale(@params)
+          Villeme::UseCases::SetLocale.new(@user).set_locale(@options)
           expect(I18n.locale).to eq(:fr)
         end
 
@@ -46,12 +46,12 @@ describe 'UseCases::SetLocale' do
       context 'when current_user DO NOT have a :locale, controller DO NOT have parameter AND @user have an ip' do
         before(:each) do
           @user = double('User', locale: nil, ip: '177.18.147.47')
-          @params = nil
+          @options = {test: true}
           I18n.locale = :en
         end
 
         it 'should return country_code from Geocoder using @user ip' do
-          Villeme::UseCases::SetLocale.new(@user).set_locale(@params)
+          Villeme::UseCases::SetLocale.new(@user).set_locale(@options)
           expect(I18n.locale).to eq(:'pt-BR')
         end
       end
@@ -61,11 +61,12 @@ describe 'UseCases::SetLocale' do
       before(:each) do
         @user = nil
         @user_ip = '177.18.147.47'
+        @options = {test: true}
         I18n.locale = :en
       end
 
       it 'should settable I18n.locale from your ip' do
-        Villeme::UseCases::SetLocale.new(@user).set_locale_from_ip(@user_ip)
+        Villeme::UseCases::SetLocale.new(@user).set_locale_from_ip(@user_ip, @options)
         expect(I18n.locale).to eq(:'pt-BR')
       end
     end
