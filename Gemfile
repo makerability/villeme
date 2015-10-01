@@ -19,6 +19,7 @@ group :development, :test do
 	gem 'factory_girl_rails', '~> 4.0'
 	gem 'database_cleaner'
 	gem 'timecop'
+	gem 'bullet'
 	gem 'coveralls', require: false
 	gem 'simplecov', require: false
 end
