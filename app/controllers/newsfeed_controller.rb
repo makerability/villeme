@@ -64,31 +64,31 @@ class NewsfeedController < ApplicationController
   def persona
     @city = City.find_by(slug: params[:city])
     personas = Persona.query_to_array(params[:personas])
-    @events = Event.all_persona_in_city(personas, @city).upcoming
+    @items = Event.all_persona_in_city(personas, @city).upcoming
     @text = "Eventos indicados para você"
-    set_items_in_map(current_or_guest_user, @events)
+    set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
 
   def neighborhood
     @neighborhood = Neighborhood.find_by(slug: params[:neighborhood])
-    @events = Event.all_in_neighborhood(@neighborhood).upcoming
+    @items = Event.all_in_neighborhood(@neighborhood).upcoming
     @text = "Eventos no bairro #{@neighborhood.name}"
-    set_items_in_map(current_or_guest_user, @events)
+    set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
 
   def category
     @city = City.find_by(slug: params[:city])
     categories = Category.query_to_array(params[:categories])
-    @events = Event.all_categories_in_city(categories, @city).upcoming
-    set_items_in_map(current_or_guest_user, @events)
+    @items = Event.all_categories_in_city(categories, @city).upcoming
+    set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
 
   def agenda
-    @events = current_user.agenda_items.upcoming
-    set_items_in_map(current_user, @events)
+    @items = current_user.agenda_items.upcoming
+    set_items_in_map(current_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
 
@@ -109,8 +109,8 @@ class NewsfeedController < ApplicationController
     require_relative '../../app/domain/usecases/events/get_event_section'
 
     @city = City.find_by(slug: params[:city])
-    @events = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
-    @number_of_events = @events[:all].count
+    @items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
+    @number_of_events = @items[:all].count
     @message_for_none_events = "Não há eventos no momento em #{@city.name}."
     @feedback = Feedback.new
 
@@ -119,7 +119,7 @@ class NewsfeedController < ApplicationController
     gon.longitude = @city.longitude
 
     # array with places for map navigator on sidebar
-    gon.events_local_formatted = format_for_map_this(@events[:all])
+    gon.events_local_formatted = format_for_map_this(@items[:all])
 
     render :index
   end
