@@ -410,7 +410,7 @@ describe Event, type: :model do
       monday = double(id: 1, name: 'Monday', slug: 'monday')
       allow(event).to receive_message_chain(:weeks, :select).and_return([monday])
       double(Week, id: 1, name: 'Monday', slug: 'monday')
-      allow(Week).to receive_message_chain(:all, :select).and_return([monday])
+      allow(Week).to receive_message_chain(:select, :includes).and_return([monday])
 
       expect(event.days_of_week).to eq("<span class='label white-bg border'>Monday</span>")
     end
