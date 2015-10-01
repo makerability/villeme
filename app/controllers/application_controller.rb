@@ -295,10 +295,11 @@ class ApplicationController < ActionController::Base
   end
 
   def categories_slug(event, i)
-    if event.categories.empty?
-      return "lazer"
+    event_categories = event.categories.includes(:translations)
+    if event_categories.empty?
+      "lazer"
     else
-      event.categories[0, 2].each do |category|
+      event_categories[0, 2].each do |category|
         if i == 1
           return category.name
         elsif category.name != 'Lazer'

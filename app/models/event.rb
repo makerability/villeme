@@ -2,9 +2,9 @@ class Event < Item
 
   def self.all_today(options = Hash(city: false, limit: false))
     events = if options[:city]
-               options[:city].events
+               options[:city].events.includes(:weeks, :agendas, :place, :subcategories)
              else
-               self
+               self.all.includes(:weeks, :agendas, :place, :subcategories)
              end
 
     i = 0
