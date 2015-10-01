@@ -36,7 +36,7 @@ class NewsfeedController < ApplicationController
       require_relative '../../app/domain/usecases/events/get_activity_section'
 
       @city = City.find_by(slug: params[:city])
-      @events = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
+      @items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
       @activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user)
       @number_of_events = @events[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."

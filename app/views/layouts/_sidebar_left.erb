@@ -22,25 +22,25 @@
 
   <section class="SidebarLeft-section">
     <ul class="SidebarLeft-nav">
-      <% if @events[:today][:count] > 0 %>
+      <% if @items[:today][:count] > 0 %>
           <li><a href="#" data-scroll="today">Acontecendo hoje</a></li>
       <% end %>
-      <% if @events[:persona][:count] > 0 %>
+      <% if @items[:persona][:count] > 0 %>
           <li><a href="#" data-scroll="persona">Indicados p/ mim</a></li>
       <% end %>
-      <% if @events[:neighborhood][:count] > 0 %>
+      <% if @items[:neighborhood][:count] > 0 %>
         <li><a href="#" data-scroll="neighborhood">No meu bairro</a></li>
       <% end %>
-      <% if @events[:fun][:count] > 0 %>
+      <% if @items[:fun][:count] > 0 %>
         <li><a href="#" data-scroll="fun">Para se divertir</a></li>
       <% end %>
-      <% if @events[:education][:count] > 0 %>
+      <% if @items[:education][:count] > 0 %>
         <li><a href="#" data-scroll="learn">Aprender algo novo</a></li>
       <% end %>
-      <% if @events[:health][:count] > 0 %>
+      <% if @items[:health][:count] > 0 %>
         <li><a href="#" data-scroll="health">Cuidar da saude</a></li>
       <% end %>
-      <% if @events[:trends][:count] > 0 %>
+      <% if @items[:trends][:count] > 0 %>
         <li><a href="#" data-scroll="trends">Em alta</a></li>
       <% end %>
     </ul>
