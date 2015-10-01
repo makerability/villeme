@@ -38,7 +38,7 @@ class NewsfeedController < ApplicationController
       @city = City.find_by(slug: params[:city])
       @items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
       @activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user)
-      @number_of_events = @events[:all].count
+      @number_of_events = @items[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."
       @feedback = Feedback.new
 
@@ -47,7 +47,7 @@ class NewsfeedController < ApplicationController
       gon.longitude = current_or_guest_user.longitude
 
       # array with places for map navigator on sidebar
-      gon.events_local_formatted = format_for_map_this(@events[:all])
+      gon.events_local_formatted = format_for_map_this(@items[:all])
 
       render :index
     end
