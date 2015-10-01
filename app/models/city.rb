@@ -26,6 +26,10 @@ class City < ActiveRecord::Base
     Event.where(city_name: name)
   end
 
+  def activities
+    Activity.where(city_name: name)
+  end
+
   def items
     Item.where(city_name: name)
   end

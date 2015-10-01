@@ -65,8 +65,12 @@ class Item < ActiveRecord::Base
 		where('date_start >= ? AND date_finish >= ? AND moderate = 1 OR date_start <= ? AND date_finish >= ? AND moderate = 1', Date.current - 30, Date.current, Date.current, Date.current).order("CASE WHEN persona_id IS NULL THEN 1 ELSE 0 END, persona_id = #{user.try(:persona_id)} DESC, date_start ASC")
 	}
 
-	def self.all_today(options = Hash(city: false, limit: false))
-		events = options[:city] ? options[:city].events : self
+	def self.all_today(options = Hash(city: false, type: false, limit: false))
+		events = if options[:city]
+							 options[:city].items
+						 else
+							 self
+						 end
 
 		i = 0
 		response = []

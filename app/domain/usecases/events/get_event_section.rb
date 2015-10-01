@@ -28,7 +28,7 @@ module Villeme
               preview: events_all_today[0...2],
               snippet: events_all_today[2...12],
               count: events_all_today.count,
-              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city]),
+              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city], type: 'Event'),
               city_name: options[:city].name,
               type: 'today'
           }

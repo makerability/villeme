@@ -28,9 +28,9 @@
 
               <div class="Grid Grid--withGutter">
 
-                <%= render 'alert_none_events' %>
+                <%= render 'alert_none_events', items: @items %>
 
-                <%= render 'event', events: @events %>
+                <%= render 'item', events: @items %>
 
               </div>
             </section>

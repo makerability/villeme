@@ -21,17 +21,19 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= render 'events_section', events: @events[:today] unless @events[:today][:preview].blank? %>
+            <%= render 'items_section', events: @events[:today] unless @events[:today][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:persona] unless @events[:persona][:preview].blank? %>
+            <%= render 'items_section', events: @activities[:today] unless @activities[:today][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:neighborhood] unless @events[:neighborhood][:preview].blank? %>
+            <%= render 'items_section', events: @events[:persona] unless @events[:persona][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:fun] unless @events[:fun][:preview].blank? %>
+            <%= render 'items_section', events: @events[:neighborhood] unless @events[:neighborhood][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:education] unless @events[:education][:preview].blank? %>
+            <%= render 'items_section', events: @events[:fun] unless @events[:fun][:preview].blank? %>
 
-            <%= render 'events_section', events: @events[:health] unless @events[:health][:preview].blank? %>
+            <%= render 'items_section', events: @events[:education] unless @events[:education][:preview].blank? %>
+
+            <%= render 'items_section', events: @events[:health] unless @events[:health][:preview].blank? %>
 
 
           </div>

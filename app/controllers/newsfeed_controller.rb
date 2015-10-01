@@ -33,9 +33,11 @@ class NewsfeedController < ApplicationController
       render_newsfeed_for_guest_user
     elsif params[:city]
       require_relative '../../app/domain/usecases/events/get_event_section'
+      require_relative '../../app/domain/usecases/events/get_activity_section'
 
       @city = City.find_by(slug: params[:city])
       @events = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
+      @activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user)
       @number_of_events = @events[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."
       @feedback = Feedback.new
@@ -53,9 +55,9 @@ class NewsfeedController < ApplicationController
 
   def today
     @city = City.find_by(slug: params[:city])
-    @events = Event.all_today(city: @city)
+    @items = Event.all_today(city: @city)
     @text = "Acontecendo hoje em #{@city.name}"
-    set_items_in_map(current_or_guest_user, @events)
+    set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
 
@@ -123,6 +125,15 @@ class NewsfeedController < ApplicationController
   end
 
 
+  def get_item_class(options = {text: false})
+    if params[:type] != nil
+      options[:text] ? params[:type] : params[:type].constantize
+    elsif @item and @item.type != nil
+      options[:text] ? @item.type : @item.type.constantize
+    else
+      options[:text] ? 'Item' : 'Item'.constantize
+    end
+  end
 
 
 end

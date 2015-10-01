@@ -7,9 +7,9 @@
 
   <div class="Grid Grid--withGutter">
 
-    <%= render 'alert_none_events' %>
+    <%= render 'alert_none_events', items: @events %>
 
-    <%= render 'event', events: events[:preview] %>
+    <%= render 'item', events: events[:preview] %>
 
     <%= render 'alert_see_more_items', events: events %>
 
