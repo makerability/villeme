@@ -165,17 +165,18 @@ module ApplicationHelper
 			else
 				not_friend.call							
 			end
-		end	
-
-
-		
-
+		end
 
 	end
 
 
+	def stylesheet_inline(name_of_file)
+		"<style type='text/css'>#{Rails.application.assets.find_asset("#{name_of_file}.css").to_s}</style>".html_safe
+	end
 
-
+	def javascript_inline(name_of_file)
+		"<javascript type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</style>".html_safe
+	end
 
 
 end
