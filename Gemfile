@@ -29,6 +29,7 @@ group :production do
 	gem 'pg'
 	gem 'rails_12factor'
 	gem 'iron_cache_rails'
+	gem 'informant-rails'
 end
 
 # URL bonita
