@@ -26,7 +26,6 @@
 //= require jquery-maskMoney
 //= require jquery-dateFormat
 //= require jquery-scrollstop
-//= require jquery-lazyload
 //= require application-ajax
 //= require application_bootstrap
 //= require application-ux
