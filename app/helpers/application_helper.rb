@@ -175,7 +175,7 @@ module ApplicationHelper
 	end
 
 	def javascript_inline(name_of_file)
-		"<javascript type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</style>".html_safe
+		"<javascript type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</javascript>".html_safe
 	end
 
 
