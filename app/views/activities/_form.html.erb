@@ -1,10 +1,8 @@
 
 
-<!-- HEAD -->
+<!-- JS/CSS PRIMARIES -->
 
-<%= stylesheet_link_tag 'events/EventForm', 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', params[:controller] %>
-<%= javascript_include_tag 'gmaps-builder', 'autocomplete', 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', params[:controller] %>
-
+<%= stylesheet_link_tag 'events/EventForm', params[:controller] %>
 
 
 <!-- MAIN -->
@@ -300,3 +298,10 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- JS/CSS SECONDARIES -->
+<%= stylesheet_link_tag 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', 'jquery.ui.theme', 'jquery.ui.autocomplete', 'bootstrap-wysihtml5' %>
+<%= javascript_include_tag 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', 'jquery-maskMoney', 'jquery.ui.autocomplete', 'bootstrap-filestyle', 'gmap3', sync: true %>
+<%= javascript_include_tag 'gmaps-builder', 'autocomplete', params[:controller] %>

@@ -27,6 +27,7 @@ class ItemsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    require_relative '../../app/domain/dependecies/javascript_dependencies'
 
     if user_signed_in?
       @distance = current_user.distance_until(@item, :minutes)
@@ -48,6 +49,8 @@ class ItemsController < ApplicationController
 
   # GET /events/new
   def new
+
+    require_relative '../../app/domain/dependecies/javascript_dependencies'
 
     unless Villeme::Policies::AccountComplete.is_complete?(current_user)
       redirect_to root_path, alert: 'Você precisa estar com o perfil completo para criar um evento!'

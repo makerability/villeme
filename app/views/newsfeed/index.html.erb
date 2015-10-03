@@ -6,11 +6,6 @@
     <%= stylesheet_link_tag 'modules/Event', 'modules/AlertCreateEvent', 'modules/AvatarPhoto' %>
     <%= stylesheet_link_tag params[:controller] %>
 
-    <%= include_gon %>
-    <%= javascript_include_tag 'gmaps-builder-user' %>
-    <%= javascript_include_tag params[:controller] %>
-
-
     <!-- MAIN -->
 
     <%= render 'layouts/sidebar_left' %>
@@ -49,4 +44,11 @@
       <%= render 'sidebar' %>
     </div>
 
+
 <% end %>
+
+<!-- JS/CSS SECONDARIES -->
+
+<%= include_gon %>
+<%= javascript_include_tag 'gmap3', 'gmaps-builder-user' %>
+<%= javascript_include_tag params[:controller] %>

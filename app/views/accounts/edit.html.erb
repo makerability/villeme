@@ -1,6 +1,6 @@
-<%= javascript_include_tag params[:controller] %>
-<%= css('bootstrap-validator', 'bootstrap-select') %>
-<%= javascript('gmaps-builder', 'bootstrap-validator', 'bootstrap-select') %>
+<%= javascript_include_tag 'gmap3', 'gmaps-builder', 'bootstrap-validator', 'bootstrap-select', 'jquery.ui.autocomplete', 'bootstrap-filestyle', params[:controller] %>
+<%= stylesheet_link_tag 'bootstrap-validator', 'bootstrap-select', 'jquery.ui.autocomplete' %>
+
 
 <%= content_for :javascript_area do %>
   $('#edit-user').bootstrapValidator({

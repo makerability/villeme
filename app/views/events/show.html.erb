@@ -1,13 +1,12 @@
 
 <% cache [current_user, @item, @item.agended_by_count[:count], @item.rates_cache], expires: 1.hour do %>
 
-
     <% wiselinks_title(@item.name + ' em ' + @item.city_name + ' — Villeme') %>
     <%= content_for :title, @item.name + ' em ' + @item.city_name %>
 
-    <%= stylesheet_inline(params[:controller]) %>
-    <%= javascript_inline('events/new') %>
+    <!-- CSS/JS PRIMARY -->
 
+    <%= stylesheet_inline params[:controller] %>
 
     <!-- MAIN -->
 
@@ -130,5 +129,8 @@
 <% end %>
 
 
+<!-- JS/CSS SECONDARIES -->
+
 <%= include_gon %>
-<%= javascript_include_tag 'gmaps-builder-event', 'jquery-raty', 'ratyrate', async: true %>
+<%= javascript_include_tag 'gmap3', 'jquery-raty' %>
+<%= javascript_include_tag 'gmaps-builder-event', 'ratyrate', 'events/show', async: true %>
