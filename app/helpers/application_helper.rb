@@ -2,6 +2,19 @@
 
 module ApplicationHelper
 
+
+	def flash_message
+		messages = ""
+		[:notice, :info, :warning, :error].each {|type|
+			if flash[type]
+				messages += "<p class=\"alert #{type}\">#{flash[type]}</p>".html_safe
+			end
+		}
+
+		messages
+	end
+
+
 	@gamification_active = false
 
 	def javascript(*files)

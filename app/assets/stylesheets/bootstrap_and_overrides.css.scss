@@ -819,7 +819,7 @@ col-fixed{
   top: -2px;
 }
 
-.alert-success {
+.alert.success {
   background-color: scale_color($green, $lightness: 90%);
   color: scale_color($green, $lightness: -20%);
 }
