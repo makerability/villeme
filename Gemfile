@@ -81,7 +81,7 @@ gem 'certified'
 # gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 # Bootstrap
-gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+# gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
 # Geocoder
 gem 'geocoder', github: 'jonatassalgado/geocoder'
