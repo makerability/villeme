@@ -2,9 +2,7 @@
 
     <!-- HEAD -->
 
-    <%= stylesheet_link_tag 'suit-components-grid/index.css', 'suit-utils-size/index.css', 'suit-utils-position/index.css' %>
-    <%= stylesheet_link_tag 'modules/Event', 'modules/AlertCreateEvent', 'modules/AvatarPhoto' %>
-    <%= stylesheet_link_tag params[:controller] %>
+    <%= stylesheet_link_tag 'suit-components-grid/index.css', 'suit-utils-size/index.css', 'suit-utils-position/index.css', 'modules/Event', 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller], cache: 'cached/newsfeed-index' %>
 
     <!-- MAIN -->
 
