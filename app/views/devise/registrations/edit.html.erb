@@ -1,5 +1,5 @@
 
-<%= css('bootstrap-validator', 'bootstrap-select') %>
+<%= stylesheet_link_tag('bootstrap-validator', 'bootstrap-select') %>
 <%= javascript_include_tag 'gmaps-builder-settings', 'bootstrap-validator', 'bootstrap-select' %>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), defaults: {input_html: {class: "form-control"}, label_html: {class: "control-label"}, wrapper_html: {class: "form-group"}}, :html => { multipart: true, autocomplete: 'off' }) do |f| %>

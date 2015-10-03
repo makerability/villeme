@@ -13,6 +13,7 @@
  * require bootstrap-wysihtml5
  *= require nprogress
  *= require animation_application
+ *= require bootstrap_and_overrides
  *= require_self
  */
 

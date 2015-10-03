@@ -1,21 +1,16 @@
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) + " — Villeme" : "Villeme" %></title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= content_for?(:title) ? yield(:title) + " — Villeme" : "Villeme" %></title>
 
-    <!-- Open Graph para Facebook -->
-    <%= render 'layouts/share_rules' %>
+<!-- Open Graph para Facebook -->
+<%= render 'layouts/share_rules' %>
 
-    <%= csrf_meta_tags %>
+<%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag 'application', 'bootstrap_and_overrides', :media => 'all' %>
+<%= stylesheet_link_tag 'application', :media => 'all' %>
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/images/favicon.png" />
 
-    <%= yield :css %>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
-    
-    <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
