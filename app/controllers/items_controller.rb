@@ -81,7 +81,7 @@ class ItemsController < ApplicationController
 
       render template: "#{get_item_route}/edit"
     else
-      redirect_to root_path, alert: 'Ops! Você so pode editar os eventos que criou.'
+      redirect_to root_path, notice: 'Ops! Você so pode editar os eventos que criou.'
     end
   end
 
