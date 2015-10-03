@@ -1,4 +1,4 @@
-	<%= javascript 'gmaps-builder' %>
+	<%= javascript_include_tag 'gmaps-builder' %>
 
 	<%= simple_form_for @neighborhood, defaults: {input_html: {class: "form-control"}, wrapper_html: {class: "form-group"}, label_html: {class: ""} } do |f| %>
 	  <%= f.input :name, label: "Nome" %>

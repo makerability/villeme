@@ -1,0 +1,52 @@
+<!-- Variables from backend -->
+<%= include_gon %>
+
+<!-- Application -->
+<%= javascript_include_tag 'application' %>
+
+<!-- Facebook -->
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '568047899941238',
+            xfbml      : true,
+            version    : 'v2.1'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function invite_friend(to){
+        FB.ui({
+            app_id: '568047899941238',
+            method: 'send',
+            display: 'iframe',
+            link: 'http://www.villeme.com',
+            to: to
+        });
+    }
+
+</script>
+
+<!-- Dependencies -->
+<% if content_for?(:javascript_load_dependencies) %>
+    <%= yield :javascript_load_dependencies %>
+<% end %>
+
+<!-- Content - essential to show something very important -->
+<% if content_for?(:javascript_load_inline) %>
+    <script type="text/javascript">
+        <%= yield :javascript_load_inline %>
+    </script>
+<% end %>
+
+<!-- Content -->
+<% if content_for?(:javascript_load_content) %>
+    <%= yield :javascript_load_content %>
+<% end %>

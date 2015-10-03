@@ -20,8 +20,55 @@ module ApplicationHelper
 
 	@gamification_active = false
 
-	def javascript(*files)
-	  content_for(:javascript) { javascript_include_tag(*files, 'data-turbolinks-track' => true) }
+
+
+	def javascript_load_dependencies(files_array = [], options = {sync: true})
+		response = ""
+
+		if files_array.is_a? Array
+			files_array.each { |file_name| response += javascript_include_tag(file_name, sync: options[:sync]) }
+		else
+			response += javascript_include_tag(files_array, sync: options[:sync])
+		end
+
+		if self.request.wiselinks?
+			response.html_safe
+		else
+			content_for(:javascript_load_dependencies) { response.html_safe }
+		end
+	end
+
+	def javascript_load_inline(files = [])
+		content_for(:javascript_load_inline) do
+			files.each do |name_of_file|
+				"<script type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</script>".html_safe
+			end
+		end
+	rescue
+		nil
+	end
+
+	def javascript_load_content(files_array = [], options = {sync: false})
+		response = ""
+
+		if files_array.is_a? Array
+			files_array.each { |file_name| response += javascript_include_tag(file_name, sync: options[:sync]) }
+		else
+			response += javascript_include_tag(files_array, sync: options[:sync])
+		end
+
+		if self.request.wiselinks?
+			response.html_safe
+		else
+			content_for(:javascript_load_content) do
+				response.html_safe
+			end
+		end
+
+	end
+
+	def stylesheet_inline(name_of_file)
+		"<style type='text/css'>#{Rails.application.assets.find_asset("#{name_of_file}.css").to_s}</style>".html_safe
 	end
 
 	def css(*files)
@@ -186,13 +233,7 @@ module ApplicationHelper
 	end
 
 
-	def stylesheet_inline(name_of_file)
-		"<style type='text/css'>#{Rails.application.assets.find_asset("#{name_of_file}.css").to_s}</style>".html_safe
-	end
 
-	def javascript_inline(name_of_file)
-		"<script type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</script>".html_safe
-	end
 
 
 end
