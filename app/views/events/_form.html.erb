@@ -414,5 +414,5 @@
 
 <!-- JS/CSS SECONDARIES -->
 <%= stylesheet_link_tag 'datetimepicker/jquery.datetimepicker.css', 'jqueryte/dist/jquery-te-1.4.0.css', 'jquery.ui.theme', 'jquery.ui.autocomplete', 'bootstrap-wysihtml5' %>
-<%= javascript_include_tag 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', 'jquery-maskMoney', 'jquery.ui.autocomplete', 'bootstrap-filestyle', 'gmap3', sync: true %>
-<%= javascript_include_tag 'gmaps-builder', 'autocomplete', params[:controller] %>
+<%= javascript_load_dependencies(['gmap3', 'datetimepicker/jquery.datetimepicker.js', 'jqueryte/dist/jquery-te-1.4.0.min', 'jquery-maskMoney', 'jquery.ui.autocomplete', 'bootstrap-filestyle'], sync: false) %>
+<%= javascript_load_content(['gmaps-builder', 'autocomplete', params[:controller]]) %>

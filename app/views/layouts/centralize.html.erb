@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-    <%= render 'layouts/head' %>
-    
-  </head>
-  <body>
+<head>
+
+  <%= render 'layouts/head' %>
+
+</head>
+<body>
 
 
 
-    <%# render 'layouts/shelf' %>
+<%# render 'layouts/shelf' %>
 
 
-    <div class="container">
+<div class="container">
 
-      <%= render 'layouts/header' %>
+  <%= render 'layouts/header' %>
 
-      <div class="row">
+  <div class="row">
 
-        <div class="col-md-4 col-md-offset-4">
+    <div class="col-md-4 col-md-offset-4">
 
-          <div class="panel panel-default layout-centralize">
-              
-              <%= yield %>
+      <div class="panel panel-default layout-centralize">
 
-          </div>
+        <%= yield %>
 
-        </div>
+      </div>
 
-        
-      </div><!--/row-->
+    </div>
 
-      
 
-      <%= render 'layouts/footer' %>
+  </div><!--/row-->
 
-    </div> <!-- /container -->
 
-  </body>
 
+  <%= render 'layouts/footer' %>
+
+</div> <!-- /container -->
+
+</body>
+
+<%= render 'layouts/javascripts' %>
 <%= render 'layouts/analitycs' %>
-  
+
 </html>

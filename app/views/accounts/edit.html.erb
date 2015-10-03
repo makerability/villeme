@@ -1,9 +1,10 @@
-<%= javascript_include_tag 'gmap3', 'gmaps-builder', 'bootstrap-validator', 'bootstrap-select', 'jquery.ui.autocomplete', 'bootstrap-filestyle', params[:controller] %>
 <%= stylesheet_link_tag 'bootstrap-validator', 'bootstrap-select', 'jquery.ui.autocomplete' %>
-
 
 <% if current_user.account_complete? %>
   <%= render "edit_form" %>
 <% else %>
   <%= render "complete_form" %>
 <% end %>
+
+<%= javascript_load_dependencies(['gmap3', 'bootstrap-validator', 'bootstrap-select', 'jquery.ui.autocomplete', 'bootstrap-filestyle']) %>
+<%= javascript_load_content(['gmaps-builder', params[:controller]]) %>

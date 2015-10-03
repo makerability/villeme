@@ -3,7 +3,7 @@
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
-/*global document,window,jQuery,setTimeout,clearTimeout,HighlightedDate,getCurrentValue*/
+
 (function ($) {
 	'use strict';
 	var default_options  = {
