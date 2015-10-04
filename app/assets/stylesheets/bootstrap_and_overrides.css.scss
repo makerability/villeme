@@ -470,31 +470,6 @@ ul li{
   width: 40%;
 }
 
-.tooltip{
-  opacity: 1 !important;
-  z-index: 2000 !important;
-}
-
-.tooltip.top{
-  margin-top: -10px;
-}
-
-.tooltip.top .tooltip-arrow {
-  border-top-color: $grey;
-  z-index: 2000 !important;
-}
-
-.tooltip-inner {
-  background-color: $grey;
-  color: $white;
-  font-size: 12px;
-  max-width: 245px;
-  padding: 10px;
-  white-space: normal;
-  position: relative;
-  z-index: 115;
-  @extend .radius;
-}
 
 .button_to{
   float: left;
