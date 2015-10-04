@@ -82,12 +82,14 @@ class NewsfeedController < ApplicationController
     @city = City.find_by(slug: params[:city])
     categories = Category.query_to_array(params[:categories])
     @items = Event.all_categories_in_city(categories, @city).upcoming
+    @text = "Eventos nas categorias #{params[:categories]}"
     set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
 
   def agenda
     @items = current_user.agenda_items.upcoming
+    @text = "Minha agenda de Eventos e Atividades"
     set_items_in_map(current_user, @items)
     render :section, layout: 'main_and_right_sidebar'
   end
