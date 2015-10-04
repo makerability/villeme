@@ -55,7 +55,7 @@ class NewsfeedController < ApplicationController
 
   def today
     @city = City.find_by(slug: params[:city])
-    @items = Event.all_today(city: @city)
+    @items = get_item_class.all_today(city: @city)
     @text = "Acontecendo hoje em #{@city.name}"
     set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'

@@ -23,7 +23,10 @@
   <section class="SidebarLeft-section">
     <ul class="SidebarLeft-nav">
       <% if @items[:today][:count] > 0 %>
-          <li><a href="#" data-scroll="today">Acontecendo hoje</a></li>
+          <li><a href="#" data-scroll="today">Eventos hoje</a></li>
+      <% end %>
+      <% if @activities[:today][:count] > 0 %>
+          <li><a href="#" data-scroll="activities-today">Atividades hoje</a></li>
       <% end %>
       <% if @items[:persona][:count] > 0 %>
           <li><a href="#" data-scroll="persona">Indicados p/ mim</a></li>

@@ -183,7 +183,7 @@
         false
       $(window).scroll(->
         windscroll = $(window).scrollTop()
-        if windscroll >= 100
+        if windscroll >= 110
           $('.Main section').each (i) ->
             if $(this).position().top <= windscroll + 25
               $('.SidebarLeft-nav a.is-active').removeClass 'is-active'
