@@ -14,6 +14,7 @@
     init: ->
       Newsfeed.eventEvents()
       Newsfeed.userEvent()
+      Newsfeed.bLazy()
       Newsfeed.createMap()
       Newsfeed.fixingMapOnScroll()
       Newsfeed.sidebarLeftLinksAnimation()
@@ -193,6 +194,22 @@
           $('.SidebarLeft-nav a:first').addClass 'is-active'
         return
       ).scroll()
+
+      return
+
+    bLazy: ->
+      bLazy = new Blazy(
+        success: (ele) ->
+
+          return
+        error: (ele, msg) ->
+          if msg == 'blazy missing'
+            console.log msg
+          else if msg == 'blazy invalid'
+            console.log msg
+          else
+          return
+      )
 
       return
 

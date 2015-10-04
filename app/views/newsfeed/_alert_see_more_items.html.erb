@@ -15,7 +15,7 @@
 
                 <li class="EventsSnippet-line js-EventNewsfeedTransitions" data-place="<%= event.try(:place).try(:name) %>" data-address="<%= event.full_address %>" data-latitude="<%= event.latitude.blank? ? event.place.latitude : event.latitude %>" data-longitude="<%= event.longitude.blank? ? event.place.longitude : event.longitude %>" data-bus="<%= distance[:bus] %>min." data-car="<%= distance[:car] %>min." data-walk="<%= distance[:walk] %>" data-bike="<%= distance[:bike] %>min." data-letter="<%= event.id %>">
                   <%= link_to event_path(event), data: { push: true } do %>
-                      <div class="EventsSnippet-image" style="background-image: url('<%= event.image.url(:thumb) %>')"></div>
+                      <div class="EventsSnippet-image b-lazy" data-src="<%= event.image.url(:thumb) %>"></div>
                   <% end %>
                   <div class="EventsSnippet-linePrincipal u-sizeFull">
                 <span class="EventsSnippet-eventName">
