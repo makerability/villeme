@@ -9,7 +9,7 @@
     padding: 15px;
   }
 
-  &-infos {
+  &-infoGroup {
     display: none;
     color: scale_color($grey, $lightness: 20%);
     font-family: $font-family-default;
@@ -22,6 +22,12 @@
       margin: 0 6px 0 0;
       opacity: 0.75;
     }
+  }
+
+  &-infoList{
+    background: $grey-lightness;
+    border-top: 1px solid $border-color;
+    padding: 6px 15px;
   }
 
   &-icon {

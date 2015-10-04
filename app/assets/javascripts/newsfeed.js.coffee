@@ -69,7 +69,7 @@
         $(".SidebarMap-neighborhoodCount").hide()
 
         # mostra as infos
-        $(".SidebarMap-infos").filter(":not(:animated)").fadeIn 200
+        $(".SidebarMap-infoGroup").filter(":not(:animated)").fadeIn 200
 
         # mostra o nome do evento no mapa
         $(".SidebarMap-address").fadeIn("fast")
@@ -125,7 +125,7 @@
           return
 
         escondeInfos = ->
-          $(".SidebarMap-infos, .SidebarMap-address").hide()
+          $(".SidebarMap-infoGroup, .SidebarMap-address").hide()
           return
 
         timeouts.push(setTimeout(pan, 6500))

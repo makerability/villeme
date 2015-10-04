@@ -15,6 +15,25 @@ select > option {
     padding: 10px 8px;
 }
 
+
+.TransportBox{
+  overflow: hidden;
+
+  &-infoGroup {
+    color: scale_color($grey, $lightness: 20%);
+    font-family: $font-family-default;
+    font-size: 11px;
+    font-weight: 300;
+  }
+
+  &-infoList{
+    background: $grey-lightness;
+    border-top: 1px solid $border-color;
+    padding: 6px 15px;
+  }
+
+}
+
 .panel-body label{
 	color: $grey;
 	font-family: $font-family-default;
