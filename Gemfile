@@ -30,6 +30,7 @@ group :production do
 	gem 'rails_12factor'
 	gem 'iron_cache_rails'
 	gem 'informant-rails'
+	gem 'newrelic_rpm'
 end
 
 # URL bonita
@@ -122,8 +123,6 @@ gem 'koala', '~> 1.10.0rc'
 # System of rating
 gem 'ratyrate', github: 'jonatassalgado/ratyrate'
 
-# New relic web service
-gem 'newrelic_rpm'
 
 # Schedule functions
 gem 'whenever', require: false
