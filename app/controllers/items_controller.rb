@@ -236,15 +236,15 @@ class ItemsController < ApplicationController
         :longitude,
         :place_id,
         :price_id,
-        :persona_id,
-        :subcategory_id,
         :image,
         :link,
         :email,
         :phone,
         :allday,
         :type,
+        :subcategory_ids => [],
         :category_ids => [],
+        :persona_ids => [],
         :week_ids => []
     )
   end
