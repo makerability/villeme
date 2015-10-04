@@ -3,7 +3,7 @@
     <!-- HEAD -->
 
     <%= stylesheet_link_tag 'suit-components-grid/index.css', 'suit-utils-size/index.css', 'suit-utils-position/index.css', 'modules/Event' %>
-
+    <%= javascript_load_inline(['bLazy/blazy']) %>
 
     <!-- MAIN -->
 
@@ -13,7 +13,7 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <section class="Section" data-anchor="today">
+            <section class="Section">
 
               <div class="Section-header">
                 <h1 class="Section-title"><%= @text %></h1>
@@ -50,5 +50,5 @@
 <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller] %>
 
 <%= include_gon %>
-<%= javascript_load_dependencies(['gmap3', 'gmaps-builder-user'], sync: false) %>
-<%= javascript_load_content params[:controller], sync: false %>
+<%= javascript_load_dependencies(['gmap3'], sync: false) %>
+<%= javascript_load_content(['gmaps-builder-user', params[:controller]], sync: false) %>
