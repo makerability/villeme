@@ -373,6 +373,18 @@
           </div>
 
 
+          <!-- ADMIN -->
+
+          <% if current_or_guest_user.admin? %>
+          <div class="form-group has-helper">
+            <label class="control-label col-lg-3">Tipo</label>
+            <div class="col-lg-4">
+              <%= f.input :type, as: :select, input_html: {value: @item.type, class: 'form-control'}, collection: ['Event', 'Activity'], include_blank: false %>
+            </div>
+          </div>
+          <% end %>
+
+
 
 
 

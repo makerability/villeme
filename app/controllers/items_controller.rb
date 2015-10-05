@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
   # GET /events.json
   def index
     @items = get_item_class.all
-    render layout: 'centralize-lg', template: "#{get_item_route}/index"
+    render layout: 'full-width', template: "#{get_item_route}/index"
   end
 
 
