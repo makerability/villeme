@@ -5,7 +5,7 @@
     <% i += 1 %>
 
     <!-- pega a distância entre o evento e o user -->
-    <% distance = current_or_guest_user.distance_until(event, :minutes) %>
+    <% distance = current_or_guest_user.distance_until(event, :minutes) unless current_or_guest_user.guest? %>
 
     <% cache [current_user, event, event.agendas, event.rates_cache, I18n.locale], expires: 15.minutes do %>
 
@@ -22,7 +22,7 @@
           </div>
 
           <!-- TODO: Refactor this data informations in Event -->
-          <div class="js-EventNewsfeedTransitions panel panel-default shadow-animation" data-place="<%= event.try(:place).try(:name) %>" data-address="<%= event.full_address %>" data-latitude="<%= event.latitude.blank? ? event.place.latitude : event.latitude %>" data-longitude="<%= event.longitude.blank? ? event.place.longitude : event.longitude %>" data-bus="<%= distance[:bus] %>min." data-car="<%= distance[:car] %>min." data-walk="<%= distance[:walk] %>" data-bike="<%= distance[:bike] %>min." data-letter="<%= event.id %>">
+          <div class="js-EventNewsfeedTransitions panel panel-default shadow-animation" data-place="<%= event.try(:place).try(:name) %>" data-address="<%= event.full_address %>" data-latitude="<%= event.latitude.blank? ? event.place.latitude : event.latitude %>" data-longitude="<%= event.longitude.blank? ? event.place.longitude : event.longitude %>" data-bus="<%= distance[:bus] unless current_or_guest_user.guest? %>min." data-car="<%= distance[:car] unless current_or_guest_user.guest? %>min." data-walk="<%= distance[:walk] unless current_or_guest_user.guest? %>" data-bike="<%= distance[:bike] unless current_or_guest_user.guest? %>min." data-letter="<%= event.id %>">
             <div class="Event-content">
 
               <%= link_to event_path(event), data: { push: true } do %>
