@@ -77,7 +77,7 @@
         </div>
     <% end %>
 
-    <% if i == 2 and current_user.friends_from_facebook and current_or_guest_user.guest? == false %>
+    <% if FEATURE_FRIENDS_RANKING_SWITCH and i == 2 and current_user.friends_from_facebook and current_or_guest_user.guest? == false %>
         <div class="Grid-cell u-size4of12  height-325 grid" >
           <% cache [current_user, "friends_ranking"], expires: 1.hour, skip_digest: true do %>
               <%= render "newsfeed/friends_ranking" %>
