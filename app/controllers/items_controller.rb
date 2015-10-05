@@ -92,30 +92,15 @@ class ItemsController < ApplicationController
   # POST /events.json
   def create
     @item = current_user.items.create(item_params)
-    @item.type = get_item_class(text: true)
-    object_place_name = params[get_item_class(text: true).downcase][:place_attributes][:name]
-
-    if object_place_name
-
-      place = Place.find_by name: object_place_name
-
-      if place.nil?
-        place = current_user.places.new(name: object_place_name)
-        @item.copy_attributes_to place
-        @item.place = place
-      else
-        place.copy_attributes_to @item
-        @item.place = place
-      end
-
-    end
+    set_type_for_item
+    auto_moderate_if_admin
+    set_place_for_item
 
     if @item.save
       redirect_item_according_type
     else
       render action: 'new', alert: 'O evento não pode ser criado, arrume as informações abaixo.'
     end
-
   end
 
 
@@ -124,21 +109,9 @@ class ItemsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-
     @item.update_attributes(item_params)
-
-    object_place_name = params[get_item_class(text: true).downcase][:place_attributes][:name]
-
-    place = Place.find_by(name: object_place_name)
-
-    if place.nil?
-      place = current_user.places.new(name: object_place_name)
-      @item.copy_attributes_to place
-      @item.place = place
-    else
-      place.copy_attributes_to @item
-      @item.place = place
-    end
+    auto_moderate_if_admin
+    set_place_for_item
 
     if @item.save
       redirect_item_according_type
@@ -249,6 +222,28 @@ class ItemsController < ApplicationController
     )
   end
 
+  def set_type_for_item
+    @item.type = get_item_class(text: true)
+  end
+
+  def auto_moderate_if_admin
+    @item.moderate = 1 if current_or_guest_user.admin?
+  end
+
+  def set_place_for_item
+    object_place_name = params[get_item_class(text: true).downcase][:place_attributes][:name]
+    if object_place_name
+      place = Place.find_by name: object_place_name
+      if place.nil?
+        place = current_user.places.new(name: object_place_name)
+        @item.copy_attributes_to place
+        @item.place = place
+      else
+        place.copy_attributes_to @item
+        @item.place = place
+      end
+    end
+  end
 
 
 
