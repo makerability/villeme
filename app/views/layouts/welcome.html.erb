@@ -259,7 +259,7 @@
 
 
 
-<% if FEATURE_TRY_VILLEME_SWITCH and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
+<% if FEATURE_TRY_VILLEME_SWITCH and Item.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
     <div class="row">
       <div class="col-lg-12 u-centralize">
         <div class="MoreInfo">
