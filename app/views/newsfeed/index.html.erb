@@ -14,6 +14,16 @@
 
           <div id="main-content" class="Main ps-container">
 
+            <%= javascript_include_tag 'riot/riot.min', 'components/items.js', 'components/item.js' %>
+
+            <items></items>
+
+
+
+            <script>
+                riot.mount('items, item', { items: <%= raw @items_json['today']['preview'].to_json %>})
+            </script>
+
             <%= render 'items_section', events: @items[:today] unless @items[:today][:preview].blank? %>
 
             <%= render 'items_section', events: @activities[:today] unless @activities[:today][:preview].blank? %>
@@ -47,8 +57,10 @@
 
 <!-- JS/CSS SECONDARIES -->
 
+
 <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller] %>
 
 <%= include_gon %>
+
 <%= javascript_load_dependencies(['bLazy/blazy', 'gmap3'], sync: false) %>
 <%= javascript_load_content ['gmaps-builder-user', params[:controller]], sync: false %>
