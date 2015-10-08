@@ -12,7 +12,10 @@ module Villeme
               fun: create_section_fun_events(city),
               education: create_section_education_events(city),
               health: create_section_health_events(city),
-              trends: create_section_trends_events(city)
+              trends: create_section_trends_events(city),
+              policies: {
+                  is_guest_user: user.guest?
+              }
           }
 
           options[:json] ? data.as_json : data
@@ -31,12 +34,13 @@ module Villeme
               snippet: events_all_today[2...12],
               count: events_all_today.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: city, type: 'Event'),
+              link_to_create: 'events/new',
               city_name: city.name,
               type: 'today'
           }
         end
 
-        def create_section_persona_events(personas, city, options = {user: nil, limit: nil, upcoming: true, json: false})
+        def create_section_persona_events(personas, city, options = {user: nil, upcoming: true, json: false, limit: nil})
           events_all_persona = Event.all_persona_in_city(personas, city, options)
 
           {
@@ -45,6 +49,7 @@ module Villeme
               snippet: events_all_persona[2..12],
               count: events_all_persona.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: city, personas: personas.join('+')),
+              link_to_create: 'events/new',
               type: 'persona'
           }
         end

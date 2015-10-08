@@ -36,27 +36,26 @@
 <!-- JS/CSS SECONDARIES -->
 
 
-    <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller] %>
+    <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', 'modules/EventsSnippet', params[:controller] %>
 
     <%= include_gon %>
 
-    <%= javascript_load_dependencies(['gmap3', 'gmaps-builder-user', 'bLazy/blazy'], sync: false) %>
     <%= javascript_load_dependencies(['riot/riot.min', 'components/items.js', 'components/item.js'], sync: false) %>
-    <%= javascript_load_content [params[:controller]], sync: false %>
 
     <% content_for :mount_riot_components do %>
         <script type="text/javascript">
           $(document).on('ready page:done', function(){
               riot.mount('#today', {
-                  items: <%= raw @items_json['today']['preview'].to_json %>,
-                  title: <%= raw @items_json['today']['title'].to_json %>,
-                  type: <%= raw @items_json['today']['type'].to_json %>
+                  data: <%= raw @items_json['today'].to_json %>,
+                  policies: <%= raw @items_json['policies'].to_json %>
               });
               riot.mount('#persona', {
-                  items: <%= raw @items_json['persona']['preview'].to_json %>,
-                  title: <%= raw @items_json['persona']['title'].to_json %>,
-                  type: <%= raw @items_json['persona']['type'].to_json %>
-              });
+                  data: <%= raw @items_json['persona'].to_json %>,
+                  policies: <%= raw @items_json['policies'].to_json %>
+              })
           })
         </script>
     <% end %>
+
+    <%= javascript_load_dependencies(['gmap3', 'gmaps-builder-user', 'bLazy/blazy'], sync: false) %>
+    <%= javascript_load_content [params[:controller]], sync: false %>

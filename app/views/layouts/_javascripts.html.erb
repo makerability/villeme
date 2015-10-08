@@ -39,6 +39,11 @@
     <%= yield :javascript_load_dependencies %>
 <% end %>
 
+<!-- Mount Riot Components -->
+<% if content_for?(:mount_riot_components) %>
+    <%= yield :mount_riot_components %>
+<% end %>
+
 <!-- Content - essential to show something very important -->
 <% if content_for?(:javascript_load_inline) %>
     <script type="text/javascript">
@@ -51,7 +56,3 @@
     <%= yield :javascript_load_content %>
 <% end %>
 
-<!-- Mount Riot Components -->
-<% if content_for?(:mount_riot_components) %>
-    <%= yield :mount_riot_components %>
-<% end %>
