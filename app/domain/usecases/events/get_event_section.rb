@@ -8,8 +8,8 @@ module Villeme
               all: get_section_all_events(city),
               today: get_section_today_events(city, user: user, json: options[:json]),
               persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json]),
-              neighborhood: create_section_neighborhood_events(user.neighborhood),
-              fun: create_section_fun_events(city),
+              neighborhood: create_section_neighborhood_events(user.neighborhood, user: user, json: options[:json]),
+              fun: create_section_fun_events(city, user: user, json: options[:json]),
               education: create_section_education_events(city),
               health: create_section_health_events(city),
               trends: create_section_trends_events(city),
@@ -54,22 +54,23 @@ module Villeme
           }
         end
 
-        def create_section_neighborhood_events(neighborhood, options = {limit: nil})
-          events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options).upcoming
+        def create_section_neighborhood_events(neighborhood, options = {user: nil, upcoming: true, json: false, limit: nil})
+          events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options)
           {
               title: "Eventos acontecendo no bairro #{neighborhood.name}",
               preview: events_all_neighborhood[0...2],
               snippet: events_all_neighborhood[2...12],
               count: events_all_neighborhood.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(city: neighborhood.city, neighborhood: neighborhood),
+              link_to_create: 'events/new',
               neighborhood_name: neighborhood.name,
               type: 'neighborhood'
           }
 
         end
 
-        def create_section_fun_events(city, options = {limit: nil})
-          events_all_fun = Event.all_fun_in_city(city, options).upcoming
+        def create_section_fun_events(city, options = {user: nil, upcoming: nil, json: false, limit: nil})
+          events_all_fun = Event.all_fun_in_city(city, options)
 
           {
               title: "Eventos para se divertir",
@@ -77,6 +78,7 @@ module Villeme
               snippet: events_all_fun[2...12],
               count: events_all_fun.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:fun].map(&:capitalize), key: false)),
+              link_to_create: 'events/new',
               type: 'fun'
           }
         end

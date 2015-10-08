@@ -132,9 +132,7 @@ class Item < ActiveRecord::Base
 							end
 
 			if options[:json]
-				response = []
-				items.each { |item| response << Item.to_json(item, user: options[:user]) }
-				return response
+				return items_to_json(items, options)
 			else
 				return items
 			end
@@ -143,31 +141,77 @@ class Item < ActiveRecord::Base
 		end
 	end
 
-	def self.all_categories_in_city(categories, city, options = {limit: false})
+	def self.items_to_json(items, options)
+		if items.empty?
+			return Item.none
+		else
+			response = []
+			items.each { |item| response << Item.to_json(item, user: options[:user]) }
+			return response
+		end
+	end
+
+	def self.all_categories_in_city(categories, city, options = {upcoming: true, limit: false})
 		if options[:limit] and city.try(:items)
-			city.items.includes(:categories).where(categories: { name: categories }).limit(options[:limit])
+			if options[:upcoming]
+				city.items.includes(:categories).where(categories: { name: categories }).limit(options[:limit]).upcoming
+			else
+				city.items.includes(:categories).where(categories: { name: categories }).limit(options[:limit])
+			end
 		elsif city.try(:items)
-			city.items.includes(:categories).where(categories: { name: categories })
+			if options[:upcoming]
+				city.items.includes(:categories).where(categories: { name: categories }).upcoming
+			else
+				city.items.includes(:categories).where(categories: { name: categories })
+			end
 		else
 			Item.none
 		end
 	end
 
-	def self.all_in_neighborhood(neighborhood, limit: false)
-		if limit and neighborhood.try(:events)
-			neighborhood.events.limit(limit)
-		elsif neighborhood.try(:events)
-			neighborhood.events
+	def self.all_in_neighborhood(neighborhood, options = {user: nil, upcoming: true, json: false, limit: false})
+		items = if options[:limit] and neighborhood.try(:events)
+							if options[:upcoming]
+								neighborhood.events.limit(options[:limit]).upcoming
+							else
+								neighborhood.events.limit(options[:limit])
+							end
+						elsif neighborhood.try(:events)
+							if options[:upcoming]
+								neighborhood.events.upcoming
+							else
+								neighborhood.events
+							end
+						else
+							Event.none
+						end
+
+		if options[:json]
+			return items_to_json(items, options)
 		else
-			Event.none
+			return items
 		end
 	end
 
-	def self.all_fun_in_city(city, limit: false)
-		if limit
-			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).limit(limit)
+	def self.all_fun_in_city(city, options = {user: nil, upcoming: true, json: false, limit: false})
+		items = if options[:limit]
+							if options[:upcoming]
+								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).limit(options[:limit]).upcoming
+							else
+								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).limit(options[:limit])
+							end
+						else
+							if options[:upcoming]
+								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).upcoming
+							else
+								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]})
+							end
+						end
+
+		if options[:json]
+			return items_to_json(items, options)
 		else
-			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun] })
+			return items
 		end
 	end
 

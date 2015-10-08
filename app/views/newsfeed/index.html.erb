@@ -16,7 +16,8 @@
 
             <items id="today"></items>
             <items id="persona"></items>
-
+            <items id="neighborhood"></items>
+            <items id="fun"></items>
           </div>
         </div>
 
@@ -51,6 +52,14 @@
               });
               riot.mount('#persona', {
                   data: <%= raw @items_json['persona'].to_json %>,
+                  policies: <%= raw @items_json['policies'].to_json %>
+              });
+              riot.mount('#neighborhood', {
+                  data: <%= raw @items_json['neighborhood'].to_json %>,
+                  policies: <%= raw @items_json['policies'].to_json %>
+              });
+              riot.mount('#fun', {
+                  data: <%= raw @items_json['fun'].to_json %>,
                   policies: <%= raw @items_json['policies'].to_json %>
               })
           })

@@ -31,7 +31,7 @@
         <div class="EventsSnippet-content">
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">
-              <li each={ opts.data.preview } class="EventsSnippet-line js-EventNewsfeedTransitions">
+              <li each={ opts.data.snippet } class="EventsSnippet-line js-EventNewsfeedTransitions">
                 <a href="">
                   <div class="EventsSnippet-image b-lazy" data-src="{ image }"></div>
                 </a>
