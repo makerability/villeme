@@ -8,9 +8,7 @@
 
     <span onclick={ schedule } class="Event-button Event-agendaButton js-EventAgendaButton { is-schedule: scheduled }">
     <span class="Event-buttonText js-EventButtonText">{ button_text }</span>
-      <span class="Event-agendedByCount js-agendedByCount has-tooltip" title="{ agended_by.text }">
-        { agended_by.count }
-      </span>
+      <span class="Event-agendedByCount js-agendedByCount has-tooltip" title="{ agended_by.text }">{agended_by.count}</span>
     </span>
 
   </div>
