@@ -12,15 +12,13 @@
     Inicia as funções
     ###
     init: ->
-      Newsfeed.eventEvents()
+#      Newsfeed.eventEvents()
       Newsfeed.userEvent()
-      Newsfeed.bLazy()
+#      Newsfeed.bLazy()
       Newsfeed.createMap()
       Newsfeed.fixingMapOnScroll()
       Newsfeed.sidebarLeftLinksAnimation()
       return
-
-
 
     createMap: ->
       $(document).on 'ready page:done', ->
@@ -210,6 +208,10 @@
           else
           return
       )
+
+      $(document).on 'page:done', ->
+        bLazy.revalidate()
+        return
 
       return
 

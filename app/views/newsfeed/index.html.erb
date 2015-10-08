@@ -1,4 +1,4 @@
-<% cache [cache_key_for_events, params], expires: 15.minutes do %>
+
 
     <!-- HEAD -->
 
@@ -14,30 +14,8 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <%= javascript_include_tag 'riot/riot.min', 'components/items.js', 'components/item.js' %>
-
-            <items></items>
-
-
-
-            <script>
-                riot.mount('items, item', { items: <%= raw @items_json['today']['preview'].to_json %>})
-            </script>
-
-            <%= render 'items_section', events: @items[:today] unless @items[:today][:preview].blank? %>
-
-            <%= render 'items_section', events: @activities[:today] unless @activities[:today][:preview].blank? %>
-
-            <%= render 'items_section', events: @items[:persona] unless @items[:persona][:preview].blank? %>
-
-            <%= render 'items_section', events: @items[:neighborhood] unless @items[:neighborhood][:preview].blank? %>
-
-            <%= render 'items_section', events: @items[:fun] unless @items[:fun][:preview].blank? %>
-
-            <%= render 'items_section', events: @items[:education] unless @items[:education][:preview].blank? %>
-
-            <%= render 'items_section', events: @items[:health] unless @items[:health][:preview].blank? %>
-
+            <items id="today"></items>
+            <items id="persona"></items>
 
           </div>
         </div>
@@ -53,14 +31,32 @@
     </div>
 
 
-<% end %>
+
 
 <!-- JS/CSS SECONDARIES -->
 
 
-<%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller] %>
+    <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller] %>
 
-<%= include_gon %>
+    <%= include_gon %>
 
-<%= javascript_load_dependencies(['bLazy/blazy', 'gmap3'], sync: false) %>
-<%= javascript_load_content ['gmaps-builder-user', params[:controller]], sync: false %>
+    <%= javascript_load_dependencies(['gmap3', 'gmaps-builder-user', 'bLazy/blazy'], sync: false) %>
+    <%= javascript_load_dependencies(['riot/riot.min', 'components/items.js', 'components/item.js'], sync: false) %>
+    <%= javascript_load_content [params[:controller]], sync: false %>
+
+    <% content_for :mount_riot_components do %>
+        <script type="text/javascript">
+          $(document).on('ready page:done', function(){
+              riot.mount('#today', {
+                  items: <%= raw @items_json['today']['preview'].to_json %>,
+                  title: <%= raw @items_json['today']['title'].to_json %>,
+                  type: <%= raw @items_json['today']['type'].to_json %>
+              });
+              riot.mount('#persona', {
+                  items: <%= raw @items_json['persona']['preview'].to_json %>,
+                  title: <%= raw @items_json['persona']['title'].to_json %>,
+                  type: <%= raw @items_json['persona']['type'].to_json %>
+              });
+          })
+        </script>
+    <% end %>

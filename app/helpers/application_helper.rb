@@ -31,18 +31,19 @@ module ApplicationHelper
 			response += javascript_include_tag(files_array, sync: options[:sync])
 		end
 
-		if self.request.wiselinks?
-			response.html_safe
-		else
 			content_for(:javascript_load_dependencies) { response.html_safe }
-		end
+
 	end
 
 	def javascript_load_inline(files = [])
-		content_for(:javascript_load_inline) do
-			files.each do |name_of_file|
-				"<script type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</script>".html_safe
+		if files.is_a? Array
+			content_for(:javascript_load_inline) do
+				files.each do |name_of_file|
+					"<script type='text/javascript'>#{Rails.application.assets.find_asset("#{name_of_file}.js").to_s}</script>".html_safe
+				end
 			end
+		else
+
 		end
 	rescue
 		nil
@@ -57,13 +58,11 @@ module ApplicationHelper
 			response += javascript_include_tag(files_array, sync: options[:sync])
 		end
 
-		if self.request.wiselinks?
-			response.html_safe
-		else
+
 			content_for(:javascript_load_content) do
 				response.html_safe
 			end
-		end
+
 
 	end
 

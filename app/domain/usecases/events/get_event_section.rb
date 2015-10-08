@@ -3,39 +3,41 @@ module Villeme
     class GetEventsSection
       class << self
 
-        def get_all_sections(city, user)
-          {
+        def get_all_sections(city, user, options = {json: false})
+          data = {
               all: get_section_all_events(city),
-              today: get_section_today_events(city: city),
-              persona: create_section_persona_events(user.personas_name, city),
+              today: get_section_today_events(city, user: user, json: options[:json]),
+              persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json]),
               neighborhood: create_section_neighborhood_events(user.neighborhood),
               fun: create_section_fun_events(city),
               education: create_section_education_events(city),
               health: create_section_health_events(city),
               trends: create_section_trends_events(city)
           }
+
+          options[:json] ? data.as_json : data
         end
 
         def get_section_all_events(city)
           city.events.upcoming
         end
 
-        def get_section_today_events(options = {city: false, limit: nil})
-          events_all_today = Event.all_today(options)
+        def get_section_today_events(city = false, options = {user: nil, json: false, limit: nil})
+          events_all_today = Event.all_today(city, options)
 
           {
-              title: "Eventos acontecendo hoje em #{options[:city].name}",
+              title: "Eventos acontecendo hoje em #{city.name}",
               preview: events_all_today[0...2],
               snippet: events_all_today[2...12],
               count: events_all_today.count,
-              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: options[:city], type: 'Event'),
-              city_name: options[:city].name,
+              link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: city, type: 'Event'),
+              city_name: city.name,
               type: 'today'
           }
         end
 
-        def create_section_persona_events(personas, city, options = {limit: nil})
-          events_all_persona = Event.all_persona_in_city(personas, city, options).upcoming
+        def create_section_persona_events(personas, city, options = {user: nil, limit: nil, upcoming: true, json: false})
+          events_all_persona = Event.all_persona_in_city(personas, city, options)
 
           {
               title: "Eventos indicados para você",

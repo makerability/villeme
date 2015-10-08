@@ -50,3 +50,8 @@
 <% if content_for?(:javascript_load_content) %>
     <%= yield :javascript_load_content %>
 <% end %>
+
+<!-- Mount Riot Components -->
+<% if content_for?(:mount_riot_components) %>
+    <%= yield :mount_riot_components %>
+<% end %>

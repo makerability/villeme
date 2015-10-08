@@ -65,31 +65,79 @@ class Item < ActiveRecord::Base
 		where('date_start >= ? AND date_finish >= ? AND moderate = 1 OR date_start <= ? AND date_finish >= ? AND moderate = 1', Date.current - 30, Date.current, Date.current, Date.current).order("CASE WHEN persona_id IS NULL THEN 1 ELSE 0 END, persona_id = #{user.try(:persona_id)} DESC, date_start ASC")
 	}
 
-	def self.all_today(options = Hash(city: false, type: false, limit: false))
+	def self.to_json(event, options = {user: nil})
+		distance = options[:user].distance_until(event, :minutes)
+		{
+				id: event.slug,
+				name: event.name,
+				description: event.description_with_limit,
+				latitude: event.latitude.blank? ? event.place.latitude : event.latitude,
+				longitude: event.longitude.blank? ? event.place.longitude : event.longitude,
+				full_address: event.full_address,
+				link: "events/#{event.slug}",
+				subcategories: event.subcategories.try(:first).try(:name),
+				day_of_week: event.day_of_week,
+				start_hour: event.start_hour,
+				image: event.image.url(:thumb),
+				price: event.price[:value],
+				rating: event.rates_media,
+				distance: {
+						bus: options[:user].guest? ? nil : "#{distance[:bus]}min.",
+						car: options[:user].guest? ? nil : "#{distance[:car]}min.",
+						walk: options[:user].guest? ? nil : "#{distance[:walk]}",
+						bike: options[:user].guest? ? nil : "#{distance[:bike]}min.",
+				},
+				agended_by: {
+						count: event.agended_by_count[:count],
+						text: event.agended_by_count[:text]
+				},
+				place: {
+						name: event.place.try(:name),
+						link: "places/#{event.place.id}"
+				},
+				actions: {
+						schedule: "items/#{event.try(:slug)}/schedule",
+				},
+				is_agended: event.agended?(options[:user])
+
+		}
+	end
+
+	def self.all_today(options = {city: false, type: false, limit: false})
+		response = []
+
 		events = if options[:city]
 							 options[:city].items.includes(:weeks, :agendas, :place, :subcategories)
 						 else
 							 self.all.includes(:weeks, :agendas, :place, :subcategories)
 						 end
 
-		i = 0
-		response = []
-
 		events.each do |event|
 			if event.today?
-				i == options[:limit] ? break : i += 1 if options[:limit]
 				response << event
 			end
 		end
 
-		response
+		return response
 	end
 
-	def self.all_persona_in_city(personas, city, options = {limit: false})
-		if options[:limit] and city.try(:events)
+	def self.all_persona_in_city(personas, city, options = {limit: false, user: nil, upcoming: true, json: false})
+		if options[:limit] and city.try(:items)
 			city.items.includes(:personas).where(personas: { name: personas }).limit(options[:limit])
 		elsif city.try(:items)
-			city.items.includes(:personas).where(personas: { name: personas })
+			items = if options[:upcoming]
+								city.items.includes(:personas).where(personas: {name: personas}).upcoming
+							else
+								city.items.includes(:personas).where(personas: {name: personas})
+							end
+
+			if options[:json]
+				response = []
+				items.each { |item| response << Item.to_json(item, user: options[:user]) }
+				return response
+			else
+				return items
+			end
 		else
 			Item.none
 		end
@@ -147,7 +195,15 @@ class Item < ActiveRecord::Base
 		end
 	end
 
-
+	def agended?(user)
+		if user.nil?
+			false
+		elsif user.agenda_items.include?(self)
+			true
+		else
+			false
+		end
+	end
 
 	def name_with_limit
 		Villeme::UseCases::EventAttributes.name_with_limit(self)
@@ -263,5 +319,3 @@ class Item < ActiveRecord::Base
 
 
 end
-
-
