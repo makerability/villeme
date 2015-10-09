@@ -6,7 +6,7 @@
 
     <!-- MAIN -->
 
-    <%= render 'layouts/sidebar_left' %>
+    <sidebar-left></sidebar-left>
 
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
       <div class="row">
@@ -44,7 +44,7 @@
 
     <%= include_gon %>
 
-    <%= javascript_load_dependencies(['riot/riot.min', 'components/items-section.js', 'components/item.js'], sync: false) %>
+    <%= javascript_load_dependencies(['riot/riot.min', 'components/items-section.js', 'components/item.js', 'components/sidebar-left.js'], sync: false) %>
 
     <% content_for :mount_riot_components do %>
         <script type="text/javascript">
@@ -76,7 +76,23 @@
               riot.mount('#health', {
                   data: <%= raw @items_json['health'].to_json %>,
                   policies: <%= raw @items_json['policies'].to_json %>
-              })
+              });
+              riot.mount('sidebar-left',
+                      {
+                          "today":<%= raw @items_json['today']['count'].to_json %>,
+                          "persona":<%= raw @items_json['persona']['count'].to_json %>,
+                          "activities_today":<%= raw @activities_json['today']['count'].to_json %>,
+                          "neighborhood":<%= raw @items_json['neighborhood']['count'].to_json %>,
+                          "fun":<%= raw @items_json['fun']['count'].to_json %>,
+                          "education":<%= raw @items_json['education']['count'].to_json %>,
+                          "health":<%= raw @items_json['health']['count'].to_json %>,
+                          "current_user": {
+                              "username":"<%= current_or_guest_user.username %>",
+                              "is_guest":<%= raw @items_json['policies']['is_guest_user'].to_json %>,
+                              "agenda_items":<%= current_or_guest_user.agenda_items.upcoming.count %>
+                          }
+                      }
+              )
           })
         </script>
     <% end %>

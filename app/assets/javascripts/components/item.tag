@@ -165,7 +165,7 @@
       };
 
       _updateStateOfAllItemsButtons = function(data){
-        var _buttonText, _item
+        var _buttonText, _item;
         _buttonText = data.agended ? 'Agendado' : 'Agendar';
         _item = ".item-" + item.id;
 
