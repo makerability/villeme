@@ -9,9 +9,9 @@ module Villeme
               today: get_section_today_events(city, user: user, json: options[:json]),
               persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json]),
               neighborhood: create_section_neighborhood_events(user.neighborhood, user: user, json: options[:json]),
-              fun: create_section_fun_events(city, user: user, json: options[:json]),
-              education: create_section_education_events(city),
-              health: create_section_health_events(city),
+              fun: create_section_fun_events(city, user: user, json: options[:json], slug: true),
+              education: create_section_education_events(city, user: user, json: options[:json], slug: true),
+              health: create_section_health_events(city, user: user, json: options[:json], slug: true),
               trends: create_section_trends_events(city),
               policies: {
                   is_guest_user: user.guest?
@@ -69,8 +69,8 @@ module Villeme
 
         end
 
-        def create_section_fun_events(city, options = {user: nil, upcoming: nil, json: false, limit: nil})
-          events_all_fun = Event.all_fun_in_city(city, options)
+        def create_section_fun_events(city, options = {user: nil, upcoming: true, json: false, slug: true, limit: nil})
+          events_all_fun = Event.all_categories_in_city(Newsfeed.configs[:sections][:fun], city, options)
 
           {
               title: "Eventos para se divertir",
@@ -83,8 +83,8 @@ module Villeme
           }
         end
 
-        def create_section_education_events(city, options = {limit: nil})
-          events_all_education = Event.all_education_in_city(city, options).upcoming
+        def create_section_education_events(city, options = {user: nil, upcoming: true, json: false, slug: true, limit: nil})
+          events_all_education = Event.all_categories_in_city(Newsfeed.configs[:sections][:education], city, options)
 
           {
               title: "Eventos para aprender algo novo",
@@ -92,12 +92,13 @@ module Villeme
               snippet: events_all_education[2...12],
               count: events_all_education.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:education].map(&:capitalize), key: false)),
+              link_to_create: 'events/new',
               type: 'learn'
           }
         end
 
-        def create_section_health_events(city, options = {limit: nil})
-          events_all_health = Event.all_health_in_city(city, options).upcoming
+        def create_section_health_events(city, options = {user: nil, upcoming: true, json: false, slug: true, limit: nil})
+          events_all_health = Event.all_categories_in_city(Newsfeed.configs[:sections][:health], city, options)
 
           {
               title: "Eventos para cuidar da saude",
@@ -110,7 +111,7 @@ module Villeme
         end
 
         # TODO: Create a route system to trends events
-        def create_section_trends_events(city, options = {limit: nil})
+        def create_section_trends_events(city, options = {user: nil, upcoming: nil, json: false, slug: true, limit: nil})
           events_all_trends = Event.all_trends_in_city(city, options).upcoming
 
           {

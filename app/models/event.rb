@@ -1,6 +1,6 @@
 class Event < Item
 
-  def self.all_today(city = false, options = {limit: false, user: nil, json: false})
+  def self.all_today(city = false, options = {user: nil, json: false, limit: false})
     response = []
 
     events = if city

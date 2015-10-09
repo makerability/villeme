@@ -174,25 +174,26 @@
 
 
     sidebarLeftLinksAnimation: ->
-      $('.SidebarLeft-nav a').on 'click', ->
-        scrollAnchor = $(this).attr('data-scroll')
-        scrollPoint = $('section[data-anchor="' + scrollAnchor + '"]').offset().top - 85
-        $('body,html').animate { scrollTop: scrollPoint }, 500
-        false
-      $(window).scroll(->
-        windscroll = $(window).scrollTop()
-        if windscroll >= 110
-          $('.Main section').each (i) ->
-            if $(this).position().top <= windscroll + 25
-              $('.SidebarLeft-nav a.is-active').removeClass 'is-active'
-              $('.SidebarLeft-nav a').eq(i).addClass 'is-active'
-            return
-        else
-          $('.SidebarLeft-nav a.is-active').removeClass 'is-active'
-          $('.SidebarLeft-nav a:first').addClass 'is-active'
+      $(document).on 'ready page:done', ->
+        $('.SidebarLeft-nav a').on 'click', ->
+          scrollAnchor = $(this).attr('data-scroll')
+          scrollPoint = $('section[data-anchor="' + scrollAnchor + '"]').offset().top - 85
+          $('body,html').animate { scrollTop: scrollPoint }, 500
+          false
+        $(window).scroll(->
+          windscroll = $(window).scrollTop()
+          if windscroll >= 110
+            $('.Main section').each (i) ->
+              if $(this).position().top <= windscroll + 25
+                $('.SidebarLeft-nav a.is-active').removeClass 'is-active'
+                $('.SidebarLeft-nav a').eq(i).addClass 'is-active'
+              return
+          else
+            $('.SidebarLeft-nav a.is-active').removeClass 'is-active'
+            $('.SidebarLeft-nav a:first').addClass 'is-active'
+          return
+        ).scroll()
         return
-      ).scroll()
-
       return
 
     bLazy: ->

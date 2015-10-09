@@ -1,23 +1,22 @@
 class Activity < Item
 
-  def self.all_today(options = Hash(city: false, limit: false))
-    activities = if options[:city]
-               options[:city].activities.includes(:weeks, :agendas, :place, :subcategories)
-             else
-               self.all.includes(:weeks, :agendas, :place, :subcategories)
-             end
-
-    i = 0
+  def self.all_today(city = false, options = {user: nil, json: false, limit: false})
     response = []
+
+    activities = if city
+                   city.activities.includes(:weeks, :agendas, :place, :subcategories)
+                 else
+                   self.all.includes(:weeks, :agendas, :place, :subcategories)
+                 end
 
     activities.each do |activity|
       if activity.today?
-        i == options[:limit] ? break : i += 1 if options[:limit]
+        activity = Item.to_json(activity, options) if options[:json]
         response << activity
       end
     end
 
-    response
+    return response
   end
 
 end

@@ -38,7 +38,7 @@ class NewsfeedController < ApplicationController
       @city = City.find_by(slug: params[:city])
       @items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
       @items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true)
-      @activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user)
+      @activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true)
       @number_of_events = @items[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."
       @feedback = Feedback.new
@@ -65,7 +65,7 @@ class NewsfeedController < ApplicationController
   def persona
     @city = City.find_by(slug: params[:city])
     personas = Persona.query_to_array(params[:personas])
-    @items = Event.all_persona_in_city(personas, @city).upcoming
+    @items = Event.all_persona_in_city(personas, @city)
     @text = "Eventos indicados para você"
     set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'
@@ -82,7 +82,7 @@ class NewsfeedController < ApplicationController
   def category
     @city = City.find_by(slug: params[:city])
     categories = Category.query_to_array(params[:categories])
-    @items = Event.all_categories_in_city(categories, @city).upcoming
+    @items = Event.all_categories_in_city(categories, @city)
     @text = "Eventos nas categorias #{params[:categories]}"
     set_items_in_map(current_or_guest_user, @items)
     render :section, layout: 'main_and_right_sidebar'

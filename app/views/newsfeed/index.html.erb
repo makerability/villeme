@@ -16,8 +16,11 @@
 
             <items id="today"></items>
             <items id="persona"></items>
+            <items id="ativities-today"></items>
             <items id="neighborhood"></items>
             <items id="fun"></items>
+            <items id="education"></items>
+            <items id="health"></items>
           </div>
         </div>
 
@@ -54,12 +57,24 @@
                   data: <%= raw @items_json['persona'].to_json %>,
                   policies: <%= raw @items_json['policies'].to_json %>
               });
+              riot.mount('#ativities-today', {
+                  data: <%= raw @activities_json['today'].to_json %>,
+                  policies: <%= raw @activities_json['policies'].to_json %>
+              });
               riot.mount('#neighborhood', {
                   data: <%= raw @items_json['neighborhood'].to_json %>,
                   policies: <%= raw @items_json['policies'].to_json %>
               });
               riot.mount('#fun', {
                   data: <%= raw @items_json['fun'].to_json %>,
+                  policies: <%= raw @items_json['policies'].to_json %>
+              });
+              riot.mount('#education', {
+                  data: <%= raw @items_json['education'].to_json %>,
+                  policies: <%= raw @items_json['policies'].to_json %>
+              });
+              riot.mount('#health', {
+                  data: <%= raw @items_json['health'].to_json %>,
                   policies: <%= raw @items_json['policies'].to_json %>
               })
           })

@@ -65,22 +65,27 @@ class Item < ActiveRecord::Base
 		where('date_start >= ? AND date_finish >= ? AND moderate = 1 OR date_start <= ? AND date_finish >= ? AND moderate = 1', Date.current - 30, Date.current, Date.current, Date.current).order("CASE WHEN persona_id IS NULL THEN 1 ELSE 0 END, persona_id = #{user.try(:persona_id)} DESC, date_start ASC")
 	}
 
-	def self.to_json(event, options = {user: nil})
-		distance = options[:user].distance_until(event, :minutes)
+	def self.to_json(item, options = {user: nil})
+		distance = options[:user].distance_until(item, :minutes)
+		action = case item.type
+							 when 'Event' then 'events'
+							 when 'Activity' then 'activities'
+							 else 'items'
+						 end
 		{
-				id: event.slug,
-				name: event.name,
-				description: event.description_with_limit,
-				latitude: event.latitude.blank? ? event.place.latitude : event.latitude,
-				longitude: event.longitude.blank? ? event.place.longitude : event.longitude,
-				full_address: event.full_address,
-				link: "events/#{event.slug}",
-				subcategories: event.subcategories.try(:first).try(:name),
-				day_of_week: event.day_of_week,
-				start_hour: event.start_hour,
-				image: event.image.url(:thumb),
-				price: event.price[:value],
-				rating: event.rates_media,
+				id: item.slug,
+				name: item.name,
+				description: item.description_with_limit,
+				latitude: item.latitude.blank? ? item.place.latitude : item.latitude,
+				longitude: item.longitude.blank? ? item.place.longitude : item.longitude,
+				full_address: item.full_address,
+				link: "#{action}/#{item.slug}",
+				subcategories: item.subcategories.try(:first).try(:name),
+				day_of_week: item.day_of_week,
+				start_hour: item.start_hour,
+				image: item.image.url(:thumb),
+				price: item.price[:value],
+				rating: item.rates_media,
 				distance: {
 						bus: options[:user].guest? ? nil : "#{distance[:bus]}min.",
 						car: options[:user].guest? ? nil : "#{distance[:car]}min.",
@@ -88,17 +93,17 @@ class Item < ActiveRecord::Base
 						bike: options[:user].guest? ? nil : "#{distance[:bike]}min.",
 				},
 				agended_by: {
-						count: event.agended_by_count[:count],
-						text: event.agended_by_count[:text]
+						count: item.agended_by_count[:count],
+						text: item.agended_by_count[:text]
 				},
 				place: {
-						name: event.place.try(:name),
-						link: "places/#{event.place.id}"
+						name: item.place.try(:name),
+						link: "places/#{item.place.id}"
 				},
 				actions: {
-						schedule: "items/#{event.try(:slug)}/schedule",
+						schedule: "items/#{item.try(:slug)}/schedule",
 				},
-				is_agended: event.agended?(options[:user])
+				is_agended: item.agended?(options[:user])
 
 		}
 	end
@@ -151,21 +156,29 @@ class Item < ActiveRecord::Base
 		end
 	end
 
-	def self.all_categories_in_city(categories, city, options = {upcoming: true, limit: false})
-		if options[:limit] and city.try(:items)
-			if options[:upcoming]
-				city.items.includes(:categories).where(categories: { name: categories }).limit(options[:limit]).upcoming
-			else
-				city.items.includes(:categories).where(categories: { name: categories }).limit(options[:limit])
-			end
-		elsif city.try(:items)
-			if options[:upcoming]
-				city.items.includes(:categories).where(categories: { name: categories }).upcoming
-			else
-				city.items.includes(:categories).where(categories: { name: categories })
-			end
+	def self.all_categories_in_city(categories, city, options = {user: nil, slug: false, upcoming: true, json: false, limit: false})
+		name_or_slug_key = options[:slug] ? { slug: categories } : { name: categories }
+
+		items = if options[:limit] and city.try(:items)
+							if options[:upcoming]
+								city.items.includes(:categories).where(categories: name_or_slug_key).limit(options[:limit]).upcoming
+							else
+								city.items.includes(:categories).where(categories: name_or_slug_key).limit(options[:limit])
+							end
+						elsif city.try(:items)
+							if options[:upcoming]
+								city.items.includes(:categories).where(categories: name_or_slug_key).upcoming
+							else
+								city.items.includes(:categories).where(categories: name_or_slug_key)
+							end
+						else
+							Item.none
+						end
+
+		if options[:json]
+			return items_to_json(items, options)
 		else
-			Item.none
+			return items
 		end
 	end
 
@@ -231,9 +244,9 @@ class Item < ActiveRecord::Base
 		end
 	end
 
-	def self.all_trends_in_city(city, limit: false)
-		if limit
-			city.events.where('agendas_count > 1').order('agendas_count DESC').limit(limit)
+	def self.all_trends_in_city(city, options = {user: nil, upcoming: nil, json: false, slug: true, limit: nil})
+		if options[:limit]
+			city.events.where('agendas_count > 1').order('agendas_count DESC').limit(options[:limit])
 		else
 			city.events.where('agendas_count > 1').order('agendas_count DESC')
 		end
