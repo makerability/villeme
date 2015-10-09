@@ -1,29 +1,17 @@
 .SidebarLeft {
-  left: 0;
   margin-left: -200px;
   overflow: hidden;
   position: fixed;
   top: 115px;
-  width: 170px;
   z-index: 9;
+  left: 225px;
+  width: 200px;
 
   &-section{
     padding: 0 0 25px 0;
   }
 
-  & ul > li{
-    display: block;
-    height: 2.2em;
-    min-height: 28px;
-  }
-
-  & ul > li > a:hover{
-    background: transparent;
-  }
-
-
-
-  & ul{
+  &-nav{
     padding: 0;
     margin: 0;
     list-style: none;
@@ -34,6 +22,30 @@
       font-weight: 400;
       font-size: 14px;
       padding: 6px 0;
+
+      & .badge{
+        display: none;
+        background: transparent;
+        color: #A8B3B2;
+        border: 1px solid #BDC8C7;
+        font-family: Helvetica, arial;
+        font-size: 8px;
+        margin-left: 8px;
+        padding: 4px 4.5px;
+        vertical-align: inherit;
+        left: 0;
+        position: relative;
+        top: -2px;
+
+        &.is-show{
+          display: inline-block;
+        }
+      }
+
+      & .active{
+        color: $white;
+        background: $blue;
+      }
 
       & a{
         padding: 0;
@@ -50,21 +62,6 @@
           font-size: 16px;
           font-weight: 600;
           transition: all 0.2s ease 0s;
-        }
-
-        & .badge{
-          background: transparent;
-          color: #A8B3B2;
-          border: 1px solid #BDC8C7;
-          font-family: Helvetica,arial;
-          font-size: 8px;
-          margin-left: 8px;
-          padding: 4px 4.5px;
-        }
-
-        & .active{
-          color: $white;
-          background: $blue;
         }
 
         & .glyphicon{
@@ -98,6 +95,15 @@
   }
 
 
+  & ul > li{
+    display: block;
+    height: 2.2em;
+    min-height: 28px;
+  }
+
+  & ul > li > a:hover{
+    background: transparent;
+  }
 
   ul .sub-nav {
     margin: 0 0 0 20px;
