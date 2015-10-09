@@ -1,4 +1,4 @@
-<items>
+<items-section>
 
   <section class="Section" data-anchor="{ opts.data.type }">
 
@@ -113,4 +113,4 @@
 
   </script>
 
-</items>
+</items-section>

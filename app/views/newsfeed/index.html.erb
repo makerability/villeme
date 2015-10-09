@@ -14,13 +14,13 @@
 
           <div id="main-content" class="Main ps-container">
 
-            <items id="today"></items>
-            <items id="ativities-today"></items>
-            <items id="persona"></items>
-            <items id="neighborhood"></items>
-            <items id="fun"></items>
-            <items id="education"></items>
-            <items id="health"></items>
+            <items-section id="today"></items-section>
+            <items-section id="ativities-today"></items-section>
+            <items-section id="persona"></items-section>
+            <items-section id="neighborhood"></items-section>
+            <items-section id="fun"></items-section>
+            <items-section id="education"></items-section>
+            <items-section id="health"></items-section>
           </div>
         </div>
 
@@ -44,7 +44,7 @@
 
     <%= include_gon %>
 
-    <%= javascript_load_dependencies(['riot/riot.min', 'components/items.js', 'components/item.js'], sync: false) %>
+    <%= javascript_load_dependencies(['riot/riot.min', 'components/items-section.js', 'components/item.js'], sync: false) %>
 
     <% content_for :mount_riot_components do %>
         <script type="text/javascript">
