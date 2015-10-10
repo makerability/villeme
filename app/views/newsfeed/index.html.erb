@@ -48,7 +48,7 @@
 
     <% content_for :mount_riot_components do %>
         <script type="text/javascript">
-          $(document).on('ready page:done', function(){
+          $(document).on('ready page:done onpopstate', function(){
               riot.mount('#today', {
                   data: <%= raw @items_json['today'].to_json %>,
                   policies: <%= raw @items_json['policies'].to_json %>
