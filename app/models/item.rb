@@ -82,6 +82,7 @@ class Item < ActiveRecord::Base
 				link: "#{action}/#{item.slug}",
 				subcategories: item.subcategories.try(:first).try(:name),
 				day_of_week: item.day_of_week,
+				period_that_occurs: item.period_that_occurs,
 				start_hour: item.start_hour,
 				image: item.image.url(:thumb),
 				price: item.price[:value],
