@@ -66,7 +66,9 @@ class Item < ActiveRecord::Base
 	}
 
 	def self.to_json(item, options = {user: nil})
-		distance = options[:user].distance_until(item, :minutes)
+		unless options[:user].guest?
+			distance = options[:user].distance_until(item, :minutes)
+		end
 		action = case item.type
 							 when 'Event' then 'events'
 							 when 'Activity' then 'activities'
@@ -88,10 +90,10 @@ class Item < ActiveRecord::Base
 				price: item.price[:value],
 				rating: item.rates_media,
 				distance: {
-						bus: options[:user].guest? ? nil : "#{distance[:bus]}min.",
-						car: options[:user].guest? ? nil : "#{distance[:car]}min.",
-						walk: options[:user].guest? ? nil : "#{distance[:walk]}",
-						bike: options[:user].guest? ? nil : "#{distance[:bike]}min.",
+						bus: distance ? "#{distance[:bus]}min." : nil ,
+						car: distance ? "#{distance[:car]}min." : nil,
+						walk: distance ? "#{distance[:walk]}" : nil,
+						bike: distance ? "#{distance[:bike]}min." : nil,
 				},
 				agended_by: {
 						count: item.agended_by_count[:count],
