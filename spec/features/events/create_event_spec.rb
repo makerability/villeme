@@ -45,7 +45,7 @@ feature 'Create an event', js: true do
         page.fill_in 'event[place_attributes][name]', with: 'Parque da Redenção'
           find_field('event[place_attributes][name]').native.send_keys(:return)
 
-        sleep 3
+        sleep 5
 
         page.fill_in 'event[address]', with: @activity_attributes.address
 

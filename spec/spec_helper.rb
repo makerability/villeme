@@ -40,7 +40,7 @@ Capybara.register_driver :poltergeist do |app|
                                     js_errors: false,
                                     debug: true,
                                     inspector: true,
-                                    timeout: 300,
+                                    timeout: 360,
   )
 end
 
