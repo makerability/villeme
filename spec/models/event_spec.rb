@@ -41,13 +41,13 @@ describe Event, type: :model do
              user.personas << persona
              allow(user).to receive(:city).and_return create(:city)
 
-      expect(Event.all_persona_in_city(user.personas_name, user.city).count).to eq(3)
+      expect(Event.all_persona_in_city(user.personas_name, user.city, upcoming: false).count).to eq(3)
     end
   end
 
   describe '.all_categories_in_city' do
     it 'should return 2 events from leisure and art categories' do
-      categories = [build(:category), build(:category, name: 'Art')]
+      categories = [build(:category), build(:category, name: 'Art', slug: 'art')]
 
       2.times do
         event = create(:event, name: Faker::Lorem.sentence(2, false, 4))
@@ -58,7 +58,7 @@ describe Event, type: :model do
       city = create(:city)
              allow(city).to receive(:items).and_return(Event.all)
 
-      expect(Event.all_categories_in_city(['Leisure', 'Art'], city).count).to eq(2)
+      expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: false).count).to eq(2)
     end
   end
 
@@ -71,7 +71,7 @@ describe Event, type: :model do
       user = build(:user, neighborhood_name: 'Pine Hills')
              allow(user).to receive(:neighborhood).and_return build(:neighborhood, name: 'Pine Hills')
 
-      expect(Event.all_in_neighborhood(user.neighborhood).count).to eq(3)
+      expect(Event.all_in_neighborhood(user.neighborhood, upcoming: false).count).to eq(3)
     end
   end
 
@@ -90,7 +90,7 @@ describe Event, type: :model do
              allow(user).to receive(:city).and_return build(:city, name: 'Albany')
 
 
-      expect(Event.all_fun_in_city(user.city).count).to eq(2)
+      expect(Event.all_fun_in_city(user.city, upcoming: false).count).to eq(2)
     end
 
     context 'when events is out of month range of upcoming scope' do
