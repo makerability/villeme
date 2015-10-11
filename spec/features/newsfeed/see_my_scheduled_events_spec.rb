@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'See my schedule Events' do
+describe 'See my schedule Events', js: true do
 
   before(:each) do
     create(:persona_faker)
@@ -23,7 +23,7 @@ describe 'See my schedule Events' do
 
       @user.agenda_items << [event_a, event_b]
 
-      visit("/en/user/#{@user.slug}/agenda")
+      visit("/en/user/#{@user.username}/agenda")
 
       expect(page).to have_content('First Event scheduled')
       expect(page).to have_content('Second Event scheduled')

@@ -50,7 +50,7 @@ describe 'Open the newsfeed with two events', js: true do
 
       visit ('/newsfeed')
 
-      expect(page).to have_content('Entrar ou solicitar convite')
+      expect(page).to have_content('Entrar ou criar conta')
     end
 
   end
@@ -79,10 +79,10 @@ describe 'Open the newsfeed with two events', js: true do
       expect(page).should_not have_content(event_c.name[0..10])
     end
 
-    it 'display the button to current_user do logout' do
+    it 'do not display the text to user do login' do
       visit ('/newsfeed')
 
-      expect(page).to have_content('Sair')
+      expect(page).should_not have_content('Entrar ou criar conta')
     end
   end
 
