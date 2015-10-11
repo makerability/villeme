@@ -19,15 +19,15 @@ Villeme.Ux = ( ->
       return
 
     $(document).on 'page:loading', ->
-      $("#main").hide()
+      $("#main").fadeOut('fast')
       NProgress.start()
       return
 
     $(document).on 'ready page:done', ->
       setTimeout(->
-        $("#main").show()
+        $("#main").fadeIn('fast')
         NProgress.done()
-      , 350)
+      , 150)
       return
   )()
 
