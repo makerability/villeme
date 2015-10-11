@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'Open the newsfeed with two events' do
+describe 'Open the newsfeed with two events', js: true do
 
   before(:all) do
     I18n.locale = 'pt-BR'

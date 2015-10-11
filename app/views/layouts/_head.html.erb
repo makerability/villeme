@@ -8,8 +8,10 @@
 <%= render 'layouts/share_rules' %>
 
 <%= csrf_meta_tags %>
-
 <%= stylesheet_link_tag 'application', :media => 'all' %>
+
+<!-- Used for tests with Riotjs in Poltergeist -->
+<%= javascript_include_tag 'es5/es5-shim', if: Rails.env.test? or Rails.env.development? %>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="/images/favicon.png" />
