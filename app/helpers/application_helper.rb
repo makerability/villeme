@@ -67,6 +67,16 @@ module ApplicationHelper
 
 	end
 
+	def mount_riot_components(content = nil, &block)
+		content = block_given? ? capture(&block) : content
+
+		if self.request.wiselinks?
+			content
+		else
+			content_for(:mount_riot_components, content)
+		end
+	end
+
 	def stylesheet_inline(name_of_file)
 		"<style type='text/css'>#{Rails.application.assets.find_asset("#{name_of_file}.css").to_s}</style>".html_safe
 	end

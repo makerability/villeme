@@ -60,7 +60,7 @@
 
           </div>
           <div class="EventsSnippet-seeAllEvents">
-            <a href="{ opts.data.link }">ver todos os { opts.data.count } eventos </a>
+            <a href="{ opts.data.link }" data-push="true">ver todos os { opts.data.count } eventos </a>
           </div>
         </div>
       </div>

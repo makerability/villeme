@@ -1,4 +1,4 @@
-<% cache [cache_key_for_events, params], expires: 15.minutes do %>
+
 
     <!-- HEAD -->
 
@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div id="main-content" class="Main ps-container">
-            <items-section></items-section>
+            <items-section id="section"></items-section>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <%= render 'sidebar' %>
     </div>
 
-<% end %>
+
 
 
 <!-- JS/CSS SECONDARIES -->
@@ -33,10 +33,10 @@
 <%= include_gon %>
 <%= javascript_load_dependencies(['riot/riot.min', 'components/items-section.js', 'components/item.js'], sync: false) %>
 
-<% content_for :mount_riot_components do %>
+<%= mount_riot_components do %>
     <script type="text/javascript">
         $(document).on('ready page:done onpopstate', function(){
-            riot.mount('items-section', {
+            riot.mount('#section', {
                 data: {
                     title: "<%= @title %>",
                     items: <%= raw @items_json.to_json %>
