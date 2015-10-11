@@ -10,28 +10,10 @@
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
       <div class="row">
         <div class="col-lg-12">
-
           <div id="main-content" class="Main ps-container">
-
-            <section class="Section">
-
-              <div class="Section-header">
-                <h1 class="Section-title"><%= @text %></h1>
-                <span class="Section-description"></span>
-              </div>
-
-              <div class="Grid Grid--withGutter">
-
-                <%= render 'alert_none_events', items: @items %>
-
-                <%= render 'item', events: @items %>
-
-              </div>
-            </section>
-
+            <items-section></items-section>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -48,7 +30,21 @@
 <!-- JS/CSS SECONDARIES -->
 
 <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', params[:controller] %>
-
 <%= include_gon %>
+<%= javascript_load_dependencies(['riot/riot.min', 'components/items-section.js', 'components/item.js'], sync: false) %>
+
+<% content_for :mount_riot_components do %>
+    <script type="text/javascript">
+        $(document).on('ready page:done onpopstate', function(){
+            riot.mount('items-section', {
+                data: {
+                    title: "<%= @title %>",
+                    items: <%= raw @items_json.to_json %>
+                }
+            })
+        })
+    </script>
+<% end %>
+
 <%= javascript_load_dependencies(['bLazy/blazy', 'gmap3'], sync: false) %>
 <%= javascript_load_content(['gmaps-builder-user', params[:controller]], sync: false) %>

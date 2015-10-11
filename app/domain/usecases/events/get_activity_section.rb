@@ -24,13 +24,13 @@ module Villeme
 
           {
               title: "Atividades para praticar hoje em #{city.name}",
-              preview: activities_all_today[0...2],
+              items: activities_all_today[0...2],
               snippet: activities_all_today[2...12],
               count: activities_all_today.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: city, type: 'Activity'),
-              link_to_create: 'activities/new',
+              link_to_create: '/activities/new',
               city_name: city.name,
-              type: 'activities-today'
+              type: '/activities-today'
           }
         end
 

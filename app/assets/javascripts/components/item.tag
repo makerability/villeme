@@ -17,14 +17,14 @@
 
     <div class="Event-content">
 
-      <a href="{ link }" data-push="true">
+      <a href="{ base_url + link }" data-push="true">
         <div class="Event-overlay"></div>
       </a>
 
       <div class="Event-detailsBox">
         <div class="Event-place">
           <span class="glyphicon glyphicon-map-marker"></span>
-          <a href="{ place.link }">{ place.name }</a>
+          <a href="{ base_url + place.link }">{ place.name }</a>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
             { subcategories }
         </span>
         <h2 class="Event-title">
-          <a href="{ link }" data-push="true">{ name }</a>
+          <a href="{ base_url + link }" data-push="true">{ name }</a>
         </h2>
         <span class="description">
           { description }
@@ -67,6 +67,8 @@
   <script>
 
     section = this.parent;
+
+    this.base_url = window.location.origin;
 
     if(this.is_agended){
       this.button_text = 'Agendado';
@@ -140,7 +142,7 @@
       item.button_text = "Agendando...";
 
       $.ajax({
-        url: item.actions.schedule
+        url: this.base_url + item.actions.schedule
       }).done(function(data) {
         _updateStateOfButton(data);
         _updateStateOfAllItemsButtons(data);

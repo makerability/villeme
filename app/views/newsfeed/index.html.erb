@@ -13,7 +13,6 @@
         <div class="col-lg-12">
 
           <div id="main-content" class="Main ps-container">
-
             <items-section id="today"></items-section>
             <items-section id="ativities-today"></items-section>
             <items-section id="persona"></items-section>
@@ -50,45 +49,45 @@
         <script type="text/javascript">
           $(document).on('ready page:done onpopstate', function(){
               riot.mount('#today', {
-                  data: <%= raw @items_json['today'].to_json %>,
-                  policies: <%= raw @items_json['policies'].to_json %>
+                  data: <%= raw @section_items_json['today'].to_json %>,
+                  policies: <%= raw @section_items_json['policies'].to_json %>
               });
               riot.mount('#persona', {
-                  data: <%= raw @items_json['persona'].to_json %>,
-                  policies: <%= raw @items_json['policies'].to_json %>
+                  data: <%= raw @section_items_json['persona'].to_json %>,
+                  policies: <%= raw @section_items_json['policies'].to_json %>
               });
               riot.mount('#ativities-today', {
-                  data: <%= raw @activities_json['today'].to_json %>,
-                  policies: <%= raw @activities_json['policies'].to_json %>
+                  data: <%= raw @section_activities_json['today'].to_json %>,
+                  policies: <%= raw @section_activities_json['policies'].to_json %>
               });
               riot.mount('#neighborhood', {
-                  data: <%= raw @items_json['neighborhood'].to_json %>,
-                  policies: <%= raw @items_json['policies'].to_json %>
+                  data: <%= raw @section_items_json['neighborhood'].to_json %>,
+                  policies: <%= raw @section_items_json['policies'].to_json %>
               });
               riot.mount('#fun', {
-                  data: <%= raw @items_json['fun'].to_json %>,
-                  policies: <%= raw @items_json['policies'].to_json %>
+                  data: <%= raw @section_items_json['fun'].to_json %>,
+                  policies: <%= raw @section_items_json['policies'].to_json %>
               });
               riot.mount('#education', {
-                  data: <%= raw @items_json['education'].to_json %>,
-                  policies: <%= raw @items_json['policies'].to_json %>
+                  data: <%= raw @section_items_json['education'].to_json %>,
+                  policies: <%= raw @section_items_json['policies'].to_json %>
               });
               riot.mount('#health', {
-                  data: <%= raw @items_json['health'].to_json %>,
-                  policies: <%= raw @items_json['policies'].to_json %>
+                  data: <%= raw @section_items_json['health'].to_json %>,
+                  policies: <%= raw @section_items_json['policies'].to_json %>
               });
               riot.mount('sidebar-left',
                       {
-                          "today":<%= raw @items_json['today']['count'].to_json %>,
-                          "persona":<%= raw @items_json['persona']['count'].to_json %>,
-                          "activities_today":<%= raw @activities_json['today']['count'].to_json %>,
-                          "neighborhood":<%= raw @items_json['neighborhood']['count'].to_json %>,
-                          "fun":<%= raw @items_json['fun']['count'].to_json %>,
-                          "education":<%= raw @items_json['education']['count'].to_json %>,
-                          "health":<%= raw @items_json['health']['count'].to_json %>,
+                          "today":<%= raw @section_items_json['today']['count'].to_json %>,
+                          "persona":<%= raw @section_items_json['persona']['count'].to_json %>,
+                          "activities_today":<%= raw @section_activities_json['today']['count'].to_json %>,
+                          "neighborhood":<%= raw @section_items_json['neighborhood']['count'].to_json %>,
+                          "fun":<%= raw @section_items_json['fun']['count'].to_json %>,
+                          "education":<%= raw @section_items_json['education']['count'].to_json %>,
+                          "health":<%= raw @section_items_json['health']['count'].to_json %>,
                           "current_user": {
                               "username":"<%= current_or_guest_user.username %>",
-                              "is_guest":<%= raw @items_json['policies']['is_guest_user'].to_json %>,
+                              "is_guest":<%= raw @section_items_json['policies']['is_guest_user'].to_json %>,
                               "agenda_items":<%= current_or_guest_user.agenda_items.upcoming.count %>
                           }
                       }

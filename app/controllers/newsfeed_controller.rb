@@ -36,10 +36,10 @@ class NewsfeedController < ApplicationController
       require_relative '../../app/domain/usecases/events/get_activity_section'
 
       @city = City.find_by(slug: params[:city])
-      @items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
-      @items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true)
-      @activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true)
-      @number_of_events = @items[:all].count
+      @section_items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
+      @section_items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true)
+      @section_activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true)
+      @number_of_events = @section_items[:all].count
       @message_for_none_events = "Não há eventos no momento em #{@city.name}."
       @feedback = Feedback.new
 
@@ -48,7 +48,7 @@ class NewsfeedController < ApplicationController
       gon.longitude = current_or_guest_user.longitude
 
       # array with places for map navigator on sidebar
-      gon.events_local_formatted = format_for_map_this(@items[:all])
+      gon.events_local_formatted = format_for_map_this(@section_items[:all])
 
       render :index
     end
@@ -56,43 +56,48 @@ class NewsfeedController < ApplicationController
 
   def today
     @city = City.find_by(slug: params[:city])
-    @items = get_item_class.all_today(city: @city)
-    @text = "Acontecendo hoje em #{@city.name}"
+    @items = get_item_class.all_today(@city)
+    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
+    @title = "#{get_items_name} acontecendo hoje em #{@city.name}"
     set_items_in_map(current_or_guest_user, @items)
-    render :section, layout: 'main_and_right_sidebar'
+    render :section
   end
 
   def persona
     @city = City.find_by(slug: params[:city])
     personas = Persona.query_to_array(params[:personas])
     @items = Event.all_persona_in_city(personas, @city)
-    @text = "Eventos indicados para você"
+    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
+    @title = "Eventos indicados para você em #{@city.name}"
     set_items_in_map(current_or_guest_user, @items)
-    render :section, layout: 'main_and_right_sidebar'
+    render :section
   end
 
   def neighborhood
     @neighborhood = Neighborhood.find_by(slug: params[:neighborhood])
-    @items = Event.all_in_neighborhood(@neighborhood).upcoming
-    @text = "Eventos no bairro #{@neighborhood.name}"
+    @items = Event.all_in_neighborhood(@neighborhood)
+    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
+    @title = "Eventos no bairro #{@neighborhood.name}"
     set_items_in_map(current_or_guest_user, @items)
-    render :section, layout: 'main_and_right_sidebar'
+    render :section
   end
 
   def category
     @city = City.find_by(slug: params[:city])
     categories = Category.query_to_array(params[:categories])
     @items = Event.all_categories_in_city(categories, @city)
-    @text = "Eventos nas categorias #{params[:categories]}"
+    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
+    @title = "Eventos nas categorias #{params[:categories]}"
     set_items_in_map(current_or_guest_user, @items)
-    render :section, layout: 'main_and_right_sidebar'
+    render :section
   end
 
   def agenda
     @items = current_user.agenda_items.upcoming
-    @text = "Minha agenda de Eventos e Atividades"
+    @items_json = Event.items_to_json(@items, user: current_or_guest_user).as_json
+    @title = "Minha agenda de Eventos e Atividades"
     set_items_in_map(current_user, @items)
-    render :section, layout: 'main_and_right_sidebar'
+    render :section
   end
 
 
@@ -137,6 +142,18 @@ class NewsfeedController < ApplicationController
       options[:text] ? @item.type : @item.type.constantize
     else
       options[:text] ? 'Item' : 'Item'.constantize
+    end
+  end
+
+  def get_items_name
+    if params[:type] != nil
+      case params[:type]
+        when 'Event' then 'Eventos'
+        when 'Activity' then 'Atividades'
+        else 'Items'
+      end
+    else
+      'Items'
     end
   end
 

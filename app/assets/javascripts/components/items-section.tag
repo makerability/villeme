@@ -8,7 +8,7 @@
     </div>
 
     <div class="Grid Grid--withGutter">
-      <item each={ opts.data.preview } class="Event Event--newsFeed grid Grid-cell u-size4of12"></item>
+      <item each={ opts.data.items } class="Event Event--newsFeed grid Grid-cell u-size4of12"></item>
 
     <!-- stylesheet_link_tag 'modules/AlertCreateEvent' -->
 
@@ -32,12 +32,12 @@
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">
               <li each={ opts.data.snippet } class="EventsSnippet-line js-EventNewsfeedTransitions">
-                <a href="{ link }" data-push="true">
+                <a href="{ base_url + link }" data-push="true">
                   <div class="EventsSnippet-image b-lazy" data-src="{ image }"></div>
                 </a>
                 <div class="EventsSnippet-linePrincipal u-sizeFull">
                   <span class="EventsSnippet-eventName">
-                    <a href="{ link }" data-push="true">{ name }</a>
+                    <a href="{ base_url + link }" data-push="true">{ name }</a>
                   </span>
                 </div>
                 <div class="EventsSnippet-lineSecond">
@@ -71,13 +71,10 @@
 
   </section>
 
-  <style scoped>
-    h1{
-
-    }
-  </style>
 
   <script>
+
+    this.base_url = window.location.origin;
 
     this.on('mount', function(){
       var bLazy;

@@ -79,7 +79,7 @@ class Item < ActiveRecord::Base
 				latitude: item.latitude.blank? ? item.place.latitude : item.latitude,
 				longitude: item.longitude.blank? ? item.place.longitude : item.longitude,
 				full_address: item.full_address,
-				link: "#{action}/#{item.slug}",
+				link: "/#{action}/#{item.slug}",
 				subcategories: item.subcategories.try(:first).try(:name),
 				day_of_week: item.day_of_week,
 				period_that_occurs: item.period_that_occurs,
@@ -99,10 +99,10 @@ class Item < ActiveRecord::Base
 				},
 				place: {
 						name: item.place.try(:name),
-						link: "places/#{item.place.id}"
+						link: "/places/#{item.place.id}"
 				},
 				actions: {
-						schedule: "items/#{item.try(:slug)}/schedule",
+						schedule: "/items/#{item.try(:slug)}/schedule",
 				},
 				is_agended: item.agended?(options[:user])
 
@@ -147,7 +147,7 @@ class Item < ActiveRecord::Base
 		end
 	end
 
-	def self.items_to_json(items, options)
+	def self.items_to_json(items, options = {user: nil})
 		if items.empty?
 			return Item.none
 		else

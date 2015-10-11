@@ -30,11 +30,11 @@ module Villeme
 
           {
               title: "Eventos acontecendo hoje em #{city.name}",
-              preview: events_all_today[0...2],
+              items: events_all_today[0...2],
               snippet: events_all_today[2...12],
               count: events_all_today.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: city, type: 'Event'),
-              link_to_create: 'events/new',
+              link_to_create: '/events/new',
               city_name: city.name,
               type: 'today'
           }
@@ -45,11 +45,11 @@ module Villeme
 
           {
               title: "Eventos indicados para você",
-              preview: events_all_persona[0...2],
+              items: events_all_persona[0...2],
               snippet: events_all_persona[2..12],
               count: events_all_persona.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: city, personas: personas.join('+')),
-              link_to_create: 'events/new',
+              link_to_create: '/events/new',
               type: 'persona'
           }
         end
@@ -58,11 +58,11 @@ module Villeme
           events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options)
           {
               title: "Eventos acontecendo no bairro #{neighborhood.name}",
-              preview: events_all_neighborhood[0...2],
+              items: events_all_neighborhood[0...2],
               snippet: events_all_neighborhood[2...12],
               count: events_all_neighborhood.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(city: neighborhood.city, neighborhood: neighborhood),
-              link_to_create: 'events/new',
+              link_to_create: '/events/new',
               neighborhood_name: neighborhood.name,
               type: 'neighborhood'
           }
@@ -74,11 +74,11 @@ module Villeme
 
           {
               title: "Eventos para se divertir",
-              preview: events_all_fun[0...2],
+              items: events_all_fun[0...2],
               snippet: events_all_fun[2...12],
               count: events_all_fun.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:fun].map(&:capitalize), key: false)),
-              link_to_create: 'events/new',
+              link_to_create: '/events/new',
               type: 'fun'
           }
         end
@@ -88,11 +88,11 @@ module Villeme
 
           {
               title: "Eventos para aprender algo novo",
-              preview: events_all_education[0...2],
+              items: events_all_education[0...2],
               snippet: events_all_education[2...12],
               count: events_all_education.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:education].map(&:capitalize), key: false)),
-              link_to_create: 'events/new',
+              link_to_create: '/events/new',
               type: 'learn'
           }
         end
@@ -102,7 +102,7 @@ module Villeme
 
           {
               title: "Eventos para cuidar da saude",
-              preview: events_all_health[0...2],
+              items: events_all_health[0...2],
               snippet: events_all_health[2...12],
               count: events_all_health.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:health].map(&:capitalize), key: false)),
@@ -116,7 +116,7 @@ module Villeme
 
           {
               title: "Eventos em alta",
-              preview: events_all_trends[0...2],
+              items: events_all_trends[0...2],
               snippet: events_all_trends[2...12],
               count: events_all_trends.count,
               link: nil,
