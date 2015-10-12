@@ -41,8 +41,8 @@
           { description }
         </span>
         <div class="Event-infos">
-          <span class="Event-infosPrice  event.price[:css_attributes]  Event-infosItem">
-            { price }
+          <span class="Event-infosPrice  Event-infosItem { price.highlight }">
+            { price.value }
           </span>
           <span if={ rating } class="Event-infosRating Event-infosItem">
               <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>

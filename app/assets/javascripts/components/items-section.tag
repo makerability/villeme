@@ -47,8 +47,8 @@
                   <span class="EventsSnippet-eventHour EventsSnippet-lineSecondItem">
                     { start_hour }
                   </span>
-                  <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem  event.price[:css_attributes] ">
-                      { price }
+                  <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem { price.highlight }">
+                      { price.value }
                   </span>
                   <span if={ rating } class="EventsSnippet-eventRating EventsSnippet-lineSecondItem">
                     <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>

@@ -87,7 +87,10 @@ class Item < ActiveRecord::Base
 				period_that_occurs: item.period_that_occurs,
 				start_hour: item.start_hour,
 				image: item.image.url(:thumb),
-				price: item.price[:value],
+				price: {
+						value: item.price[:value],
+						highlight: item.price[:css_attributes]
+				},
 				rating: item.rates_media,
 				distance: {
 						bus: distance ? "#{distance[:bus]}min." : nil ,
