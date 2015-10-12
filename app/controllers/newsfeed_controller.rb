@@ -34,6 +34,7 @@ class NewsfeedController < ApplicationController
 
     @city = City.find_by(slug: params[:city])
     @section_items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
+    @section_activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user)
     @section_items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true, upcoming: true)
     @section_activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true)
     @number_of_events = @section_items[:all].count
@@ -45,7 +46,7 @@ class NewsfeedController < ApplicationController
     gon.longitude = current_or_guest_user.longitude
 
     # array with places for map navigator on sidebar
-    gon.events_local_formatted = format_for_map_this(@section_items[:all])
+    gon.events_local_formatted = format_for_map_this(@section_items[:all].concat(@section_activities[:all]))
 
     render :index
   end
