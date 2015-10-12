@@ -58,7 +58,9 @@
 
           </div>
           <div class="EventsSnippet-seeAllEvents">
-            <a href="{ opts.data.link }" data-push="true" onclick={ saveScroll }>ver todos os { opts.data.count } eventos </a>
+            <a href="{ opts.data.link }" data-push="true" onclick={ saveScroll }>
+              ver todos os { opts.data.count } eventos
+            </a>
           </div>
         </div>
       </div>

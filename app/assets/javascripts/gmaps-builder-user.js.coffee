@@ -103,6 +103,10 @@ class @Gmaps
     map.panTo latLng
     return
 
+  @zoomTo: (zoom) ->
+    map = $("#map").gmap3("get")
+    map.setZoom(zoom)
+    return
 
   @centerTo: (latitude, longitude) ->
     latLng = new google.maps.LatLng(latitude, longitude)

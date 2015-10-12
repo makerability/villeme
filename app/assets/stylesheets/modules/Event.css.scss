@@ -50,6 +50,7 @@
     overflow: hidden;
     vertical-align: middle;
     text-shadow: 0 1.3px 0.7px rgba(0,0,0,0.65);
+    transition: 0.3s all ease 0s;
 
     & a{
       color: $white;
@@ -356,6 +357,10 @@
     width: 100%;
     padding: 10px 10px;
     z-index: 2;
+
+    &:hover .Event-place{
+      margin: 5px 6px 0 0;
+    }
 
     & .buttons {
       opacity: 0;

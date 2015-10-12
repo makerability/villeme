@@ -24,7 +24,9 @@
       <div class="Event-detailsBox">
         <div class="Event-place">
           <span class="glyphicon glyphicon-map-marker"></span>
-          <a href="{ base_url + place.link }">{ place.name }</a>
+          <a href="{ base_url + place.link }" onmouseenter={ zoomInMap } onmouseleave={ zoomOutMap }>
+            { place.name }
+          </a>
         </div>
       </div>
 
@@ -184,6 +186,14 @@
       window.Villeme.tempScroll = $(window).scrollTop();
     }
 
+
+    zoomInMap(){
+      Gmaps.zoomTo(15)
+    }
+
+    zoomOutMap(){
+      Gmaps.zoomTo(13)
+    }
 
   </script>
 
