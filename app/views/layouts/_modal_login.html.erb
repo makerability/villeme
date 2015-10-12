@@ -15,12 +15,12 @@
         </div>
 
         <%= link_to welcome_path do %>
-            <div class="Button Button--primary Button--large u-centralize u-margin-0-0-0-15">
+            <div class="Button Button--primary Button--large u-centralize u-margin-0-0-15-0">
               <%= t('welcome.first_screen.request_invite') %>
             </div>
         <% end %>
 
-        <span>ou <%= link_to 'entre com o facebook', user_omniauth_authorize_path(:facebook), class: 'fake-link has-tooltip', title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'bottom' %></span>
+        <span>ou <%= link_to 'entre com o <b>facebook</b>', user_omniauth_authorize_path(:facebook), class: 'u-fake-link has-tooltip', title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'bottom' %></span>
 
 
       </div>
