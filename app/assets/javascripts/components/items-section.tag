@@ -31,7 +31,7 @@
         <div class="EventsSnippet-content">
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">
-              <li each={ opts.data.snippet } class="EventsSnippet-line js-EventNewsfeedTransitions">
+              <li each={ opts.data.snippet } onclick={ saveScroll } class="EventsSnippet-line js-EventNewsfeedTransitions">
                 <a href="{ base_url + link }" data-push="true">
                   <div class="EventsSnippet-image b-lazy" data-src="{ image }"></div>
                 </a>
@@ -60,7 +60,7 @@
 
           </div>
           <div class="EventsSnippet-seeAllEvents">
-            <a href="{ opts.data.link }" data-push="true">ver todos os { opts.data.count } eventos </a>
+            <a href="{ opts.data.link }" data-push="true" onclick={ saveScroll }>ver todos os { opts.data.count } eventos </a>
           </div>
         </div>
       </div>
@@ -106,6 +106,10 @@
 
     login(){
       Villeme.Ux.loginModal("Você precisa estar logado para criar um evento.");
+    }
+
+    saveScroll(){
+      window.Villeme.tempScroll = $(window).scrollTop();
     }
 
   </script>

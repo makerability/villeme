@@ -19,6 +19,8 @@ Villeme.Newsfeed = ( ->
     $(document).on 'page:done', ->
       initGoogleMaps()
       return
+
+    saveScrollToReturnAfterAjax()
     return
 
 
@@ -57,6 +59,20 @@ Villeme.Newsfeed = ( ->
       # ---
       return
 
+    return
+
+  saveScrollToReturnAfterAjax = ->
+    @Villeme.tempNewsfeedPage = window.location.href;
+    @Villeme.tempScroll = @Villeme.tempScroll or 0
+
+    $(document).on 'page:done', ->
+      setTimeout( ->
+        if window.location.href == Villeme.tempNewsfeedPage
+          $(window).scrollTop(Villeme.tempScroll)
+        else
+          $(window).scrollTop(0)
+      , 75)
+      return
     return
 
 

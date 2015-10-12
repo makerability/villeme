@@ -1,4 +1,4 @@
-<item onmouseenter={ mouseEnterEvents } onmouseleave={ mouseLeaveEvents }>
+<item onmouseenter={ mouseEnterEvents } onmouseleave={ mouseLeaveEvents } onclick={ saveScroll }>
 
   <div class="Event-buttonsBox item-{ id }">
 
@@ -177,6 +177,10 @@
       };
     }
 
+
+    saveScroll(){
+      window.Villeme.tempScroll = $(window).scrollTop();
+    }
 
 
   </script>
