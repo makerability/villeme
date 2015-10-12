@@ -8,9 +8,8 @@
     </div>
 
     <div class="Grid Grid--withGutter">
-      <item each={ opts.data.items } class="Event Event--newsFeed grid Grid-cell u-size4of12"></item>
 
-    <!-- stylesheet_link_tag 'modules/AlertCreateEvent' -->
+      <item each={ opts.data.items } class="Event Event--newsFeed grid Grid-cell u-size4of12"></item>
 
       <div if={opts.data.count <= 2} class="Grid-cell u-size4of12 u-centralize">
         <div class="AlertCreateEvent AlertCreateEvent--withBorder">
@@ -19,7 +18,6 @@
               Não há mais eventos no momento.<br/>
               <a href="{ opts.policies.is_guest_user ? '#' : opts.data.link_to_create }" onclick={ opts.policies.is_guest_user ? login : false }>Cria evento</a>
             </span>
-            <!--<span>Não há mais eventos no momento.  current_or_guest_user.guest? ? link_to_function('Criar evento', 'Villeme.Ux.loginModal("Você precisa estar logado para criar um evento.")') : link_to('Criar evento.', new_event_path, class: 'link link-green') </span>-->
           </div>
         </div>
       </div>

@@ -35,7 +35,9 @@
             { subcategories }
         </span>
         <h2 class="Event-title">
-          <a href="{ base_url + link }" data-push="true">{ name }</a>
+          <a href="{ base_url + link }" data-push="true">
+            { name }
+          </a>
         </h2>
         <span class="description">
           { description }
