@@ -150,13 +150,28 @@
       }).done(function(data) {
         _updateStateOfButton(data);
         _updateStateOfAllItemsButtons(data);
-        _agendaCounterRefresh(data.count);
+        _agendaCounterRefresh(data);
         item.update();
       });
 
-      _agendaCounterRefresh = function(new_value) {
-        $(".js-agendaCounter").text("").text(new_value);
+      _agendaCounterRefresh = function(data) {
+        var timer;
+        clearTimeout(timer);
+        $(".js-agendaCounter").text("").text(data.count);
+
+        if(data.agended){
+          _animateAgendaLink("is-adding");
+        }else{
+          _animateAgendaLink("is-removing");
+        }
       };
+
+      _animateAgendaLink = function(add_or_remove){
+        $(".js-SidebarLeft-agendaLink").addClass(add_or_remove);
+        timer = setTimeout(function(){
+          $(".js-SidebarLeft-agendaLink").removeClass(add_or_remove);
+        }, 300)
+      }
 
       _updateStateOfButton = function(data){
         if (data.agended) {

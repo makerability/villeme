@@ -1,14 +1,30 @@
 .SidebarLeft {
   margin-left: -200px;
-  overflow: hidden;
   position: fixed;
   top: 115px;
   z-index: 9;
   left: 225px;
-  width: 200px;
 
   &-section{
     padding: 0 0 25px 0;
+  }
+
+  &-agendaLink{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    transition: all 0.4s ease 0s;
+
+    &.is-adding{
+      position: relative;
+      background: scale_color($green, $lightness: 60%);
+      border-color: scale_color($green, $lightness: 40%);
+    }
+
+    &.is-removing{
+      position: relative;
+      background: scale_color($red, $lightness: 80%);
+      border-color: scale_color($red, $lightness: 60%);
+    }
   }
 
   &-nav{
@@ -21,21 +37,22 @@
       font-family: $font-family-default;
       font-weight: 400;
       font-size: 14px;
-      padding: 6px 0;
+      padding: 8px 2px 4px 0;
 
       & .badge{
+        background: transparent none repeat scroll 0 0;
+        border: 1px solid #bdc8c7;
+        color: #a8b3b2;
         display: none;
-        background: transparent;
-        color: #A8B3B2;
-        border: 1px solid #BDC8C7;
-        font-family: Helvetica, arial;
+        font-family: Helvetica, arial, sans-serif;
         font-size: 8px;
         margin-left: 8px;
+        min-width: 17px;
         padding: 4px 4.5px;
-        vertical-align: inherit;
-        left: 0;
         position: relative;
+        right: 3px;
         top: -2px;
+        vertical-align: inherit;
 
         &.is-show{
           display: inline-block;
@@ -48,7 +65,7 @@
       }
 
       & a{
-        padding: 0;
+        padding: 0 10px;
         color: scale_color($grey, $lightness: 20%);
         margin: 0;
         width: 170px;
@@ -92,13 +109,13 @@
         margin: 0 8px 0 0;
       }
     }
+
   }
 
 
   & ul > li{
-    display: block;
-    height: 2.2em;
-    min-height: 28px;
+    display: table;
+    height: 32px;
   }
 
   & ul > li > a:hover{

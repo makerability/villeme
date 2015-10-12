@@ -9,9 +9,9 @@
 
     <div class="Grid Grid--withGutter">
 
-      <item each={ opts.data.items } class="Event Event--newsFeed grid Grid-cell u-size4of12"></item>
+      <item each={ opts.data.items } class="Event Event--newsFeed grid Grid-cell u-size4of12 u-lg-size4of12 u-md-size6of12"></item>
 
-      <div if={opts.data.count <= 2} class="Grid-cell u-size4of12 u-centralize">
+      <div if={opts.data.count <= 2} class="Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize">
         <div class="AlertCreateEvent AlertCreateEvent--withBorder">
           <div class="AlertCreateEvent-text u-posAbsoluteCenter">
             <span>
@@ -25,7 +25,7 @@
 
 
 
-      <div if={ opts.data.count >= 3 } class="EventsSnippet Grid-cell u-size4of12">
+      <div if={ opts.data.count >= 3 } class="EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull">
         <div class="EventsSnippet-content">
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">

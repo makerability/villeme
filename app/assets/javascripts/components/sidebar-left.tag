@@ -4,11 +4,13 @@
 
     <section class="SidebarLeft-section">
       <ul class="SidebarLeft-nav">
-        <li>
+        <li class="SidebarLeft-agendaLink js-SidebarLeft-agendaLink">
           <a href="{ link }" onclick="{ login }" data-push="{ data_push }">
             Minha agenda
           </a>
-          <span if={ opts.current_user.agenda_items > 0 } class="js-agendaCounter badge is-show">{ opts.current_user.agenda_items }</span>
+          <span if={ opts.current_user.agenda_items > 0 } class="js-agendaCounter badge is-show">
+            { opts.current_user.agenda_items }
+          </span>
         </li>
       </ul>
     </section>
