@@ -34,8 +34,8 @@ class NewsfeedController < ApplicationController
 
     @city = City.find_by(slug: params[:city])
     @section_items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
-    @section_items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true)
-    @section_activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true, upcoming: true)
+    @section_items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true, upcoming: true)
+    @section_activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true)
     @number_of_events = @section_items[:all].count
     @message_for_none_events = "Não há eventos no momento em #{@city.name}."
     @feedback = Feedback.new
