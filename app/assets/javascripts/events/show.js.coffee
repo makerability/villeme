@@ -1,3 +1,7 @@
+#= require jquery-raty
+#= require gmaps-builder-event
+#= require ratyrate
+
 $(document).on 'ready page:done', ->
 
   EventShow =

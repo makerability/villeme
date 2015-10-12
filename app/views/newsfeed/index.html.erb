@@ -39,11 +39,11 @@
 <!-- JS/CSS SECONDARIES -->
 
 
-    <%= stylesheet_link_tag 'modules/AlertCreateEvent', 'modules/AvatarPhoto', 'modules/EventsSnippet', params[:controller] %>
+    <%= stylesheet_link_tag params[:controller] %>
 
     <%= include_gon %>
 
-    <%= javascript_load_dependencies(['riot/riot.min', 'components/items-section.js', 'components/item.js', 'components/sidebar-left.js'], sync: false) %>
+    <%= javascript_load_content [params[:controller]] %>
 
     <% content_for :mount_riot_components do %>
         <script type="text/javascript">
@@ -95,6 +95,3 @@
           })
         </script>
     <% end %>
-
-    <%= javascript_load_dependencies(['gmap3', 'gmaps-builder-user', 'bLazy/blazy'], sync: false) %>
-    <%= javascript_load_content [params[:controller]], sync: false %>

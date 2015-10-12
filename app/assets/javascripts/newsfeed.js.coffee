@@ -1,23 +1,26 @@
+
+#= require riot/riot.min
+#= require components/items-section.js
+#= require components/item.js
+#= require components/sidebar-left.js
+#= require gmap3
+#= require gmaps-builder-user
+#= require bLazy/blazy
+
 @Villeme = @Villeme or {}
 
 Villeme.Newsfeed = ( ->
 
-  initialize = ( ->
+  initialize = ->
     $(document).on 'ready page:done', ->
       fixingMapOnScroll()
-      #sidebarLeftLinksAnimation()
-      #userEvent()
-      #bLazy()
-      #createMap()
-      #sidebarLeftLinksAnimation()
       return
 
     $(document).on 'page:done', ->
       initGoogleMaps()
       return
-
     return
-  )()
+
 
   initGoogleMaps = ->
     if $('#main').is(':visible')
@@ -92,6 +95,9 @@ Villeme.Newsfeed = ( ->
       return
 
     return
+
+
+  initialize()
 
   return {
     createMap: ->

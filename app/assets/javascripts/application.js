@@ -20,6 +20,7 @@
 //= require application-ajax
 //= require application-bootstrap
 //= require application-ux
+//= require_self
 
 
 

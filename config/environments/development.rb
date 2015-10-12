@@ -40,9 +40,9 @@ CidadeVc::Application.configure do
   config.assets.debug = false
 
   #Enable bullet in your application
-  Bullet.enable = true
-  Bullet.console = true
-  Bullet.bullet_logger = true
+  Bullet.enable = false
+  Bullet.console = false
+  Bullet.bullet_logger = false
 
 
 end

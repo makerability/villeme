@@ -1,6 +1,11 @@
 // Place all the styles related to the newsfeed controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//= require modules/AlertCreateEvent
+//= require modules/AvatarPhoto
+//= require modules/EventsSnippet
+
 @import 'variables';
 @import "modules/Sidebar--newsfeed";
 
