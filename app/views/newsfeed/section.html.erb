@@ -41,7 +41,8 @@
             riot.mount('#section', {
                 data: {
                     title: "<%= @title %>",
-                    items: <%= raw @items_json.to_json %>
+                    items: <%= raw @items_json.to_json %>,
+                    count: <%= @items_json.count %>
                 }
             })
         })
