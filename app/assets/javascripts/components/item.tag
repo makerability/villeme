@@ -21,10 +21,10 @@
         <div class="Event-overlay"></div>
       </a>
 
-      <div class="Event-detailsBox">
+      <div class="Event-detailsBox" onmouseenter={ zoomInMap } onmouseleave={ zoomOutMap }>
         <div class="Event-place">
           <span class="glyphicon glyphicon-map-marker"></span>
-          <a href="{ base_url + place.link }" onmouseenter={ zoomInMap } onmouseleave={ zoomOutMap }>
+          <a href="{ base_url + place.link }">
             { place.name }
           </a>
         </div>
