@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="Event-imageBox b-lazy" data-src="{ image }"></div>
+      <div class="Event-imageBox b-lazy" data-src="{ image.medium }"></div>
 
       <div class="caption">
         <span class="Event-subCat" if={ subcategories }>

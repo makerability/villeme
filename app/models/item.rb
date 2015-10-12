@@ -37,7 +37,10 @@ class Item < ActiveRecord::Base
 
 	# gem paperclip
 	has_attached_file :image,
-                    styles: {thumb: "280x280>", medium: "504x504>", share: "484x252>"},
+                    styles: {thumb: "60x50>",
+														 medium: "280x280>",
+														 large: "690x280>",
+														 share: "484x252>"},
                     default_url: "/images/:style/missing.png"
 
 
@@ -86,7 +89,11 @@ class Item < ActiveRecord::Base
 				day_of_week: item.day_of_week,
 				period_that_occurs: item.period_that_occurs,
 				start_hour: item.start_hour,
-				image: item.image.url(:thumb),
+				image: {
+						thumb: item.image.url(:thumb),
+						medium: item.image.url(:medium),
+						large: item.image.url(:large)
+				},
 				price: {
 						value: item.price[:value],
 						highlight: item.price[:css_attributes]

@@ -31,7 +31,7 @@
             <ul class="EventsSnippet-lineGroup">
               <li each={ opts.data.snippet } onclick={ saveScroll } class="EventsSnippet-line js-EventNewsfeedTransitions">
                 <a href="{ base_url + link }" data-push="true">
-                  <div class="EventsSnippet-image b-lazy" data-src="{ image }"></div>
+                  <div class="EventsSnippet-image b-lazy" data-src="{ image.thumb }"></div>
                 </a>
                 <div class="EventsSnippet-linePrincipal u-sizeFull">
                   <span class="EventsSnippet-eventName">
