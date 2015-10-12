@@ -2,7 +2,7 @@
  * Size: breakpoint 3 (large)
  */
 
-@media (--lg-viewport) {
+@media (min-width:960px) {
 
   /**
    * Make an element shrink wrap its content.

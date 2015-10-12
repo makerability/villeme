@@ -2,7 +2,7 @@
  * Size: breakpoint 2 (medium)
  */
 
-@media (--md-viewport) {
+@media (min-width:640px) and (max-width:960px) {
 
   /**
    * Make an element shrink wrap its content.
