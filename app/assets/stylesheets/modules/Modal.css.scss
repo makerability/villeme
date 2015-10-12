@@ -28,8 +28,14 @@
   }
 
   &-closeButton{
-    margin: 25px 10px 0 0;
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    font-size: 23px;
+    font-weight: bold;
     padding: 6px;
+    position: absolute;
+    right: 12px;
+    top: 14px;
   }
 
   &-icon{

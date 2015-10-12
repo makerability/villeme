@@ -5,17 +5,6 @@
 $(document).ready ->
 
 
-  $(".temporary-slogan").hide()
-  $(".slogan").show()
-
-
-#  $(".wodry").wodry
-#    animation: 'rotateX'
-#    delay: 10000
-#    animationDuration: 400
-
-
-
   $('input[name="invite[persona_ids][]"]').on 'change', (e) ->
     if $('input[name="invite[persona_ids][]"]:checked').length > 2
       $(this).prop 'checked', false

@@ -71,6 +71,7 @@ h2{
 h3{
   font-size: 13px;
   font-weight:bold;
+  line-height: 1em;
   margin: 12px 0;
   vertical-align: sub;
 }
@@ -786,15 +787,23 @@ col-fixed{
   z-index: 129;
 }
 
-.alert-dismissable .close {
+.alert-dismissable .close, .alert-dismissible .close {
+  color: inherit;
+  font-size: 23px;
+  font-weight: bold;
+  height: 20px;
+  padding: 0;
   position: absolute;
-  right: 20px;
-  top: 0;
+  right: 11px;
+  top: 6px;
+  width: 15px;
 
   & span{
     color: $white;
     font-size: 24px;
     font-weight: 600;
+    font-weight: bold;
+    line-height: 0;
   }
 }
 

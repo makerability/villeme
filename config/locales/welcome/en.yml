@@ -78,10 +78,10 @@ en:
     buttons:
       login_with_facebook: "Sign in with Facebook"
     values:
-      events_and_activities: "Events and activities of interest to you"
-      date_and_localization: "Know the dates and location simply"
-      categories: "Leisure, health, sport education and culture"
-      open_colaborative: "It's free, open and collaborative code"
+      events_and_activities_html: "Events and activities of <b>interest to you</b>"
+      date_and_localization_html: "Know the dates and location <b>simply</b>"
+      categories_html: "Leisure, health, sport education and culture"
+      open_colaborative_html: "It's <b>free</b>, Open Source and collaborative"
   dictionary:
     have_events: "have %{neighborhood_count} events"
     no_have_events: "no have events"

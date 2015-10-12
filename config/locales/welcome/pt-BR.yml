@@ -75,11 +75,11 @@ pt-BR:
     buttons:
       login_with_facebook: "Entrar com Facebook"
     values:
-      events_and_activities: "Eventos e atividades do seu interesse"
-      date_and_localization: "Saiba as datas e localização de forma simples"
-      schedule_one_click: "Agende com apenas um clique"
-      categories: "Eventos de lazer, saúde, esporte educação e cultura"
-      open_colaborative: "É grátis, de código aberto e colaborativo"
+      events_and_activities_html: "Eventos e atividades <b>do seu interesse</b>"
+      date_and_localization_html: "Saiba as datas e localização de forma <b>simples</b>"
+      schedule_one_click_html: "Agende com <b>apenas um clique</b>"
+      categories_html: "Eventos de <b>lazer</b>, <b>saúde</b>, <b>esporte</b>, <b>educação</b> e <b>cultura</b>"
+      open_colaborative_html: "É <b>grátis</b>, de código aberto e colaborativo"
   dictionary:
     show_events_number_in_neighborhood: "Você %{count} perto de você ou no seu bairro."
     no_have_events: "não possui eventos"
