@@ -1,7 +1,7 @@
 
 <span class="EventSingle-description snippet">
   <h3>Detalhes</h3>
-  <%= @item.description.length > 360 ? "#{@item.description[0..360].html_safe}..." : @item.description.html_safe %>
+  <%= @item.description.length > 360 ? "#{@item.description[0..360].strip_tags}..." : @item.description.html_safe %>
 </span>
 
 <% if @item.description.length > 360 %>
