@@ -3,15 +3,15 @@ module Villeme
     class GetEventsSection
       class << self
 
-        def get_all_sections(city, user, options = {json: false})
+        def get_all_sections(city, user, options = {json: false, upcoming: true})
           data = {
               all: get_section_all_events(city),
               today: get_section_today_events(city, user: user, json: options[:json]),
-              persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json]),
-              neighborhood: create_section_neighborhood_events(user.neighborhood, user: user, json: options[:json]),
-              fun: create_section_fun_events(city, user: user, json: options[:json], slug: true),
-              education: create_section_education_events(city, user: user, json: options[:json], slug: true),
-              health: create_section_health_events(city, user: user, json: options[:json], slug: true),
+              persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
+              neighborhood: create_section_neighborhood_events(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
+              fun: create_section_fun_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
+              education: create_section_education_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
+              health: create_section_health_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               trends: create_section_trends_events(city),
               policies: {
                   is_guest_user: user.guest?
