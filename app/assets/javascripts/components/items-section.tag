@@ -1,6 +1,6 @@
 <items-section>
 
-  <section class="Section" data-anchor="{ opts.data.type }">
+  <section if={ opts.data.count > 0 } class="Section" data-anchor="{ opts.data.type }">
 
     <div class="Section-header">
       <h1 class="Section-title">{ opts.data.title }</h1>
