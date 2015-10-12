@@ -30,7 +30,7 @@ module Villeme
               link: Rails.application.routes.url_helpers.newsfeed_city_today_path(city: city, type: 'Activity'),
               link_to_create: '/activities/new',
               city_name: city.name,
-              type: '/activities-today'
+              type: 'activities-today'
           }
         end
 
