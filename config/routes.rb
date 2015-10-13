@@ -1,22 +1,11 @@
 CidadeVc::Application.routes.draw do
 
-  resources :items
-
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  resources :countries
-
-  resources :states
-
-
 
   post '/rate' => 'rater#create', :as => 'rate'
 
-
-
   # Devise
-
   devise_for :users, :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
-
   devise_scope :user do
     get 'sign_up', to: 'devise/registrations#new', as: :registrar
     get 'sign_in', to: 'devise/sessions#new', as: :entrar
@@ -27,121 +16,104 @@ CidadeVc::Application.routes.draw do
 
   scope "(:locale)", locale: /en|pt-BR/ do
 
+    # =Welcome
     root to: 'welcome#index', as: :welcome
 
+    # =Items
     resources :items do
       get :schedule, on: :member
       get :fulldescription, to: 'items#full_description'
     end
 
+    # =Events
     resources :events, controller: 'items', type: 'Event' do
       get :schedule, on: :member
       get :fulldescription, to: 'events#full_description'
     end
 
+    # =Activities
     resources :activities, controller: 'items', type: 'Activity' do
       get :schedule, on: :member
       get :fulldescription, to: 'activities#full_description'
     end
 
-    # Account
+    # =Default routes
+    resources :items
+    resources :users, except: :show
+    resources :personas
+    resources :categories
+    resources :subcategories
+    resources :levels
+    resources :invites
+    resources :weeks
+    resources :prices
+    resources :feedbacks
+    resources :tips
+    resources :places
+    resources :cities
+    resources :neighborhoods
+    resources :countries
+    resources :states
+
+    # =Neighborhood
+    get 'myneighborhood/', to: 'newsfeed#myneighborhood', as: :my_neighborhood_events
+
+    # =Notifications
+    get 'notify/bell'
+    get 'notify/newsfeed'
+
+
+    # =Params ------------------------------------------
+
+    # =Account
     get 'user/:id/account', to: 'accounts#edit', as: :user_account
     match 'account/update/:id', to: 'accounts#update', via: :put, as: :account_update
 
+    # get "bussola/city"
+    # get "bussola/neighborhood"
+    # post "bussola/selecionado"
 
-
-
-
-    get "bussola/city"
-    get "bussola/neighborhood"
-    post "bussola/selecionado"
-
-
-
-
-    # /myneighborhood -> filtra os eventos por bairro para o current_user
-    get 'myneighborhood/', to: 'newsfeed#myneighborhood', as: :my_neighborhood_events
-
-    # /myagenda -> filtra os eventos da minha agenda
+    # =Agenda
     get 'user/:user/agenda/', to: 'newsfeed#agenda', as: :agenda
 
-
-    # Notifications
-    get "notify/bell"
-    get "notify/newsfeed"
-
-
-
-    resources :subcategories
-
-    resources :categories
-
-    resources :cities
-
-    resources :neighborhoods
-
-    resources :places
-
-    resources :levels
-
-    resources :users, except: :show
-
-    resources :invites
-
-    resources :weeks
-
-    resources :prices
-
-    # /feedback
-    resources :feedbacks
-
-    # /persona
-    resources :personas
-
-    resources :tips
-
-
+    # =Profile
     get 'user/:id/events', to: 'profiles#events', as: :user_events
     get 'user/:id/', to: 'users#show', as: :show_user
 
-    # /city
+    # =Newsfeed
     get 'newsfeed', to: 'newsfeed#index', as: :root
     get ':city', to: 'newsfeed#city', as: :newsfeed_city
-    # get ':city/today', to: 'newsfeed#today', as: :newsfeed_city_today
+
+    # =Sections
     get ':city/today&type=(:type)', to: 'newsfeed#today', as: :newsfeed_city_today
     get ':city/persona=(:personas)', to: 'newsfeed#persona', as: :newsfeed_city_persona
     get ':city/category=(:categories)', to: 'newsfeed#category', as: :newsfeed_city_category
     get ':city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_city_neighborhood
 
 
-    # AJAX ------------------------------------------
+    # =AJAX ------------------------------------------
 
     # Complete description of event on show
     get 'events/:event/fulldescription', to: 'events#full_description', as: 'full_description'
 
-    # Aprove event to newsfeed
+    # =Aprove event to newsfeed
     match 'items/aprove/:id', to: 'items#aprove', via: :put, as: 'item_aprove'
 
-    # Friendship routes
+    # =Friendship routes
     get "friendships/request", to: "friendships#request_friendship", as: :friend_request
     get "friendships/accept", to: "friendships#accept_friendship", as: :friend_accept
     get "friendships/destroy", to: "friendships#destroy_friendship", as: :friend_destroy
 
-    # Send invite to users
+    # =Invite -> Send invite to users
     get 'invites/send/:key', to: 'invites#send_invite', as: 'send_invite'
 
-
-    # Tips on events
+    # =Tips on events
     get "tips/create"
     get "tips/destroy"
 
+
+
   end
-
-
-
-
-
-
 
   # torna possivel "redirects" para root_path
   # root :controller => 'static', :action => '/' 
