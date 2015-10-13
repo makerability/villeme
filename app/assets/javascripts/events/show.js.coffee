@@ -1,3 +1,4 @@
+#= require gmap3
 #= require jquery-raty
 #= require gmaps-builder-event
 #= require ratyrate

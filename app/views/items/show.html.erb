@@ -1,15 +1,12 @@
 
 <% cache [current_user, @item, @item.agended_by_count[:count], @item.rates_cache], expires: 1.hour do %>
 
-
     <% wiselinks_title(@item.name + ' em ' + @item.city_name + ' — Villeme') %>
     <%= content_for :title, @item.name + ' em ' + @item.city_name %>
 
-    <%= stylesheet_link_tag params[:controller] %>
-    <%= include_gon %>
+    <!-- CSS/JS PRIMARY -->
 
-    <%= javascript_include_tag 'gmaps-builder-event', 'jquery-raty', 'ratyrate' %>
-
+    <%= stylesheet_inline params[:controller] %>
 
     <!-- MAIN -->
 
@@ -33,7 +30,7 @@
 
 
             <!-- =Image -->
-            <div class="EventSingle-imageBox" style="background-image: url(<%= @item.image.url(:medium) %>)"></div>
+            <div class="EventSingle-imageBox" style="background-image: url(<%= @item.image.url(:large) %>)"></div>
 
 
             <div class="panel-body">
@@ -64,20 +61,20 @@
 
               <!-- =Infos -->
               <div class="EventSingle-infos u-sub-panel">
-                <%= render 'events/show/infos' %>
+                <%= render 'items/show/infos' %>
               </div>
 
 
               <!-- =Description -->
               <div class="panel-body-item p-0-0-15">
-                <%= render 'events/show/description' %>
+                <%= render 'items/show/description' %>
               </div>
 
 
               <!-- =Contacts -->
               <div>
                 <% if @item.email.blank? == false or @item.phone.blank? == false or @item.link.blank? == false %>
-                    <%= render 'events/show/contacts' %>
+                    <%= render 'items/show/contacts' %>
                 <% end %>
               </div>
 
@@ -88,7 +85,7 @@
         <!-- =Who wich created event -->
         <% cache [@item, "created_by"] do %>
             <div class="panel panel-transparent sidebar single-event-sidebar u-padding-15-0">
-              <%= render 'events/show/created_by' %>
+              <%= render 'items/show/created_by' %>
             </div>
         <% end %>
 
@@ -111,7 +108,7 @@
         <% if FEATURE_TIPS_SWITCH %>
         <!-- =Tip -->
         <div class="panel panel-default u-margin-15-0">
-          <%= render 'events/show/tips' %>
+          <%= render 'items/show/tips' %>
         </div>
         <% end %>
 
@@ -119,14 +116,17 @@
 
 
 
-
-
-
       <!-- =SIDEBAR -->
 
-      <%= render 'events/show/sidebar' %>
+      <%= render 'items/show/sidebar' %>
 
 
     </div>
 
 <% end %>
+
+
+<!-- JS/CSS SECONDARIES -->
+
+<%= include_gon %>
+<%= javascript_load_content(['events/show']) %>

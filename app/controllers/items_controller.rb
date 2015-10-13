@@ -42,15 +42,13 @@ class ItemsController < ApplicationController
     # array with places for map
     gon.events_local_formatted = format_for_map_this(Item.all)
 
-    render template: "#{get_item_route}/show"
+    render template: 'items/show'
   end
 
 
 
   # GET /events/new
   def new
-
-    require_relative '../../app/domain/dependecies/javascript_dependencies'
 
     unless Villeme::Policies::AccountComplete.is_complete?(current_user)
       redirect_to root_path, alert: 'Você precisa estar com o perfil completo para criar um evento!'
@@ -79,7 +77,7 @@ class ItemsController < ApplicationController
       gon.latitude = @item.relative_latitude
       gon.longitude = @item.relative_longitude
 
-      render template: "#{get_item_route}/edit"
+      render template: 'items/edit'
     else
       redirect_to root_path, notice: 'Ops! Você so pode editar os eventos que criou.'
     end
@@ -166,8 +164,6 @@ class ItemsController < ApplicationController
 
 
   private
-
-
 
   def set_item
     # @item = Event.find(params[:id])

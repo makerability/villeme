@@ -14,8 +14,8 @@
   
 	<!-- =Transport -->
   <% cache [@item, "transport"] do %>
-  <div class="panel panel-default sidebar single-event-sidebar">
-	<%= render 'events/show/transport' %>
+  <div class="TransportBox panel panel-default sidebar single-event-sidebar">
+	<%= render 'items/show/transport' %>
   </div>
   <% end %>
 
@@ -24,7 +24,7 @@
   <% if current_user %>
       <% unless current_user.which_friends_will_this_event?(@item).empty? %>
         <div class="panel panel-default sidebar single-event-sidebar">
-          <%= render 'events/show/friends_agended' %>
+          <%= render 'items/show/friends_agended' %>
         </div>
       <% end %>
   <% end %>
