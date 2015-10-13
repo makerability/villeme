@@ -203,10 +203,14 @@
 
 
     zoomInMap(){
-      Gmaps.zoomTo(15)
+      clearInterval(this.zoomTimer);
+      this.zoomTimer = setTimeout(function(){
+        Gmaps.zoomTo(15);
+      }, 450);
     }
 
     zoomOutMap(){
+      clearInterval(this.zoomTimer);
       Gmaps.zoomTo(13)
     }
 

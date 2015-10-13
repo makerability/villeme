@@ -133,10 +133,14 @@ riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ peri
 
 
     this.zoomInMap = function() {
-      Gmaps.zoomTo(15)
+      clearInterval(this.zoomTimer);
+      this.zoomTimer = setTimeout(function(){
+        Gmaps.zoomTo(15);
+      }, 450);
     }.bind(this);
 
     this.zoomOutMap = function() {
+      clearInterval(this.zoomTimer);
       Gmaps.zoomTo(13)
     }.bind(this);
 
