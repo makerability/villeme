@@ -144,16 +144,17 @@ class ItemsController < ApplicationController
 
 
   def schedule
+    agended_by_count = @item.agended_by_count
+
     if current_or_guest_user.guest?
       render js: 'Villeme.Ux.loginModal("Você precisa estar logado para agendar eventos!")'
     elsif agended(@item)
       current_user.agenda_items.delete(@item)
-      render json: {agended: false, event: "event-#{@item.id}", count: current_user.agenda_items.upcoming.count, agended_by_count: @item.agended_by_count[:count], new_title: @item.agended_by_count[:text]}
+      render json: {agended: false, event: "event-#{@item.id}", count: current_user.agenda_items.upcoming.count, agended_by_count: agended_by_count[:count], new_title: agended_by_count[:text]}
     else
       current_user.agenda_items << @item
-      render json: {agended: true, event: "event-#{@item.id}", count: current_user.agenda_items.upcoming.count, agended_by_count: @item.agended_by_count[:count], new_title: @item.agended_by_count[:text]}
+      render json: {agended: true, event: "event-#{@item.id}", count: current_user.agenda_items.upcoming.count, agended_by_count: agended_by_count[:count], new_title: agended_by_count[:text]}
     end
-
   end
 
 
