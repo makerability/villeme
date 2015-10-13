@@ -28,13 +28,13 @@ CidadeVc::Application.routes.draw do
     # =Events
     resources :events, controller: 'items', type: 'Event' do
       get :schedule, on: :member
-      get :fulldescription, to: 'events#full_description'
+      get :fulldescription, to: 'items#full_description'
     end
 
     # =Activities
     resources :activities, controller: 'items', type: 'Activity' do
       get :schedule, on: :member
-      get :fulldescription, to: 'activities#full_description'
+      get :fulldescription, to: 'items#full_description'
     end
 
     # =Default routes
