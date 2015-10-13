@@ -1,3 +1,11 @@
+#= require gmap3
+#= require datetimepicker/jquery.datetimepicker.js
+#= require jqueryte/dist/jquery-te-1.4.0.min
+#= require jquery-maskMoney
+#= require jquery.ui.autocomplete
+#= require bootstrap-filestyle
+#= require gmaps-builder
+#= require autocomplete
 #= require events/input
 #= require modules/Form
 

@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+//= require events/EventForm
+//= require datetimepicker/jquery.datetimepicker.css
+//= require jqueryte/dist/jquery-te-1.4.0.css
+//= require jquery.ui.theme
+//= require jquery.ui.autocomplete
+//= require bootstrap-wysihtml5
 
 @import 'variables';
 @import 'style/Form';
