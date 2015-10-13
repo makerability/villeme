@@ -50,7 +50,7 @@ feature 'Create an activity', js: true do
         page.fill_in 'activity[address]', with: @activity_attributes.address
 
 
-      page.click_button 'Criar atividade'
+      page.click_button 'submit'
 
       sleep 3
 
