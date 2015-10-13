@@ -69,56 +69,8 @@ class Item < ActiveRecord::Base
 	}
 
 	def self.to_json(item, options = {user: nil})
-		unless options[:user].guest?
-			distance = options[:user].distance_until(item, :minutes)
-		end
-		action = case item.type
-							 when 'Event' then 'events'
-							 when 'Activity' then 'activities'
-							 else 'items'
-						 end
-		{
-				id: item.slug,
-				name: item.name,
-				description: item.description_with_limit,
-				latitude: item.latitude.blank? ? item.place.latitude : item.latitude,
-				longitude: item.longitude.blank? ? item.place.longitude : item.longitude,
-				full_address: item.full_address,
-				link: "/#{action}/#{item.slug}",
-				subcategories: item.subcategories.try(:first).try(:name),
-				day_of_week: item.day_of_week,
-				period_that_occurs: item.period_that_occurs,
-				start_hour: item.start_hour,
-				image: {
-						thumb: item.image.url(:thumb),
-						medium: item.image.url(:medium),
-						large: item.image.url(:large)
-				},
-				price: {
-						value: item.price[:value],
-						highlight: item.price[:css_attributes]
-				},
-				rating: item.rates_media,
-				distance: {
-						bus: distance ? "#{distance[:bus]}min." : nil ,
-						car: distance ? "#{distance[:car]}min." : nil,
-						walk: distance ? "#{distance[:walk]}" : nil,
-						bike: distance ? "#{distance[:bike]}min." : nil,
-				},
-				agended_by: {
-						count: item.agended_by_count[:count],
-						text: item.agended_by_count[:text]
-				},
-				place: {
-						name: item.place.try(:name),
-						link: "/places/#{item.place.id}"
-				},
-				actions: {
-						schedule: "/items/#{item.try(:slug)}/schedule",
-				},
-				is_agended: item.agended?(options[:user])
-
-		}
+		require_relative '../../app/domain/json/item/item_to_json'
+		Villeme::JSON.item_to_json(item, options)
 	end
 
 	def self.all_today(options = {city: false, type: false, limit: false})
@@ -319,7 +271,6 @@ class Item < ActiveRecord::Base
 	def day_of_week(options = {})
 		require_relative '../../app/domain/usecases/weeks/get_day_of_week'
 		require_relative '../../app/domain/usecases/dates/get_next_day_occur_human_readable'
-
 		Villeme::UseCases::Dates.new(self).get_next_day_occur_human_readable
 	rescue
 		nil
@@ -327,13 +278,11 @@ class Item < ActiveRecord::Base
 
 	def today?
 		require_relative '../../app/domain/usecases/dates/get_next_day_occur_human_readable'
-
 		Villeme::UseCases::Dates.new(self).today?
 	end
 
 	def start_hour
 		require_relative '../domain/usecases/events/event_attributes'
-
 		Villeme::UseCases::EventAttributes.get_start_hour(self)
 	end
 
