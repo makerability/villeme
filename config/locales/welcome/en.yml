@@ -78,8 +78,9 @@ en:
     buttons:
       login_with_facebook: "Sign in with Facebook"
     values:
-      events_and_activities_html: "Events and activities of <b>interest to you</b>"
+      events_and_activities_html: "Events and activities of interest to you"
       date_and_localization_html: "Know the dates and location <b>simply</b>"
+      schedule_one_click_html: "Schedule with one click"
       categories_html: "Leisure, health, sport education and culture"
       open_colaborative_html: "It's <b>free</b>, Open Source and collaborative"
   dictionary:
