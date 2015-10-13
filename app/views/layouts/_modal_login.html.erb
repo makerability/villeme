@@ -20,7 +20,7 @@
             </div>
         <% end %>
 
-        <span>ou <%= link_to 'entre com o <b>facebook</b>', user_omniauth_authorize_path(:facebook), class: 'u-fake-link has-tooltip', title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'bottom' %></span>
+        <span>ou <%= link_to 'entre com o <b>facebook</b>'.html_safe, user_omniauth_authorize_path(:facebook), class: 'u-fake-link has-tooltip', title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'bottom' %></span>
 
 
       </div>
