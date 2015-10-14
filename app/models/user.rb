@@ -173,6 +173,26 @@ class User < ActiveRecord::Base
     Villeme::Policies::AccountComplete.is_complete?(self)
   end
 
+  def get_avatar_url
+    if self.avatar_file_name != nil
+      self.avatar.url(:thumb)
+    elsif self.facebook_avatar
+      self.facebook_avatar
+    else
+      'thumb/missing.png'
+    end
+  end
+
+  def get_avatar_origin
+    if self.avatar_file_name != nil
+      'aws'
+    elsif self.facebook_avatar
+      'facebook'
+    else
+      'default'
+    end
+  end
+
   def agended?(event)
     self.agenda_events.include?(event) ? true : false
   end
@@ -214,15 +234,29 @@ class User < ActiveRecord::Base
   end
 
 
-  def which_friends_will_this_event?(event)
+  def which_friends_will_this_event?(event, options = {json: false})
     friends = self.accepted_friends
-    friends_will_this_event = Array.new
+    friends_will_this_event = []
+
     friends.each do |friend|
       if friend.agended?(event)
         friends_will_this_event << friend
       end
     end
-    friends_will_this_event
+
+    if options[:json]
+      friends_will_this_event.map do |friend|
+        {
+            name: friend.name,
+            avatar: {
+                url: friend.get_avatar_url,
+                origin: friend.get_avatar_origin
+            }
+        }
+      end
+    else
+      friends_will_this_event
+    end
   end
 
 

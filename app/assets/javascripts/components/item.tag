@@ -52,17 +52,13 @@
               <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>
               { rating }
           </span>
-          <span class="Event-infosFriends pull-right Event-infosItem">
-             <!--unless current_user.which_friends_will_this_event?(event).blank?-->
-               <!--current_user.which_friends_will_this_event?(event).each do |friend|-->
-                  <i class="has-tooltip avatar-icon" title=" friend.first_name  agendou o evento">
-                    <!--get_avatar(friend, "22", "22") -->
-                  </i>
-               <!--end-->
-             <!--end-->
+          <span if={ friends.someone_will } class="Event-infosFriends pull-right Event-infosItem">
+            <i each={ friends.will } class="has-tooltip avatar-icon" title="{ name }  agendou o evento">
+              <img src="{ avatar.url + (avatar.origin == 'facebook' ? '&width=22&height=22' : '' ) }" class="img-circle image" width="22" height="22">
+            </i>
           </span>
-        </div>
 
+        </div>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ module Villeme
       def item_to_json(item, options)
         distance = calculate_distance_from_user_to_item(item, options)
         action = define_action_name_to_url(item)
+        user = options[:user]
 
         {
             id: item.slug,
@@ -28,6 +29,10 @@ module Villeme
                 highlight: item.price[:css_attributes]
             },
             rating: item.rates_media,
+            friends: {
+              someone_will?: !user.which_friends_will_this_event?(item).blank?,
+              will: user.which_friends_will_this_event?(item)
+            },
             distance: {
                 bus: distance ? "#{distance[:bus]}min." : nil ,
                 car: distance ? "#{distance[:car]}min." : nil,
@@ -45,8 +50,7 @@ module Villeme
             actions: {
                 schedule: "/items/#{item.try(:slug)}/schedule",
             },
-            is_agended: item.agended?(options[:user])
-
+            is_agended: item.agended?(user)
         }
       end
 
