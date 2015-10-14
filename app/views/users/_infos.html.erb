@@ -7,7 +7,7 @@
 
   <div class="col-lg-6 u-padding-15-0 u-centralize">
     <span class="font-11">LEVEL</span><br/>
-    <span class="font-22"><%= @user.level.name %></span>
+    <span class="font-22"><%= @user.level.try(:name) %></span>
   </div>
 
   <div class="col-lg-6 u-padding-15-0 u-centralize">
