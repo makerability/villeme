@@ -32,6 +32,8 @@ feature 'Create an activity', js: true do
     scenario 'should create an activity' do
       visit('/en/activities/new')
 
+        sleep 3
+
         page.fill_in 'activity[name]', with: @activity_attributes.name
         page.evaluate_script("$('.jqte_editor').text('#{@activity_attributes.description}')")
         page.fill_in 'activity[date_start]', with: Date.current.strftime('%d/%m/%Y')
@@ -39,7 +41,7 @@ feature 'Create an activity', js: true do
         # page.check 'Monday'
         # page.check 'Sunday'
 
-      sleep 2
+        sleep 3
 
         page.fill_in 'activity[hour_start_first]', with: '09:00'
         page.fill_in 'activity[hour_finish_first]', with: '20:30'

@@ -32,6 +32,8 @@ feature 'Create an event', js: true do
     scenario 'should create an event' do
       visit('/en/events/new')
 
+        sleep 3
+
         page.fill_in 'event[name]', with: @activity_attributes.name
         page.evaluate_script("$('.jqte_editor').text('#{@activity_attributes.description}')")
         page.fill_in 'event[date_start]', with: Date.current.strftime('%d/%m/%Y')
@@ -39,7 +41,7 @@ feature 'Create an event', js: true do
         # page.check 'Monday'
         # page.check 'Sunday'
 
-        sleep 2
+        sleep 3
 
         page.fill_in 'event[hour_start_first]', with: '09:00'
         page.fill_in 'event[hour_finish_first]', with: '20:30'
