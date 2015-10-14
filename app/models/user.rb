@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
   end
 
   def agended?(event)
-    self.agenda_events.include?(event) ? true : false
+    self.agenda_items.include?(event) ? true : false
   end
 
   def are_friends?(friend)
