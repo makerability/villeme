@@ -52,7 +52,7 @@
               <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>
               { rating }
           </span>
-          <span if={ friends.someone_will? } class="Event-infosFriends pull-right Event-infosItem">
+          <span if={ friends.someone_will } class="Event-infosFriends pull-right Event-infosItem">
             <i each={ friends.will } class="has-tooltip avatar-icon" title="{ name }  agendou o evento">
               <img src="{ avatar.url + (avatar.origin == 'facebook' ? '&width=22&height=22' : '' ) }" class="img-circle image" width="22" height="22">
             </i>

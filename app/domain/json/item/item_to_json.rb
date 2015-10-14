@@ -30,7 +30,7 @@ module Villeme
             },
             rating: item.rates_media,
             friends: {
-              someone_will?: !user.which_friends_will_this_event?(item).blank?,
+              someone_will: !user.which_friends_will_this_event?(item).blank?,
               will: user.which_friends_will_this_event?(item, json: true)
             },
             distance: {
