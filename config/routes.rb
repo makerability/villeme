@@ -63,6 +63,26 @@ CidadeVc::Application.routes.draw do
     get 'notify/newsfeed'
 
 
+    # =AJAX ------------------------------------------
+
+    # Complete description of event on show
+    get 'events/:event/fulldescription', to: 'events#full_description', as: 'full_description'
+
+    # =Aprove event to newsfeed
+    match 'items/aprove/:id', to: 'items#aprove', via: :put, as: 'item_aprove'
+
+    # =Friendship routes
+    get 'friendships/request', to: 'friendships#request_friendship', as: :friend_request
+    get 'friendships/accept', to: 'friendships#accept_friendship', as: :friend_accept
+    get 'friendships/destroy', to: 'friendships#destroy_friendship', as: :friend_destroy
+
+    # =Invite -> Send invite to users
+    get 'invites/send/:key', to: 'invites#send_invite', as: 'send_invite'
+
+    # =Tips on events
+    get 'tips/create'
+    get 'tips/destroy'
+
     # =Params ------------------------------------------
 
     # =Account
@@ -89,27 +109,6 @@ CidadeVc::Application.routes.draw do
     get ':city/persona=(:personas)', to: 'newsfeed#persona', as: :newsfeed_city_persona
     get ':city/category=(:categories)', to: 'newsfeed#category', as: :newsfeed_city_category
     get ':city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_city_neighborhood
-
-
-    # =AJAX ------------------------------------------
-
-    # Complete description of event on show
-    get 'events/:event/fulldescription', to: 'events#full_description', as: 'full_description'
-
-    # =Aprove event to newsfeed
-    match 'items/aprove/:id', to: 'items#aprove', via: :put, as: 'item_aprove'
-
-    # =Friendship routes
-    get "friendships/request", to: "friendships#request_friendship", as: :friend_request
-    get "friendships/accept", to: "friendships#accept_friendship", as: :friend_accept
-    get "friendships/destroy", to: "friendships#destroy_friendship", as: :friend_destroy
-
-    # =Invite -> Send invite to users
-    get 'invites/send/:key', to: 'invites#send_invite', as: 'send_invite'
-
-    # =Tips on events
-    get "tips/create"
-    get "tips/destroy"
 
 
 
