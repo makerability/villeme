@@ -281,7 +281,6 @@
     }
 
     &Item{
-      padding: 9px 12px 0;
       color: scale_color($grey, $lightness: 20%);
       font-family: $font-family-default;
       font-size: 12px;
@@ -295,14 +294,25 @@
     }
 
     &Price{
+      padding: 9px 12px 0;
       float: left;
     }
 
     &Rating{
+      padding: 9px 12px 0;
       float: left;
 
       &Star{
 
+      }
+    }
+
+    &Friends{
+      padding: 5px 0 0 0;
+      float: right;
+
+      & i{
+        margin: 0 0 0 5px;
       }
     }
   }
