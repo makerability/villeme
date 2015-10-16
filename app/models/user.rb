@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
-  # Dependencies
+
+  # =User Dependencies
   require_relative '../domain/usecases/events/get_events'
   require_relative '../domain/friends/friends_from_facebook_on_villeme'
   require_relative '../domain/friends/friends_from_facebook'
@@ -14,8 +15,8 @@ class User < ActiveRecord::Base
   require_relative '../domain/avatar/avatar'
   require_relative '../domain/level/level'
 
-  # Validations
 
+  # =Validations
   def password_required?
     if guest?
       false
@@ -34,15 +35,16 @@ class User < ActiveRecord::Base
 
   after_validation :geocode_user, unless: 'address.nil?' or :guest?
 
-  # Gamification
+
+  # =Gamification
   has_merit
 
 
-  # Rating
+  # =Rating
   ratyrate_rater
 
 
-  # Urls personalized
+  # =Urls personalized
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
   def slug_candidates
@@ -53,25 +55,26 @@ class User < ActiveRecord::Base
   end
 
 
-  # Facebook oauth
+  # =Facebook oauth
   extend FacebookOauth
 
-  # Geocoder
+
+  # =Geocoder
   include GeocodedActions
 
 
-  # Devise
+  # =Devise
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook]
 
 
-  # Paperclip
+  # =Paperclip
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :avatar => "38x38" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
 
-  # Associations
+  # =User Associations
   belongs_to :level
     delegate :name, to: :level, prefix: true, allow_nil: true
     delegate :nivel, to: :level, prefix: true, allow_nil: true
@@ -110,6 +113,7 @@ class User < ActiveRecord::Base
           foreign_key: :friend_id
 
 
+  # =User Actions
   def first_name
     name ? name.split.first : nil
   end
@@ -225,7 +229,6 @@ class User < ActiveRecord::Base
   def geocode_user
     Villeme::UseCases::GeocodeUser.new(self).geocoded_by_address(self.address)
   end
-
-
+  
 end
 
