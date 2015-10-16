@@ -229,6 +229,6 @@ class User < ActiveRecord::Base
   def geocode_user
     Villeme::UseCases::GeocodeUser.new(self).geocoded_by_address(self.address)
   end
-  
+
 end
 

@@ -9,11 +9,11 @@ class NewsfeedController < ApplicationController
   # verifica se a conta esta completa
   before_action :is_complete, except: [:index, :city]
 
+
   include Gmaps
 
 
-
-  # Layout newsfeed
+  # =Newsfeed Layout
   layout 'full-width'
 
 
@@ -25,7 +25,6 @@ class NewsfeedController < ApplicationController
     else
       redirect_to newsfeed_city_path(City.where(launch: true).first.slug) and return
     end
-
   end
 
   def city
@@ -110,7 +109,6 @@ class NewsfeedController < ApplicationController
     @event = Event.find(params[:id])
   end
 
-
   def get_item_class(options = {text: false})
     if params[:type] != nil
       options[:text] ? params[:type] : params[:type].constantize
@@ -132,6 +130,5 @@ class NewsfeedController < ApplicationController
       'Items'
     end
   end
-
 
 end
