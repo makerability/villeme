@@ -111,6 +111,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   def default_url_options(options={})
     logger.debug "default_url_options is passed options: #{options.inspect}\n"
     { locale: I18n.locale }
@@ -122,14 +123,13 @@ class ApplicationController < ActionController::Base
 	end
 
 
-
 	def layout_devise_setting
 	  if devise_controller? 
 	    "centralize"
 	  end
 	end
 
-	
+
 	def is_logged
 		unless user_signed_in?
 			redirect_to welcome_path, alert: "Ops! Você precisa estar logado para acessar isto."
@@ -163,7 +163,6 @@ class ApplicationController < ActionController::Base
 	end
 
 
-	
 	def is_invited
     if current_or_guest_user.invited?
       true
@@ -177,11 +176,9 @@ class ApplicationController < ActionController::Base
   end
 
 
-
   def after_sign_out_path_for(resource)
     welcome_path
   end
-
 
 
   def configure_permitted_parameters
@@ -257,17 +254,7 @@ class ApplicationController < ActionController::Base
 	end
 
 
-
-
-
-
-
-
-
-
-
 	def strong_category(event, type)
-
 		# contador para retornar o mais forte se existir mais de uma categoria
 		i = event.categories.count
 
@@ -279,6 +266,7 @@ class ApplicationController < ActionController::Base
 		end
 
 	end
+
 
   def categories_item(event, i)
     if event.categories.empty?
@@ -293,6 +281,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
 
   def categories_slug(event, i)
     event_categories = event.categories.includes(:translations)
@@ -310,9 +299,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
-
-
   def cost(variable)
 		if variable == 0 or variable.blank?
 			return "Gratuito"
@@ -322,10 +308,6 @@ class ApplicationController < ActionController::Base
 	end
 
 	helper_method :cost
-
-
-
-
 
 
   # Verifica se o evento foi agendado pelo usuario
@@ -340,9 +322,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :agended
-
-
-
 
   def clean_url(url)
     cleaned_url = if url.include?("https://")
@@ -385,10 +364,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :to_slug
-
-
-
-
 
 
 end
