@@ -2,16 +2,17 @@ class User < ActiveRecord::Base
 
   # Dependencies
   require_relative '../domain/usecases/events/get_events'
-  require_relative '../domain/usecases/level/get_level'
-  require_relative '../domain/usecases/level/points_level'
-  require_relative '../domain/usecases/level/icon_level'
-  require_relative '../domain/usecases/friends/get_friends'
-  require_relative '../domain/usecases/friends/ranking_friends'
+  require_relative '../domain/friends/friends_from_facebook_on_villeme'
+  require_relative '../domain/friends/friends_from_facebook'
+  require_relative '../domain/friends/ranking_friends'
+  require_relative '../domain/agenda/agenda'
+  require_relative '../domain/notifies/notifies'
   require_relative '../domain/usecases/cities/get_city_slug'
   require_relative '../domain/usecases/geolocalization/geocode_user'
   require_relative '../domain/usecases/notifies/newsfeed_notify'
   require_relative '../domain/policies/user/account_complete'
-
+  require_relative '../domain/avatar/avatar'
+  require_relative '../domain/level/level'
 
   # Validations
 
@@ -154,19 +155,19 @@ class User < ActiveRecord::Base
   end
 
   def level_icon_url
-    Villeme::UseCases::IconLevel.get_icon(self)
+    Villeme::Level.get_icon(self)
   end
 
   def next_level
-    Villeme::UseCases::GetLevel.next_level(self)
+    Villeme::Level.next_level(self)
   end
 
   def points_to_next_level
-    Villeme::UseCases::PointsLevel.points_to_next_level(self)
+    Villeme::Level.points_to_next_level(self)
   end
 
   def percentage_of_current_level
-    Villeme::UseCases::GetLevel.percentage_of_current_level(self)
+    Villeme::Level.percentage_of_current_level(self)
   end
 
   def account_complete?
@@ -174,23 +175,11 @@ class User < ActiveRecord::Base
   end
 
   def get_avatar_url
-    if self.avatar_file_name != nil
-      self.avatar.url(:thumb)
-    elsif self.facebook_avatar
-      self.facebook_avatar
-    else
-      'thumb/missing.png'
-    end
+    Villeme::Avatar.get_avatar_url(self)
   end
 
   def get_avatar_origin
-    if self.avatar_file_name != nil
-      'aws'
-    elsif self.facebook_avatar
-      'facebook'
-    else
-      'default'
-    end
+    Villeme::Avatar.get_avatar_origin(self)
   end
 
   def agended?(event)
@@ -206,60 +195,20 @@ class User < ActiveRecord::Base
   end
 
   def friends_from_facebook
-
-    if token
-
-      # Array de retorno
-      friends_from_facebook = Array.new
-
-      # Pega os amigos do facebook via koala
-      graph = Koala::Facebook::API.new(self.token)
-      friends = graph.get_connections("me", "friends?fields=id,name,picture.type(square)")
-
-      # Retorna 150 amigos
-      friends[0..150]
-    else
-      false
-    end
-
+    Villeme::Friends.get_friends_from_facebook(self)
   end
 
-
   def friends_from_facebook_on_villeme
-    Villeme::UseCases::GetFriends.friends_from_facebook_on_villeme(self)
+    Villeme::Friends.friends_from_facebook_on_villeme(self)
   end
 
   def ranking_of_friends
-    Villeme::UseCases::RankingFriends.get_ranking(self)
+    Villeme::Friends.get_ranking(self)
   end
-
-
-  def which_friends_will_this_event?(event, options = {json: false})
-    friends = self.accepted_friends
-    friends_will_this_event = []
-
-    friends.each do |friend|
-      if friend.agended?(event)
-        friends_will_this_event << friend
-      end
-    end
-
-    if options[:json]
-      friends_will_this_event.map do |friend|
-        {
-            name: friend.name,
-            avatar: {
-                url: friend.get_avatar_url,
-                origin: friend.get_avatar_origin
-            }
-        }
-      end
-    else
-      friends_will_this_event
-    end
+  
+  def which_friends_will_this_event?(event, options)
+    Villeme::Agenda.which_friends_will_this_event?(self, event, options)
   end
-
-
 
   def requested_friendships_notify
     if self.notify.nil?
@@ -269,27 +218,17 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def newsfeed_notify
     Villeme::UseCases::NewsfeedNotify.get_notifies(self)
   end
 
   def newsfeed_notify_count
-    if self.has_notify
-      self.newsfeed_notify.count
-    else
-      0
-    end
+    Villeme::Notifies.newsfeed_notify_count(self)
   end
 
   def has_notify
-    if self.notify.nil?
-      false
-    else
-      true
-    end
+    Villeme::Notifies.has_notify(self)
   end
-
 
   def geocode_user
     Villeme::UseCases::GeocodeUser.new(self).geocoded_by_address(self.address)
