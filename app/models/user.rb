@@ -115,19 +115,15 @@ class User < ActiveRecord::Base
   end
 
   def persona
-    if personas.size > 1
-      personas.first
-    else
-      personas.first
-    end
+    Persona.get_user_personas(self)
   end
 
   def personas_name
-    Persona.get_names(personas)
+    Persona.get_names(self.personas)
   end
 
   def personas_query
-    Persona.to_query(personas)
+    Persona.to_query(self.personas)
   end
 
   def city_slug
@@ -205,21 +201,17 @@ class User < ActiveRecord::Base
   def ranking_of_friends
     Villeme::Friends.get_ranking(self)
   end
-  
+
   def which_friends_will_this_event?(event, options)
     Villeme::Agenda.which_friends_will_this_event?(self, event, options)
   end
 
-  def requested_friendships_notify
-    if self.notify.nil?
-      self.requested_friendships.where("created_at BETWEEN ? AND ?", DateTime.current - 365, DateTime.current)
-    else
-      self.requested_friendships.where("created_at BETWEEN ? AND ?", self.notify.bell_view, DateTime.current)
-    end
+  def requested_friendships_notifies
+    Villeme::Notifies.requested_friendships_notifies(self)
   end
 
   def newsfeed_notify
-    Villeme::UseCases::NewsfeedNotify.get_notifies(self)
+    Villeme::Notifies.get_notifies(self)
   end
 
   def newsfeed_notify_count

@@ -8,6 +8,14 @@ class Persona < ActiveRecord::Base
 	has_and_belongs_to_many :items
 	has_and_belongs_to_many :invites
 
+	def self.get_user_personas(user)
+		if user.personas.size > 1
+			user.personas.first
+		else
+			user.personas.first
+		end
+	end
+
 	def self.get_names(personas)
 		personas.pluck(:name)
 	end
@@ -19,6 +27,5 @@ class Persona < ActiveRecord::Base
 	def self.query_to_array(personas_query)
 		personas_query ? personas_query.split('+') : []
 	end
-
 
 end
