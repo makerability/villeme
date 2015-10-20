@@ -45,7 +45,7 @@ feature 'Create an event', js: true do
 
         page.fill_in 'event[hour_start_first]', with: '09:00'
         page.fill_in 'event[hour_finish_first]', with: '20:30'
-        attach_file 'event[image]', "#{Rails.root}/public/images/default-event-image.jpg"
+        attach_file 'event[image]', "#{Rails.root}/public/images/palestra.jpg"
         # fill_in '#event_cost_fake', with: '10,00'
         page.fill_in 'event[place_attributes][name]', with: 'Parque da Redenção'
           find_field('event[place_attributes][name]').native.send_keys(:return)

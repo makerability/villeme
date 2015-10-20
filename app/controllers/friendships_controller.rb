@@ -16,8 +16,6 @@ class FriendshipsController < ApplicationController
   end
 
 
-
-
   def accept_friendship
     user = current_user
     friend = User.friendly.find(params[:friend])
@@ -33,7 +31,6 @@ class FriendshipsController < ApplicationController
   end
 
 
-
   def destroy_friendship
     friend = User.friendly.find(params[:friend])
     action = Friendship.destroy(current_user, friend)
@@ -45,6 +42,4 @@ class FriendshipsController < ApplicationController
       render json: {success: false, text: "Erro"}
     end    
   end
-
-
 end

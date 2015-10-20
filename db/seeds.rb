@@ -420,12 +420,28 @@ puts "\n"
 
 
 
+puts '=========== Creating Friendships ==========='
+
+5.times do
+    user_random = User.order("RANDOM()").first
+    if user_random != admin
+        Friendship.request(user_random, admin)
+        puts "Friendship between #{admin.name} and #{user_random.name} are created"
+        next
+    end
+    puts "Friendship are not created!"
+end
+
+puts "\n"
+puts "\n"
+
 puts '=========== Itens fakers creator ==========='
 
 puts "\n"
 puts "\n"
 
 types_array = ['Event', 'Activity']
+images_array = ['a', 'b', 'd', 'e', 'f']
 
 30.times do
   place = Place.order("RANDOM()").first
@@ -455,7 +471,7 @@ types_array = ['Event', 'Activity']
       user_id: User.order("RANDOM()").first.id,
       place_id: place.id,
       moderate: 1,
-      image: File.new("#{Rails.root}/app/assets/images/default-event-image.jpg")
+      image: File.new("#{Rails.root}/app/assets/images/seed/imagem-#{images_array.shuffle.first}.jpg")
   )
 
   puts item.save ? "#{item.type} #{item.name} created with success!" : 'Error on create item'

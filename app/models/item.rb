@@ -4,6 +4,7 @@ class Item < ActiveRecord::Base
 	require_relative '../domain/usecases/events/event_attributes'
 	require_relative '../domain/usecases/geolocalization/get_geocoder_attributes'
 	require_relative '../domain/usecases/geolocalization/geocode_event'
+	require_relative '../domain/json/item/item_to_json'
 
 	after_validation :geocode_event, unless: 'address.nil?'
 
@@ -69,7 +70,6 @@ class Item < ActiveRecord::Base
 	}
 
 	def self.to_json(item, options = {user: nil})
-		require_relative '../../app/domain/json/item/item_to_json'
 		Villeme::JSON.item_to_json(item, options)
 	end
 

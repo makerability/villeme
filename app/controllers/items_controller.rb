@@ -158,7 +158,7 @@ class ItemsController < ApplicationController
 
 
   def full_description
-    @item = Item.friendly.find(params[:id])
+    @item = Item.friendly.find(params[get_item_id])
     render json:{full_description: @item.description}
   end
 
@@ -272,6 +272,16 @@ class ItemsController < ApplicationController
     end
   end
 
+  def get_item_id
+    if params[:type] == 'Event'
+      "#{params[:type].downcase}_id"
+    elsif params[:type] == 'Activity'
+      "#{params[:type].downcase}_id"
+    else
+      'id'
+    end
+  end
+
   def get_item_class(options = {text: false})
     if params[:type] != nil
       options[:text] ? params[:type] : params[:type].constantize
@@ -292,9 +302,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def full_description
-    @item = Event.friendly.find(params[:event_id])
-    render json:{full_description: @item.description}
-  end
+
 
 end

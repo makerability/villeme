@@ -1,5 +1,5 @@
 module Villeme
-  module Level
+  module Levels
     class << self
 
       def next_level(entity)

@@ -10,10 +10,41 @@ class User < ActiveRecord::Base
   require_relative '../domain/notifies/notifies'
   require_relative '../domain/usecases/cities/get_city_slug'
   require_relative '../domain/usecases/geolocalization/geocode_user'
-  require_relative '../domain/usecases/notifies/newsfeed_notify'
   require_relative '../domain/policies/user/account_complete'
   require_relative '../domain/avatar/avatar'
-  require_relative '../domain/level/level'
+  require_relative '../domain/levels/levels'
+
+  # =Facebook oauth
+  extend FacebookOauth
+
+  # =Geocoder
+  include GeocodedActions
+
+  # =Gamification
+  has_merit
+
+  # =Rating
+  ratyrate_rater
+
+  # =Urls personalized
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+  def slug_candidates
+    [
+        :name,
+        [:name, :id]
+    ]
+  end
+
+  # =Devise
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+  devise :omniauthable, :omniauth_providers => [:facebook]
+
+  # =Paperclip
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :avatar => "38x38" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
 
 
   # =Validations
@@ -34,44 +65,6 @@ class User < ActiveRecord::Base
   end
 
   after_validation :geocode_user, unless: 'address.nil?' or :guest?
-
-
-  # =Gamification
-  has_merit
-
-
-  # =Rating
-  ratyrate_rater
-
-
-  # =Urls personalized
-  extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
-  def slug_candidates
-    [
-        :name,
-        [:name, :id]
-    ]
-  end
-
-
-  # =Facebook oauth
-  extend FacebookOauth
-
-
-  # =Geocoder
-  include GeocodedActions
-
-
-  # =Devise
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-  devise :omniauthable, :omniauth_providers => [:facebook]
-
-
-  # =Paperclip
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :avatar => "38x38" }, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
 
   # =User Associations
@@ -155,19 +148,19 @@ class User < ActiveRecord::Base
   end
 
   def level_icon_url
-    Villeme::Level.get_icon(self)
+    Villeme::Levels.get_icon(self)
   end
 
   def next_level
-    Villeme::Level.next_level(self)
+    Villeme::Levels.next_level(self)
   end
 
   def points_to_next_level
-    Villeme::Level.points_to_next_level(self)
+    Villeme::Levels.points_to_next_level(self)
   end
 
   def percentage_of_current_level
-    Villeme::Level.percentage_of_current_level(self)
+    Villeme::Levels.percentage_of_current_level(self)
   end
 
   def account_complete?
@@ -206,7 +199,7 @@ class User < ActiveRecord::Base
     Villeme::Friends.get_ranking(self)
   end
 
-  def which_friends_will_this_event?(event, options)
+  def which_friends_will_this_event?(event, options = {})
     Villeme::Agenda.which_friends_will_this_event?(self, event, options)
   end
 
