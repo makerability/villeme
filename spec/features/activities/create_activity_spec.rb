@@ -45,7 +45,7 @@ feature 'Create an activity', js: true do
 
         page.fill_in 'activity[hour_start_first]', with: '09:00'
         page.fill_in 'activity[hour_finish_first]', with: '20:30'
-        attach_file 'activity[image]', "#{Rails.root}/public/images/palestra.jpg"
+        attach_file 'activity[image]', "#{Rails.root}/public/images/default-event-image.jpg"
         # fill_in '#event_cost_fake', with: '10,00'
         page.fill_in 'activity[place_attributes][name]', with: 'Parque da Redenção'
           find_field('activity[place_attributes][name]').native.send_keys(:return)
