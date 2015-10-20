@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901195529) do
+ActiveRecord::Schema.define(version: 20151020033913) do
 
   create_table "agenda_items", force: true do |t|
     t.integer  "item_id"
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 20150901195529) do
     t.boolean  "allday",                                     default: false
     t.integer  "agendas_count",                              default: 0
     t.string   "type"
+    t.boolean  "all_year",                                   default: false
   end
 
   add_index "items", ["persona_id"], name: "index_items_on_persona_id"

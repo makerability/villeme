@@ -53,6 +53,7 @@
                 </div>
                 <div class="col-lg-12">
                   <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :all_year, label: 'O evento acontece o ano todo', value: true, input_html: {class: 'EventForm-allyearInput'}, label_html: {class: 'EventForm-allyearLabel'}, wrapper_html: {class: 'EventForm-allyearWrapper'} %>
                 </div>
               </div>
 
@@ -96,7 +97,7 @@
                 </div>
                 <div class="col-lg-5">
                   <%= f.input :hour_start_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
-                  <%= f.input :allday, label: 'O evento acontece o dia todo', value: true, input_html: {class: 'FormEvent-alldayInput'}, label_html: {class: 'FormEvent-alldayLabel'}, wrapper_html: {class: 'FormEvent-alldayWrapper'} %>
+                  <%= f.input :allday, label: 'O evento acontece o dia todo', value: true, input_html: {class: 'EventForm-alldayInput'}, label_html: {class: 'EventForm-alldayLabel'}, wrapper_html: {class: 'EventForm-alldayWrapper'} %>
                 </div>
                 <div class="col-lg-5 not-required">
                   <%= f.input :hour_finish_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
