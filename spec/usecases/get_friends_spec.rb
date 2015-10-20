@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/usecases/friends/get_friends'
+require_relative '../../app/domain/friends/friends_from_facebook'
 
 describe 'UseCases::GetFriends' do
 
