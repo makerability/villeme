@@ -16,7 +16,7 @@ describe 'UseCase::GetLevel' do
         user = double('User')
         user.stub_chain(:level, :points).and_return(nil)
 
-        expect(Villeme::UseCases::GetLevel.percentage_of_current_level(user)).to eq 0
+        expect(Villeme::Levels.percentage_of_current_level(user)).to eq 0
       end
     end
   end
