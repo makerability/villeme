@@ -211,6 +211,7 @@ class ItemsController < ApplicationController
         :email,
         :phone,
         :allday,
+        :all_year,
         :type,
         :subcategory_ids => [],
         :category_ids => [],

@@ -14,9 +14,6 @@ Villeme.Newsfeed = ( ->
   initialize = ->
     $(document).on 'ready page:done', ->
       fixingMapOnScroll()
-      return
-
-    $(document).on 'page:done', ->
       initGoogleMaps()
       return
 
