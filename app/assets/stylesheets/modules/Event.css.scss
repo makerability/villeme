@@ -254,17 +254,17 @@
     display: block;
     font-size: 12px;
     line-height: 18px;
-    margin: 0 0 12px;
+    margin: 0 0 6px;
     max-height: 100px;
     overflow: hidden;
   }
 
   &-infos{
-    background: #FCFCFC;
+    background: #fcfcfc;
     margin: 0 -10px 0;
-    border-top: 1px solid #f1f1f1;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    box-shadow: 0px -5px 15px #fcfcfc;
     height: 35px;
     padding: 0 12px;
 

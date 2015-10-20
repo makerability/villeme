@@ -6,7 +6,7 @@
       { day_of_week }   { start_hour }
     </span>
 
-    <span onclick={ schedule } class="Event-button Event-agendaButton js-EventAgendaButton { is-schedule: scheduled }">
+    <span onclick={ schedule } class="Event-button Event-agendaButton { is-schedule: scheduled }">
     <span class="Event-buttonText js-EventButtonText">{ button_text }</span>
       <span class="Event-agendedByCount js-agendedByCount has-tooltip" title="{ agended_by.text }">{agended_by.count}</span>
     </span>

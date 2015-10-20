@@ -28,13 +28,10 @@
 
           <div class="panel panel-default">
 
-
             <!-- =Image -->
             <div class="EventSingle-imageBox" style="background-image: url(<%= @item.image.url(:large) %>)"></div>
 
-
             <div class="panel-body">
-
 
               <!-- =Title -->
 
@@ -58,7 +55,6 @@
                 </div>
               </div>
 
-
               <!-- =Infos -->
               <div class="EventSingle-infos u-sub-panel">
                 <%= render 'items/show/infos' %>
@@ -66,7 +62,7 @@
 
 
               <!-- =Description -->
-              <div class="panel-body-item p-0-0-15">
+              <div class="panel-body-item">
                 <%= render 'items/show/description' %>
               </div>
 

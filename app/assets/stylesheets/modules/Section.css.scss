@@ -4,14 +4,15 @@
 .Section{
 
   &-header{
-    padding: 12px 0 25.5px;
+    padding: 12px 0 10px;
   }
 
   &-title{
-    font-size: 25px;
-    text-align: center;
-    letter-spacing: 0.5px;
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: 1px;
     line-height: 1.1em;
+    text-align: left;
   }
 
   &-description{

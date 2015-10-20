@@ -6,7 +6,7 @@
     ###
     init: ->
       App.BellNotification()
-#      App.AgendaButton()
+      App.AgendaButton()
       App.FriendActions()
       App.NewsfeedNotification()
       return
