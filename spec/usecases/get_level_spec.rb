@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/usecases/level/get_level'
+require_relative '../../app/domain/levels/levels'
 
 describe 'UseCase::GetLevel' do
   describe '.percentage_of_current_level' do
@@ -7,7 +7,7 @@ describe 'UseCase::GetLevel' do
       it 'should return 0' do
         user = double('User', level: nil)
 
-        expect(Villeme::UseCases::GetLevel.percentage_of_current_level(user)).to eq 0
+        expect(Villeme::Levels.percentage_of_current_level(user)).to eq 0
       end
     end
 

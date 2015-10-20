@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/usecases/level/points_level'
+require_relative '../../app/domain/levels/levels'
 
 describe 'UseCases::PointsLevel' do
 
@@ -10,7 +10,7 @@ describe 'UseCases::PointsLevel' do
       level = build(:level, name: 'Little Chicken', points: 30, nivel: 2)
               allow(user).to receive(:next_level).and_return(level)
 
-      result = Villeme::UseCases::PointsLevel.points_to_next_level(user)
+      result = Villeme::Levels.points_to_next_level(user)
 
       expect(result).to eq(30)
     end
@@ -21,7 +21,7 @@ describe 'UseCases::PointsLevel' do
       level = build(:level, name: 'Little Chicken', points: 30, nivel: 2)
               allow(user).to receive(:next_level).and_return(level)
 
-      result = Villeme::UseCases::PointsLevel.points_to_next_level(user)
+      result = Villeme::Levels.points_to_next_level(user)
 
       expect(result).to eq(12)
     end
@@ -32,7 +32,7 @@ describe 'UseCases::PointsLevel' do
       level = build(:level, name: 'Wood Hammer', points: 42, nivel: 3)
               allow(user).to receive(:next_level).and_return(level)
 
-      result = Villeme::UseCases::PointsLevel.points_to_next_level(user)
+      result = Villeme::Levels.points_to_next_level(user)
 
       expect(result).to eq(10)
     end
