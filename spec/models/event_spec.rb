@@ -23,7 +23,6 @@ describe Event, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
-    it { is_expected.to validate_presence_of :date_start }
   end
 
   describe '.all_persona_in_my_city' do
