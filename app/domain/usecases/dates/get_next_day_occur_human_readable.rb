@@ -12,7 +12,7 @@ module Villeme
       end
 
       def get_next_day_occur_human_readable
-        if today_is_between_object_period_occur?
+        if today_is_between_object_period_occur? or occur_all_year?
           if the_object_occur_in_this_week?
             return get_a_day_in_week_when_object_occur
           else
@@ -40,6 +40,10 @@ module Villeme
       end
 
       private
+
+      def occur_all_year?
+        @object.all_year
+      end
 
       def get_today
         if @test
@@ -128,7 +132,9 @@ module Villeme
       end
 
       def today_is_between_object_period_occur?
-        if @today.between?(@object.date_start, @object.date_finish)
+        if occur_all_year?
+          true
+        elsif @today.between?(@object.date_start, @object.date_finish)
           true
         else
           false

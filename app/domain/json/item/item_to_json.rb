@@ -50,7 +50,9 @@ module Villeme
             actions: {
                 schedule: "/items/#{item.try(:slug)}/schedule",
             },
-            is_agended: item.agended?(user)
+            is_agended: item.agended?(user),
+            all_day: item.allday,
+            all_year: item.all_year
         }
       end
 

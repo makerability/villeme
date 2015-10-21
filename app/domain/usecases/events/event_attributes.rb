@@ -48,7 +48,11 @@ module Villeme
 
 
         def period_that_occurs(entity)
-          "#{entity.date_start.strftime("%d/%m")} - #{entity.date_finish.strftime("%d/%m")}"
+          if entity.all_year?
+            'O ano todo'
+          else
+            "#{entity.date_start.strftime("%d/%m")} - #{entity.date_finish.strftime("%d/%m")}"
+          end
         end
 
 
