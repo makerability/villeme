@@ -18,14 +18,13 @@
     Notificações de amizade
     ###
     BellNotification: ->
-      $(document).on 'click', '#bell', ->
+      $(document).on 'click', '.Button--navbar', ->
         $.ajax(
           url: "/notify/bell"
         ).done (data) ->
           if data.success
-            $("#bell").removeClass("white-font").addClass("green-dark-font")
-            $(".bell-wrapper .counter").removeClass("white-font").addClass("green-dark-font")
-
+            $(this).removeClass("is-active")
+            $("#bell").removeClass("is-ring")
           return
         return
 
@@ -116,15 +115,17 @@
         return
 
       # Aceitar amizade
-      $(document).on 'click', '.friend-accept', ->
+      $(document).on 'click', '.friend-accept .btn', ->
         $.ajax(
           url: "/friendships/accept"
           data:
             friend: $(this).attr("data-friend-object")
         ).done (data) ->
           if data.success
-            friend = $("#friend-"+data.friend_id)
-            friend.attr "data-content", "<button class='btn btn-success'>Amizade aceita</button>"
+            $friend = $("#friend-"+data.friend_id)
+            $friend.fadeOut('fast').remove()
+            $(".Button--navbar").attr("data-content", $(".popover-content").html())
+
 
           return
         return

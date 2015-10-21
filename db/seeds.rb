@@ -422,7 +422,7 @@ puts "\n"
 
 puts '=========== Creating Friendships ==========='
 
-5.times do
+10.times do
     user_random = User.order("RANDOM()").first
     if user_random != admin
         Friendship.request(user_random, admin)
