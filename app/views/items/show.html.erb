@@ -1,5 +1,5 @@
 
-<% cache [current_user, @item, @item.agended_by_count[:count], @item.rates_cache], expires: 1.hour do %>
+<%# cache [current_user, @item, @item.agended_by_count[:count], @item.rates_cache], expires: 1.hour do %>
 
     <% wiselinks_title(@item.name + ' em ' + @item.city_name + ' — Villeme') %>
     <%= content_for :title, @item.name + ' em ' + @item.city_name %>
@@ -26,55 +26,52 @@
             <% end %>
           </div>
 
-          <div class="panel panel-default">
+          <!-- =Image -->
+          <div class="EventSingle-imageBox" style="background-image: url(<%= @item.image.url(:large) %>)"></div>
 
-            <!-- =Image -->
-            <div class="EventSingle-imageBox" style="background-image: url(<%= @item.image.url(:large) %>)"></div>
+          <div class="EventSingle-content">
 
-            <div class="panel-body">
+            <!-- =Title -->
 
-              <!-- =Title -->
-
-              <div class="row">
-                <div class="col-lg-7 u-no-padding">
+            <div class="row">
+              <div class="col-lg-7 ">
                   <span class="EventSingle-subCat">
                     <%= @item.subcategories.first.name unless @item.subcategories.blank? %>
                   </span>
-                  <h1 class="EventSingle-title">
-                    <%= @item.name %>
-                  </h1>
+                <h1 class="EventSingle-title">
+                  <%= @item.name %>
+                </h1>
+              </div>
+
+              <!-- =Rating -->
+
+              <div class="col-lg-5  u-centralize">
+                <div class="EventSingle-rating">
+                  <%= rating_for @item, "geral", half_show: false, disable_after_rate: true %>
+                  <span class="block p-10-0-0-0 font-10"><span class="glyphicon glyphicon-user"></span> <%= @item.rates_count %></span>
                 </div>
-
-                <!-- =Rating -->
-
-                <div class="col-lg-5 u-no-padding u-centralize">
-                  <div class="EventSingle-rating">
-                    <%= rating_for @item, "geral", half_show: false, disable_after_rate: true %>
-                    <span class="block p-10-0-0-0 font-10"><span class="glyphicon glyphicon-user"></span> <%= @item.rates_count %></span>
-                  </div>
-                </div>
               </div>
-
-              <!-- =Infos -->
-              <div class="EventSingle-infos u-sub-panel">
-                <%= render 'items/show/infos' %>
-              </div>
-
-
-              <!-- =Description -->
-              <div class="panel-body-item">
-                <%= render 'items/show/description' %>
-              </div>
-
-
-              <!-- =Contacts -->
-              <div>
-                <% if @item.email.blank? == false or @item.phone.blank? == false or @item.link.blank? == false %>
-                    <%= render 'items/show/contacts' %>
-                <% end %>
-              </div>
-
             </div>
+
+            <!-- =Infos -->
+            <div class="EventSingle-infos u-sub-panel">
+              <%= render 'items/show/infos' %>
+            </div>
+
+
+            <!-- =Description -->
+            <div class="panel-body-item">
+              <%= render 'items/show/description' %>
+            </div>
+
+
+            <!-- =Contacts -->
+            <div>
+              <% if @item.email.blank? == false or @item.phone.blank? == false or @item.link.blank? == false %>
+                  <%= render 'items/show/contacts' %>
+              <% end %>
+            </div>
+
           </div>
         </div>
 
@@ -86,26 +83,26 @@
         <% end %>
 
         <% if FEATURE_CATEGORIES_SWITCH %>
-        <!-- =Categories -->
-        <div class="panel panel-default u-margin-15-0">
-          <div class="panel-body u-centralize">
-              <% @item.category_ids.each do |id| %>
-                  <% # noinspection RailsChecklist05
-                     cat = Category.find(id) %>
-                  <%= link_to newsfeed_category_path(cat) do %>
-                      <%= image_tag "categories/#{cat.slug}.png", title: cat.name, class: "has-tooltip"  %>
-                  <% end %>
-              <% end %>
-          </div>
-        </div>
+            <!-- =Categories -->
+            <div class="panel panel-default u-margin-15-0">
+              <div class="panel-body u-centralize">
+                <% @item.category_ids.each do |id| %>
+                    <% # noinspection RailsChecklist05
+                       cat = Category.find(id) %>
+                    <%= link_to newsfeed_category_path(cat) do %>
+                        <%= image_tag "categories/#{cat.slug}.png", title: cat.name, class: "has-tooltip"  %>
+                    <% end %>
+                <% end %>
+              </div>
+            </div>
         <% end %>
 
 
         <% if FEATURE_TIPS_SWITCH %>
-        <!-- =Tip -->
-        <div class="panel panel-default u-margin-15-0">
-          <%= render 'items/show/tips' %>
-        </div>
+            <!-- =Tip -->
+            <div class="panel panel-default u-margin-15-0">
+              <%= render 'items/show/tips' %>
+            </div>
         <% end %>
 
       </div>
@@ -119,7 +116,7 @@
 
     </div>
 
-<% end %>
+<%# end %>
 
 
 <!-- JS/CSS SECONDARIES -->

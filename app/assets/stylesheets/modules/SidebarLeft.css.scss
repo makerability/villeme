@@ -22,8 +22,7 @@
 
     &.is-removing{
       position: relative;
-      background: scale_color($red, $lightness: 80%);
-      border-color: scale_color($red, $lightness: 60%);
+      background: rgba(0, 0, 0, 0.1);
     }
   }
 

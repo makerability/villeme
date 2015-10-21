@@ -3,7 +3,7 @@
 
   <!-- Email -->
   <% unless @item.email.blank? %>
-      <div class="col-md-4 col-lg-4 u-no-padding">
+      <div class="col-md-4 col-lg-4 ">
         <p>
         <h3>Email</h3>
         <%= @item.email %>
@@ -14,7 +14,7 @@
 
   <!-- Telefone -->
   <% unless @item.phone.blank? %>
-      <div class="col-md-4 col-lg-4 u-no-padding">
+      <div class="col-md-4 col-lg-4 ">
         <p>
 
         <h3>Telefone</h3>
@@ -26,7 +26,7 @@
 
   <!-- Link -->
   <% unless @item.link.blank? %>
-      <div class="col-md-4 col-lg-4 u-no-padding">
+      <div class="col-md-4 col-lg-4 ">
         <p>
         <h3>Site</h3>
         <%= link_to clean_url(@item.link), to_url(@item.link), target: '_blank' %>
