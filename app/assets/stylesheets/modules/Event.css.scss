@@ -121,10 +121,9 @@
 
 
   &-agendaButton{
-    color: #3B5450;
-    text-shadow: 0 1px #ffffff;
-    background: linear-gradient(#fff, #f0f0f0);
-    background-color: #ffffff;
+    color: $white;
+    background: linear-gradient($green, $green-dark);
+    background-color: $green;
     border: 1px solid rgba(0,0,0,0.3);
     display: none;
     cursor: pointer;
@@ -132,11 +131,16 @@
     box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.45);
     float: right;
 
+    & .Event-buttonText{
+      text-shadow: 0 1px $green-dark;
+    }
+
     &:hover{
       color: $white;
       text-shadow: 0 1px $green;
       background: $green;
       box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.15);
+      background-clip: padding-box;
 
       & .Event-buttonText{
         text-shadow: 0 1px $green-dark;
