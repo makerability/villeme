@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-CidadeVc::Application.config.secret_key_base = '29356b43ca6932195de91157f5ea294ae30d356f97c7f7f43eafa864f0fe2fb02dcfa1bf65fb51bd957e32a4750addec950e6daa2ebc771910e74ac1497f2532'
+CidadeVc::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']

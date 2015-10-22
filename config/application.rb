@@ -41,7 +41,7 @@ module CidadeVc
     config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
 
     # Facebook
-    FACEBOOK_APP_ID = "568047899941238"
+    FACEBOOK_APP_ID = ENV['FACEBOOK_APP_ID']
     
   end
 end
