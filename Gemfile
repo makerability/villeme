@@ -28,7 +28,7 @@ end
 group :production do
 	gem 'pg'
 	gem 'rails_12factor'
-	gem 'iron_cache_rails'
+	# gem 'iron_cache_rails'
 	gem 'informant-rails'
 	gem 'newrelic_rpm'
 end
