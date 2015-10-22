@@ -123,7 +123,7 @@ $(document).ready ->
   $('body').prepend('<div id="fb-root"></div>')
 
   $.ajax
-    url: "#{window.location.protocol}//connect.facebook.nehahahat/en_US/all.js"
+    url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
     dataType: 'script'
     cache: true
 
