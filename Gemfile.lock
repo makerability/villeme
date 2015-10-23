@@ -340,7 +340,7 @@ DEPENDENCIES
   coffee-rails
   coveralls
   database_cleaner
-  devise
+  devise (= 3.4.1)
   factory_girl_rails (~> 4.0)
   faker
   friendly_id (~> 5.0.0)
@@ -357,7 +357,7 @@ DEPENDENCIES
   lazyload-rails
   merit
   newrelic_rpm
-  omniauth-facebook
+  omniauth-facebook (= 2.0.0)
   paperclip (~> 3.5.3)
   pg
   poltergeist

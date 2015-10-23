@@ -70,10 +70,10 @@ end
 gem 'simple_form'
 
 # Devise
-gem 'devise'
+gem 'devise', '3.4.1'
 
 # Facebook Oauth
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '2.0.0'
 
 # certificados para funcionamento do omniAuth
 gem 'certified'
