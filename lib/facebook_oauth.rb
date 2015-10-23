@@ -56,11 +56,18 @@ module FacebookOauth
   end
 
   def user_updated?(auth, user)
-    user.update_attributes(facebook_avatar: auth.info.image, username: auth.info.nickname.gsub('.', ''), token: auth.credentials.token)
+    user.update_attributes(facebook_avatar: auth.info.image,
+                           username: auth.info.nickname.gsub('.', ''),
+                           token: auth.credentials.token)
   end
 
   def create_user(auth, email)
-    User.create(name: auth.info.name, email: email, username: auth.info.nickname.gsub('.', ''), password: Devise.friendly_token[0, 8], facebook_avatar: auth.info.image, token: auth.credentials.token)
+    User.create(name: auth.info.name,
+                email: email,
+                username: auth.info.nickname.gsub('.', ''),
+                password: Devise.friendly_token[0, 8],
+                facebook_avatar: auth.info.image,
+                token: auth.credentials.token)
   end
 
 end
