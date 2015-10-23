@@ -5,7 +5,7 @@ CidadeVc::Application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
 
   # Devise
-  devise_for :users, :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
     get 'sign_up', to: 'devise/registrations#new', as: :registrar
