@@ -9,6 +9,7 @@
 bin/rspec
 .idea/
 coverage/
+keys.txt
 
 
 # Ignore the default SQLite database.

@@ -83,6 +83,9 @@ CidadeVc::Application.configure do
   # Ajuste do horario brasileiro
   config.time_zone = 'Brasilia'
 
+  # Devise
+  config.action_mailer.default_url_options = { :host => 'www.villeme.com' }
+
   # Heroku + Paperclip + Amazonas Web Services S3
   config.paperclip_defaults = {
     :storage => :s3,
