@@ -101,7 +101,7 @@ riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ peri
         timer = setTimeout(function(){
           $(".js-SidebarLeft-agendaLink").removeClass(add_or_remove);
         }, 300)
-      }
+      };
 
       _updateStateOfButton = function(data){
         if (data.agended) {
