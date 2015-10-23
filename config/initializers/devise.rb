@@ -232,7 +232,8 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_KEY'],
                   image_size: 'square',
                   scope: 'email, user_friends',
-                  display: 'popup'
+                  display: 'popup',
+                  callback_url: 'http://www.villeme.com/users/auth/facebook'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
