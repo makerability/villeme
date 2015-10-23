@@ -514,6 +514,15 @@ puts "\n"
 puts "\n"
 
 
+User.all.each do |user|
+    item = Item.order("RANDOM()").first
+    user.agenda_items << item
+    puts "#{user.name} agended event #{item.name}."
+end
+
+puts "\n"
+puts "\n"
+
 puts '=========== Admin access ==============='
 
 puts "\n"
