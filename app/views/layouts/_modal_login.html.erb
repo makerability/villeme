@@ -1,14 +1,14 @@
 
-<div class="js-ModalLogin modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+<div class="modal js-ModalLogin fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
-    <div class="modal-content">
+    <div class="Modal Modal--centralized">
 
       <div class="modal-header">
-        <button type="button" class="Modal-closeButton" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <span type="button" class="Modal-closeButton" data-dismiss="modal" aria-hidden="true">&times;</span>
         <h4 class="modal-title u-centralize"><b>Entrar ou solicitar convite</b></h4>
       </div>
 
-      <div class="modal-body u-centralize">
+      <div class="Modal-body">
         <div class="Modal-alert js-Modal-alert u-centralize">
           <span class="glyphicon glyphicon-info-sign"></span>
           <span class="js-ModalLogin-alert"></span>
@@ -21,10 +21,7 @@
         <% end %>
 
         <span>ou <%= link_to 'entre com o <b>facebook</b>'.html_safe, user_omniauth_authorize_path(:facebook), class: 'u-fake-link has-tooltip', title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'bottom' %></span>
-
-
       </div>
-
 
     </div>
   </div>

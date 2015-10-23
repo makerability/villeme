@@ -1,5 +1,5 @@
 @import 'variables';
-@import "style/Input";
+@import 'style/Input';
 
 .Modal{
 
@@ -12,6 +12,10 @@
     background: $grey-lightness;
     border-top-left-radius: $radius-panel;
     border-top-right-radius: $radius-panel;
+  }
+
+  &-body{
+    padding: 15px;
   }
 
   &-footer{
@@ -27,15 +31,21 @@
     font-weight: 500;
   }
 
+  &-alert{
+    padding-bottom: 12px;
+  }
+
   &-closeButton{
-    background: transparent none repeat scroll 0 0;
-    border: medium none;
+    color: inherit;
+    cursor: pointer;
     font-size: 23px;
     font-weight: bold;
-    padding: 6px;
+    height: 20px;
+    padding: 0;
     position: absolute;
-    right: 12px;
-    top: 14px;
+    right: 11px;
+    top: 12px;
+    width: 15px;
   }
 
   &-icon{
@@ -49,6 +59,10 @@
 
   & label{
     font-weight: 400;
+  }
+
+  &--centralized{
+    text-align: center;
   }
 
 }
