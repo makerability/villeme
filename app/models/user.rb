@@ -184,6 +184,14 @@ class User < ActiveRecord::Base
     self.agenda_items.include?(event) ? true : false
   end
 
+  def schedule(item)
+    self.agendas << Agenda.new(user_id: self.id, item_id: item.id)
+  end
+
+  def unschedule(item)
+    self.agenda_items.delete(item)
+  end
+
   def are_friends?(friend)
     self.accepted_friends.exists?(friend)
   end
