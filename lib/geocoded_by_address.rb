@@ -23,7 +23,7 @@ module GeocodedByAddress
           object.postal_code = geocoder.postal_code
           object.street_number = geocoder.street_number
           object.full_address = geocoder.address
-          object.formatted_address = "#{get_geocoder_for_route(geocoder)}, #{geocoder.street_number} - #{get_geocoder_for_neighborhood(geocoder)}" unless neighborhood_not_empty?(geocoder) && route_or_bus_station_not_empty?(geocoder)
+          object.formatted_address = "#{get_geocoder_for_route(geocoder)}, #{geocoder.street_number} - #{get_geocoder_for_neighborhood(geocoder)}" unless route_or_bus_station_not_empty?(geocoder)
         end
       end
 
