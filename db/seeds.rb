@@ -516,7 +516,7 @@ puts "\n"
 
 User.all.each do |user|
     item = Item.order("RANDOM()").first
-    user.agenda_items << item
+    user.agendas << Agenda.new(item_id: item.id, user_id: user.id)
     puts "#{user.name} agended event #{item.name}."
 end
 
