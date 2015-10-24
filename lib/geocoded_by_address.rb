@@ -14,7 +14,7 @@ module GeocodedByAddress
           object.latitude = geocoder.latitude
           object.longitude = geocoder.longitude
           object.route = get_geocoder_for_route(geocoder) unless route_or_bus_station_not_empty?(geocoder)
-          object.neighborhood_name = get_geocoder_for_neighborhood(geocoder) unless neighborhood_not_empty?(geocoder)
+          object.neighborhood_name = get_geocoder_for_neighborhood(geocoder)
           object.city_name = geocoder.city
           object.state_name = geocoder.state
           object.state_code = geocoder.state_code
@@ -36,11 +36,11 @@ module GeocodedByAddress
   private
 
   def get_geocoder_for_neighborhood(geocoder)
-    geocoder.address_components_of_type(:neighborhood).first["long_name"]
-  end
-
-  def neighborhood_not_empty?(geocoder)
-    geocoder.address_components_of_type(:neighborhood).empty?
+    if neighborhood_empty?(geocoder)
+      nil
+    else
+      geocoder.address_components_of_type(:neighborhood).first["long_name"]
+    end
   end
 
   def get_geocoder_for_route(geocoder)
@@ -56,6 +56,10 @@ module GeocodedByAddress
 
   def route_or_bus_station_not_empty?(geocoder)
     geocoder.address_components_of_type(:bus_station).empty? && geocoder.address_components_of_type(:route).empty?
+  end
+
+  def neighborhood_empty?(geocoder)
+    geocoder.address_components_of_type(:neighborhood).empty?
   end
 
 end
