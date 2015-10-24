@@ -80,8 +80,12 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :feedbacks
   has_many :tips
-  has_many :agendas
-  has_many :agenda_items, -> { uniq }, through: :agendas, source: :item
+  has_many :agendas, class_name: 'Agenda'
+  has_many :agenda_items,
+           -> { uniq },
+           through: :agendas,
+           source: :item,
+           foreign_key: :agenda_id
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :accepted_friendships,

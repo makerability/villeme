@@ -21,7 +21,8 @@ describe 'See my schedule Events', js: true do
         allow(event_b).to receive(:place).and_return(create(:place_faker))
       create(:event, name: 'Event unscheduled', date_start: Date.current - 3, date_finish: Date.current + 10)
 
-      @user.agenda_items << [event_a, event_b]
+      @user.agendas << Agenda.new(item_id: event_a.id, user_id: @user.id)
+      @user.agendas << Agenda.new(item_id: event_b.id, user_id: @user.id)
 
       visit("/en/user/#{@user.username}/agenda")
 
