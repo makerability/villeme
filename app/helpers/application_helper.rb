@@ -87,58 +87,6 @@ module ApplicationHelper
 
 
 
-	# cria uma username com o nome do usuario
-	def create_username
-
-
-		if current_user.username.blank?
-
-			require 'i18n'
-
-			# pega o nome do usuario
-			name = I18n.transliterate(current_user.name)
-			username = name.split.first.downcase
-
-			unless username_exist(username)
-				return username
-			else
-
-				username = name.split[0..1].join.downcase
-
-				if name.split.count > 1
-					unless username_exist(username)
-						return username
-					else
-						return name.split[0..2].join.downcase
-					end
-
-				else
-
-					return name.split[0..1].join.downcase + rand(10).to_s
-
-				end
-			end
-
-		else
-
-			return current_user.username
-
-		end
-
-
-	end
-
-	def username_exist(username)
-		if User.where(username: username).first
-			true
-		else
-			false
-		end
-	end
-
-
-
-
 
   # TODO: Remove this -> duplicated
 	def get_avatar(user, w = "38", h = "38")

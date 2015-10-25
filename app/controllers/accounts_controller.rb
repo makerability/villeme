@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
 
   require_relative '../domain/usecases/geolocalization/create_object_geocoded'
   require_relative '../domain/usecases/users/set_account_completed'
+  require_relative '../domain/users/create_username'
 
   before_action :is_logged
 
