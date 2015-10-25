@@ -11,9 +11,9 @@ module Villeme
         def get_all_sections(city, user, options = {json: false, upcoming: true})
           data = {
               all: get_section_all_events(city),
-              today: Villeme::NewsfeedModule.get_events_today(city, user: user, json: options[:json]),
-              persona: Villeme::NewsfeedModule.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
-              neighborhood: Villeme::NewsfeedModule.get_events_neighborhood(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
+              today: Villeme::NewsfeedModule::Today.get_events_today(city, user: user, json: options[:json]),
+              persona: Villeme::NewsfeedModule::Persona.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
+              neighborhood: Villeme::NewsfeedModule::Neighborhood.get_events_neighborhood(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
               fun: create_section_fun_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               education: create_section_education_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               health: create_section_health_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
