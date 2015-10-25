@@ -3,6 +3,8 @@ module Villeme
     class GetEventsSection
 
       require_relative '../../../../app/domain/newsfeed/get_events_today'
+      require_relative '../../../../app/domain/newsfeed/get_events_persona'
+      require_relative '../../../../app/domain/newsfeed/get_events_neighborhood'
 
       class << self
 
@@ -10,8 +12,8 @@ module Villeme
           data = {
               all: get_section_all_events(city),
               today: Villeme::NewsfeedModule.get_events_today(city, user: user, json: options[:json]),
-              persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
-              neighborhood: create_section_neighborhood_events(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
+              persona: Villeme::NewsfeedModule.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
+              neighborhood: Villeme::NewsfeedModule.get_events_neighborhood(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
               fun: create_section_fun_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               education: create_section_education_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               health: create_section_health_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
@@ -28,34 +30,7 @@ module Villeme
           city.events.upcoming
         end
 
-        def create_section_persona_events(personas, city, options = {user: nil, upcoming: true, json: false, limit: nil})
-          events_all_persona = Event.all_persona_in_city(personas, city, options)
 
-          {
-              title: "Eventos indicados para você",
-              items: events_all_persona[0...2],
-              snippet: events_all_persona[2..12],
-              count: events_all_persona.count,
-              link: Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: city, personas: personas.join('+')),
-              link_to_create: '/events/new',
-              type: 'persona'
-          }
-        end
-
-        def create_section_neighborhood_events(neighborhood, options = {user: nil, upcoming: true, json: false, limit: nil})
-          events_all_neighborhood = Event.all_in_neighborhood(neighborhood, options)
-          {
-              title: "Eventos acontecendo no bairro #{neighborhood.name}",
-              items: events_all_neighborhood[0...2],
-              snippet: events_all_neighborhood[2...12],
-              count: events_all_neighborhood.count,
-              link: Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(city: neighborhood.city, neighborhood: neighborhood),
-              link_to_create: '/events/new',
-              neighborhood_name: neighborhood.name,
-              type: 'neighborhood'
-          }
-
-        end
 
         def create_section_fun_events(city, options = {user: nil, upcoming: true, json: false, slug: true, limit: nil})
           events_all_fun = Event.all_categories_in_city(Newsfeed.configs[:sections][:fun], city, options)
