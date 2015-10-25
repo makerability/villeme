@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+//= require modules/Place--single
+//= require modules/Event
+
 .address-search .col-sm-6 {
     padding: 0 1px 0 0;
 }

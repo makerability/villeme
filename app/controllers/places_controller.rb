@@ -7,7 +7,7 @@ class PlacesController < ApplicationController
   # access only for admin users
   before_action :is_admin, only: [:index, :destroy]
 
-  layout "centralize-lg"
+  layout 'full-width'
 
   # GET /places
   # GET /places.json
@@ -18,7 +18,8 @@ class PlacesController < ApplicationController
   # GET /places/1
   # GET /places/1.json
   def show
-    @events = @place.items
+    @title = "Eventos e atividade acontecendo em #{@place.name}"
+    @items = Item.items_to_json(@place.items, user: current_or_guest_user).as_json
   end
 
   # GET /places/new
