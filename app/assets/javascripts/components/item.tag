@@ -24,7 +24,7 @@
       <div class="Event-detailsBox" onmouseenter={ zoomInMap } onmouseleave={ zoomOutMap }>
         <div class="Event-place">
           <span class="glyphicon glyphicon-map-marker"></span>
-          <a href="{ base_url + place.link }">
+          <a href="{ base_url + place.link }" onclick={ open_place_page }>
             { place.name }
           </a>
         </div>
@@ -192,6 +192,10 @@
       };
     }
 
+
+    open_place_page(){
+      window.open(this.base_url + this.place.link)
+    }
 
     saveScroll(){
       window.Villeme.tempScroll = $(window).scrollTop();
