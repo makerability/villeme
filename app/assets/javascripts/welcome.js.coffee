@@ -118,32 +118,4 @@ $(document).ready ->
     return
 
 
-
-  # Facebook SKD Client popout login
-  $('body').prepend('<div id="fb-root"></div>')
-
-  $.ajax
-    url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
-    dataType: 'script'
-    cache: true
-
-  window.fbAsyncInit = ->
-    FB.init(appId: '568047899941238', cookie: true)
-
-    $('#sign_in').click (e) ->
-      e.preventDefault()
-      FB.login (response) ->
-        window.location = 'users/auth/facebook' if response.authResponse
-        return
-      return
-
-    $('#sign_out').click (e) ->
-      FB.getLoginStatus (response) ->
-        FB.logout() if response.authResponse
-        return
-      true
-      return
-
-    return
-
   return
