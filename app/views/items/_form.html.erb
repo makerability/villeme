@@ -23,7 +23,7 @@
           <!-- NAME -->
 
           <div class="form-group has-helper" helper="<b>Dica:</b> O nome do evento fica mais legal se for curto e com uma palavra descritiva. <br><br><b>Exemplo:</b><ul><li>Nome original: Hell.</li> <li>Nome legal: <i>Peça de Teatro</i> Hell.</li></ul><br><b>Obrigações:</b><ul><li>O nome deve ter mais de 6 caracteres.</li></ul>">
-            <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Nome do evento</label>
+            <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Nome</label>
             <div class="col-lg-9">
               <%= f.input :name, placeholder:'por exemplo: Feira de Antiguidades da Redenção', input_html:{class: 'form-control has-focus-transition', data:{'max-length' => 140, 'min-length' => 2, 'tip' => 'Precisa ser maior que 2 caracteres.'}} %>
               <div class="tip"></div>
@@ -49,17 +49,17 @@
 
               <div class="col-lg-6 u-no-padding">
                 <div class="col-lg-12">
-                  <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início do evento</span>
+                  <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início</span>
                 </div>
                 <div class="col-lg-12">
                   <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
-                  <%= f.input :all_year, label: 'O evento acontece o ano todo', value: true, input_html: {class: 'EventForm-allyearInput'}, label_html: {class: 'EventForm-allyearLabel'}, wrapper_html: {class: 'EventForm-allyearWrapper'} %>
+                  <%= f.input :all_year, label: 'Acontece o ano todo', value: true, input_html: {class: 'EventForm-allyearInput'}, label_html: {class: 'EventForm-allyearLabel'}, wrapper_html: {class: 'EventForm-allyearWrapper'} %>
                 </div>
               </div>
 
               <div class="col-lg-6 u-no-padding">
                 <div class="col-lg-12">
-                  <span class="info">Dia de termino do evento</span>
+                  <span class="info">Dia de termino</span>
                 </div>
                 <div class="col-lg-12 not-required">
                   <%= f.input :date_finish, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
