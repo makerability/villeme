@@ -2,11 +2,11 @@
 
 .AlertCreateEvent{
   margin: 0 0 30px 0;
-  min-height: 325px;
+  min-height: 315px;
   position: relative;
 
   &--withBorder{
-    border: 1px dashed #aeb6aa;
+    border: 2px dashed #aeb6aa;
     border-radius: $radius-panel;
   }
 
