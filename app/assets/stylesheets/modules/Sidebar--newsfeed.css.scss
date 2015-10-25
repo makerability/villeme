@@ -10,6 +10,8 @@
   }
 
   &-infoGroup {
+    background: $grey-lightness;
+    box-shadow: 0 -5px 15px $grey-lightness;
     display: none;
     color: scale_color($grey, $lightness: 20%);
     font-family: $font-family-default;
@@ -25,7 +27,6 @@
   }
 
   &-infoList{
-    background: $grey-lightness;
     padding: 5px 15px;
   }
 
