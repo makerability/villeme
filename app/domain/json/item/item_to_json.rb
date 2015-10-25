@@ -5,9 +5,10 @@ module Villeme
       def item_to_json(item, options)
         @item = item
         @options = options
+        @user = options[:user]
+
         @distance = calculate_distance_from_user_to_item
         @action = define_action_name_to_url(item)
-        @user = options[:user]
 
         create_json
       end
