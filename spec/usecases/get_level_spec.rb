@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/levels/levels'
+require_relative '../../app/domain/levels/levels_module'
 
 describe 'UseCase::GetLevel' do
   describe '.percentage_of_current_level' do
@@ -7,7 +7,7 @@ describe 'UseCase::GetLevel' do
       it 'should return 0' do
         user = double('User', level: nil)
 
-        expect(Villeme::Levels.percentage_of_current_level(user)).to eq 0
+        expect(Villeme::LevelsModule.percentage_of_current_level(user)).to eq 0
       end
     end
 
@@ -16,7 +16,7 @@ describe 'UseCase::GetLevel' do
         user = double('User')
         user.stub_chain(:level, :points).and_return(nil)
 
-        expect(Villeme::Levels.percentage_of_current_level(user)).to eq 0
+        expect(Villeme::LevelsModule.percentage_of_current_level(user)).to eq 0
       end
     end
   end

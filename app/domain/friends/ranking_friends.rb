@@ -1,5 +1,5 @@
 module Villeme
-  module Friends
+  module FriendsModule
     class << self
 
       def get_ranking(user)

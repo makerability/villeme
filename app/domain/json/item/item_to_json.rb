@@ -1,5 +1,5 @@
 module Villeme
-  module JSON
+  module JSONModule
     class << self
 
       def item_to_json(item, options)

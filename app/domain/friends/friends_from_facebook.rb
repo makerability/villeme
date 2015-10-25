@@ -1,5 +1,5 @@
 module Villeme
-  module Friends
+  module FriendsModule
     class << self
 
       def get_friends_from_facebook(user)

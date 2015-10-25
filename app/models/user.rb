@@ -6,13 +6,13 @@ class User < ActiveRecord::Base
   require_relative '../domain/friends/friends_from_facebook_on_villeme'
   require_relative '../domain/friends/friends_from_facebook'
   require_relative '../domain/friends/ranking_friends'
-  require_relative '../domain/agenda/agenda'
-  require_relative '../domain/notifies/notifies'
+  require_relative '../domain/agenda/agenda_module'
+  require_relative '../domain/notifies/notifies_modules'
   require_relative '../domain/usecases/cities/get_city_slug'
   require_relative '../domain/usecases/geolocalization/geocode_user'
   require_relative '../domain/policies/user/account_complete'
-  require_relative '../domain/avatar/avatar'
-  require_relative '../domain/levels/levels'
+  require_relative '../domain/avatar/avatar_module'
+  require_relative '../domain/levels/levels_module'
 
   # =Facebook oauth
   extend FacebookOauth
@@ -153,19 +153,19 @@ class User < ActiveRecord::Base
   end
 
   def level_icon_url
-    Villeme::Levels.get_icon(self)
+    Villeme::LevelsModule.get_icon(self)
   end
 
   def next_level
-    Villeme::Levels.next_level(self)
+    Villeme::LevelsModule.next_level(self)
   end
 
   def points_to_next_level
-    Villeme::Levels.points_to_next_level(self)
+    Villeme::LevelsModule.points_to_next_level(self)
   end
 
   def percentage_of_current_level
-    Villeme::Levels.percentage_of_current_level(self)
+    Villeme::LevelsModule.percentage_of_current_level(self)
   end
 
   def account_complete?
@@ -173,11 +173,11 @@ class User < ActiveRecord::Base
   end
 
   def get_avatar_url
-    Villeme::Avatar.get_avatar_url(self)
+    Villeme::AvatarModule.get_avatar_url(self)
   end
 
   def get_avatar_origin
-    Villeme::Avatar.get_avatar_origin(self)
+    Villeme::AvatarModule.get_avatar_origin(self)
   end
 
   def agended?(event)
@@ -201,35 +201,35 @@ class User < ActiveRecord::Base
   end
 
   def friends_from_facebook
-    Villeme::Friends.get_friends_from_facebook(self)
+    Villeme::FriendsModule.get_friends_from_facebook(self)
   end
 
   def friends_from_facebook_on_villeme
-    Villeme::Friends.friends_from_facebook_on_villeme(self)
+    Villeme::FriendsModule.friends_from_facebook_on_villeme(self)
   end
 
   def ranking_of_friends
-    Villeme::Friends.get_ranking(self)
+    Villeme::FriendsModule.get_ranking(self)
   end
 
   def which_friends_will_this_event?(event, options = {})
-    Villeme::Agenda.which_friends_will_this_event?(self, event, options)
+    Villeme::AgendaModule.which_friends_will_this_event?(self, event, options)
   end
 
   def requested_friendships_notifies
-    Villeme::Notifies.requested_friendships_notifies(self)
+    Villeme::NotifiesModules.requested_friendships_notifies(self)
   end
 
   def newsfeed_notify
-    Villeme::Notifies.get_notifies(self)
+    Villeme::NotifiesModules.get_notifies(self)
   end
 
   def newsfeed_notify_count
-    Villeme::Notifies.newsfeed_notify_count(self)
+    Villeme::NotifiesModules.newsfeed_notify_count(self)
   end
 
   def has_notify
-    Villeme::Notifies.has_notify(self)
+    Villeme::NotifiesModules.has_notify(self)
   end
 
   def geocode_user

@@ -1,5 +1,5 @@
 module Villeme
-  module Friends
+  module FriendsModule
     class << self
 
       def friends_from_facebook_on_villeme(entity)

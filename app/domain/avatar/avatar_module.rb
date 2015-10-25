@@ -1,5 +1,5 @@
 module Villeme
-  module Avatar
+  module AvatarModule
     class << self
 
       def get_avatar_url(user)

@@ -1,5 +1,5 @@
 module Villeme
-  module Newsfeed
+  module NewsfeedModule
     class << self
 
       def get_events_today(city = false, options = {user: nil, json: false, limit: nil})

@@ -1,5 +1,5 @@
 module Villeme
-  module Agenda
+  module AgendaModule
     class << self
 
       def which_friends_will_this_event?(user, event, options = {json: false})

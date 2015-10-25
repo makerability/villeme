@@ -68,7 +68,7 @@ class Item < ActiveRecord::Base
 
 
 	def self.to_json(item, options = {user: nil})
-		Villeme::JSON.item_to_json(item, options)
+		Villeme::JSONModule.item_to_json(item, options)
 	end
 
 	def self.all_today(options = {city: false, type: false, limit: false})

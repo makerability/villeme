@@ -9,7 +9,7 @@ module Villeme
         def get_all_sections(city, user, options = {json: false, upcoming: true})
           data = {
               all: get_section_all_events(city),
-              today: Villeme::Newsfeed.get_events_today(city, user: user, json: options[:json]),
+              today: Villeme::NewsfeedModule.get_events_today(city, user: user, json: options[:json]),
               persona: create_section_persona_events(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
               neighborhood: create_section_neighborhood_events(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
               fun: create_section_fun_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
@@ -27,7 +27,7 @@ module Villeme
         def get_section_all_events(city)
           city.events.upcoming
         end
-        
+
         def create_section_persona_events(personas, city, options = {user: nil, upcoming: true, json: false, limit: nil})
           events_all_persona = Event.all_persona_in_city(personas, city, options)
 

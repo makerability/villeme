@@ -1,5 +1,5 @@
 module Villeme
-  module Notifies
+  module NotifiesModules
     class << self
 
       def newsfeed_notify_count(user)
