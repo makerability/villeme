@@ -131,11 +131,11 @@
   }
 
   &-readMore{
-    background: transparent linear-gradient(to bottom, rgba(255, 255, 255, 0.85), #f9fcfb) repeat scroll 0 0;
+    background: transparent linear-gradient(to bottom, rgba(255, 255, 255, 0.85), #ffffff) repeat scroll 0 0;
     box-shadow: 0 -7px 15px white;
     cursor: pointer;
     display: block;
-    margin: 0 -15px 15px;
+    margin: 0 -15px 0px;
     padding: 10px 0 8px;
     position: relative;
     text-align: center;
@@ -143,7 +143,7 @@
     transition: all 0.2s ease 0s;
 
     &:hover{
-      padding: 10px 0 15px 0;
+      margin: 5px -15px 0;
     }
 
     &Link{
