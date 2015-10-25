@@ -20,8 +20,8 @@ module Villeme
             count: events.count,
             link: create_link,
             link_to_create: '/events/new',
-            neighborhood_name: @neighborhood.name,
-            type: '@neighborhood'
+            neighborhood_name: @neighborhood.try(:name),
+            type: 'neighborhood'
         }
       end
 
@@ -30,7 +30,7 @@ module Villeme
       end
 
       def create_title
-        "Eventos acontecendo no bairro #{@neighborhood.name}"
+        "Eventos acontecendo no bairro #{@neighborhood.try(:name)}"
       end
 
       def get_principal_events(events)

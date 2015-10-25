@@ -42,7 +42,7 @@ module Villeme
       end
 
       def create_title
-        "Eventos acontecendo hoje em #{@city.name}"
+        "Eventos acontecendo hoje em #{@city.try(:name)}"
       end
 
     end
