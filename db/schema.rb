@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020033913) do
+ActiveRecord::Schema.define(version: 20151025232348) do
 
   create_table "agenda_items", force: true do |t|
     t.integer  "item_id"
@@ -410,9 +410,11 @@ ActiveRecord::Schema.define(version: 20151020033913) do
     t.boolean  "verified",           default: false
     t.string   "phone"
     t.string   "site"
+    t.string   "slug"
   end
 
   add_index "places", ["neighborhood_id"], name: "index_places_on_neighborhood_id"
+  add_index "places", ["slug"], name: "index_places_on_slug", unique: true
   add_index "places", ["user_id"], name: "index_places_on_user_id"
 
   create_table "prices", force: true do |t|

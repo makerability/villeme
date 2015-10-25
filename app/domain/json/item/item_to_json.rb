@@ -79,7 +79,7 @@ module Villeme
       def create_place_json
         {
             name: @item.place.try(:name),
-            link: "/places/#{@item.place.id}"
+            link: "/places/#{@item.place.slug}"
         }
       end
 

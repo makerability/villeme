@@ -1,9 +1,19 @@
 class Place < ActiveRecord::Base
 
-	# Geocoder
+	# =Geocoder
 	extend  GeocodedByAddress
 	include GeocodedActions
 	geocoder_by_address
+
+	# =Urls personalized
+	extend FriendlyId
+	friendly_id :slug_candidates, use: :slugged
+	def slug_candidates
+		[
+				:name,
+				[:name, :id]
+		]
+	end
 
 	# image in the POST method
 	has_attached_file :cover
@@ -13,7 +23,7 @@ class Place < ActiveRecord::Base
 										styles: {large: "280x280>", normal: "180x180>"},
 										default_url: "/images/:style/missing.png"
 
-	# associates
+	# =Associates
 	has_many :items, dependent: :destroy
 	has_and_belongs_to_many :categories
 	belongs_to :user
