@@ -232,7 +232,7 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_KEY'],
                   image_size: 'square',
                   scope: 'email, user_friends',
-                  info_fields: 'name,email,user_friends',
+                  info_fields: 'name,email',
                   callback_url: 'http://www.villeme.com/users/auth/facebook/callback'
 
   # ==> Warden configuration
