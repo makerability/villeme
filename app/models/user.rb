@@ -185,11 +185,11 @@ class User < ActiveRecord::Base
   end
 
   def schedule(item)
-    self.agendas << Agenda.new(user_id: self.id, item_id: item.id)
+    self.agendas << Agenda.new(user: self, item: item)
   end
 
   def unschedule(item)
-    self.agenda_items.delete(item)
+    self.agendas.find_by_user_id_and_item_id(self, item).destroy
   end
 
   def are_friends?(friend)
@@ -237,4 +237,3 @@ class User < ActiveRecord::Base
   end
 
 end
-
