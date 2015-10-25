@@ -43,7 +43,14 @@ module Villeme
         end
 
         def create_link
-          Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(city: @neighborhood.try(:city), neighborhood: @neighborhood)
+          if @neighborhood and @neighborhood.city
+            Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(
+              city: @neighborhood.try(:city),
+              neighborhood: @neighborhood
+              )
+          else
+            nil
+          end
         end
 
       end

@@ -31,7 +31,14 @@ module Villeme
         end
 
         def create_link
-          Rails.application.routes.url_helpers.newsfeed_city_today_path(city: @city, type: 'Event')
+          if @city
+            Rails.application.routes.url_helpers.newsfeed_city_today_path(
+                city: @city,
+                type: 'Event'
+              )
+          else
+            nil
+          end
         end
 
         def get_snippet_events(events)

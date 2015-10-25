@@ -39,7 +39,14 @@ module Villeme
         end
 
         def create_link
-          Rails.application.routes.url_helpers.newsfeed_city_persona_path(city: @city, personas: @personas.join('+'))
+          if @city and @personas
+            Rails.application.routes.url_helpers.newsfeed_city_persona_path(
+              city: @city,
+              personas: @personas.join('+')
+            )
+          else
+            nil
+          end
         end
 
       end
