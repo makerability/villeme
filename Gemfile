@@ -20,6 +20,7 @@ group :development, :test do
 	gem 'database_cleaner'
 	gem 'timecop'
 	gem 'bullet'
+	gem 'sitemap_generator'
 	gem 'coveralls', require: false
 	gem 'simplecov', require: false
 end
