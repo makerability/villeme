@@ -20,7 +20,7 @@
       <%= simple_form_for @item, defaults:{ label: false, wrapper_html: false}, :html => { multipart: true, class: 'form-horizontal', id: 'event-form'} do |f| %>
 
 
-          <!-- NAME -->
+          <!-- =NAME -->
 
           <div class="form-group has-helper" helper="<b>Dica:</b> O nome do evento fica mais legal se for curto e com uma palavra descritiva. <br><br><b>Exemplo:</b><ul><li>Nome original: Hell.</li> <li>Nome legal: <i>Peça de Teatro</i> Hell.</li></ul><br><b>Obrigações:</b><ul><li>O nome deve ter mais de 6 caracteres.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Nome</label>
@@ -31,7 +31,7 @@
           </div>
 
 
-          <!-- DESCRIPTION -->
+          <!-- =DESCRIPTION -->
 
           <div class="form-group has-helper" helper="<b>Dicas:</b> A descrição fica mais legal se for bem organizada, explicar o que acontece e o que é possível fazer no evento.<br><br>Use as opções de negrito e numeração para organizar melhor a descrição.<br><br><b>Obrigações:</b><ul><li>Ter mais de 140 caracteres.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Detalhes</label>
@@ -41,7 +41,7 @@
           </div>
 
 
-          <!-- PERIOD -->
+          <!-- =PERIOD -->
 
           <div class="form-group has-helper"  helper="<b>Dica:</b> A data inicial deve ser o dia que começa o evento, independente se o evento durar meses (exposição, festival, etc). A data de termino deve ser o dia que o evento termina no periodo.<br><br><b>Obrigações:</b><ul><li>O dia de início deve ser preenchido.</li></ul></b>">
             <label class="control-label col-lg-3">Periodo</label>
@@ -52,7 +52,7 @@
                   <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início</span>
                 </div>
                 <div class="col-lg-12">
-                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {value: @item.date_start.strftime('%d/%m/%Y'), class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                   <%= f.input :all_year, label: 'Acontece o ano todo', value: true, input_html: {class: 'EventForm-allyearInput'}, label_html: {class: 'EventForm-allyearLabel'}, wrapper_html: {class: 'EventForm-allyearWrapper'} %>
                 </div>
               </div>
@@ -62,7 +62,7 @@
                   <span class="info">Dia de termino</span>
                 </div>
                 <div class="col-lg-12 not-required">
-                  <%= f.input :date_finish, as: :string, placeholder: '__/__/____', input_html: {class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_finish, as: :string, placeholder: '__/__/____', input_html: {value: @item.date_finish.strftime('%d/%m/%Y'), class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                 </div>
               </div>
 
@@ -73,7 +73,7 @@
 
           <div class="FormGroup--sub is-Hidden js-datetime-section-hide-show">
 
-            <!-- DIAS DA SEMANA -->
+            <!-- =DAYS OF WEEK -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Marque os dias da semana que o evento acontece.<br><br><b>Obrigações:</b><ul><li>Pelo menos um dia da semana deve estar marcado.</li></ul></b>">
               <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Dias da semana</label>
