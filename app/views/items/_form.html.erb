@@ -20,7 +20,7 @@
       <%= simple_form_for @item, defaults:{ label: false, wrapper_html: false}, :html => { multipart: true, class: 'form-horizontal', id: 'event-form'} do |f| %>
 
 
-          <!-- =NAME -->
+          <!-- =Name -->
 
           <div class="form-group has-helper" helper="<b>Dica:</b> O nome do evento fica mais legal se for curto e com uma palavra descritiva. <br><br><b>Exemplo:</b><ul><li>Nome original: Hell.</li> <li>Nome legal: <i>Peça de Teatro</i> Hell.</li></ul><br><b>Obrigações:</b><ul><li>O nome deve ter mais de 6 caracteres.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Nome</label>
@@ -31,7 +31,7 @@
           </div>
 
 
-          <!-- =DESCRIPTION -->
+          <!-- =Description -->
 
           <div class="form-group has-helper" helper="<b>Dicas:</b> A descrição fica mais legal se for bem organizada, explicar o que acontece e o que é possível fazer no evento.<br><br>Use as opções de negrito e numeração para organizar melhor a descrição.<br><br><b>Obrigações:</b><ul><li>Ter mais de 140 caracteres.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Detalhes</label>
@@ -41,7 +41,7 @@
           </div>
 
 
-          <!-- =PERIOD -->
+          <!-- =Period -->
 
           <div class="form-group has-helper"  helper="<b>Dica:</b> A data inicial deve ser o dia que começa o evento, independente se o evento durar meses (exposição, festival, etc). A data de termino deve ser o dia que o evento termina no periodo.<br><br><b>Obrigações:</b><ul><li>O dia de início deve ser preenchido.</li></ul></b>">
             <label class="control-label col-lg-3">Periodo</label>
@@ -73,7 +73,7 @@
 
           <div class="FormGroup--sub is-Hidden js-datetime-section-hide-show">
 
-            <!-- =DAYS OF WEEK -->
+            <!-- =Days of Week -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Marque os dias da semana que o evento acontece.<br><br><b>Obrigações:</b><ul><li>Pelo menos um dia da semana deve estar marcado.</li></ul></b>">
               <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Dias da semana</label>
@@ -84,7 +84,7 @@
 
 
 
-            <!-- HORARIOS -->
+            <!-- =Hours -->
 
             <div class="EventForm-hour form-group has-helper"  helper="<b>Dica:</b> O horário de início deve ser o horário que o evento começa durante todos os dias do evento e o de termino a hora que o evento termina durante todos os dias do evento.<br><br><b>Obrigações:</b><ul><li>Ao menos um horário deve ser preenchido.</li><li>O horário de início deve ser preenchido.</li></ul>">
               <label class="control-label col-lg-3">1º Horario</label>
@@ -216,12 +216,12 @@
           </div>
 
 
-          <!-- PREÇO -->
+          <!-- =Price -->
 
           <div class="form-group has-helper" helper="<b>Dica 1:</b> Insira o preço cobrado para poder participar do evento.<br/><br/><b>Dica 2:</b> Use o espaço de <i>Detalhes</i> para colocar mais informações sobre os preços e a tabela para cada segmento de preço cobrado.<br><br><b>Obrigações:</b><ul><li>O preço deve ser preenchido.</li></ul>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Preço</label>
             <div class="col-lg-3">
-              <input id="event_cost_fake" value="<%= @item.cost unless @item.cost.blank? %>" class="string optional has-tooltip form-control has-focus-transition" data-max-length="12" data-min-length="1" title="A partir de" type="text" size="10" name="" placeholder="R$ 0,00" maxlength="10">
+              <input id="event_cost_fake" value="<%= number_to_currency(@item.cost, unit: '', separator: ',') %>" class="string optional has-tooltip form-control has-focus-transition" data-max-length="12" data-min-length="1" title="A partir de" type="text" size="10" name="" placeholder="R$ 0,00" maxlength="10">
               <%= f.input :cost, as: :hidden, input_html:{maxlength: '10', class: 'form-control has-focus-transition', data:{"max-length" => 25, "min-length" => 2}}  %>
             </div>
             <label class="control-label col-lg-2">Detalhes</label>
@@ -237,7 +237,7 @@
 
 
 
-          <!-- IMAGEM -->
+          <!-- =Image -->
 
           <div class="form-group has-helper" helper="<b>Dica:</b> Escolha e envie uma imagem do seu computador que represente o evento ou que seja uma foto do mesmo evento em uma data anterior.<br><br><b>Obrigações:</b><ul><li>A imagem deve ter menos de 5mb.</li><li>A imagem não deve ser cartaz apenas com texto.</li>">
             <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Imagem</label>
@@ -270,7 +270,7 @@
           <%= f.simple_fields_for :place, defaults: {input_html: false, label_html: false, wrapper_html: false, label: false} do |p| %>
 
 
-              <!-- LOCALIZAÇÃO-->
+              <!-- =Localization-->
 
               <div class="form-group place-form" style="margin-top: 30px;">
                 <label class="control-label col-lg-3"><abbr title="Obrigatório">*</abbr> Local</label>
@@ -291,23 +291,19 @@
           <% end %>
 
 
-          <!-- ENDEREÇO DO LUGAR -->
+          <!-- =Address of Place -->
 
           <div class="form-group criar-lugar address-inputs has-helper" helper="<b>Dica 1:</b> Você pode buscar o lugar de duas maneiras: inserindo rua, numero e bairro e clicando em <i>Buscar</i> ou pegando e soltando o marcador no mapa.<br/><br/><b>Dica 2:</b> Você pode aumentar o mapa com o 'rolinho' do mouse.">
             <label class="control-label col-lg-3">Endereço do lugar</label>
 
-            <!-- rua ou avenida -->
             <div class="col-lg-7">
               <%= f.input :address, placeholder: 'Ex:. Av. Bento Gonçalves', input_html: {id: 'address', class: 'place-inputs js-input-address-search has-tooltip form-control', title: 'Rua ou avenida'} %>
             </div>
 
-
-            <!-- botão -->
 	            <span class="col-lg-2">
 	              <div class="btn btn-default u-width-100-percents js-btn-geocoder-address-for-map">Buscar</div>
 	            </span>
 
-            <!-- mapa -->
             <div class="col-lg-9 pull-right">
               <div id="map" class="place-inputs"></div>
             </div>
@@ -322,7 +318,7 @@
           <div class="FormGroup--moreContent">
 
 
-            <!-- CATEGORIAS -->
+            <!-- =Categories -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Marque a(s) categoria(s) que o evento mais se encaixa e tenha cuidado para selecionar as que realmente representam o evento.<br><br><b>Obrigações:</b><ul><li>No mínimo uma categoria deve ser marcada.</li><li>No máximo 3 categorias deves ser marcadas.</li></ul>">
               <label class="control-label col-lg-3">Categorias</label>
@@ -332,7 +328,7 @@
             </div>
 
 
-            <!-- SUBCATEGORIA -->
+            <!-- =Subcategories -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Selecione uma subcategoria para melhor descrever o evento.">
               <label class="control-label col-lg-3">Subcategoria:</label>
@@ -342,7 +338,7 @@
             </div>
 
 
-            <!-- PERSONA -->
+            <!-- =Persona -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Selecionar uma persona torna o evento mais visto por pessoas que se interessam pelo assunto. <br><br><b>Exemplo:</b><ul><li>Empreendedor: Evento sobre marketing.</li> <li>Fashionista: Exposição de moda.</li></ul>">
               <label class="control-label col-lg-3">Recomendado para:</label>
@@ -352,7 +348,7 @@
             </div>
 
 
-            <!-- CONTATO -->
+            <!-- =Contact -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Para deixar as informações mais confiaveis, insira os dados de contato do organizador ou local.">
               <label class="control-label col-lg-3">Contato e informações</label>
@@ -374,7 +370,7 @@
           </div>
 
 
-          <!-- ADMIN -->
+          <!-- =Admin -->
 
           <% if current_or_guest_user.admin? %>
           <div class="form-group has-helper">
