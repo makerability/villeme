@@ -71,7 +71,7 @@
 
 
 
-          <div class="FormGroup--sub is-Hidden js-datetime-section-hide-show">
+          <div class="FormGroup--sub  <%= @item.date_start ? nil : 'is-Hidden js-datetime-section-hide-show' %>">
 
             <!-- =Days of Week -->
 
@@ -397,7 +397,6 @@
       </div>
 
 </div>
-
 
 
 
