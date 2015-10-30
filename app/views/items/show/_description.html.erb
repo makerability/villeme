@@ -1,10 +1,10 @@
 
 <span class="EventSingle-description snippet">
   <h3>Detalhes</h3>
-  <%= @item.description.length > 360 ? "#{strip_tags(@item.description[0..360])}..." : @item.description.html_safe %>
+  <%= @item.description.length > 500 ? "#{@item.description_without_html.cut(0, 500)}" : @item.description.html_safe %>
 </span>
 
-<% if @item.description.length > 360 %>
+<% if @item.description.length > 500 %>
   <div class="EventSingle-readMore js-EventSingle-readMore">
     <span class="EventSingle-readMoreLink">Ler mais</span>
   </div>

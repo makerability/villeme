@@ -233,6 +233,10 @@ class Item < ActiveRecord::Base
 		Villeme::UseCases::EventAttributes.description_with_limit(self)
 	end
 
+	def description_without_html
+		Villeme::UseCases::EventAttributes.description_without_html(self)
+	end
+
 	def relative_latitude
 		Villeme::UseCases::GeocoderAttributes.relative_latitude(self)
 	end

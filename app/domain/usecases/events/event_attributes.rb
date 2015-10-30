@@ -27,6 +27,9 @@ module Villeme
           end
         end
 
+        def description_without_html(item)
+          ActionController::Base.helpers.strip_tags(item.description).gsub("&nbsp;", " ")
+        end
 
         def price(entity)
           response = Hash.new(value: nil, css_attributes: nil)
