@@ -14,7 +14,7 @@ module Villeme
         if @item.subcategories.empty? and @item.cost.nil?
           return "#{name}"
         elsif @item.cost.nil?
-          return "#{subcategory}: #{title}"
+          return "#{subcategory}: #{name}"
         elsif @item.subcategories.empty?
           return "#{name} (#{price})"
         else
