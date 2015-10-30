@@ -52,7 +52,7 @@
                   <span class="info"><abbr title="Obrigatório">*</abbr> Dia de início</span>
                 </div>
                 <div class="col-lg-12">
-                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {value: @item.date_start.strftime('%d/%m/%Y'), class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_start, as: :string, placeholder: '__/__/____', input_html: {value: @item.date_start ? @item.date_start.strftime('%d/%m/%Y') : nil, class: 'form-control js-date-timepicker', id: 'date_timepicker_start'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                   <%= f.input :all_year, label: 'Acontece o ano todo', value: true, input_html: {class: 'EventForm-allyearInput'}, label_html: {class: 'EventForm-allyearLabel'}, wrapper_html: {class: 'EventForm-allyearWrapper'} %>
                 </div>
               </div>
@@ -62,7 +62,7 @@
                   <span class="info">Dia de termino</span>
                 </div>
                 <div class="col-lg-12 not-required">
-                  <%= f.input :date_finish, as: :string, placeholder: '__/__/____', input_html: {value: @item.date_finish.strftime('%d/%m/%Y'), class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
+                  <%= f.input :date_finish, as: :string, placeholder: '__/__/____', input_html: {value: @item.date_finish ? @item.date_finish.strftime('%d/%m/%Y') : nil, class: 'form-control', id: 'date_timepicker_end'}, start_year: Date.today.year, end_year: Date.today.year + 1 %>
                 </div>
               </div>
 
