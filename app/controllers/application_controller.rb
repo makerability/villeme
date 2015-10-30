@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   require_relative '../../app/domain/policies/user/account_complete'
   require_relative '../../app/domain/usecases/users/set_locale'
-  require_relative '../../app/domain/share/share_rules.rb'
+  require_relative '../../app/domain/share/share_rules'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
