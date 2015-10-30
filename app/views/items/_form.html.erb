@@ -308,12 +308,13 @@
 
           </div>
 
+          <% if @item.categories.empty? and @item.personas.empty? %>
+            <div class="FormGroup--more js-FormGroup--more__open">
+              <div class="FormGroup--moreLink">+ Adicionar mais detalhes</div>
+            </div>
+          <% end %>
 
-          <div class="FormGroup--more js-FormGroup--more__open">
-            <div class="FormGroup--moreLink">+ Adicionar mais detalhes</div>
-          </div>
-
-          <div class="FormGroup--moreContent">
+          <div class="js-FormGroup--moreContent <%= @item.categories.empty? and @item.personas.empty? ? 'is-hidden' : nil %>">
 
 
             <!-- =Categories -->
@@ -329,7 +330,7 @@
             <!-- =Subcategories -->
 
             <div class="form-group has-helper" helper="<b>Dica:</b> Selecione uma subcategoria para melhor descrever o evento.">
-              <label class="control-label col-lg-3">Subcategoria:</label>
+              <label class="control-label col-lg-3">Subcategorias:</label>
               <div class="col-lg-9">
                 <%= f.association :subcategories, as: :check_boxes, include_blank: false %>
               </div>

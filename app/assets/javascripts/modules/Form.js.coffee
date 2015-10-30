@@ -11,8 +11,8 @@
 
       __open = (->
         $('.js-FormGroup--more__open').click ->
-          $('.FormGroup--moreContent').show()
-          $(this).hide()
+          $('.js-FormGroup--moreContent').removeClass('is-hidden')
+          $(this).addClass('is-hidden')
           return
         return
       ) $
