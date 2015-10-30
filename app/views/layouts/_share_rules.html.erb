@@ -1,6 +1,6 @@
 <% if params[:controller] == 'items' and params[:action] == 'show' and @item %>
     <meta property="og:site_name" content="Villeme" />
-    <meta property="og:title" content="<%= @item.try(:name) %>" />
+    <meta property="og:title" content="<%= Villeme::ShareRules.title(@item) %>" />
     <meta property="og:description" content="<%= strip_tags @item.try(:description_with_limit) %>" />
     <meta property="og:image" content="<%= @item.try(:image).try(:url, :share).nil? ? @item.try(:image).try(:url, :medium) : @item.try(:image).try(:url, :share) %>">
     <meta property="og:image:type" content="image/png">

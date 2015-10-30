@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   require_relative '../../app/domain/policies/user/account_complete'
   require_relative '../../app/domain/usecases/users/set_locale'
+  require_relative '../../app/domain/share/share_rules.rb'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -124,7 +125,7 @@ class ApplicationController < ActionController::Base
 
 
 	def layout_devise_setting
-	  if devise_controller? 
+	  if devise_controller?
 	    "centralize"
 	  end
 	end
@@ -136,15 +137,15 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	
+
 	def is_admin
 		unless user_signed_in?
-			
+
 			redirect_to welcome_path, alert: "Ops! Você não está logado."
 		else
 
 			unless current_user.admin?
-				
+
 				redirect_to root_path, alert: "Ops! Você não tem permissão para acessar isto."
 			end
 		end
@@ -159,7 +160,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def turn_complete(user)
-		
+
 	end
 
 
@@ -231,13 +232,13 @@ class ApplicationController < ActionController::Base
 
   # dia da semana que o evento esta acontecendo
 	def dia_da_semana(variables)
-		if Date.current.between?(variables[:date_start], variables[:date_finish]) 
+		if Date.current.between?(variables[:date_start], variables[:date_finish])
 			return ('<span class="label label-success today">Hoje</span>').html_safe
 		elsif variables[:date_start] == Date.current.tomorrow
 			return ('<span class="label label-success tomorrow">Amanhã</span>').html_safe
 		else
-			return I18n.localize variables[:date_start], format: "%A" 
-		end			
+			return I18n.localize variables[:date_start], format: "%A"
+		end
   end
 
 
@@ -358,7 +359,7 @@ class ApplicationController < ActionController::Base
   helper_method :to_url
 
 
-  def to_slug slug 
+  def to_slug slug
   	slug.to_s.downcase.strip.gsub(' ', '').gsub(/[^\w-]/, '')
   end
 
