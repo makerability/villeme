@@ -12,11 +12,11 @@ module Villeme
 
       def format_title
         if @item.subcategories.empty? and @item.cost.nil?
-          return "#{title}"
+          return "#{name}"
         elsif @item.cost.nil?
           return "#{subcategory}: #{title}"
         elsif @item.subcategories.empty?
-          return "#{title} (#{price})"
+          return "#{name} (#{price})"
         end
       end
 
@@ -24,8 +24,8 @@ module Villeme
         @item.subcategories.try(:first).try(:name)
       end
 
-      def title
-        @item.title
+      def name
+        @item.name
       end
 
       def price
