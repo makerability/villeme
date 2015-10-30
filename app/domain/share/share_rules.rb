@@ -17,6 +17,8 @@ module Villeme
           return "#{subcategory}: #{title}"
         elsif @item.subcategories.empty?
           return "#{name} (#{price})"
+        else
+          return "#{subcategory}: #{name} (#{price})"
         end
       end
 
