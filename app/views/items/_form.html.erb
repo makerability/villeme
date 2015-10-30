@@ -96,11 +96,11 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_start_first, input_html: {value: @item.hour_start_first ? @item.hour_start_first.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                   <%= f.input :allday, label: 'O evento acontece o dia todo', value: true, input_html: {class: 'EventForm-alldayInput'}, label_html: {class: 'EventForm-alldayLabel'}, wrapper_html: {class: 'EventForm-alldayWrapper'} %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_first, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_finish_first, input_html: {value: @item.hour_finish_first ? @item.hour_finish_first.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -118,10 +118,10 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_second, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_start_second, input_html: {value: @item.hour_start_second ? @item.hour_start_second.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_second, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_finish_second, input_html: {value: @item.hour_finish_second ? @item.hour_finish_second.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -139,10 +139,10 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_third, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_start_third, input_html: {value: @item.hour_start_third ? @item.hour_start_third.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_third, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_finish_third, input_html: {value: @item.hour_finish_third ? @item.hour_finish_third.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -160,10 +160,10 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_fourth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_start_fourth, input_html: {value: @item.hour_start_fourth ? @item.hour_start_fourth.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_fourth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_finish_fourth, input_html: {value: @item.hour_finish_fourth ? @item.hour_finish_fourth.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -181,10 +181,10 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_fifth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_start_fifth, input_html: {value: @item.hour_start_fifth ? @item.hour_start_fifth.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_fifth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_finish_fifth, input_html: {value: @item.hour_finish_fifth ? @item.hour_finish_fifth.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -202,10 +202,10 @@
                   <span class="info">Hora de termino</span>
                 </div>
                 <div class="col-lg-5">
-                  <%= f.input :hour_start_sixth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_start_sixth, input_html: {value: @item.hour_start_sixth ? @item.hour_start_sixth.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-5 not-required">
-                  <%= f.input :hour_finish_sixth, input_html: {class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
+                  <%= f.input :hour_finish_sixth, input_html: {value: @item.hour_finish_sixth ? @item.hour_finish_sixth.strftime('%H:%M') : nil, class: 'form-control js-date-picker-time'}, as: :string, prompt: '--' %>
                 </div>
                 <div class="col-lg-2 no-require">
                   <span class="js-addHour glyphicon glyphicon-plus has-tooltip" title="Adicionar mais um horario"></span>
@@ -244,9 +244,7 @@
             <div class="col-lg-3">
 
               <% unless @item.image.blank? %>
-                  <div class="img-thumbnail event-img image-upload" style="background-image: url('<%= @item.image.url(:thumb) %>')">
-
-                  </div>
+                  <div class="img-thumbnail event-img image-upload" style="background-image: url('<%= @item.image.url(:medium) %>')"></div>
               <% else %>
                   <div class="img-thumbnail event-img image-upload">
                     <span class="glyphicon glyphicon-camera"></span>
