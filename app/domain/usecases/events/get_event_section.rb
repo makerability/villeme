@@ -37,8 +37,8 @@ module Villeme
 
           {
               title: "Eventos para se divertir",
-              items: events_all_fun[0...2],
-              snippet: events_all_fun[2...12],
+              items: events_all_fun.count <= 2 ? events_all_fun[0...2] : events_all_fun[0...5],
+              snippet: events_all_fun.count <= 2 ? events_all_fun[2...12] : events_all_fun[5...15],
               count: events_all_fun.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:fun].map(&:capitalize), key: false)),
               link_to_create: '/events/new',
@@ -51,8 +51,8 @@ module Villeme
 
           {
               title: "Eventos para aprender algo novo",
-              items: events_all_education[0...2],
-              snippet: events_all_education[2...12],
+              items: events_all_education.count <= 2 ? events_all_education[0...2] : events_all_education[0...5],
+              snippet: events_all_education.count <= 2 ? events_all_education[2...12] : events_all_education[5...15],
               count: events_all_education.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:education].map(&:capitalize), key: false)),
               link_to_create: '/events/new',
@@ -65,8 +65,8 @@ module Villeme
 
           {
               title: "Eventos para cuidar da saude",
-              items: events_all_health[0...2],
-              snippet: events_all_health[2...12],
+              items: events_all_health.count <= 2 ? events_all_health[0...2] : events_all_health[0...5],
+              snippet: events_all_health.count <= 2 ? events_all_health[2...12] : events_all_health[5...15],
               count: events_all_health.count,
               link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:health].map(&:capitalize), key: false)),
               type: 'health'

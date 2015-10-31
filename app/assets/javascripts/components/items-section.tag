@@ -22,10 +22,7 @@
         </div>
       </div>
 
-
-
-
-      <div if={ opts.data.count >= 3 } class="EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull">
+      <div if={ opts.data.count >= 7 || opts.data.count >= 3 } class="EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull">
         <div class="EventsSnippet-content">
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">

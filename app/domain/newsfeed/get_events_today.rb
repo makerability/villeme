@@ -41,12 +41,12 @@ module Villeme
           end
         end
 
-        def get_snippet_events(events)
-          events[2...12]
+        def get_principal_events(events)
+          events.count <= 2 ? events[0...2] : events[0...5]
         end
 
-        def get_principal_events(events_all_today)
-          events_all_today[0...2]
+        def get_snippet_events(events)
+          events.count <= 2 ? events[2...12] : events[5...15]
         end
 
         def create_title
