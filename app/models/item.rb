@@ -38,10 +38,10 @@ class Item < ActiveRecord::Base
 
 	# gem paperclip
 	has_attached_file :image,
-                    styles: {thumb: "60x50!",
-														 medium: "280x280!",
-														 large: "690x280!",
-														 share: "484x252!"},
+                    styles: {thumb: "60x50#",
+														 medium: "280x280#",
+														 large: "690x280#",
+														 share: "484x252#"},
                     default_url: "/images/:style/missing.png"
 
 
