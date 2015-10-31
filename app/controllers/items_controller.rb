@@ -15,17 +15,12 @@ class ItemsController < ApplicationController
   include Gmaps
 
 
-  # GET /events
-  # GET /events.json
   def index
     @items = get_item_class.all
     render layout: 'full-width', template: "#{get_item_route}/index"
   end
 
 
-
-  # GET /events/1
-  # GET /events/1.json
   def show
     require_relative '../../app/domain/dependecies/javascript_dependencies'
 
@@ -47,7 +42,6 @@ class ItemsController < ApplicationController
 
 
 
-  # GET /events/new
   def new
 
     unless Villeme::Policies::AccountComplete.is_complete?(current_user)
@@ -65,8 +59,6 @@ class ItemsController < ApplicationController
 
 
 
-
-  # GET /events/1/edit
   def edit
 
     if @item.user_id == current_user.id or current_user.admin?
@@ -85,9 +77,6 @@ class ItemsController < ApplicationController
 
 
 
-
-  # POST /events
-  # POST /events.json
   def create
     @item = current_user.items.create(item_params)
     set_type_for_item
@@ -104,8 +93,6 @@ class ItemsController < ApplicationController
 
 
 
-  # PATCH/PUT /events/1
-  # PATCH/PUT /events/1.json
   def update
     @item.update_attributes(item_params)
     auto_moderate_if_admin
@@ -121,10 +108,6 @@ class ItemsController < ApplicationController
 
 
 
-
-
-  # DELETE /events/1
-  # DELETE /events/1.json
   def destroy
     @item.destroy
     redirect_to events_url
@@ -132,7 +115,6 @@ class ItemsController < ApplicationController
 
 
 
-  # PUT /events/aprove/1.json
   def aprove
     @item = Item.find params[:id]
     @item.moderate = 1
