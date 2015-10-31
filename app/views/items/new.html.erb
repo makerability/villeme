@@ -7,7 +7,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-lg-6 u-centralize">
-        <%= link_to new_event_path, data: {push: true} do %>
+        <%= link_to new_event_path do %>
             <div class="ItemPanel panel u-padding-15">
               <div class="ItemPanel-icon"><%= image_tag 'event.png' %></div>
               <h2 class="ItemPanel-title">Evento</h2>
@@ -17,7 +17,7 @@
       </div>
       <div class="col-lg-6 u-centralize">
 
-        <%= link_to new_activity_path, data: {push: true} do %>
+        <%= link_to new_activity_path do %>
             <div class="ItemPanel panel u-padding-15">
               <div class="ItemPanel-icon"><%= image_tag 'bicycle.png' %></div>
               <h2 class="ItemPanel-title">Atividade</h2>
