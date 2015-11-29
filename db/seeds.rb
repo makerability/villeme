@@ -446,7 +446,7 @@ images_array = ['a', 'b', 'd', 'e', 'f']
 30.times do
   place = Place.order("RANDOM()").first
   faker_address = Faker::Address
-  item = Item.create(
+  item = Item.new(
       name: Faker::Lorem.sentence(2, false, 4),
       description: Faker::Lorem.paragraph(5..20),
       date_start: Faker::Date.between(30.days.ago, Date.today),
@@ -474,7 +474,8 @@ images_array = ['a', 'b', 'd', 'e', 'f']
       image: File.new("#{Rails.root}/app/assets/images/seed/imagem-#{images_array.shuffle.first}.jpg")
   )
 
-  puts item.save ? "#{item.type} #{item.name} created with success!" : 'Error on create item'
+
+  puts item.save! ? "#{item.type} #{item.name} created with success!" : 'Error on create item'
 end
 
 puts "\n"

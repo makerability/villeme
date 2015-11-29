@@ -32,6 +32,7 @@ To run app **test** locale you need to have (not necessary, but recommended):
 3. Install the gems (dependencies): `$ bundle install`
 4. Compile assets (js, css, images): `$ bundle exec rake assets:precompile`
 5. Create the database: `$ bundle exec rake db:schema:load`
+7. Install imagemagick for Ubuntu: `sudo apt-get install imagemagick`
 6. Create faker data with seed: `$ bundle exec rake db:seed`
 
 If everything goes OK, you can now run the project!
