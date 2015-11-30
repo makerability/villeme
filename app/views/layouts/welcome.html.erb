@@ -85,8 +85,11 @@
                       Experimente agora em Porto Alegre <span class='glyphicon glyphicon-play'></span>
                     </div>
                 <% end %>
+                <%= image_tag 'welcome/desktop-with-printscreen.png', width: '936', class: 'u-blurOnHover' %>
+            <% else %>    
+                <%= image_tag 'welcome/desktop-with-printscreen.png', width: '936' %>
             <% end %>
-            <%= image_tag 'welcome/desktop-with-printscreen.png', width: '936' %>
+            
           </div>
   
   
@@ -379,7 +382,7 @@
 
 <!-- Container 3 -->
 
-<div class="container-fluid body-dark-grey hidden-xs">
+<div class="container-fluid u-gray-degrade-bottom-top hidden-xs">
   <div class="OuterWrapper">
     <div class="row" style="padding: 25px 0px 0px; margin: 0px;">
       <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1">
@@ -494,7 +497,7 @@
 
 
 
-<div class="container-fluid" style="background-color: #F9F9F9">
+<div class="container-fluid u-gray-degrade-bottom-top">
   <footer>
     <ul>
       <li><a href="http://github.com/makerability/villeme"><%= t('welcome.footer.github') %></a></li>

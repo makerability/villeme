@@ -48,7 +48,7 @@ body{
 
 .OuterWrapper{
   margin: auto;
-  max-width: 1245px;
+  max-width: 1380px;
 }
 
 .wodry-flipping {
@@ -448,14 +448,21 @@ span {
   opacity: 1;
   position: relative;
   bottom: 0;
+  height: 460px;
 
   & img{
     height: auto;
     max-width: 936px;
     width:100%;
     margin: 25px 0 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 
+  &.is-blur{
+    
+  }
 }
 
 .city-img{
