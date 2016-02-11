@@ -15,7 +15,7 @@ group :development, :test do
 	gem 'rspec-rails'
 	gem 'capybara'
 	gem 'poltergeist'
-	gem 'shoulda-matchers'
+	gem 'shoulda-matchers', '~> 3.1'
 	gem 'factory_girl_rails', '~> 4.0'
 	gem 'database_cleaner'
 	gem 'timecop'

@@ -5,6 +5,7 @@ class Item < ActiveRecord::Base
 	require_relative '../domain/usecases/geolocalization/get_geocoder_attributes'
 	require_relative '../domain/usecases/geolocalization/geocode_event'
 	require_relative '../domain/json/item/item_to_json'
+  require_relative '../domain/items_section/items_section'
 
 	after_validation :geocode_event, unless: 'address.nil?'
 
@@ -72,150 +73,48 @@ class Item < ActiveRecord::Base
 	end
 
 	def self.all_today(options = {city: false, type: false, limit: false})
-		response = []
-
-		events = if options[:city]
-							 options[:city].items.includes(:weeks, :agendas, :place, :subcategories)
-						 else
-							 self.all.includes(:weeks, :agendas, :place, :subcategories)
-						 end
-
-		events.each do |event|
-			if event.today?
-				response << event
-			end
-		end
-
-		return response
+    Villeme::ItemsSection.all_today(options)
 	end
 
 	def self.all_persona_in_city(personas, city, options = {limit: false, user: nil, upcoming: true, json: false})
-		if options[:limit] and city.try(:items)
-			city.items.includes(:personas).where(personas: { name: personas }).limit(options[:limit])
-		elsif city.try(:items)
-			items = if options[:upcoming]
-								city.items.includes(:personas).where(personas: {name: personas}).upcoming
-							else
-								city.items.includes(:personas).where(personas: {name: personas})
-							end
-
-			if options[:json]
-				return items_to_json(items, options)
-			else
-				return items
-			end
-		else
-			Item.none
-		end
+		Villeme::ItemsSection.all_persona_in_city(personas, city, options)
 	end
 
-	def self.items_to_json(items, options = {user: nil})
-		if items.empty?
-			return Item.none
-		else
-			response = []
-			items.each { |item| response << Item.to_json(item, user: options[:user]) }
-			return response
-		end
+  def self.all_categories_in_city(categories, city, options = {user: nil, slug: false, upcoming: true, json: false, limit: false})
+    Villeme::ItemsSection.all_categories_in_city(categories, city, options)
+  end
+
+  def self.all_in_neighborhood(neighborhood, options = {user: nil, upcoming: true, json: false, limit: false})
+    Villeme::ItemsSection.all_in_neighborhood(neighborhood, options)
+  end
+
+  def self.all_fun_in_city(city, options = {user: nil, upcoming: true, json: false, limit: false})
+    Villeme::ItemsSection.all_fun_in_city(city, options)
 	end
 
-	def self.all_categories_in_city(categories, city, options = {user: nil, slug: false, upcoming: true, json: false, limit: false})
-		name_or_slug_key = options[:slug] ? { slug: categories } : { name: categories }
-
-		items = if options[:limit] and city.try(:items)
-							if options[:upcoming]
-								city.items.includes(:categories).where(categories: name_or_slug_key).limit(options[:limit]).upcoming
-							else
-								city.items.includes(:categories).where(categories: name_or_slug_key).limit(options[:limit])
-							end
-						elsif city.try(:items)
-							if options[:upcoming]
-								city.items.includes(:categories).where(categories: name_or_slug_key).upcoming
-							else
-								city.items.includes(:categories).where(categories: name_or_slug_key)
-							end
-						else
-							Item.none
-						end
-
-		if options[:json]
-			return items_to_json(items, options)
-		else
-			return items
-		end
+  def self.all_education_in_city(city, limit = false)
+		Villeme::ItemsSection.all_education_in_city(city, limit)
 	end
 
-	def self.all_in_neighborhood(neighborhood, options = {user: nil, upcoming: true, json: false, limit: false})
-		items = if options[:limit] and neighborhood.try(:events)
-							if options[:upcoming]
-								neighborhood.events.limit(options[:limit]).upcoming
-							else
-								neighborhood.events.limit(options[:limit])
-							end
-						elsif neighborhood.try(:events)
-							if options[:upcoming]
-								neighborhood.events.upcoming
-							else
-								neighborhood.events
-							end
-						else
-							Event.none
-						end
-
-		if options[:json]
-			return items_to_json(items, options)
-		else
-			return items
-		end
+  def self.all_health_in_city(city, limit = false)
+    Villeme::ItemsSection.all_health_in_city(city, limit)
 	end
 
-	def self.all_fun_in_city(city, options = {user: nil, upcoming: true, json: false, limit: false})
-		items = if options[:limit]
-							if options[:upcoming]
-								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).limit(options[:limit]).upcoming
-							else
-								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).limit(options[:limit])
-							end
-						else
-							if options[:upcoming]
-								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]}).upcoming
-							else
-								city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:fun]})
-							end
-						end
-
-		if options[:json]
-			return items_to_json(items, options)
-		else
-			return items
-		end
+  def self.all_trends_in_city(city, options = {user: nil, upcoming: nil, json: false, slug: true, limit: nil})
+		Villeme::ItemsSection.all_trends_in_city(city, options)
 	end
 
-	def self.all_education_in_city(city, limit: false)
-		if limit
-			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:education]}).limit(limit)
-		else
-			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:education] })
-		end
-	end
+  def self.items_to_json(items, options = {user: nil})
+    if items.empty?
+      return Item.none
+    else
+      response = []
+      items.each { |item| response << Item.to_json(item, user: options[:user]) }
+      return response
+    end
+  end
 
-	def self.all_health_in_city(city, limit: false)
-		if limit
-			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:health]}).limit(limit)
-		else
-			city.events.includes(:categories).where(categories: { slug: Newsfeed.configs[:sections][:health] })
-		end
-	end
-
-	def self.all_trends_in_city(city, options = {user: nil, upcoming: nil, json: false, slug: true, limit: nil})
-		if options[:limit]
-			city.events.where('agendas_count > 1').order('agendas_count DESC').limit(options[:limit])
-		else
-			city.events.where('agendas_count > 1').order('agendas_count DESC')
-		end
-	end
-
-	def agended?(user)
+  def agended?(user)
 		if user.nil?
 			false
 		elsif user.agenda_items.include?(self)
