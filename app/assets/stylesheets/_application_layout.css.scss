@@ -1,3 +1,5 @@
+@import "modules/OuterWrapper";
+
 /* MARGIN */
 .u-margin-0 {margin: 0}
 .u-margin-15-0 {margin: 15px 0}
@@ -63,7 +65,7 @@
 .u-display-inherit{display: inherit}
 .sub{vertical-align: sub}
 .clear{clear:both}
-.opacity-50{opacity: 50%}
+.opacity-50{opacity: 50}
 
 
 /* MOUSE */
@@ -111,6 +113,15 @@
 /* LINKS */
 .a_p-0-12 a {padding: 0 12px}
 
+
+/* FLOAT */
+.u-floatRight{
+  float: right;
+}
+
+.u-floatLeft{
+  float: left;
+}
 
 /* FILTER */
 
