@@ -4,7 +4,7 @@
 
 [villeme.com](http://www.villeme.com) | The easiest way to find events, activities and services in your city.
 
-The official repo is https://github.com/asm-products/villeme
+The official repo is https://github.com/makerability/villeme
 
 ## Status
 
