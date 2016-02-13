@@ -8,7 +8,7 @@ The official repo is https://github.com/asm-products/villeme
 
 ## Status
 
-[![Build Status](https://snap-ci.com/jonatassalgado/villeme/branch/master/build_image)](https://snap-ci.com/jonatassalgado/villeme/branch/master) [![Code Climate](https://codeclimate.com/github/makerability/villeme/badges/gpa.svg)](https://codeclimate.com/github/makerability/villeme) [![Coverage Status](https://img.shields.io/coveralls/jonatassalgado/villeme.svg)](https://coveralls.io/r/jonatassalgado/villeme?branch=master) 
+[![Build Status](https://snap-ci.com/jonatassalgado/villeme/branch/master/build_image)](https://snap-ci.com/jonatassalgado/villeme/branch/master) [![Circle CI](https://circleci.com/gh/jonatassalgado/villeme/tree/master.svg?style=svg)](https://circleci.com/gh/jonatassalgado/villeme/tree/master) [![Code Climate](https://codeclimate.com/github/makerability/villeme/badges/gpa.svg)](https://codeclimate.com/github/makerability/villeme) [![Coverage Status](https://img.shields.io/coveralls/jonatassalgado/villeme.svg)](https://coveralls.io/r/jonatassalgado/villeme?branch=master) 
 
 ## Dependencies
 
