@@ -1,6 +1,6 @@
 <sidebar-left>
 
-  <div id="SidebarLeft" class="SidebarLeft">
+  <div id="SidebarLeft" class="SidebarLeft js-FixSidebarOnScroll">
 
     <section class="SidebarLeft-section">
       <ul class="SidebarLeft-nav">
@@ -97,7 +97,7 @@
         windscroll = $(window).scrollTop();
         if (windscroll >= 110) {
           $('.Main section').each(function(i) {
-            if ($(this).position().top <= windscroll + 25) {
+            if ($(this).position().top <= windscroll + 86) {
               $('.js-SidebarLeft-nav a.is-active').removeClass('is-active');
               $('.js-SidebarLeft-nav a').eq(i).addClass('is-active');
             }

@@ -13,7 +13,8 @@ Villeme.Newsfeed = ( ->
 
   initialize = ->
     $(document).on 'ready page:done', ->
-      fixingMapOnScroll()
+      fixSidebarOnScroll()
+      fixMapOnScroll()
       initGoogleMaps()
       return
 
@@ -44,9 +45,9 @@ Villeme.Newsfeed = ( ->
     return
 
   userEvent = ->
-    # map mouseenter
+# map mouseenter
     $("#map").mouseenter ->
-      # limpa o timeout
+# limpa o timeout
       i = 0
       while i < timeouts.length
         clearTimeout timeouts[i]
@@ -72,14 +73,24 @@ Villeme.Newsfeed = ( ->
       return
     return
 
+  fixSidebarOnScroll = ->
+    $(window).scroll ->
+      scroll = window.scrollY
+      if scroll > 20
+        $('.js-FixSidebarOnScroll').css({top: scroll - 20})
+      else
+        $('.js-FixSidebarOnScroll').css({top: 0})
+      return
 
-  fixingMapOnScroll = ->
+    return
+
+  fixMapOnScroll = ->
     $(window).scroll ->
       scroll = window.scrollY
       if scroll > 75
-        $('.js-FixingMapOnScroll').css({top: scroll - 65})
+        $('.js-FixMapOnScroll').css({top: scroll - 65})
       else
-        $('.js-FixingMapOnScroll').css({top: 0})
+        $('.js-FixMapOnScroll').css({top: 0})
       return
 
     return
