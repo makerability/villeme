@@ -52,10 +52,6 @@
     max-height: 520px;
   }
 
-  .content{
-    padding-left: 200px;
-  }
-
   .logo-lg{
     margin: 6px 0 0;
 
@@ -120,10 +116,6 @@
           }
       }
 
-  }
-
-  .content{
-      padding-left: 200px;
   }
 
   .content.active{
@@ -211,15 +203,6 @@
       display: inline-block;
   }
 
-  .content{
-      padding-left: 200px;
-  }
-
-  .content.active{
-      padding-left: 200px;
-      transition: all 0.4s ease 0s;
-
-  }
 
   .p-xs-100-0{padding: 0}
   .p-xs-0-110{padding: 0}

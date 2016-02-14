@@ -74,16 +74,12 @@ Villeme.Newsfeed = ( ->
 
 
   fixingMapOnScroll = ->
-    position = 0
-
     $(window).scroll ->
-      scroll = $(window).scrollTop()
-      if scroll > position
-        $('.js-FixingMapOnScroll').css({top: scroll})
+      scroll = window.scrollY
+      if scroll > 75
+        $('.js-FixingMapOnScroll').css({top: scroll - 65})
       else
-        $('.js-FixingMapOnScroll').css({top: scroll})
-
-      position = scroll
+        $('.js-FixingMapOnScroll').css({top: 0})
       return
 
     return
