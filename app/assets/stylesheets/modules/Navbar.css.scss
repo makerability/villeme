@@ -1,3 +1,5 @@
+@import 'variables';
+
 .Navbar {
   background: linear-gradient(to bottom, rgba(56,186,94,1), rgba(56,186,94,0.8)) repeat-x scroll 0 0 rgba(56,186,94,0.5);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
@@ -37,6 +39,17 @@
     margin: 15px 0 0;
     overflow: hidden;
     width: 35px;
+  }
+  &-sandwichButton{
+    width: 45px;
+    height: 30px;
+    background: red;
+    float: left;
+    margin: 19px 0 0 12px;
+
+    @media #{$desktop}{
+      display: none;
+    }
   }
   & .dropdown-menu > li > a{
 

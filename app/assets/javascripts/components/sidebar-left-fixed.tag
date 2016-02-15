@@ -1,10 +1,10 @@
-<sidebar-left>
+<sidebar-left-fixed>
 
-  <div id="SidebarLeft" class="SidebarLeft js-FixSidebarOnScroll">
+  <div class="SidebarLeft SidebarLeft--fixed js-showSidebarFixed">
 
     <section class="SidebarLeft-section">
-      <ul class="SidebarLeft-nav">
-        <li class="SidebarLeft-agendaLink js-SidebarLeft-agendaLink">
+      <ul class="SidebarLeft-nav js-SidebarLeft-nav">
+        <li>
           <a href="{ link }" onclick="{ login }" data-push="{ data_push }">
             Minha agenda
           </a>
@@ -12,11 +12,6 @@
             { opts.current_user.agenda_items }
           </span>
         </li>
-      </ul>
-    </section>
-
-    <section class="SidebarLeft-section">
-      <ul class="SidebarLeft-nav js-SidebarLeft-nav">
         <li if={ opts.today > 0 } onmouseenter={ navEnter } onmouseleave={ navLeave }>
           <a href="#" data-scroll="today">Eventos hoje</a>
           <span class="badge {is-show: is_hover}">{ opts.today }</span>
@@ -54,12 +49,9 @@
   </div>
 
   <style scoped>
-    @media (max-width:1200px) {
-      :scope{
-        display: none;
-      }
+    :scope{
+      display: none;
     }
-
   </style>
 
 
@@ -91,7 +83,32 @@
       $(event.target).find('.badge').removeClass('is-show');
     }
 
-    this.on('mount', function() {
+    show(){
+      sidebar.root.style.display = 'block';
+    }
+
+    hide(){
+      sidebar.root.style.display = 'none';
+    }
+
+    showOnClickSandwichButton(){
+      var sandwichButton = document.querySelectorAll('.js-showSidebarLeftFixed')[0];
+      sandwichButton.addEventListener('click', sidebar.show)
+    }
+
+    hideOnClickOutside(){
+      var sandwichButton, sidebarLeftFixed;
+      sandwichButton = document.querySelectorAll('.Navbar-sandwichButton')[0];
+      sidebarLeftFixed = document.querySelectorAll('.SidebarLeft--fixed')[0];
+
+      document.addEventListener('click', function(event){
+      	if(event.target != sandwichButton && event.target != sidebarLeftFixed && !sidebarLeftFixed.contains(event.target)){
+          sidebar.hide();
+      	}
+      });
+    }
+
+    scrollAnimate(){
       $('.js-SidebarLeft-nav a').on('click', function() {
         var scrollAnchor, scrollPoint;
         scrollAnchor = $(this).attr('data-scroll');
@@ -116,7 +133,12 @@
           $('.js-SidebarLeft-nav a:first').addClass('is-active');
         }
       }).scroll();
+    }
 
+    this.on('mount', function() {
+      sidebar.scrollAnimate();
+      sidebar.hideOnClickOutside();
+      sidebar.showOnClickSandwichButton();
       sidebar.update();
     });
 
@@ -124,4 +146,4 @@
   </script>
 
 
-</sidebar-left>
+</sidebar-left-fixed>

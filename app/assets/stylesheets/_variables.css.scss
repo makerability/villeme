@@ -78,3 +78,10 @@ $radius-panel: 4px;
 .circle{
   border-radius: 100%;
 }
+
+/* MEDIA QUERIES -------------------- */
+
+$desktop: "(min-width: 1200px)";
+$tablet: "(min-width: 900px) and (max-width: 1200)";
+$lg-mobile: "(min-width: 320px) and (max-width: 900px)";
+$mobile: "(min-width: 0) and (max-width: 320px)";

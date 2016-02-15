@@ -6,13 +6,13 @@
 
 <!-- MAIN -->
 
-
+<sidebar-left-fixed></sidebar-left-fixed>
 
 <div class="u-lg-size2of12 u-md-size2of12 u-sm-size2of12 u-floatLeft">
   <sidebar-left></sidebar-left>
 </div>
 
-<div class="u-lg-size7of12 u-md-size6of12 u-sm-size6of12 u-floatLeft">
+<div class="u-lg-size7of12 u-md-size9of12 u-sm-size9of12 u-floatLeft">
   <div id="main-content" class="Main ps-container">
     <items-section id="today"></items-section>
     <items-section id="ativities-today"></items-section>
@@ -27,7 +27,7 @@
 
 <!-- SIDEBAR -->
 
-<div class="u-lg-size3of12 u-md-size4of12 u-sm-size4of12 u-floatRight">
+<div class="u-lg-size3of12 u-md-size3of12 u-sm-size4of12 u-floatRight">
   <%= render 'sidebar' %>
 </div>
 
@@ -75,6 +75,22 @@
           policies: <%= raw @section_items_json['policies'].to_json %>
         });
         riot.mount('sidebar-left',
+            {
+              "today":<%= raw @section_items_json['today']['count'].to_json %>,
+              "persona":<%= raw @section_items_json['persona']['count'].to_json %>,
+              "activities_today":<%= raw @section_activities_json['today']['count'].to_json %>,
+              "neighborhood":<%= raw @section_items_json['neighborhood']['count'].to_json %>,
+              "fun":<%= raw @section_items_json['fun']['count'].to_json %>,
+              "education":<%= raw @section_items_json['education']['count'].to_json %>,
+              "health":<%= raw @section_items_json['health']['count'].to_json %>,
+              "current_user": {
+                "username":"<%= current_or_guest_user.username %>",
+                "is_guest":<%= raw @section_items_json['policies']['is_guest_user'].to_json %>,
+                "agenda_items":<%= current_or_guest_user.agenda_items.upcoming.count %>
+              }
+            }
+        );
+        riot.mount('sidebar-left-fixed',
             {
               "today":<%= raw @section_items_json['today']['count'].to_json %>,
               "persona":<%= raw @section_items_json['persona']['count'].to_json %>,

@@ -7,8 +7,6 @@
   <div class="row">
 
     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-2">
-
-      <!-- Logo -->
       <div class="Navbar-logo">
         <% if current_or_guest_user.guest? %>
             <%= link_to welcome_path do %>
@@ -21,17 +19,18 @@
         <% end %>
       </div>
 
+      <div class="Navbar-sandwichButton js-showSidebarLeftFixed">
+
+      </div>
     </div>
 
 
     <div class="col-lg-7 col-md-6 col-sm-5 col-xs-4">
 
-      <!-- Notificações -->
       <div class="Navbar-bell p-20-0 pull-right">
         <%= render 'layouts/header/bell' %>
       </div>
 
-      <!-- Botões -->
       <ul class="Navbar-links hidden-xs">
         <% if current_or_guest_user.guest? %>
             <li><%= link_to "Início", root_path, class: "page-selected" %></li>
@@ -48,15 +47,11 @@
     </div>
 
 
-    <!-- Links e Avatar (dropdown) -->
+    <!-- Links and Avatar -->
     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding: 0 0 0 30px">
-
-
-      <!-- Avatar -->
       <% if GAMIFICATION  %>
           <%= render 'layouts/header/avatar' %>
       <% end %>
-
     </div>
 
   </div>
