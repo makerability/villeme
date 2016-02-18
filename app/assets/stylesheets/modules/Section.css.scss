@@ -13,13 +13,13 @@
     letter-spacing: 1px;
     line-height: 1.1em;
     text-align: left;
-  }
 
-  &-description{
-    font-size: 15px;
-    text-align: center;
-    display: inherit;
-    font-weight: 400;
-    color: $grey-light;
+    & small{
+      font-size: 11px;
+      float: right;
+      display: inline;
+      font-weight: 400;
+      color: $grey-light;
+    }
   }
 }
