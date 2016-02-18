@@ -1,6 +1,10 @@
 riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ period_that_occurs }" class="Event-button Event-dayButton Event--newsfeed js-EventDayButton is-schedule has-tooltip"> { day_of_week } { start_hour } </span> <span onclick="{ schedule }" class="Event-button Event-agendaButton { is-schedule: scheduled }"> <span class="Event-buttonText js-EventButtonText">{ button_text }</span> <span class="Event-agendedByCount js-agendedByCount has-tooltip" title="{ agended_by.text }">{agended_by.count}</span> </span> </div> <div class="js-EventNewsfeedTransitions panel panel-default shadow-animation"> <div class="Event-content"> <a href="{ base_url + link }" data-push="true"> <div class="Event-overlay"></div> </a> <div class="Event-detailsBox" onmouseenter="{ zoomInMap }" onmouseleave="{ zoomOutMap }"> <div class="Event-place"> <span class="glyphicon glyphicon-map-marker"></span> <a href="{ base_url + place.link }" onclick="{ open_place_page }"> { place.name } </a> </div> </div> <div class="Event-imageBox b-lazy" data-src="{ image.medium }"></div> <div class="caption"> <span class="Event-subCat" if="{ subcategories }"> { subcategories } </span> <h2 class="Event-title"> <a href="{ base_url + link }" data-push="true"> { name } </a> </h2> <span class="description"> { description } </span> <div class="Event-infos"> <span class="Event-infosPrice Event-infosItem { price.highlight }"> { price.value } </span> <span if="{ rating }" class="Event-infosRating Event-infosItem"> <span class="Event-infosRatingStar glyphicon glyphicon-star"></span> { rating } </span> <span if="{ friends.someone_will }" class="Event-infosFriends Event-infosItem"> <i each="{ friends.will }" class="has-tooltip avatar-icon" title="{ name } agendou o evento"> <img riot-src="{ avatar.url + (avatar.origin == \'facebook\' ? \'&width=22&height=22\' : \'\' ) }" class="img-circle image" width="22" height="22"> </i> </span> </div> </div> </div> </div>', 'onmouseenter="{ mouseEnterEvents }" onmouseleave="{ mouseLeaveEvents }" onclick="{ saveScroll }"', function(opts) {
 
+    window.Villeme = Villeme || {};
+    Villeme.Observer = Villeme.Observer || riot.observable();
+
     section = this.parent;
+
 
     this.base_url = window.location.origin;
 
@@ -87,7 +91,7 @@ riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ peri
       _agendaCounterRefresh = function(data) {
         var timer;
         clearTimeout(timer);
-        $(".js-agendaCounter").text("").text(data.count);
+        Villeme.Observer.trigger('itemSchedule', data.count);
 
         if(data.agended){
           _animateAgendaLink("is-adding");

@@ -66,7 +66,11 @@
 
   <script>
 
+    window.Villeme = Villeme || {};
+    Villeme.Observer = Villeme.Observer || riot.observable();
+
     section = this.parent;
+
 
     this.base_url = window.location.origin;
 
@@ -153,7 +157,7 @@
       _agendaCounterRefresh = function(data) {
         var timer;
         clearTimeout(timer);
-        $(".js-agendaCounter").text("").text(data.count);
+        Villeme.Observer.trigger('itemSchedule', data.count);
 
         if(data.agended){
           _animateAgendaLink("is-adding");

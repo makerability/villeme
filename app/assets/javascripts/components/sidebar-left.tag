@@ -9,7 +9,7 @@
             Minha agenda
           </a>
           <span if={ opts.current_user.agenda_items > 0 } class="js-agendaCounter badge is-show">
-            { opts.current_user.agenda_items }
+            { count }
           </span>
         </li>
       </ul>
@@ -65,14 +65,25 @@
 
   <script>
 
-    var sidebar = this;
+    window.Villeme = Villeme || {};
+    Villeme.Observer = Villeme.Observer || riot.observable();
 
-    if (!opts.current_user.is_guest) {
-      this.link = 'user/' + opts.current_user.username + '/agenda/';
-      this.data_push = true;
-    } else {
-      this.link = '#';
-      this.data_push = false;
+    var self = this;
+
+    initialize(){
+      this.count = opts.current_user.agenda_items;
+      this.setAgendaLink();
+    }
+
+    setAgendaLink(){
+      if (!opts.current_user.is_guest) {
+        this.link = 'user/' + opts.current_user.username + '/agenda/';
+        this.data_push = true;
+        console.log('ok');
+      } else {
+        this.link = '#';
+        this.data_push = false;
+      }
     }
 
     login(){
@@ -91,7 +102,13 @@
       $(event.target).find('.badge').removeClass('is-show');
     }
 
+    updateCount(number){
+      this.count = number;
+    }
+
     this.on('mount', function() {
+      this.initialize();
+
       $('.js-SidebarLeft-nav a').on('click', function() {
         var scrollAnchor, scrollPoint;
         scrollAnchor = $(this).attr('data-scroll');
@@ -117,9 +134,14 @@
         }
       }).scroll();
 
-      sidebar.update();
+      self.update();
     });
 
+
+    Villeme.Observer.on('itemSchedule', function(data){
+      self.updateCount(data);
+      self.update();
+    });
 
   </script>
 
