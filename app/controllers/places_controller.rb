@@ -7,7 +7,7 @@ class PlacesController < ApplicationController
   # access only for admin users
   before_action :is_admin, only: [:index, :destroy]
 
-  layout 'full-width'
+  layout 'fullwidth_layout'
 
   # GET /places
   # GET /places.json

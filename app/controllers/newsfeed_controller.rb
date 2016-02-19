@@ -14,7 +14,7 @@ class NewsfeedController < ApplicationController
 
 
   # =Newsfeed Layout
-  layout 'full-width'
+  layout 'fullwidth_layout'
 
 
   def index

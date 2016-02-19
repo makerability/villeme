@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   # access only for admin users
   before_action :is_admin, only: [:index, :aprove, :destroy]
 
-  layout 'main_and_right_sidebar', except: :index
+  layout 'fullwidth_layout'
 
 
   include Gmaps
@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = get_item_class.all
-    render layout: 'full-width', template: "#{get_item_route}/index"
+    render template: "#{get_item_route}/index"
   end
 
 

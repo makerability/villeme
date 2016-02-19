@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <%= render 'layouts/head' %>
+
+</head>
+<body>
+
+<%= flash_message %>
+
+<div class="OuterWrapper">
+
+  <%= render 'layouts/header' %>
+
+  <div class="content">
+    <div id="main">
+      <div class="u-lg-size9of12 u-posCenter">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/footer' %>
+
+</div>
+
+</body>
+
+<%= render 'layouts/css' %>
+<%= render 'layouts/javascripts' %>
+<%= render 'layouts/analitycs' %>
+
+</html>

@@ -1,28 +1,31 @@
 
 <%# cache [current_user, @item, @item.agended_by_count[:count], @item.rates_cache], expires: 1.hour do %>
 
-    <% wiselinks_title(@item.name + ' em ' + @item.city_name + ' — Villeme') %>
-    <%= content_for :title, @item.name + ' em ' + @item.city_name %>
+<% wiselinks_title(@item.name + ' em ' + @item.city_name + ' — Villeme') %>
+<%= content_for :title, @item.name + ' em ' + @item.city_name %>
 
-    <!-- CSS/JS PRIMARY -->
+<!-- CSS/JS PRIMARY -->
 
-    <%= stylesheet_inline params[:controller] %>
+<%= stylesheet_link_tag 'suit-components-grid/index.css', 'suit-utils-size/index.css', 'suit-utils-position/index.css' %>
+<%= stylesheet_inline params[:controller] %>
 
-    <!-- MAIN -->
 
-    <div id="main-content">
+<!-- MAIN -->
 
-      <div class="col-lg-8 col-md-8">
+<div id="main-content">
+  <div class="u-size9of12 u-posCenter">
+    <div class="Grid Grid--withGutter">
+      <div class="Grid-cell u-lg-size9of12 u-md-size8of12">
 
         <div class="EventSingle event-<%= @item.id %>">
 
           <div class="EventSingle-buttonsBox">
             <% if agended(@item) %>
-                <span title='<%= @item.period_that_occurs %>' class='EventSingle-button EventSingle-dayButton js-EventDayButton is-schedule has-tooltip'><%= @item.day_of_week %> <%= @item.start_hour %></span><span class="EventSingle-button EventSingle-price <%= @item.price[:css_attributes] %>"><%= @item.price[:value] %></span>
-                <span class="EventSingle-button EventSingle-agendaButton js-EventAgendaButton is-schedule" data-schedule-url="<%= schedule_event_path(@item) %>"><span class="EventSingle-buttonText js-EventButtonText">Agendado</span><span class="EventSingle-agendedByCount js-agendedByCount has-tooltip" title="<%= @item.agended_by_count[:valid] ? @item.agended_by_count[:text] : nil %> "><%= @item.agended_by_count[:count] %></span></span>
+              <span title='<%= @item.period_that_occurs %>' class='EventSingle-button EventSingle-dayButton js-EventDayButton is-schedule has-tooltip'><%= @item.day_of_week %> <%= @item.start_hour %></span><span class="EventSingle-button EventSingle-price <%= @item.price[:css_attributes] %>"><%= @item.price[:value] %></span>
+              <span class="EventSingle-button EventSingle-agendaButton js-EventAgendaButton is-schedule" data-schedule-url="<%= schedule_event_path(@item) %>"><span class="EventSingle-buttonText js-EventButtonText">Agendado</span><span class="EventSingle-agendedByCount js-agendedByCount has-tooltip" title="<%= @item.agended_by_count[:valid] ? @item.agended_by_count[:text] : nil %> "><%= @item.agended_by_count[:count] %></span></span>
             <% else %>
-                <span title='<%= @item.period_that_occurs %>' class='EventSingle-button EventSingle-dayButton js-EventDayButton has-tooltip'><%= @item.day_of_week %> <%= @item.start_hour %></span><span class="EventSingle-button EventSingle-price <%= @item.price[:css_attributes] %>"><%= @item.price[:value] %></span>
-                <span class="EventSingle-button EventSingle-agendaButton js-EventAgendaButton" data-schedule-url="<%= schedule_event_path(@item) %>"><span class="EventSingle-buttonText js-EventButtonText">Agendar</span><span class="EventSingle-agendedByCount js-agendedByCount has-tooltip" title="<%= @item.agended_by_count[:valid] ? @item.agended_by_count[:text] : nil %> "><%= @item.agended_by_count[:count] %></span></span>
+              <span title='<%= @item.period_that_occurs %>' class='EventSingle-button EventSingle-dayButton js-EventDayButton has-tooltip'><%= @item.day_of_week %> <%= @item.start_hour %></span><span class="EventSingle-button EventSingle-price <%= @item.price[:css_attributes] %>"><%= @item.price[:value] %></span>
+              <span class="EventSingle-button EventSingle-agendaButton js-EventAgendaButton" data-schedule-url="<%= schedule_event_path(@item) %>"><span class="EventSingle-buttonText js-EventButtonText">Agendar</span><span class="EventSingle-agendedByCount js-agendedByCount has-tooltip" title="<%= @item.agended_by_count[:valid] ? @item.agended_by_count[:text] : nil %> "><%= @item.agended_by_count[:count] %></span></span>
             <% end %>
           </div>
 
@@ -68,7 +71,7 @@
             <!-- =Contacts -->
             <div>
               <% if @item.email.blank? == false or @item.phone.blank? == false or @item.link.blank? == false %>
-                  <%= render 'items/show/contacts' %>
+                <%= render 'items/show/contacts' %>
               <% end %>
             </div>
 
@@ -77,32 +80,32 @@
 
         <!-- =Who wich created event -->
         <% cache [@item, "created_by"] do %>
-            <div class="panel panel-transparent sidebar single-event-sidebar u-padding-15-0">
-              <%= render 'items/show/created_by' %>
-            </div>
+          <div class="panel panel-transparent sidebar single-event-sidebar u-padding-15-0">
+            <%= render 'items/show/created_by' %>
+          </div>
         <% end %>
 
         <% if FEATURE_CATEGORIES_SWITCH %>
-            <!-- =Categories -->
-            <div class="panel panel-default u-margin-15-0">
-              <div class="panel-body u-centralize">
-                <% @item.category_ids.each do |id| %>
-                    <% # noinspection RailsChecklist05
-                       cat = Category.find(id) %>
-                    <%= link_to newsfeed_category_path(cat) do %>
-                        <%= image_tag "categories/#{cat.slug}.png", title: cat.name, class: "has-tooltip"  %>
-                    <% end %>
+          <!-- =Categories -->
+          <div class="panel panel-default u-margin-15-0">
+            <div class="panel-body u-centralize">
+              <% @item.category_ids.each do |id| %>
+                <% # noinspection RailsChecklist05
+                   cat = Category.find(id) %>
+                <%= link_to newsfeed_category_path(cat) do %>
+                  <%= image_tag "categories/#{cat.slug}.png", title: cat.name, class: "has-tooltip"  %>
                 <% end %>
-              </div>
+              <% end %>
             </div>
+          </div>
         <% end %>
 
 
         <% if FEATURE_TIPS_SWITCH %>
-            <!-- =Tip -->
-            <div class="panel panel-default u-margin-15-0">
-              <%= render 'items/show/tips' %>
-            </div>
+          <!-- =Tip -->
+          <div class="panel panel-default u-margin-15-0">
+            <%= render 'items/show/tips' %>
+          </div>
         <% end %>
 
       </div>
@@ -115,6 +118,8 @@
 
 
     </div>
+  </div>
+</div>
 
 <%# end %>
 

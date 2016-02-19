@@ -2,6 +2,10 @@
   position: absolute !important;
 }
 
+.u-posCenter {
+  margin: auto;
+}
+
 /**
  * Pins to all corners by default. But when a width and/or height are
  * provided, the element will be centered in its nearest relatively-positioned
