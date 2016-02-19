@@ -16,7 +16,7 @@
 
       <item each={ opts.data.items } class="Event Event--newsFeed grid Grid-cell u-size4of12 u-lg-size4of12 u-md-size4of12 u-sm-size6of12"></item>
 
-      <div show={ opts.data.count <= 2 || opts.data.count == 5 } if={ opts.data.items.length <= 2 || opts.data.items.length > 3  && opts.data.items.length < 6 } class="Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize">
+      <div show={ opts.data.count <= 2 || opts.data.count == 5 } if={ opts.data.snippet.length == 0 } class="Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize">
         <div class="AlertCreateEvent AlertCreateEvent--withBorder">
           <div class="AlertCreateEvent-text u-posAbsoluteCenter">
             <span>

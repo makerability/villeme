@@ -15,7 +15,7 @@
 <div class="u-lg-size7of12 u-md-size9of12 u-sm-size9of12 u-floatLeft">
   <div id="main-content" class="Main ps-container">
     <items-section id="today"></items-section>
-    <items-section id="ativities-today"></items-section>
+    <items-section id="activities-today"></items-section>
     <items-section id="persona"></items-section>
     <items-section id="neighborhood"></items-section>
     <items-section id="fun"></items-section>
@@ -70,7 +70,7 @@
           data: <%= raw @section_items_json['persona'].to_json %>,
           policies: <%= raw @section_items_json['policies'].to_json %>
         });
-        riot.mount('#ativities-today', {
+        riot.mount('#activities-today', {
           data: <%= raw @section_activities_json['today'].to_json %>,
           policies: <%= raw @section_activities_json['policies'].to_json %>
         });
