@@ -3,6 +3,7 @@ riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ peri
     window.Villeme = Villeme || {};
     Villeme.Observer = Villeme.Observer || riot.observable();
 
+    self = this;
     section = this.parent;
 
 
@@ -37,17 +38,7 @@ riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ peri
       }
 
       function _showElements(){
-        $(".SidebarMap-neighborhoodCount").hide();
-        $(".SidebarMap-infoGroup").filter(":not(:animated)").fadeIn(200);
-        $(".SidebarMap-address").fadeIn("fast");
-        $(".SidebarMap-address span").html('<b>' + item.place.name + '</b><br/>' + item.full_address);
-        $(".js-distanceWithWalking .data").fadeIn("fast").text(item.distance.walk);
-        $(".js-distanceWithBike .data").fadeIn("fast").text(item.distance.bike);
-        $(".js-distanceWithBus .data").fadeIn("fast").text(item.distance.bus);
-        $(".js-distanceWithCar .data").fadeIn("fast").text(item.distance.car);
-        var map = $('#map').gmap3("get");
-        google.maps.event.trigger(map, "resize");
-        Gmaps.panTo(item.latitude, item.longitude);
+        Villeme.Observer.trigger('itemMouseOver', item);
       }
     }.bind(this);
 
@@ -61,12 +52,7 @@ riot.tag('item', '<div class="Event-buttonsBox item-{ id }"> <span title="{ peri
       }
 
       function _hideInfoGroup(){
-        $(".SidebarMap-infoGroup, .SidebarMap-address").hide();
-        $(".SidebarMap-neighborhoodCount").show();
-
-
-
-
+        Villeme.Observer.trigger('itemMouseLeave', item);
       }
     }.bind(this);
 

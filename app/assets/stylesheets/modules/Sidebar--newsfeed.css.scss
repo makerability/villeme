@@ -4,7 +4,6 @@
   width: 100%;
 
   &-address{
-    display: none;
     font-size: 11px;
     padding: 15px;
   }
@@ -12,11 +11,12 @@
   &-infoGroup {
     background: $grey-lightness;
     box-shadow: 0 -5px 15px $grey-lightness;
-    display: none;
     color: scale_color($grey, $lightness: 20%);
     font-family: $font-family-default;
     font-size: 11px;
     font-weight: 300;
+    padding: 0 0 12px;
+    float: left;
 
     & img {
       height: 14px;
@@ -28,6 +28,7 @@
 
   &-infoList{
     padding: 5px 15px;
+    float: left;
   }
 
   &-icon {
