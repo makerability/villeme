@@ -22,7 +22,7 @@ module CidadeVc
 
 
     # Config the recognize foldersgit to javascript and css
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    # config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
     # Carrega arquivos no /lib
     config.autoload_paths += %W(#{config.root}/lib)
@@ -31,6 +31,8 @@ module CidadeVc
     # Constantes do aplicativo
     HOME_URL = "http://www.villeme.com"
 
+    # Error handling in transaction callbacks
+    config.active_record.raise_in_transactional_callbacks = true
 
     config.time_zone = 'Brasilia'
 
@@ -42,6 +44,8 @@ module CidadeVc
 
     # Facebook
     FACEBOOK_APP_ID = ENV['FACEBOOK_APP_ID']
-    
+
+
+
   end
 end

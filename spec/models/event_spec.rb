@@ -49,7 +49,7 @@ describe Event, type: :model do
       categories = [build(:category), build(:category, name: 'Art', slug: 'art')]
 
       2.times do
-        event = create(:event, name: Faker::Lorem.sentence(2, false, 4))
+        event = FactoryGirl.create(:event, name: Faker::Lorem.sentence(2, false, 4))
         event.categories << categories
       end
       create(:event)
@@ -57,7 +57,7 @@ describe Event, type: :model do
       city = create(:city)
              allow(city).to receive(:items).and_return(Event.all)
 
-      expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: false).count).to eq(2)
+      expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: true).count).to eq(2)
     end
   end
 

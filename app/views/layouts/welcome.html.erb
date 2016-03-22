@@ -59,7 +59,7 @@
       </div>
   
       <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 links-translate u-align-right a_p-0-12">
-        <%= link_to_function t('welcome.first_screen.sign_in'), 'Villeme.Ux.loginModal()', id: 'sign_in', class: 'has-tooltip', rel: 'nofollow',  title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'left' %>
+         <a onclick="Villeme.Ux.loginModal()" id="sign_in" class="has-tooltip", rel="nofollow"  title=" <%= t('welcome.tooltip.have_an_invitation') %>" data-placement="left"><%= t('welcome.first_screen.sign_in') %></a>
         <%# link_to("EN", locale: :en) if I18n.locale == :'pt-BR' %>
         <%# link_to("PT", locale: :'pt-BR') if I18n.locale == :en %>
       </div>
@@ -226,7 +226,7 @@
         <div class="col-lg-2 col-md-2 col-sm-3 hidden-xs">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 u-centralize p-30-0 "><a href="#beneficios"><%= t('welcome.first_screen.learn_more') %></a></div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 u-centralize p-30-0"><%= link_to_function t('welcome.first_screen.sign_in'), 'Villeme.Ux.loginModal()', id: 'sign_in', class: 'has-tooltip', rel: 'nofollow',  title: t('welcome.tooltip.have_an_invitation') %></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4 u-centralize p-30-0"><a onclick="Villeme.Ux.loginModal()" id="sign_in" class="has-tooltip" rel="nofollow"  title="<%= t('welcome.tooltip.have_an_invitation') %>"><%= t('welcome.first_screen.sign_in') %></a></div>
           </div>
         </div>
 

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.2.6'
 
 
 group :development, :test do 
@@ -25,6 +25,10 @@ group :development, :test do
 	gem 'simplecov', require: false
 end
 
+group :development do
+	gem 'web-console', '~> 2.0'
+end
+
 # Heroku requisição
 group :production do
 	gem 'pg'
@@ -33,6 +37,9 @@ group :production do
 	gem 'informant-rails'
 	gem 'newrelic_rpm'
 end
+
+# Respond with
+gem 'responders', '~> 2.0'
 
 # URL bonita
 gem 'friendly_id', '~> 5.0.0'
@@ -129,7 +136,7 @@ gem 'ratyrate', github: 'jonatassalgado/ratyrate'
 gem 'whenever', require: false
 
 # Globalize
-gem 'globalize', '~> 4.0.2'
+gem 'globalize'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

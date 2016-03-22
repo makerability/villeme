@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Open the welcome page' do
+describe 'Open the welcome page', js: true do
   context 'when the locale is in :en' do
     it 'should open the page with english language' do
       visit '/en'

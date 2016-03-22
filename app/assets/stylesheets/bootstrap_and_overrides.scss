@@ -1,14 +1,7 @@
-/*==========================================================================================
-
-    BOOSTRAP
-
-    =require bootstrap
-
-*/
 
 
 
-
+@import 'bootstrap.css';
 @import 'variables';
 
 body{
@@ -136,7 +129,7 @@ footer{
   }
 }
 
-.form-control:focus,
+.form-control:focus
 {
   outline:0px !important;
   -webkit-appearance:none;
@@ -424,16 +417,10 @@ ul li{
   }
 }
 
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('/assets/glyphicons-halflings-regular.eot');
-  src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
 
 
 
 .deb-tab{
-  background: -moz-linear-gradient(left center , rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)) repeat scroll 0 0 rgba(0, 0, 0, 0);
   border-radius: 10px;
   overflow: auto;
   padding: 15px 0 0;
@@ -709,9 +696,6 @@ ul li{
   position: relative;
 }
 
-col-fixed{
-
-}
 
 .container {
   padding-top:115px;

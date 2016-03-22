@@ -1,5 +1,6 @@
-//= require modules/AlertCreateEvent
-//= require modules/AvatarPhoto
+@import 'variables';
+@import 'modules/AlertCreateEvent';
+@import 'modules/AvatarPhoto';
 
 .Section{
 
