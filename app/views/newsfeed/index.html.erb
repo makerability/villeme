@@ -13,6 +13,9 @@
 </div>
 
 <div class="u-lg-size7of12 u-md-size9of12 u-sm-size9of12 u-floatLeft">
+
+  <app></app>
+
   <div id="main-content" class="Main ps-container">
     <items-section id="today"></items-section>
     <items-section id="activities-today"></items-section>
@@ -42,6 +45,9 @@
 <%= include_gon %>
 
 <%= javascript_load_content [params[:controller]] %>
+
+
+<%= javascript_include_tag 'components/newsfeed-build.js' %>
 
 <% content_for :mount_riot_components do %>
     <script type="text/javascript">

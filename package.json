@@ -12,7 +12,9 @@
     "vueify": "^8.3.6",
     "vueify-insert-css": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "vue": "^1.0.20"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

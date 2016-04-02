@@ -1,7 +1,7 @@
 class Persona < ActiveRecord::Base
 
 	# Globalize
-	# translates :name
+	translates :name
 
 	# associações
 	has_and_belongs_to_many :users
