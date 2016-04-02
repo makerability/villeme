@@ -20,6 +20,9 @@ keys.txt
 /log/*.log
 /tmp
 
+# Ignore Node Modules
+node_modules/
+
 /public/system/*
 /public/assets/*
 
