@@ -1,9 +1,9 @@
 var Vue = require('vue')
-var App = require('./app.vue')
+var SidebarLeft = require('./sidebar-left.vue')
 
 new Vue({
     el: 'body',
     components: {
-        app: App
+        app: SidebarLeft
     }
 })

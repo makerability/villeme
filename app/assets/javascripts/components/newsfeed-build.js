@@ -1,5 +1,15 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n.red {\n  color: #f00;\n}\n")
+var Vue = require('vue')
+var SidebarLeft = require('./sidebar-left.vue')
+
+new Vue({
+    el: 'body',
+    components: {
+        app: SidebarLeft
+    }
+})
+},{"./sidebar-left.vue":2,"vue":4}],2:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n@media (max-width:1200px) {\n  [_v-67644ba9]:scope{\n    display: none;\n  }\n}\n\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8,19 +18,86 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   data: function data() {
     return {
-      msg: 'Hello world!'
+      count: current_user.agenda.count
     };
+  },
+
+  created: function created() {
+    setAgendaLink();
+    configure();
+  },
+
+  methods: {
+
+    setAgendaLink: function setAgendaLink() {
+      if (!opts.current_user.is_guest) {
+        this.link = 'user/' + opts.current_user.username + '/agenda/';
+        this.data_push = true;
+        console.log('ok');
+      } else {
+        this.link = '#';
+        this.data_push = false;
+      }
+    },
+
+    login: function login() {
+      if (!opts.current_user.is_guest) {
+        false;
+      } else {
+        Villeme.Ux.loginModal("Você precisa estar logado para ver sua agenda.");
+      }
+    },
+
+    navEnter: function navEnter(event) {
+      $(event.target).find('.badge').addClass('is-show');
+    },
+
+    navLeave: function navLeave(event) {
+      $(event.target).find('.badge').removeClass('is-show');
+    },
+
+    updateCount: function updateCount(number) {
+      this.count = number;
+    },
+
+    configure: function configure() {
+      $('.js-SidebarLeft-nav a').on('click', function () {
+        var scrollAnchor, scrollPoint;
+        scrollAnchor = $(this).attr('data-scroll');
+        scrollPoint = $('section[data-anchor="' + scrollAnchor + '"]').offset().top - 85;
+        $('body,html').animate({
+          scrollTop: scrollPoint
+        }, 500);
+        return false;
+      });
+      $(window).scroll(function () {
+        var windscroll;
+        windscroll = $(window).scrollTop();
+        if (windscroll >= 110) {
+          $('.Main section').each(function (i) {
+            if ($(this).position().top <= windscroll + 86) {
+              $('.js-SidebarLeft-nav a.is-active').removeClass('is-active');
+              $('.js-SidebarLeft-nav a').eq(i).addClass('is-active');
+            }
+          });
+        } else {
+          $('.js-SidebarLeft-nav a.is-active').removeClass('is-active');
+          $('.js-SidebarLeft-nav a:first').addClass('is-active');
+        }
+      }).scroll();
+    }
+
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<input v-model=\"msg\">\n<h1 class=\"red\">{{msg}}</h1>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\" _v-67644ba9=\"\">\n\n  <section class=\"SidebarLeft-section\" _v-67644ba9=\"\">\n    <ul class=\"SidebarLeft-nav\" _v-67644ba9=\"\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\" _v-67644ba9=\"\">\n        <a href=\"{ link }\" v-on:click=\"login\" data-push=\"{{ data_push }}\" _v-67644ba9=\"\">\n          Minha agenda\n        </a>\n        <span v-if=\"current_user.agenda.count > 0\" class=\"js-agendaCounter badge is-show\" _v-67644ba9=\"\">\n          {{ count }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\" _v-67644ba9=\"\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\" _v-67644ba9=\"\">\n      <li v-if=\"opts.today > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"today\" _v-67644ba9=\"\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ today }}</span>\n      </li>\n      <li v-if=\"activities_today > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"activities-today\" _v-67644ba9=\"\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ activities_today }}</span>\n      </li>\n      <li v-if=\"persona > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"persona\" _v-67644ba9=\"\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ persona }}</span>\n      </li>\n      <li v-if=\"neighborhood > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"neighborhood\" _v-67644ba9=\"\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ neighborhood }}</span>\n      </li>\n      <li v-if=\"fun > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"fun\" _v-67644ba9=\"\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ fun }}</span>\n      </li>\n      <li v-if=\"education > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"learn\" _v-67644ba9=\"\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ education }}</span>\n      </li>\n      <li v-if=\"health > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"health\" _v-67644ba9=\"\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ health }}</span>\n      </li>\n      <li v-if=\"opts.trends > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"trends\" _v-67644ba9=\"\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ opts.trends }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/app.vue"
+  var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/sidebar-left.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n.red {\n  color: #f00;\n}\n"] = false
+    require("vueify-insert-css").cache["\n@media (max-width:1200px) {\n  [_v-67644ba9]:scope{\n    display: none;\n  }\n}\n\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -29,17 +106,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":4,"vue-hot-reload-api":3,"vueify-insert-css":5}],2:[function(require,module,exports){
-var Vue = require('vue')
-var App = require('./app.vue')
-
-new Vue({
-    el: 'body',
-    components: {
-        app: App
-    }
-})
-},{"./app.vue":1,"vue":4}],3:[function(require,module,exports){
+},{"vue":4,"vue-hot-reload-api":3,"vueify-insert-css":5}],3:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -10276,4 +10343,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[2]);
+},{}]},{},[1]);
