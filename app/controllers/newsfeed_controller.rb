@@ -28,7 +28,7 @@ class NewsfeedController < ApplicationController
   end
 
   def city
-    require_relative '../../app/domain/usecases/events/get_event_section'
+    require_relative '../../app/domain/usecases/events/get_events_section'
     require_relative '../../app/domain/usecases/events/get_activity_section'
 
     @city = City.find_by(slug: params[:city])

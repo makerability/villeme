@@ -20,6 +20,12 @@ CidadeVc::Application.routes.draw do
     # =Welcome
     root to: 'welcome#index', as: :welcome
 
+    namespace :api, constraints: { format: :json } do
+      namespace :v1 do
+        get 'sections/:city/items', to: 'sections#items'
+      end
+    end
+
     # =Items
     resources :items do
       get :schedule, on: :member
@@ -116,7 +122,7 @@ CidadeVc::Application.routes.draw do
   end
 
   # torna possivel "redirects" para root_path
-  # root :controller => 'static', :action => '/' 
+  # root :controller => 'static', :action => '/'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
