@@ -63,8 +63,8 @@
 //              "health":<%= raw @section_items_json['health']['count'].to_json %>,
 //              "current_user": {
 //                "username":"<%= current_or_guest_user.username %>",
-//                "is_guest":<%= raw @section_items_json['policies']['is_guest_user'].to_json %>,
-                "agenda_items":<%= current_or_guest_user.agenda_items.upcoming.count %>
+//                "is_guest": <%= raw @section_items_json['policies']['is_guest_user'].to_json %>,
+//                "agenda_items": <%= current_or_guest_user.agenda_items.upcoming.count %>
 //              }
 //            }
 //        );

@@ -4,11 +4,13 @@
   "description": "![alt tag](http://i.imgur.com/V7T6r88.jpg)",
   "main": "index.js",
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.6.0",
     "babel-core": "^6.7.4",
-    "vue-hot-reload-api": "^1.3.2",
+    "babel-plugin-transform-runtime": "^6.6.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-runtime": "^5.8.38",
+    "node-sass": "^3.4.2",
+    "vue-hot-reload-api": "^1.3.2",
+    "vue-resource": "^0.7.0",
     "vueify": "^8.3.6",
     "vueify-insert-css": "^1.0.0"
   },

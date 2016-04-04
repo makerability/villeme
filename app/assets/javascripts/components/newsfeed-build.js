@@ -1,37 +1,59 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Vue = require('vue')
-var SidebarLeft = require('./sidebar-left.vue')
+var Vue = require('vue');
+var SidebarLeft = require('./sidebar-left.vue');
 
 new Vue({
+    http: {
+        root: '/root',
+        headers: {
+            Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+        }
+    },
     el: 'body',
     components: {
-        app: SidebarLeft
+        sidebarLeft: SidebarLeft
     }
-})
-},{"./sidebar-left.vue":2,"vue":4}],2:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n@media (max-width:1200px) {\n  [_v-67644ba9]:scope{\n    display: none;\n  }\n}\n\n")
+});
+
+
+
+},{"./sidebar-left.vue":2,"vue":28}],2:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("/* COLORS ------------------------*/\n/* vermelho */\n/* azul */\n/* verde */\n/* cinza */\n/* laranja */\n/* amarelo */\n/* roxo */\n/* branco */\n/* TEXTS ----------------------------------------*/\n/* texto de destaque e de identidade visual */\n/* texto para leitura */\n/* cor para texto de leitura */\n/* tamanho para leitura */\n/* TRANSITION -----------------------*/\n/* SHAPE --------------------------- */\n/* line 70, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.radius {\n  border-radius: 10px; }\n\n/* line 74, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.btn-radius {\n  border-radius: 6px; }\n\n/* line 78, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.circle {\n  border-radius: 100%; }\n\n/* MEDIA QUERIES -------------------- */\n/* line 5, stdin */\n.SidebarLeft {\n  padding-top: 25px;\n  position: relative; }\n  /* line 9, stdin */\n  .SidebarLeft-section {\n    padding: 0 0 25px 0; }\n  /* line 13, stdin */\n  .SidebarLeft-agendaLink {\n    border: 1px solid rgba(0, 0, 0, 0.1);\n    border-radius: 25px;\n    -webkit-transition: all 0.4s ease 0s;\n    transition: all 0.4s ease 0s; }\n    /* line 18, stdin */\n    .SidebarLeft-agendaLink.is-adding {\n      position: relative;\n      background: #ade6bd;\n      border-color: #83da9d; }\n    /* line 24, stdin */\n    .SidebarLeft-agendaLink.is-removing {\n      position: relative;\n      background: rgba(0, 0, 0, 0.1); }\n  /* line 30, stdin */\n  .SidebarLeft-nav {\n    padding: 0;\n    margin: 0;\n    list-style: none; }\n    /* line 35, stdin */\n    .SidebarLeft-nav li {\n      color: #3B5450;\n      font-family: \"Roboto\", helvetica, arial, sans-serif;\n      font-weight: 400;\n      font-size: 14px;\n      padding: 8px 2px 4px 0; }\n      /* line 42, stdin */\n      .SidebarLeft-nav li .badge {\n        background: transparent none repeat scroll 0 0;\n        color: #a8b3b2;\n        display: none;\n        font-family: Helvetica, arial, sans-serif;\n        font-size: 10px;\n        margin-left: 8px;\n        min-width: 17px;\n        padding: 4px 4.5px;\n        position: relative;\n        right: 5px;\n        top: -2px;\n        vertical-align: inherit; }\n        /* line 56, stdin */\n        .SidebarLeft-nav li .badge.is-show {\n          display: inline-block; }\n      /* line 61, stdin */\n      .SidebarLeft-nav li .active {\n        color: #ffffff;\n        background: #5476e9; }\n      /* line 66, stdin */\n      .SidebarLeft-nav li a {\n        padding: 0 10px;\n        color: #597f79;\n        margin: 0;\n        width: 170px; }\n        /* line 72, stdin */\n        .SidebarLeft-nav li a:hover {\n          cursor: pointer; }\n        /* line 76, stdin */\n        .SidebarLeft-nav li a.is-active {\n          color: #38ba5e;\n          font-size: 16px;\n          font-weight: 600;\n          -webkit-transition: all 0.2s ease 0s;\n          transition: all 0.2s ease 0s; }\n        /* line 83, stdin */\n        .SidebarLeft-nav li a .glyphicon {\n          margin: 0 6px 0 0; }\n      /* line 90, stdin */\n      .SidebarLeft-nav li.active a {\n        background: none;\n        color: #38ba5e;\n        margin-right: -1px;\n        font-weight: 500; }\n        /* line 96, stdin */\n        .SidebarLeft-nav li.active a .badge {\n          background: #e9f0ef;\n          color: #38ba5e;\n          border: 1px solid #38ba5e;\n          font-family: Helvetica,arial;\n          font-size: 9px; }\n      /* line 106, stdin */\n      .SidebarLeft-nav li .glyphicon {\n        font-size: 12px;\n        margin: 0 8px 0 0; }\n  /* line 115, stdin */\n  .SidebarLeft ul > li {\n    display: table;\n    height: 32px; }\n  /* line 120, stdin */\n  .SidebarLeft ul > li > a:hover {\n    background: transparent; }\n  /* line 124, stdin */\n  .SidebarLeft ul .sub-nav {\n    margin: 0 0 0 20px; }\n  /* line 128, stdin */\n  .SidebarLeft li.divider {\n    border-top: 1px solid #dce6e4;\n    height: 0;\n    margin: 3px 0;\n    min-height: 0; }\n  /* line 135, stdin */\n  .SidebarLeft--fixed {\n    width: 200px;\n    height: 100%;\n    position: fixed;\n    left: 0;\n    top: 0;\n    background: #3B5450;\n    z-index: 110;\n    padding: 25px 0 0 12px; }\n\n@media (max-width: 1200px) {\n  /* line 148, stdin */\n  :scope {\n    display: none; } }\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+
+var Vue = require('vue');
+Vue.use(require('vue-resource'));
+
 exports.default = {
   data: function data() {
     return {
-      count: current_user.agenda.count
+      data: {},
+      count: 0,
+      link: ''
     };
   },
 
-  created: function created() {
-    setAgendaLink();
-    configure();
+
+  ready: function ready() {
+    var _self = this;
+
+    Vue.http({ url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET' }).then(function (response) {
+      _self.$set('data', response.data);
+      _self.$set('link', 'user/' + response.data.current_user.username + '/agenda/');
+    }, function (response) {
+      alert("Ops");
+    });
   },
 
   methods: {
-
     setAgendaLink: function setAgendaLink() {
-      if (!opts.current_user.is_guest) {
-        this.link = 'user/' + opts.current_user.username + '/agenda/';
+      if (!current_user.is_guest) {
+        this.link = 'user/' + this.data.current_user.username + '/agenda/';
         this.data_push = true;
         console.log('ok');
       } else {
@@ -41,7 +63,7 @@ exports.default = {
     },
 
     login: function login() {
-      if (!opts.current_user.is_guest) {
+      if (!data.current_user.is_guest) {
         false;
       } else {
         Villeme.Ux.loginModal("Você precisa estar logado para ver sua agenda.");
@@ -90,14 +112,14 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\" _v-67644ba9=\"\">\n\n  <section class=\"SidebarLeft-section\" _v-67644ba9=\"\">\n    <ul class=\"SidebarLeft-nav\" _v-67644ba9=\"\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\" _v-67644ba9=\"\">\n        <a href=\"{ link }\" v-on:click=\"login\" data-push=\"{{ data_push }}\" _v-67644ba9=\"\">\n          Minha agenda\n        </a>\n        <span v-if=\"current_user.agenda.count > 0\" class=\"js-agendaCounter badge is-show\" _v-67644ba9=\"\">\n          {{ count }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\" _v-67644ba9=\"\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\" _v-67644ba9=\"\">\n      <li v-if=\"opts.today > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"today\" _v-67644ba9=\"\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ today }}</span>\n      </li>\n      <li v-if=\"activities_today > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"activities-today\" _v-67644ba9=\"\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ activities_today }}</span>\n      </li>\n      <li v-if=\"persona > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"persona\" _v-67644ba9=\"\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ persona }}</span>\n      </li>\n      <li v-if=\"neighborhood > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"neighborhood\" _v-67644ba9=\"\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ neighborhood }}</span>\n      </li>\n      <li v-if=\"fun > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"fun\" _v-67644ba9=\"\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ fun }}</span>\n      </li>\n      <li v-if=\"education > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"learn\" _v-67644ba9=\"\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ education }}</span>\n      </li>\n      <li v-if=\"health > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"health\" _v-67644ba9=\"\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ health }}</span>\n      </li>\n      <li v-if=\"opts.trends > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\" _v-67644ba9=\"\">\n        <a href=\"#\" data-scroll=\"trends\" _v-67644ba9=\"\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\" _v-67644ba9=\"\">{{ opts.trends }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\">\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\">\n        <a href=\"{{ link }}\" v-on:click=\"login\" data-push=\"{{ data_push }}\">\n          Minha agenda\n        </a>\n        <span v-if=\"current_user.agenda.count > 0\" class=\"js-agendaCounter badge is-show\">\n          {{ count }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\">\n      <li v-if=\"data.today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"today\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.today.count }}</span>\n      </li>\n      <li v-if=\"data.activities_today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"activities-today\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.activities_today.count }}</span>\n      </li>\n      <li v-if=\"data.persona.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"persona\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.persona.count }}</span>\n      </li>\n      <li v-if=\"data.neighborhood.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"neighborhood\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.neighborhood.count }}</span>\n      </li>\n      <li v-if=\"data.fun.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"fun\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.fun.count }}</span>\n      </li>\n      <li v-if=\"data.education.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"learn\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.education.count }}</span>\n      </li>\n      <li v-if=\"data.health.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"health\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.health.count }}</span>\n      </li>\n      <li v-if=\"data.trends.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"trends\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.trends.count }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/sidebar-left.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n@media (max-width:1200px) {\n  [_v-67644ba9]:scope{\n    display: none;\n  }\n}\n\n"] = false
+    require("vueify-insert-css").cache["/* COLORS ------------------------*/\n/* vermelho */\n/* azul */\n/* verde */\n/* cinza */\n/* laranja */\n/* amarelo */\n/* roxo */\n/* branco */\n/* TEXTS ----------------------------------------*/\n/* texto de destaque e de identidade visual */\n/* texto para leitura */\n/* cor para texto de leitura */\n/* tamanho para leitura */\n/* TRANSITION -----------------------*/\n/* SHAPE --------------------------- */\n/* line 70, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.radius {\n  border-radius: 10px; }\n\n/* line 74, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.btn-radius {\n  border-radius: 6px; }\n\n/* line 78, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.circle {\n  border-radius: 100%; }\n\n/* MEDIA QUERIES -------------------- */\n/* line 5, stdin */\n.SidebarLeft {\n  padding-top: 25px;\n  position: relative; }\n  /* line 9, stdin */\n  .SidebarLeft-section {\n    padding: 0 0 25px 0; }\n  /* line 13, stdin */\n  .SidebarLeft-agendaLink {\n    border: 1px solid rgba(0, 0, 0, 0.1);\n    border-radius: 25px;\n    -webkit-transition: all 0.4s ease 0s;\n    transition: all 0.4s ease 0s; }\n    /* line 18, stdin */\n    .SidebarLeft-agendaLink.is-adding {\n      position: relative;\n      background: #ade6bd;\n      border-color: #83da9d; }\n    /* line 24, stdin */\n    .SidebarLeft-agendaLink.is-removing {\n      position: relative;\n      background: rgba(0, 0, 0, 0.1); }\n  /* line 30, stdin */\n  .SidebarLeft-nav {\n    padding: 0;\n    margin: 0;\n    list-style: none; }\n    /* line 35, stdin */\n    .SidebarLeft-nav li {\n      color: #3B5450;\n      font-family: \"Roboto\", helvetica, arial, sans-serif;\n      font-weight: 400;\n      font-size: 14px;\n      padding: 8px 2px 4px 0; }\n      /* line 42, stdin */\n      .SidebarLeft-nav li .badge {\n        background: transparent none repeat scroll 0 0;\n        color: #a8b3b2;\n        display: none;\n        font-family: Helvetica, arial, sans-serif;\n        font-size: 10px;\n        margin-left: 8px;\n        min-width: 17px;\n        padding: 4px 4.5px;\n        position: relative;\n        right: 5px;\n        top: -2px;\n        vertical-align: inherit; }\n        /* line 56, stdin */\n        .SidebarLeft-nav li .badge.is-show {\n          display: inline-block; }\n      /* line 61, stdin */\n      .SidebarLeft-nav li .active {\n        color: #ffffff;\n        background: #5476e9; }\n      /* line 66, stdin */\n      .SidebarLeft-nav li a {\n        padding: 0 10px;\n        color: #597f79;\n        margin: 0;\n        width: 170px; }\n        /* line 72, stdin */\n        .SidebarLeft-nav li a:hover {\n          cursor: pointer; }\n        /* line 76, stdin */\n        .SidebarLeft-nav li a.is-active {\n          color: #38ba5e;\n          font-size: 16px;\n          font-weight: 600;\n          -webkit-transition: all 0.2s ease 0s;\n          transition: all 0.2s ease 0s; }\n        /* line 83, stdin */\n        .SidebarLeft-nav li a .glyphicon {\n          margin: 0 6px 0 0; }\n      /* line 90, stdin */\n      .SidebarLeft-nav li.active a {\n        background: none;\n        color: #38ba5e;\n        margin-right: -1px;\n        font-weight: 500; }\n        /* line 96, stdin */\n        .SidebarLeft-nav li.active a .badge {\n          background: #e9f0ef;\n          color: #38ba5e;\n          border: 1px solid #38ba5e;\n          font-family: Helvetica,arial;\n          font-size: 9px; }\n      /* line 106, stdin */\n      .SidebarLeft-nav li .glyphicon {\n        font-size: 12px;\n        margin: 0 8px 0 0; }\n  /* line 115, stdin */\n  .SidebarLeft ul > li {\n    display: table;\n    height: 32px; }\n  /* line 120, stdin */\n  .SidebarLeft ul > li > a:hover {\n    background: transparent; }\n  /* line 124, stdin */\n  .SidebarLeft ul .sub-nav {\n    margin: 0 0 0 20px; }\n  /* line 128, stdin */\n  .SidebarLeft li.divider {\n    border-top: 1px solid #dce6e4;\n    height: 0;\n    margin: 3px 0;\n    min-height: 0; }\n  /* line 135, stdin */\n  .SidebarLeft--fixed {\n    width: 200px;\n    height: 100%;\n    position: fixed;\n    left: 0;\n    top: 0;\n    background: #3B5450;\n    z-index: 110;\n    padding: 25px 0 0 12px; }\n\n@media (max-width: 1200px) {\n  /* line 148, stdin */\n  :scope {\n    display: none; } }\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -106,7 +128,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":4,"vue-hot-reload-api":3,"vueify-insert-css":5}],3:[function(require,module,exports){
+},{"vue":28,"vue-hot-reload-api":3,"vue-resource":17,"vueify-insert-css":29}],3:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -407,6 +429,1534 @@ function format (id) {
 }
 
 },{}],4:[function(require,module,exports){
+/**
+ * Before Interceptor.
+ */
+
+var _ = require('../util');
+
+module.exports = {
+
+    request: function (request) {
+
+        if (_.isFunction(request.beforeSend)) {
+            request.beforeSend.call(this, request);
+        }
+
+        return request;
+    }
+
+};
+
+},{"../util":27}],5:[function(require,module,exports){
+/**
+ * Base client.
+ */
+
+var _ = require('../../util');
+var Promise = require('../../promise');
+var xhrClient = require('./xhr');
+
+module.exports = function (request) {
+
+    var response = (request.client || xhrClient)(request);
+
+    return Promise.resolve(response).then(function (response) {
+
+        if (response.headers) {
+
+            var headers = parseHeaders(response.headers);
+
+            response.headers = function (name) {
+
+                if (name) {
+                    return headers[_.toLower(name)];
+                }
+
+                return headers;
+            };
+
+        }
+
+        response.ok = response.status >= 200 && response.status < 300;
+
+        return response;
+    });
+
+};
+
+function parseHeaders(str) {
+
+    var headers = {}, value, name, i;
+
+    if (_.isString(str)) {
+        _.each(str.split('\n'), function (row) {
+
+            i = row.indexOf(':');
+            name = _.trim(_.toLower(row.slice(0, i)));
+            value = _.trim(row.slice(i + 1));
+
+            if (headers[name]) {
+
+                if (_.isArray(headers[name])) {
+                    headers[name].push(value);
+                } else {
+                    headers[name] = [headers[name], value];
+                }
+
+            } else {
+
+                headers[name] = value;
+            }
+
+        });
+    }
+
+    return headers;
+}
+
+},{"../../promise":20,"../../util":27,"./xhr":8}],6:[function(require,module,exports){
+/**
+ * JSONP client.
+ */
+
+var _ = require('../../util');
+var Promise = require('../../promise');
+
+module.exports = function (request) {
+    return new Promise(function (resolve) {
+
+        var callback = '_jsonp' + Math.random().toString(36).substr(2), response = {request: request, data: null}, handler, script;
+
+        request.params[request.jsonp] = callback;
+        request.cancel = function () {
+            handler({type: 'cancel'});
+        };
+
+        script = document.createElement('script');
+        script.src = _.url(request);
+        script.type = 'text/javascript';
+        script.async = true;
+
+        window[callback] = function (data) {
+            response.data = data;
+        };
+
+        handler = function (event) {
+
+            if (event.type === 'load' && response.data !== null) {
+                response.status = 200;
+            } else if (event.type === 'error') {
+                response.status = 404;
+            } else {
+                response.status = 0;
+            }
+
+            resolve(response);
+
+            delete window[callback];
+            document.body.removeChild(script);
+        };
+
+        script.onload = handler;
+        script.onerror = handler;
+
+        document.body.appendChild(script);
+    });
+};
+
+},{"../../promise":20,"../../util":27}],7:[function(require,module,exports){
+/**
+ * XDomain client (Internet Explorer).
+ */
+
+var _ = require('../../util');
+var Promise = require('../../promise');
+
+module.exports = function (request) {
+    return new Promise(function (resolve) {
+
+        var xdr = new XDomainRequest(), response = {request: request}, handler;
+
+        request.cancel = function () {
+            xdr.abort();
+        };
+
+        xdr.open(request.method, _.url(request), true);
+
+        handler = function (event) {
+
+            response.data = xdr.responseText;
+            response.status = xdr.status;
+            response.statusText = xdr.statusText;
+
+            resolve(response);
+        };
+
+        xdr.timeout = 0;
+        xdr.onload = handler;
+        xdr.onabort = handler;
+        xdr.onerror = handler;
+        xdr.ontimeout = function () {};
+        xdr.onprogress = function () {};
+
+        xdr.send(request.data);
+    });
+};
+
+},{"../../promise":20,"../../util":27}],8:[function(require,module,exports){
+/**
+ * XMLHttp client.
+ */
+
+var _ = require('../../util');
+var Promise = require('../../promise');
+
+module.exports = function (request) {
+    return new Promise(function (resolve) {
+
+        var xhr = new XMLHttpRequest(), response = {request: request}, handler;
+
+        request.cancel = function () {
+            xhr.abort();
+        };
+
+        xhr.open(request.method, _.url(request), true);
+
+        handler = function (event) {
+
+            response.data = xhr.responseText;
+            response.status = xhr.status;
+            response.statusText = xhr.statusText;
+            response.headers = xhr.getAllResponseHeaders();
+
+            resolve(response);
+        };
+
+        xhr.timeout = 0;
+        xhr.onload = handler;
+        xhr.onabort = handler;
+        xhr.onerror = handler;
+        xhr.ontimeout = function () {};
+        xhr.onprogress = function () {};
+
+        if (_.isPlainObject(request.xhr)) {
+            _.extend(xhr, request.xhr);
+        }
+
+        if (_.isPlainObject(request.upload)) {
+            _.extend(xhr.upload, request.upload);
+        }
+
+        _.each(request.headers || {}, function (value, header) {
+            xhr.setRequestHeader(header, value);
+        });
+
+        xhr.send(request.data);
+    });
+};
+
+},{"../../promise":20,"../../util":27}],9:[function(require,module,exports){
+/**
+ * CORS Interceptor.
+ */
+
+var _ = require('../util');
+var xdrClient = require('./client/xdr');
+var xhrCors = 'withCredentials' in new XMLHttpRequest();
+var originUrl = _.url.parse(location.href);
+
+module.exports = {
+
+    request: function (request) {
+
+        if (request.crossOrigin === null) {
+            request.crossOrigin = crossOrigin(request);
+        }
+
+        if (request.crossOrigin) {
+
+            if (!xhrCors) {
+                request.client = xdrClient;
+            }
+
+            request.emulateHTTP = false;
+        }
+
+        return request;
+    }
+
+};
+
+function crossOrigin(request) {
+
+    var requestUrl = _.url.parse(_.url(request));
+
+    return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
+}
+
+},{"../util":27,"./client/xdr":7}],10:[function(require,module,exports){
+/**
+ * Header Interceptor.
+ */
+
+var _ = require('../util');
+
+module.exports = {
+
+    request: function (request) {
+
+        request.method = request.method.toUpperCase();
+        request.headers = _.extend({}, _.http.headers.common,
+            !request.crossOrigin ? _.http.headers.custom : {},
+            _.http.headers[request.method.toLowerCase()],
+            request.headers
+        );
+
+        if (_.isPlainObject(request.data) && /^(GET|JSONP)$/i.test(request.method)) {
+            _.extend(request.params, request.data);
+            delete request.data;
+        }
+
+        return request;
+    }
+
+};
+
+},{"../util":27}],11:[function(require,module,exports){
+/**
+ * Service for sending network requests.
+ */
+
+var _ = require('../util');
+var Client = require('./client');
+var Promise = require('../promise');
+var interceptor = require('./interceptor');
+var jsonType = {'Content-Type': 'application/json'};
+
+function Http(url, options) {
+
+    var client = Client, request, promise;
+
+    Http.interceptors.forEach(function (handler) {
+        client = interceptor(handler, this.$vm)(client);
+    }, this);
+
+    options = _.isObject(url) ? url : _.extend({url: url}, options);
+    request = _.merge({}, Http.options, this.$options, options);
+    promise = client(request).bind(this.$vm).then(function (response) {
+
+        return response.ok ? response : Promise.reject(response);
+
+    }, function (response) {
+
+        if (response instanceof Error) {
+            _.error(response);
+        }
+
+        return Promise.reject(response);
+    });
+
+    if (request.success) {
+        promise.success(request.success);
+    }
+
+    if (request.error) {
+        promise.error(request.error);
+    }
+
+    return promise;
+}
+
+Http.options = {
+    method: 'get',
+    data: '',
+    params: {},
+    headers: {},
+    xhr: null,
+    upload: null,
+    jsonp: 'callback',
+    beforeSend: null,
+    crossOrigin: null,
+    emulateHTTP: false,
+    emulateJSON: false,
+    timeout: 0
+};
+
+Http.interceptors = [
+    require('./before'),
+    require('./timeout'),
+    require('./jsonp'),
+    require('./method'),
+    require('./mime'),
+    require('./header'),
+    require('./cors')
+];
+
+Http.headers = {
+    put: jsonType,
+    post: jsonType,
+    patch: jsonType,
+    delete: jsonType,
+    common: {'Accept': 'application/json, text/plain, */*'},
+    custom: {'X-Requested-With': 'XMLHttpRequest'}
+};
+
+['get', 'put', 'post', 'patch', 'delete', 'jsonp'].forEach(function (method) {
+
+    Http[method] = function (url, data, success, options) {
+
+        if (_.isFunction(data)) {
+            options = success;
+            success = data;
+            data = undefined;
+        }
+
+        if (_.isObject(success)) {
+            options = success;
+            success = undefined;
+        }
+
+        return this(url, _.extend({method: method, data: data, success: success}, options));
+    };
+});
+
+module.exports = _.http = Http;
+
+},{"../promise":20,"../util":27,"./before":4,"./client":5,"./cors":9,"./header":10,"./interceptor":12,"./jsonp":13,"./method":14,"./mime":15,"./timeout":16}],12:[function(require,module,exports){
+/**
+ * Interceptor factory.
+ */
+
+var _ = require('../util');
+var Promise = require('../promise');
+
+module.exports = function (handler, vm) {
+
+    return function (client) {
+
+        if (_.isFunction(handler)) {
+            handler = handler.call(vm, Promise);
+        }
+
+        return function (request) {
+
+            if (_.isFunction(handler.request)) {
+                request = handler.request.call(vm, request);
+            }
+
+            return when(request, function (request) {
+                return when(client(request), function (response) {
+
+                    if (_.isFunction(handler.response)) {
+                        response = handler.response.call(vm, response);
+                    }
+
+                    return response;
+                });
+            });
+        };
+    };
+};
+
+function when(value, fulfilled, rejected) {
+
+    var promise = Promise.resolve(value);
+
+    if (arguments.length < 2) {
+        return promise;
+    }
+
+    return promise.then(fulfilled, rejected);
+}
+
+},{"../promise":20,"../util":27}],13:[function(require,module,exports){
+/**
+ * JSONP Interceptor.
+ */
+
+var jsonpClient = require('./client/jsonp');
+
+module.exports = {
+
+    request: function (request) {
+
+        if (request.method == 'JSONP') {
+            request.client = jsonpClient;
+        }
+
+        return request;
+    }
+
+};
+
+},{"./client/jsonp":6}],14:[function(require,module,exports){
+/**
+ * HTTP method override Interceptor.
+ */
+
+module.exports = {
+
+    request: function (request) {
+
+        if (request.emulateHTTP && /^(PUT|PATCH|DELETE)$/i.test(request.method)) {
+            request.headers['X-HTTP-Method-Override'] = request.method;
+            request.method = 'POST';
+        }
+
+        return request;
+    }
+
+};
+
+},{}],15:[function(require,module,exports){
+/**
+ * Mime Interceptor.
+ */
+
+var _ = require('../util');
+
+module.exports = {
+
+    request: function (request) {
+
+        if (request.emulateJSON && _.isPlainObject(request.data)) {
+            request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+            request.data = _.url.params(request.data);
+        }
+
+        if (_.isObject(request.data) && /FormData/i.test(request.data.toString())) {
+            delete request.headers['Content-Type'];
+        }
+
+        if (_.isPlainObject(request.data)) {
+            request.data = JSON.stringify(request.data);
+        }
+
+        return request;
+    },
+
+    response: function (response) {
+
+        try {
+            response.data = JSON.parse(response.data);
+        } catch (e) {}
+
+        return response;
+    }
+
+};
+
+},{"../util":27}],16:[function(require,module,exports){
+/**
+ * Timeout Interceptor.
+ */
+
+module.exports = function () {
+
+    var timeout;
+
+    return {
+
+        request: function (request) {
+
+            if (request.timeout) {
+                timeout = setTimeout(function () {
+                    request.cancel();
+                }, request.timeout);
+            }
+
+            return request;
+        },
+
+        response: function (response) {
+
+            clearTimeout(timeout);
+
+            return response;
+        }
+
+    };
+};
+
+},{}],17:[function(require,module,exports){
+/**
+ * Install plugin.
+ */
+
+function install(Vue) {
+
+    var _ = require('./util');
+
+    _.config = Vue.config;
+    _.warning = Vue.util.warn;
+    _.nextTick = Vue.util.nextTick;
+
+    Vue.url = require('./url');
+    Vue.http = require('./http');
+    Vue.resource = require('./resource');
+    Vue.Promise = require('./promise');
+
+    Object.defineProperties(Vue.prototype, {
+
+        $url: {
+            get: function () {
+                return _.options(Vue.url, this, this.$options.url);
+            }
+        },
+
+        $http: {
+            get: function () {
+                return _.options(Vue.http, this, this.$options.http);
+            }
+        },
+
+        $resource: {
+            get: function () {
+                return Vue.resource.bind(this);
+            }
+        },
+
+        $promise: {
+            get: function () {
+                return function (executor) {
+                    return new Vue.Promise(executor, this);
+                }.bind(this);
+            }
+        }
+
+    });
+}
+
+if (window.Vue) {
+    Vue.use(install);
+}
+
+module.exports = install;
+
+},{"./http":11,"./promise":20,"./resource":21,"./url":22,"./util":27}],18:[function(require,module,exports){
+/**
+ * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
+ */
+
+var _ = require('../util');
+
+var RESOLVED = 0;
+var REJECTED = 1;
+var PENDING  = 2;
+
+function Promise(executor) {
+
+    this.state = PENDING;
+    this.value = undefined;
+    this.deferred = [];
+
+    var promise = this;
+
+    try {
+        executor(function (x) {
+            promise.resolve(x);
+        }, function (r) {
+            promise.reject(r);
+        });
+    } catch (e) {
+        promise.reject(e);
+    }
+}
+
+Promise.reject = function (r) {
+    return new Promise(function (resolve, reject) {
+        reject(r);
+    });
+};
+
+Promise.resolve = function (x) {
+    return new Promise(function (resolve, reject) {
+        resolve(x);
+    });
+};
+
+Promise.all = function all(iterable) {
+    return new Promise(function (resolve, reject) {
+        var count = 0, result = [];
+
+        if (iterable.length === 0) {
+            resolve(result);
+        }
+
+        function resolver(i) {
+            return function (x) {
+                result[i] = x;
+                count += 1;
+
+                if (count === iterable.length) {
+                    resolve(result);
+                }
+            };
+        }
+
+        for (var i = 0; i < iterable.length; i += 1) {
+            Promise.resolve(iterable[i]).then(resolver(i), reject);
+        }
+    });
+};
+
+Promise.race = function race(iterable) {
+    return new Promise(function (resolve, reject) {
+        for (var i = 0; i < iterable.length; i += 1) {
+            Promise.resolve(iterable[i]).then(resolve, reject);
+        }
+    });
+};
+
+var p = Promise.prototype;
+
+p.resolve = function resolve(x) {
+    var promise = this;
+
+    if (promise.state === PENDING) {
+        if (x === promise) {
+            throw new TypeError('Promise settled with itself.');
+        }
+
+        var called = false;
+
+        try {
+            var then = x && x['then'];
+
+            if (x !== null && typeof x === 'object' && typeof then === 'function') {
+                then.call(x, function (x) {
+                    if (!called) {
+                        promise.resolve(x);
+                    }
+                    called = true;
+
+                }, function (r) {
+                    if (!called) {
+                        promise.reject(r);
+                    }
+                    called = true;
+                });
+                return;
+            }
+        } catch (e) {
+            if (!called) {
+                promise.reject(e);
+            }
+            return;
+        }
+
+        promise.state = RESOLVED;
+        promise.value = x;
+        promise.notify();
+    }
+};
+
+p.reject = function reject(reason) {
+    var promise = this;
+
+    if (promise.state === PENDING) {
+        if (reason === promise) {
+            throw new TypeError('Promise settled with itself.');
+        }
+
+        promise.state = REJECTED;
+        promise.value = reason;
+        promise.notify();
+    }
+};
+
+p.notify = function notify() {
+    var promise = this;
+
+    _.nextTick(function () {
+        if (promise.state !== PENDING) {
+            while (promise.deferred.length) {
+                var deferred = promise.deferred.shift(),
+                    onResolved = deferred[0],
+                    onRejected = deferred[1],
+                    resolve = deferred[2],
+                    reject = deferred[3];
+
+                try {
+                    if (promise.state === RESOLVED) {
+                        if (typeof onResolved === 'function') {
+                            resolve(onResolved.call(undefined, promise.value));
+                        } else {
+                            resolve(promise.value);
+                        }
+                    } else if (promise.state === REJECTED) {
+                        if (typeof onRejected === 'function') {
+                            resolve(onRejected.call(undefined, promise.value));
+                        } else {
+                            reject(promise.value);
+                        }
+                    }
+                } catch (e) {
+                    reject(e);
+                }
+            }
+        }
+    });
+};
+
+p.then = function then(onResolved, onRejected) {
+    var promise = this;
+
+    return new Promise(function (resolve, reject) {
+        promise.deferred.push([onResolved, onRejected, resolve, reject]);
+        promise.notify();
+    });
+};
+
+p.catch = function (onRejected) {
+    return this.then(undefined, onRejected);
+};
+
+module.exports = Promise;
+
+},{"../util":27}],19:[function(require,module,exports){
+/**
+ * URL Template v2.0.6 (https://github.com/bramstein/url-template)
+ */
+
+exports.expand = function (url, params, variables) {
+
+    var tmpl = this.parse(url), expanded = tmpl.expand(params);
+
+    if (variables) {
+        variables.push.apply(variables, tmpl.vars);
+    }
+
+    return expanded;
+};
+
+exports.parse = function (template) {
+
+    var operators = ['+', '#', '.', '/', ';', '?', '&'], variables = [];
+
+    return {
+        vars: variables,
+        expand: function (context) {
+            return template.replace(/\{([^\{\}]+)\}|([^\{\}]+)/g, function (_, expression, literal) {
+                if (expression) {
+
+                    var operator = null, values = [];
+
+                    if (operators.indexOf(expression.charAt(0)) !== -1) {
+                        operator = expression.charAt(0);
+                        expression = expression.substr(1);
+                    }
+
+                    expression.split(/,/g).forEach(function (variable) {
+                        var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable);
+                        values.push.apply(values, exports.getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
+                        variables.push(tmp[1]);
+                    });
+
+                    if (operator && operator !== '+') {
+
+                        var separator = ',';
+
+                        if (operator === '?') {
+                            separator = '&';
+                        } else if (operator !== '#') {
+                            separator = operator;
+                        }
+
+                        return (values.length !== 0 ? operator : '') + values.join(separator);
+                    } else {
+                        return values.join(',');
+                    }
+
+                } else {
+                    return exports.encodeReserved(literal);
+                }
+            });
+        }
+    };
+};
+
+exports.getValues = function (context, operator, key, modifier) {
+
+    var value = context[key], result = [];
+
+    if (this.isDefined(value) && value !== '') {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+            value = value.toString();
+
+            if (modifier && modifier !== '*') {
+                value = value.substring(0, parseInt(modifier, 10));
+            }
+
+            result.push(this.encodeValue(operator, value, this.isKeyOperator(operator) ? key : null));
+        } else {
+            if (modifier === '*') {
+                if (Array.isArray(value)) {
+                    value.filter(this.isDefined).forEach(function (value) {
+                        result.push(this.encodeValue(operator, value, this.isKeyOperator(operator) ? key : null));
+                    }, this);
+                } else {
+                    Object.keys(value).forEach(function (k) {
+                        if (this.isDefined(value[k])) {
+                            result.push(this.encodeValue(operator, value[k], k));
+                        }
+                    }, this);
+                }
+            } else {
+                var tmp = [];
+
+                if (Array.isArray(value)) {
+                    value.filter(this.isDefined).forEach(function (value) {
+                        tmp.push(this.encodeValue(operator, value));
+                    }, this);
+                } else {
+                    Object.keys(value).forEach(function (k) {
+                        if (this.isDefined(value[k])) {
+                            tmp.push(encodeURIComponent(k));
+                            tmp.push(this.encodeValue(operator, value[k].toString()));
+                        }
+                    }, this);
+                }
+
+                if (this.isKeyOperator(operator)) {
+                    result.push(encodeURIComponent(key) + '=' + tmp.join(','));
+                } else if (tmp.length !== 0) {
+                    result.push(tmp.join(','));
+                }
+            }
+        }
+    } else {
+        if (operator === ';') {
+            result.push(encodeURIComponent(key));
+        } else if (value === '' && (operator === '&' || operator === '?')) {
+            result.push(encodeURIComponent(key) + '=');
+        } else if (value === '') {
+            result.push('');
+        }
+    }
+
+    return result;
+};
+
+exports.isDefined = function (value) {
+    return value !== undefined && value !== null;
+};
+
+exports.isKeyOperator = function (operator) {
+    return operator === ';' || operator === '&' || operator === '?';
+};
+
+exports.encodeValue = function (operator, value, key) {
+
+    value = (operator === '+' || operator === '#') ? this.encodeReserved(value) : encodeURIComponent(value);
+
+    if (key) {
+        return encodeURIComponent(key) + '=' + value;
+    } else {
+        return value;
+    }
+};
+
+exports.encodeReserved = function (str) {
+    return str.split(/(%[0-9A-Fa-f]{2})/g).map(function (part) {
+        if (!/%[0-9A-Fa-f]/.test(part)) {
+            part = encodeURI(part);
+        }
+        return part;
+    }).join('');
+};
+
+},{}],20:[function(require,module,exports){
+/**
+ * Promise adapter.
+ */
+
+var _ = require('./util');
+var PromiseObj = window.Promise || require('./lib/promise');
+
+function Promise(executor, context) {
+
+    if (executor instanceof PromiseObj) {
+        this.promise = executor;
+    } else {
+        this.promise = new PromiseObj(executor.bind(context));
+    }
+
+    this.context = context;
+}
+
+Promise.all = function (iterable, context) {
+    return new Promise(PromiseObj.all(iterable), context);
+};
+
+Promise.resolve = function (value, context) {
+    return new Promise(PromiseObj.resolve(value), context);
+};
+
+Promise.reject = function (reason, context) {
+    return new Promise(PromiseObj.reject(reason), context);
+};
+
+Promise.race = function (iterable, context) {
+    return new Promise(PromiseObj.race(iterable), context);
+};
+
+var p = Promise.prototype;
+
+p.bind = function (context) {
+    this.context = context;
+    return this;
+};
+
+p.then = function (fulfilled, rejected) {
+
+    if (fulfilled && fulfilled.bind && this.context) {
+        fulfilled = fulfilled.bind(this.context);
+    }
+
+    if (rejected && rejected.bind && this.context) {
+        rejected = rejected.bind(this.context);
+    }
+
+    this.promise = this.promise.then(fulfilled, rejected);
+
+    return this;
+};
+
+p.catch = function (rejected) {
+
+    if (rejected && rejected.bind && this.context) {
+        rejected = rejected.bind(this.context);
+    }
+
+    this.promise = this.promise.catch(rejected);
+
+    return this;
+};
+
+p.finally = function (callback) {
+
+    return this.then(function (value) {
+            callback.call(this);
+            return value;
+        }, function (reason) {
+            callback.call(this);
+            return PromiseObj.reject(reason);
+        }
+    );
+};
+
+p.success = function (callback) {
+
+    _.warn('The `success` method has been deprecated. Use the `then` method instead.');
+
+    return this.then(function (response) {
+        return callback.call(this, response.data, response.status, response) || response;
+    });
+};
+
+p.error = function (callback) {
+
+    _.warn('The `error` method has been deprecated. Use the `catch` method instead.');
+
+    return this.catch(function (response) {
+        return callback.call(this, response.data, response.status, response) || response;
+    });
+};
+
+p.always = function (callback) {
+
+    _.warn('The `always` method has been deprecated. Use the `finally` method instead.');
+
+    var cb = function (response) {
+        return callback.call(this, response.data, response.status, response) || response;
+    };
+
+    return this.then(cb, cb);
+};
+
+module.exports = Promise;
+
+},{"./lib/promise":18,"./util":27}],21:[function(require,module,exports){
+/**
+ * Service for interacting with RESTful services.
+ */
+
+var _ = require('./util');
+
+function Resource(url, params, actions, options) {
+
+    var self = this, resource = {};
+
+    actions = _.extend({},
+        Resource.actions,
+        actions
+    );
+
+    _.each(actions, function (action, name) {
+
+        action = _.merge({url: url, params: params || {}}, options, action);
+
+        resource[name] = function () {
+            return (self.$http || _.http)(opts(action, arguments));
+        };
+    });
+
+    return resource;
+}
+
+function opts(action, args) {
+
+    var options = _.extend({}, action), params = {}, data, success, error;
+
+    switch (args.length) {
+
+        case 4:
+
+            error = args[3];
+            success = args[2];
+
+        case 3:
+        case 2:
+
+            if (_.isFunction(args[1])) {
+
+                if (_.isFunction(args[0])) {
+
+                    success = args[0];
+                    error = args[1];
+
+                    break;
+                }
+
+                success = args[1];
+                error = args[2];
+
+            } else {
+
+                params = args[0];
+                data = args[1];
+                success = args[2];
+
+                break;
+            }
+
+        case 1:
+
+            if (_.isFunction(args[0])) {
+                success = args[0];
+            } else if (/^(POST|PUT|PATCH)$/i.test(options.method)) {
+                data = args[0];
+            } else {
+                params = args[0];
+            }
+
+            break;
+
+        case 0:
+
+            break;
+
+        default:
+
+            throw 'Expected up to 4 arguments [params, data, success, error], got ' + args.length + ' arguments';
+    }
+
+    options.data = data;
+    options.params = _.extend({}, options.params, params);
+
+    if (success) {
+        options.success = success;
+    }
+
+    if (error) {
+        options.error = error;
+    }
+
+    return options;
+}
+
+Resource.actions = {
+
+    get: {method: 'GET'},
+    save: {method: 'POST'},
+    query: {method: 'GET'},
+    update: {method: 'PUT'},
+    remove: {method: 'DELETE'},
+    delete: {method: 'DELETE'}
+
+};
+
+module.exports = _.resource = Resource;
+
+},{"./util":27}],22:[function(require,module,exports){
+/**
+ * Service for URL templating.
+ */
+
+var _ = require('../util');
+var ie = document.documentMode;
+var el = document.createElement('a');
+
+function Url(url, params) {
+
+    var options = url, transform;
+
+    if (_.isString(url)) {
+        options = {url: url, params: params};
+    }
+
+    options = _.merge({}, Url.options, this.$options, options);
+
+    Url.transforms.forEach(function (handler) {
+        transform = factory(handler, transform, this.$vm);
+    }, this);
+
+    return transform(options);
+};
+
+/**
+ * Url options.
+ */
+
+Url.options = {
+    url: '',
+    root: null,
+    params: {}
+};
+
+/**
+ * Url transforms.
+ */
+
+Url.transforms = [
+    require('./template'),
+    require('./legacy'),
+    require('./query'),
+    require('./root')
+];
+
+/**
+ * Encodes a Url parameter string.
+ *
+ * @param {Object} obj
+ */
+
+Url.params = function (obj) {
+
+    var params = [], escape = encodeURIComponent;
+
+    params.add = function (key, value) {
+
+        if (_.isFunction(value)) {
+            value = value();
+        }
+
+        if (value === null) {
+            value = '';
+        }
+
+        this.push(escape(key) + '=' + escape(value));
+    };
+
+    serialize(params, obj);
+
+    return params.join('&').replace(/%20/g, '+');
+};
+
+/**
+ * Parse a URL and return its components.
+ *
+ * @param {String} url
+ */
+
+Url.parse = function (url) {
+
+    if (ie) {
+        el.href = url;
+        url = el.href;
+    }
+
+    el.href = url;
+
+    return {
+        href: el.href,
+        protocol: el.protocol ? el.protocol.replace(/:$/, '') : '',
+        port: el.port,
+        host: el.host,
+        hostname: el.hostname,
+        pathname: el.pathname.charAt(0) === '/' ? el.pathname : '/' + el.pathname,
+        search: el.search ? el.search.replace(/^\?/, '') : '',
+        hash: el.hash ? el.hash.replace(/^#/, '') : ''
+    };
+};
+
+function factory(handler, next, vm) {
+    return function (options) {
+        return handler.call(vm, options, next);
+    };
+}
+
+function serialize(params, obj, scope) {
+
+    var array = _.isArray(obj), plain = _.isPlainObject(obj), hash;
+
+    _.each(obj, function (value, key) {
+
+        hash = _.isObject(value) || _.isArray(value);
+
+        if (scope) {
+            key = scope + '[' + (plain || hash ? key : '') + ']';
+        }
+
+        if (!scope && array) {
+            params.add(value.name, value.value);
+        } else if (hash) {
+            serialize(params, value, key);
+        } else {
+            params.add(key, value);
+        }
+    });
+}
+
+module.exports = _.url = Url;
+
+},{"../util":27,"./legacy":23,"./query":24,"./root":25,"./template":26}],23:[function(require,module,exports){
+/**
+ * Legacy Transform.
+ */
+
+var _ = require('../util');
+
+module.exports = function (options, next) {
+
+    var variables = [], url = next(options);
+
+    url = url.replace(/(\/?):([a-z]\w*)/gi, function (match, slash, name) {
+
+        _.warn('The `:' + name + '` parameter syntax has been deprecated. Use the `{' + name + '}` syntax instead.');
+
+        if (options.params[name]) {
+            variables.push(name);
+            return slash + encodeUriSegment(options.params[name]);
+        }
+
+        return '';
+    });
+
+    variables.forEach(function (key) {
+        delete options.params[key];
+    });
+
+    return url;
+};
+
+function encodeUriSegment(value) {
+
+    return encodeUriQuery(value, true).
+        replace(/%26/gi, '&').
+        replace(/%3D/gi, '=').
+        replace(/%2B/gi, '+');
+}
+
+function encodeUriQuery(value, spaces) {
+
+    return encodeURIComponent(value).
+        replace(/%40/gi, '@').
+        replace(/%3A/gi, ':').
+        replace(/%24/g, '$').
+        replace(/%2C/gi, ',').
+        replace(/%20/g, (spaces ? '%20' : '+'));
+}
+
+},{"../util":27}],24:[function(require,module,exports){
+/**
+ * Query Parameter Transform.
+ */
+
+var _ = require('../util');
+
+module.exports = function (options, next) {
+
+    var urlParams = Object.keys(_.url.options.params), query = {}, url = next(options);
+
+   _.each(options.params, function (value, key) {
+        if (urlParams.indexOf(key) === -1) {
+            query[key] = value;
+        }
+    });
+
+    query = _.url.params(query);
+
+    if (query) {
+        url += (url.indexOf('?') == -1 ? '?' : '&') + query;
+    }
+
+    return url;
+};
+
+},{"../util":27}],25:[function(require,module,exports){
+/**
+ * Root Prefix Transform.
+ */
+
+var _ = require('../util');
+
+module.exports = function (options, next) {
+
+    var url = next(options);
+
+    if (_.isString(options.root) && !url.match(/^(https?:)?\//)) {
+        url = options.root + '/' + url;
+    }
+
+    return url;
+};
+
+},{"../util":27}],26:[function(require,module,exports){
+/**
+ * URL Template (RFC 6570) Transform.
+ */
+
+var UrlTemplate = require('../lib/url-template');
+
+module.exports = function (options) {
+
+    var variables = [], url = UrlTemplate.expand(options.url, options.params, variables);
+
+    variables.forEach(function (key) {
+        delete options.params[key];
+    });
+
+    return url;
+};
+
+},{"../lib/url-template":19}],27:[function(require,module,exports){
+/**
+ * Utility functions.
+ */
+
+var _ = exports, array = [], console = window.console;
+
+_.warn = function (msg) {
+    if (console && _.warning && (!_.config.silent || _.config.debug)) {
+        console.warn('[VueResource warn]: ' + msg);
+    }
+};
+
+_.error = function (msg) {
+    if (console) {
+        console.error(msg);
+    }
+};
+
+_.trim = function (str) {
+    return str.replace(/^\s*|\s*$/g, '');
+};
+
+_.toLower = function (str) {
+    return str ? str.toLowerCase() : '';
+};
+
+_.isArray = Array.isArray;
+
+_.isString = function (val) {
+    return typeof val === 'string';
+};
+
+_.isFunction = function (val) {
+    return typeof val === 'function';
+};
+
+_.isObject = function (obj) {
+    return obj !== null && typeof obj === 'object';
+};
+
+_.isPlainObject = function (obj) {
+    return _.isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
+};
+
+_.options = function (fn, obj, options) {
+
+    options = options || {};
+
+    if (_.isFunction(options)) {
+        options = options.call(obj);
+    }
+
+    return _.merge(fn.bind({$vm: obj, $options: options}), fn, {$options: options});
+};
+
+_.each = function (obj, iterator) {
+
+    var i, key;
+
+    if (typeof obj.length == 'number') {
+        for (i = 0; i < obj.length; i++) {
+            iterator.call(obj[i], obj[i], i);
+        }
+    } else if (_.isObject(obj)) {
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                iterator.call(obj[key], obj[key], key);
+            }
+        }
+    }
+
+    return obj;
+};
+
+_.defaults = function (target, source) {
+
+    for (var key in source) {
+        if (target[key] === undefined) {
+            target[key] = source[key];
+        }
+    }
+
+    return target;
+};
+
+_.extend = function (target) {
+
+    var args = array.slice.call(arguments, 1);
+
+    args.forEach(function (arg) {
+        merge(target, arg);
+    });
+
+    return target;
+};
+
+_.merge = function (target) {
+
+    var args = array.slice.call(arguments, 1);
+
+    args.forEach(function (arg) {
+        merge(target, arg, true);
+    });
+
+    return target;
+};
+
+function merge(target, source, deep) {
+    for (var key in source) {
+        if (deep && (_.isPlainObject(source[key]) || _.isArray(source[key]))) {
+            if (_.isPlainObject(source[key]) && !_.isPlainObject(target[key])) {
+                target[key] = {};
+            }
+            if (_.isArray(source[key]) && !_.isArray(target[key])) {
+                target[key] = [];
+            }
+            merge(target[key], source[key], deep);
+        } else if (source[key] !== undefined) {
+            target[key] = source[key];
+        }
+    }
+}
+
+},{}],28:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.20
@@ -10230,7 +11780,7 @@ if (config.devtools) {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":6}],5:[function(require,module,exports){
+},{"_process":30}],29:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -10250,7 +11800,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],6:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
