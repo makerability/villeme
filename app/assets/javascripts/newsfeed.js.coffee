@@ -1,10 +1,3 @@
-
-#= require riot/riot.min
-#= require components/items-section.js
-#= require components/item.js
-#= require components/sidebar-left.js
-#= require components/sidebar-left-fixed.js
-#= require components/sidebar-map.js
 #= require gmap3
 #= require gmaps-builder-user
 #= require bLazy/blazy
@@ -146,14 +139,3 @@ Villeme.Newsfeed = ( ->
   }
 
 )()
-
-
-
-
-
-
-
-
-
-
-

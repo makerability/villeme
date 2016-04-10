@@ -1,5 +1,8 @@
 var Vue = require('vue');
+var Newsfeed = require('./newsfeed.vue');
 var SidebarLeft = require('./sidebar-left.vue');
+var ItemsSection = require('./items-section.vue');
+var Item = require('./item.vue');
 
 new Vue({
     http: {
@@ -10,8 +13,9 @@ new Vue({
     },
     el: 'body',
     components: {
-        sidebarLeft: SidebarLeft
+        sidebarLeft: SidebarLeft,
+        newsfeed: Newsfeed,
+        itemsSection: ItemsSection,
+        item: Item
     }
 });
-
-

@@ -162,7 +162,7 @@
           <a href="{{ link }}" v-on:click="login" data-push="{{ data_push }}">
             Minha agenda
           </a>
-          <span v-if="current_user.agenda.count > 0" class="js-agendaCounter badge is-show">
+          <span v-if="data.current_user.agenda.count > 0" class="js-agendaCounter badge is-show">
             {{ count }}
           </span>
         </li>
@@ -218,7 +218,37 @@ Vue.use(require('vue-resource'));
 export default{
   data(){
     return {
-      data: {},
+      data: {
+        today: {
+          count: 0
+        },
+        persona: {
+          count: 0
+        },
+        trends: {
+          count: 0
+        },
+        fun: {
+          count: 0
+        },
+        education: {
+          count: 0
+        },
+        neighborhood: {
+          count: 0
+        },
+        health: {
+          count: 0
+        },
+        current_user: {
+          agenda: {
+            count: 0
+          }
+        },
+        activities_today: {
+          count: 0
+        }
+      },
       count: 0,
       link: ''
     }
@@ -233,6 +263,13 @@ export default{
     }, function (response) {
       alert("Ops");
     });
+  },
+
+  events: {
+    updateAgendaCount: function(count){
+      console.log("COUNT: " + count);
+      this.updateCount(count);
+    }
   },
 
   methods: {
