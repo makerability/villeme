@@ -163,7 +163,7 @@
             Minha agenda
           </a>
           <span v-if="data.current_user.agenda.count > 0" class="js-agendaCounter badge is-show">
-            {{ count }}
+            {{ counter }}
           </span>
         </li>
       </ul>
@@ -214,6 +214,7 @@
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
+import store from './vuex/store'
 
 export default{
   data(){
@@ -249,7 +250,7 @@ export default{
           count: 0
         }
       },
-      count: 0,
+      counter: 0,
       link: ''
     }
   },
@@ -260,16 +261,10 @@ export default{
     Vue.http({url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET'}).then(function (response) {
       _self.$set('data', response.data);
       _self.$set('link', 'user/' + response.data.current_user.username + '/agenda/');
+      store.dispatch('updateAgendaCounter', response.data.current_user.agenda.count);
     }, function (response) {
       alert("Ops");
     });
-  },
-
-  events: {
-    updateAgendaCount: function(count){
-      console.log("COUNT: " + count);
-      this.updateCount(count);
-    }
   },
 
   methods: {
@@ -301,7 +296,7 @@ export default{
     },
 
     updateCount: function(number){
-      this.count = number;
+      this.counter = number;
     },
 
     configure: function() {
@@ -331,7 +326,12 @@ export default{
       }).scroll();
 
     }
+  },
 
+  computed: {
+    counter: function(){
+      return store.state.agendaCounter
+    }
   }
 }
 

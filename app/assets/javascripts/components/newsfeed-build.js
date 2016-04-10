@@ -6,16 +6,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _store = require('./vuex/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
-
 exports.default = {
   data: function data() {
     return {
-      base_url: window.location.origin,
-      button_text: "Agendar",
-      scheduled: false
+      itemUrl: '#',
+      buttonText: "Agendar"
     };
   },
 
@@ -35,6 +38,19 @@ exports.default = {
     // }, function (response) {
     //   alert("Ops");
     // });
+  },
+
+  computed: {
+    buttonText: function buttonText() {
+      if (this.data.is_agended) {
+        return "Agendado";
+      } else {
+        return "Agendar";
+      }
+    },
+    itemUrl: function itemUrl() {
+      return window.location.origin + this.data.link;
+    }
   },
 
   methods: {
@@ -65,10 +81,10 @@ exports.default = {
       var _agendaCounterRefresh, _updateStateOfButton, _updateStateOfAllItemsButtons, _self;
 
       _self = this;
-      _self.button_text = "Agendando...";
+      _self.buttonText = "Agendando...";
 
       $.ajax({
-        url: _self.base_url + _self.data.actions.schedule
+        url: window.location.origin + _self.data.actions.schedule
       }).done(function (data) {
         _updateStateOfButton(data);
         _updateStateOfAllItemsButtons(data);
@@ -79,7 +95,8 @@ exports.default = {
         var timer;
         clearTimeout(timer);
 
-        _self.$emit('updateAgendaCount', data.count);
+        _store2.default.dispatch('updateAgendaCounter', data.count);
+        // _self.$emit('updateAgendaCount', data.count);
 
         if (data.agended) {
           _animateAgendaLink("is-adding");
@@ -96,13 +113,7 @@ exports.default = {
       };
 
       _updateStateOfButton = function _updateStateOfButton(data) {
-        if (_self.data.agended) {
-          _self.scheduled = true;
-          _self.button_text = "Agendado";
-        } else {
-          _self.scheduled = false;
-          _self.button_text = "Agendar";
-        }
+        _self.data.is_agended = data.agended;
         _self.data.count = data.agended_by_count;
         _self.data.agended_by.title = data.new_title;
       };
@@ -141,7 +152,7 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div v-on:mouseenter=\"mouseEnterEvents\" v-on:mouseleave=\"mouseLeaveEvents\" v-on:click=\"saveScroll\" class=\"Event Event--newsFeed grid Grid-cell u-size4of12 u-lg-size4of12 u-md-size4of12 u-sm-size6of12\">\n\n  <div class=\"Event-buttonsBox item-{{ data.id }}\">\n\n    <span title=\"{{ data.period_that_occurs }}\" class=\"Event-button Event-dayButton Event--newsfeed js-EventDayButton is-schedule has-tooltip\">\n      {{ data.day_of_week }}   {{ data.start_hour }}\n    </span>\n\n    <span v-on:click=\"schedule\" class=\"Event-button Event-agendaButton\" v-bind:class=\"{ 'is-schedule': scheduled }\">\n      <span class=\"Event-buttonText js-EventButtonText\">{{ button_text }}</span>\n      <span class=\"Event-agendedByCount js-agendedByCount has-tooltip\" title=\"{{ data.agended_by.text }}\">{{ data.agended_by.count }}</span>\n    </span>\n\n  </div>\n\n  <div class=\"js-EventNewsfeedTransitions panel panel-default shadow-animation\">\n\n    <div class=\"Event-content\">\n\n      <a href=\"{{ base_url + data.link }}\" data-push=\"true\">\n        <div class=\"Event-overlay\"></div>\n      </a>\n\n      <div class=\"Event-detailsBox\" v-on:mouseenter=\"zoomInMap\" v-on:mouseleave=\"zoomOutMap\">\n        <div class=\"Event-place\">\n          <span class=\"glyphicon glyphicon-map-marker\"></span>\n          <a href=\"{{ base_url + data.place.link }}\" v-on:click=\"open_place_page\">\n            {{ data.place.name }}\n          </a>\n        </div>\n      </div>\n\n      <div class=\"Event-imageBox b-lazy\" data-src=\"{{ data.image.medium }}\"></div>\n\n      <div class=\"caption\">\n        <span v-if=\"data.subcategories\" class=\"Event-subCat\">\n          {{ data.subcategories }}\n        </span>\n        <h2 class=\"Event-title\">\n          <a href=\"{{ base_url + data.link }}\" data-push=\"true\">\n            {{ data.name }}\n          </a>\n        </h2>\n        <span class=\"Event-description\">\n          {{ data.description }}\n        </span>\n        <div class=\"Event-infos\">\n          <span class=\"Event-infosPrice  Event-infosItem {{ data.price.highlight }}\">\n            {{ data.price.value }}\n          </span>\n          <span v-if=\"data.rating\" class=\"Event-infosRating Event-infosItem\">\n            <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n            {{ data.rating }}\n          </span>\n          <span v-if=\"data.friends.someone_will\" class=\"Event-infosFriends Event-infosItem\">\n            <div v-for=\"friend in data.friends.will\">\n              <i class=\"has-tooltip avatar-icon\" title=\"{{ friend.name }}  agendou o evento\">\n                <img src=\"{{ friend.avatar.url + friend.avatar.origin == 'facebook' ? '&amp;width=22&amp;height=22' : '' }}\" class=\"img-circle image\" width=\"22\" height=\"22\">\n              </i>\n            </div>\n          </span>\n\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div v-on:mouseenter=\"mouseEnterEvents\" v-on:mouseleave=\"mouseLeaveEvents\" v-on:click=\"saveScroll\" class=\"Event Event--newsFeed grid Grid-cell u-size4of12 u-lg-size4of12 u-md-size4of12 u-sm-size6of12\">\n\n  <div class=\"Event-buttonsBox item-{{ data.id }}\">\n\n    <span title=\"{{ data.period_that_occurs }}\" class=\"Event-button Event-dayButton Event--newsfeed js-EventDayButton is-schedule has-tooltip\">\n      {{ data.day_of_week }}   {{ data.start_hour }}\n    </span>\n\n    <span v-on:click=\"schedule\" class=\"Event-button Event-agendaButton\" v-bind:class=\"{ 'is-schedule': data.is_agended }\">\n      <span class=\"Event-buttonText js-EventButtonText\">{{ buttonText }}</span>\n      <span class=\"Event-agendedByCount js-agendedByCount has-tooltip\" title=\"{{ data.agended_by.text }}\">{{ data.agended_by.count }}</span>\n    </span>\n\n  </div>\n\n  <div class=\"js-EventNewsfeedTransitions panel panel-default shadow-animation\">\n\n    <div class=\"Event-content\">\n\n      <a href=\"{{ itemUrl }}\" data-push=\"true\">\n        <div class=\"Event-overlay\"></div>\n      </a>\n\n      <div class=\"Event-detailsBox\" v-on:mouseenter=\"zoomInMap\" v-on:mouseleave=\"zoomOutMap\">\n        <div class=\"Event-place\">\n          <span class=\"glyphicon glyphicon-map-marker\"></span>\n          <a href=\"{{ base_url + data.place.link }}\" v-on:click=\"open_place_page\">\n            {{ data.place.name }}\n          </a>\n        </div>\n      </div>\n\n      <div class=\"Event-imageBox b-lazy\" data-src=\"{{ data.image.medium }}\"></div>\n\n      <div class=\"caption\">\n        <span v-if=\"data.subcategories\" class=\"Event-subCat\">\n          {{ data.subcategories }}\n        </span>\n        <h2 class=\"Event-title\">\n          <a href=\"{{ itemUrl }}\" data-push=\"true\">\n            {{ data.name }}\n          </a>\n        </h2>\n        <span class=\"Event-description\">\n          {{ data.description }}\n        </span>\n        <div class=\"Event-infos\">\n          <span class=\"Event-infosPrice  Event-infosItem {{ data.price.highlight }}\">\n            {{ data.price.value }}\n          </span>\n          <span v-if=\"data.rating\" class=\"Event-infosRating Event-infosItem\">\n            <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n            {{ data.rating }}\n          </span>\n          <span v-if=\"data.friends.someone_will\" class=\"Event-infosFriends Event-infosItem\">\n            <div v-for=\"friend in data.friends.will\">\n              <i class=\"has-tooltip avatar-icon\" title=\"{{ friend.name }}  agendou o evento\">\n                <img src=\"{{ friend.avatar.url + friend.avatar.origin == 'facebook' ? '&amp;width=22&amp;height=22' : '' }}\" class=\"img-circle image\" width=\"22\" height=\"22\">\n              </i>\n            </div>\n          </span>\n\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -157,7 +168,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":31,"vue-hot-reload-api":6,"vue-resource":20,"vueify-insert-css":32}],2:[function(require,module,exports){
+},{"./vuex/store":6,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],2:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -243,7 +254,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./item.vue":1,"vue":31,"vue-hot-reload-api":6,"vue-resource":20,"vueify-insert-css":32}],3:[function(require,module,exports){
+},{"./item.vue":1,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],3:[function(require,module,exports){
 var Vue = require('vue');
 var Newsfeed = require('./newsfeed.vue');
 var SidebarLeft = require('./sidebar-left.vue');
@@ -266,7 +277,7 @@ new Vue({
     }
 });
 
-},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"vue":31}],4:[function(require,module,exports){
+},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"vue":32}],4:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -337,7 +348,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./items-section.vue":2,"vue":31,"vue-hot-reload-api":6,"vue-resource":20,"vueify-insert-css":32}],5:[function(require,module,exports){
+},{"./items-section.vue":2,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],5:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("/* COLORS ------------------------*/\n/* vermelho */\n/* azul */\n/* verde */\n/* cinza */\n/* laranja */\n/* amarelo */\n/* roxo */\n/* branco */\n/* TEXTS ----------------------------------------*/\n/* texto de destaque e de identidade visual */\n/* texto para leitura */\n/* cor para texto de leitura */\n/* tamanho para leitura */\n/* TRANSITION -----------------------*/\n/* SHAPE --------------------------- */\n/* line 70, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.radius {\n  border-radius: 10px; }\n\n/* line 74, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.btn-radius {\n  border-radius: 6px; }\n\n/* line 78, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.circle {\n  border-radius: 100%; }\n\n/* MEDIA QUERIES -------------------- */\n/* line 5, stdin */\n.SidebarLeft {\n  padding-top: 25px;\n  position: relative; }\n  /* line 9, stdin */\n  .SidebarLeft-section {\n    padding: 0 0 25px 0; }\n  /* line 13, stdin */\n  .SidebarLeft-agendaLink {\n    border: 1px solid rgba(0, 0, 0, 0.1);\n    border-radius: 25px;\n    -webkit-transition: all 0.4s ease 0s;\n    transition: all 0.4s ease 0s; }\n    /* line 18, stdin */\n    .SidebarLeft-agendaLink.is-adding {\n      position: relative;\n      background: #ade6bd;\n      border-color: #83da9d; }\n    /* line 24, stdin */\n    .SidebarLeft-agendaLink.is-removing {\n      position: relative;\n      background: rgba(0, 0, 0, 0.1); }\n  /* line 30, stdin */\n  .SidebarLeft-nav {\n    padding: 0;\n    margin: 0;\n    list-style: none; }\n    /* line 35, stdin */\n    .SidebarLeft-nav li {\n      color: #3B5450;\n      font-family: \"Roboto\", helvetica, arial, sans-serif;\n      font-weight: 400;\n      font-size: 14px;\n      padding: 8px 2px 4px 0; }\n      /* line 42, stdin */\n      .SidebarLeft-nav li .badge {\n        background: transparent none repeat scroll 0 0;\n        color: #a8b3b2;\n        display: none;\n        font-family: Helvetica, arial, sans-serif;\n        font-size: 10px;\n        margin-left: 8px;\n        min-width: 17px;\n        padding: 4px 4.5px;\n        position: relative;\n        right: 5px;\n        top: -2px;\n        vertical-align: inherit; }\n        /* line 56, stdin */\n        .SidebarLeft-nav li .badge.is-show {\n          display: inline-block; }\n      /* line 61, stdin */\n      .SidebarLeft-nav li .active {\n        color: #ffffff;\n        background: #5476e9; }\n      /* line 66, stdin */\n      .SidebarLeft-nav li a {\n        padding: 0 10px;\n        color: #597f79;\n        margin: 0;\n        width: 170px; }\n        /* line 72, stdin */\n        .SidebarLeft-nav li a:hover {\n          cursor: pointer; }\n        /* line 76, stdin */\n        .SidebarLeft-nav li a.is-active {\n          color: #38ba5e;\n          font-size: 16px;\n          font-weight: 600;\n          -webkit-transition: all 0.2s ease 0s;\n          transition: all 0.2s ease 0s; }\n        /* line 83, stdin */\n        .SidebarLeft-nav li a .glyphicon {\n          margin: 0 6px 0 0; }\n      /* line 90, stdin */\n      .SidebarLeft-nav li.active a {\n        background: none;\n        color: #38ba5e;\n        margin-right: -1px;\n        font-weight: 500; }\n        /* line 96, stdin */\n        .SidebarLeft-nav li.active a .badge {\n          background: #e9f0ef;\n          color: #38ba5e;\n          border: 1px solid #38ba5e;\n          font-family: Helvetica,arial;\n          font-size: 9px; }\n      /* line 106, stdin */\n      .SidebarLeft-nav li .glyphicon {\n        font-size: 12px;\n        margin: 0 8px 0 0; }\n  /* line 115, stdin */\n  .SidebarLeft ul > li {\n    display: table;\n    height: 32px; }\n  /* line 120, stdin */\n  .SidebarLeft ul > li > a:hover {\n    background: transparent; }\n  /* line 124, stdin */\n  .SidebarLeft ul .sub-nav {\n    margin: 0 0 0 20px; }\n  /* line 128, stdin */\n  .SidebarLeft li.divider {\n    border-top: 1px solid #dce6e4;\n    height: 0;\n    margin: 3px 0;\n    min-height: 0; }\n  /* line 135, stdin */\n  .SidebarLeft--fixed {\n    width: 200px;\n    height: 100%;\n    position: fixed;\n    left: 0;\n    top: 0;\n    background: #3B5450;\n    z-index: 110;\n    padding: 25px 0 0 12px; }\n\n@media (max-width: 1200px) {\n  /* line 148, stdin */\n  :scope {\n    display: none; } }\n")
 'use strict';
 
@@ -345,10 +356,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _store = require('./vuex/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
-
 exports.default = {
   data: function data() {
     return {
@@ -383,7 +398,7 @@ exports.default = {
           count: 0
         }
       },
-      count: 0,
+      counter: 0,
       link: ''
     };
   },
@@ -395,16 +410,10 @@ exports.default = {
     Vue.http({ url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET' }).then(function (response) {
       _self.$set('data', response.data);
       _self.$set('link', 'user/' + response.data.current_user.username + '/agenda/');
+      _store2.default.dispatch('updateAgendaCounter', response.data.current_user.agenda.count);
     }, function (response) {
       alert("Ops");
     });
-  },
-
-  events: {
-    updateAgendaCount: function updateAgendaCount(count) {
-      console.log("COUNT: " + count);
-      this.updateCount(count);
-    }
   },
 
   methods: {
@@ -436,7 +445,7 @@ exports.default = {
     },
 
     updateCount: function updateCount(number) {
-      this.count = number;
+      this.counter = number;
     },
 
     configure: function configure() {
@@ -465,11 +474,16 @@ exports.default = {
         }
       }).scroll();
     }
+  },
 
+  computed: {
+    counter: function counter() {
+      return _store2.default.state.agendaCounter;
+    }
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\">\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\">\n        <a href=\"{{ link }}\" v-on:click=\"login\" data-push=\"{{ data_push }}\">\n          Minha agenda\n        </a>\n        <span v-if=\"data.current_user.agenda.count > 0\" class=\"js-agendaCounter badge is-show\">\n          {{ count }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\">\n      <li v-if=\"data.today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"today\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.today.count }}</span>\n      </li>\n      <li v-if=\"data.activities_today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"activities-today\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.activities_today.count }}</span>\n      </li>\n      <li v-if=\"data.persona.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"persona\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.persona.count }}</span>\n      </li>\n      <li v-if=\"data.neighborhood.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"neighborhood\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.neighborhood.count }}</span>\n      </li>\n      <li v-if=\"data.fun.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"fun\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.fun.count }}</span>\n      </li>\n      <li v-if=\"data.education.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"learn\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.education.count }}</span>\n      </li>\n      <li v-if=\"data.health.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"health\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.health.count }}</span>\n      </li>\n      <li v-if=\"data.trends.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"trends\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.trends.count }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\">\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\">\n        <a href=\"{{ link }}\" v-on:click=\"login\" data-push=\"{{ data_push }}\">\n          Minha agenda\n        </a>\n        <span v-if=\"data.current_user.agenda.count > 0\" class=\"js-agendaCounter badge is-show\">\n          {{ counter }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\">\n      <li v-if=\"data.today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"today\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.today.count }}</span>\n      </li>\n      <li v-if=\"data.activities_today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"activities-today\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.activities_today.count }}</span>\n      </li>\n      <li v-if=\"data.persona.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"persona\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.persona.count }}</span>\n      </li>\n      <li v-if=\"data.neighborhood.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"neighborhood\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.neighborhood.count }}</span>\n      </li>\n      <li v-if=\"data.fun.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"fun\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.fun.count }}</span>\n      </li>\n      <li v-if=\"data.education.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"learn\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.education.count }}</span>\n      </li>\n      <li v-if=\"data.health.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"health\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.health.count }}</span>\n      </li>\n      <li v-if=\"data.trends.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"trends\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.trends.count }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -485,7 +499,26 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":31,"vue-hot-reload-api":6,"vue-resource":20,"vueify-insert-css":32}],6:[function(require,module,exports){
+},{"./vuex/store":6,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],6:[function(require,module,exports){
+var Vue = require('vue');
+var Vuex = require('vuex');
+
+Vue.use(Vuex)
+
+var store = new Vuex.Store({
+  state: {
+    agendaCounter: 0
+  },
+  mutations: {
+    updateAgendaCounter (state, mutation){
+      state.agendaCounter = mutation
+    }
+  }
+})
+
+module.exports = store;
+
+},{"vue":32,"vuex":34}],7:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -785,7 +818,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * Before Interceptor.
  */
@@ -805,7 +838,7 @@ module.exports = {
 
 };
 
-},{"../util":30}],8:[function(require,module,exports){
+},{"../util":31}],9:[function(require,module,exports){
 /**
  * Base client.
  */
@@ -872,7 +905,7 @@ function parseHeaders(str) {
     return headers;
 }
 
-},{"../../promise":23,"../../util":30,"./xhr":11}],9:[function(require,module,exports){
+},{"../../promise":24,"../../util":31,"./xhr":12}],10:[function(require,module,exports){
 /**
  * JSONP client.
  */
@@ -922,7 +955,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":23,"../../util":30}],10:[function(require,module,exports){
+},{"../../promise":24,"../../util":31}],11:[function(require,module,exports){
 /**
  * XDomain client (Internet Explorer).
  */
@@ -961,7 +994,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":23,"../../util":30}],11:[function(require,module,exports){
+},{"../../promise":24,"../../util":31}],12:[function(require,module,exports){
 /**
  * XMLHttp client.
  */
@@ -1013,7 +1046,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":23,"../../util":30}],12:[function(require,module,exports){
+},{"../../promise":24,"../../util":31}],13:[function(require,module,exports){
 /**
  * CORS Interceptor.
  */
@@ -1052,7 +1085,7 @@ function crossOrigin(request) {
     return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
 }
 
-},{"../util":30,"./client/xdr":10}],13:[function(require,module,exports){
+},{"../util":31,"./client/xdr":11}],14:[function(require,module,exports){
 /**
  * Header Interceptor.
  */
@@ -1080,7 +1113,7 @@ module.exports = {
 
 };
 
-},{"../util":30}],14:[function(require,module,exports){
+},{"../util":31}],15:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -1180,7 +1213,7 @@ Http.headers = {
 
 module.exports = _.http = Http;
 
-},{"../promise":23,"../util":30,"./before":7,"./client":8,"./cors":12,"./header":13,"./interceptor":15,"./jsonp":16,"./method":17,"./mime":18,"./timeout":19}],15:[function(require,module,exports){
+},{"../promise":24,"../util":31,"./before":8,"./client":9,"./cors":13,"./header":14,"./interceptor":16,"./jsonp":17,"./method":18,"./mime":19,"./timeout":20}],16:[function(require,module,exports){
 /**
  * Interceptor factory.
  */
@@ -1227,7 +1260,7 @@ function when(value, fulfilled, rejected) {
     return promise.then(fulfilled, rejected);
 }
 
-},{"../promise":23,"../util":30}],16:[function(require,module,exports){
+},{"../promise":24,"../util":31}],17:[function(require,module,exports){
 /**
  * JSONP Interceptor.
  */
@@ -1247,7 +1280,7 @@ module.exports = {
 
 };
 
-},{"./client/jsonp":9}],17:[function(require,module,exports){
+},{"./client/jsonp":10}],18:[function(require,module,exports){
 /**
  * HTTP method override Interceptor.
  */
@@ -1266,7 +1299,7 @@ module.exports = {
 
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * Mime Interceptor.
  */
@@ -1304,7 +1337,7 @@ module.exports = {
 
 };
 
-},{"../util":30}],19:[function(require,module,exports){
+},{"../util":31}],20:[function(require,module,exports){
 /**
  * Timeout Interceptor.
  */
@@ -1336,7 +1369,7 @@ module.exports = function () {
     };
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -1391,7 +1424,7 @@ if (window.Vue) {
 
 module.exports = install;
 
-},{"./http":14,"./promise":23,"./resource":24,"./url":25,"./util":30}],21:[function(require,module,exports){
+},{"./http":15,"./promise":24,"./resource":25,"./url":26,"./util":31}],22:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -1572,7 +1605,7 @@ p.catch = function (onRejected) {
 
 module.exports = Promise;
 
-},{"../util":30}],22:[function(require,module,exports){
+},{"../util":31}],23:[function(require,module,exports){
 /**
  * URL Template v2.0.6 (https://github.com/bramstein/url-template)
  */
@@ -1724,7 +1757,7 @@ exports.encodeReserved = function (str) {
     }).join('');
 };
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * Promise adapter.
  */
@@ -1835,7 +1868,7 @@ p.always = function (callback) {
 
 module.exports = Promise;
 
-},{"./lib/promise":21,"./util":30}],24:[function(require,module,exports){
+},{"./lib/promise":22,"./util":31}],25:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -1947,7 +1980,7 @@ Resource.actions = {
 
 module.exports = _.resource = Resource;
 
-},{"./util":30}],25:[function(require,module,exports){
+},{"./util":31}],26:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -2079,7 +2112,7 @@ function serialize(params, obj, scope) {
 
 module.exports = _.url = Url;
 
-},{"../util":30,"./legacy":26,"./query":27,"./root":28,"./template":29}],26:[function(require,module,exports){
+},{"../util":31,"./legacy":27,"./query":28,"./root":29,"./template":30}],27:[function(require,module,exports){
 /**
  * Legacy Transform.
  */
@@ -2127,7 +2160,7 @@ function encodeUriQuery(value, spaces) {
         replace(/%20/g, (spaces ? '%20' : '+'));
 }
 
-},{"../util":30}],27:[function(require,module,exports){
+},{"../util":31}],28:[function(require,module,exports){
 /**
  * Query Parameter Transform.
  */
@@ -2153,7 +2186,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":30}],28:[function(require,module,exports){
+},{"../util":31}],29:[function(require,module,exports){
 /**
  * Root Prefix Transform.
  */
@@ -2171,7 +2204,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":30}],29:[function(require,module,exports){
+},{"../util":31}],30:[function(require,module,exports){
 /**
  * URL Template (RFC 6570) Transform.
  */
@@ -2189,7 +2222,7 @@ module.exports = function (options) {
     return url;
 };
 
-},{"../lib/url-template":22}],30:[function(require,module,exports){
+},{"../lib/url-template":23}],31:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -2313,7 +2346,7 @@ function merge(target, source, deep) {
     }
 }
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.20
@@ -12137,7 +12170,7 @@ if (config.devtools) {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":33}],32:[function(require,module,exports){
+},{"_process":35}],33:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -12157,7 +12190,584 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
+/*!
+ * Vuex v0.6.2
+ * (c) 2016 Evan You
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.Vuex = factory());
+}(this, function () { 'use strict';
+
+  var babelHelpers = {};
+  babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+  };
+
+  babelHelpers.classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  babelHelpers.createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  babelHelpers.toConsumableArray = function (arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  };
+
+  babelHelpers;
+
+  /**
+   * Merge an array of objects into one.
+   *
+   * @param {Array<Object>} arr
+   * @return {Object}
+   */
+
+  function mergeObjects(arr) {
+    return arr.reduce(function (prev, obj) {
+      Object.keys(obj).forEach(function (key) {
+        var existing = prev[key];
+        if (existing) {
+          // allow multiple mutation objects to contain duplicate
+          // handlers for the same mutation type
+          if (Array.isArray(existing)) {
+            existing.push(obj[key]);
+          } else {
+            prev[key] = [prev[key], obj[key]];
+          }
+        } else {
+          prev[key] = obj[key];
+        }
+      });
+      return prev;
+    }, {});
+  }
+
+  /**
+   * Deep clone an object. Faster than JSON.parse(JSON.stringify()).
+   *
+   * @param {*} obj
+   * @return {*}
+   */
+
+  function deepClone(obj) {
+    if (Array.isArray(obj)) {
+      return obj.map(deepClone);
+    } else if (obj && (typeof obj === 'undefined' ? 'undefined' : babelHelpers.typeof(obj)) === 'object') {
+      var cloned = {};
+      var keys = Object.keys(obj);
+      for (var i = 0, l = keys.length; i < l; i++) {
+        var key = keys[i];
+        cloned[key] = deepClone(obj[key]);
+      }
+      return cloned;
+    } else {
+      return obj;
+    }
+  }
+
+  /**
+   * Hacks to get access to Vue internals.
+   * Maybe we should expose these...
+   */
+
+  var Watcher = void 0;
+  function getWatcher(vm) {
+    if (!Watcher) {
+      var unwatch = vm.$watch('__vuex__', function (a) {
+        return a;
+      });
+      Watcher = vm._watchers[0].constructor;
+      unwatch();
+    }
+    return Watcher;
+  }
+
+  var Dep = void 0;
+  function getDep(vm) {
+    if (!Dep) {
+      Dep = vm._data.__ob__.dep.constructor;
+    }
+    return Dep;
+  }
+
+  var hook = typeof window !== 'undefined' && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+  var devtoolMiddleware = {
+    onInit: function onInit(state, store) {
+      if (!hook) return;
+      hook.emit('vuex:init', store);
+      hook.on('vuex:travel-to-state', function (targetState) {
+        var currentState = store._vm._data;
+        store._dispatching = true;
+        Object.keys(targetState).forEach(function (key) {
+          currentState[key] = targetState[key];
+        });
+        store._dispatching = false;
+      });
+    },
+    onMutation: function onMutation(mutation, state) {
+      if (!hook) return;
+      hook.emit('vuex:mutation', mutation, state);
+    }
+  };
+
+  function override (Vue) {
+    // override init and inject vuex init procedure
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function () {
+      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+      options.init = options.init ? [vuexInit].concat(options.init) : vuexInit;
+      _init.call(this, options);
+    };
+
+    function vuexInit() {
+      var options = this.$options;
+      var store = options.store;
+      var vuex = options.vuex;
+      // store injection
+
+      if (store) {
+        this.$store = store;
+      } else if (options.parent && options.parent.$store) {
+        this.$store = options.parent.$store;
+      }
+      // vuex option handling
+      if (vuex) {
+        if (!this.$store) {
+          console.warn('[vuex] store not injected. make sure to ' + 'provide the store option in your root component.');
+        }
+        var state = vuex.state;
+        var getters = vuex.getters;
+        var actions = vuex.actions;
+        // handle deprecated state option
+
+        if (state && !getters) {
+          console.warn('[vuex] vuex.state option will been deprecated in 1.0. ' + 'Use vuex.getters instead.');
+          getters = state;
+        }
+        // getters
+        if (getters) {
+          options.computed = options.computed || {};
+          for (var key in getters) {
+            defineVuexGetter(this, key, getters[key]);
+          }
+        }
+        // actions
+        if (actions) {
+          options.methods = options.methods || {};
+          for (var _key in actions) {
+            options.methods[_key] = makeBoundAction(actions[_key], this.$store);
+          }
+        }
+      }
+    }
+
+    function setter() {
+      throw new Error('vuex getter properties are read-only.');
+    }
+
+    function defineVuexGetter(vm, key, getter) {
+      Object.defineProperty(vm, key, {
+        enumerable: true,
+        configurable: true,
+        get: makeComputedGetter(vm.$store, getter),
+        set: setter
+      });
+    }
+
+    function makeComputedGetter(store, getter) {
+      var id = store._getterCacheId;
+      // cached
+      if (getter[id]) {
+        return getter[id];
+      }
+      var vm = store._vm;
+      var Watcher = getWatcher(vm);
+      var Dep = getDep(vm);
+      var watcher = new Watcher(vm, function (state) {
+        return getter(state);
+      }, null, { lazy: true });
+      var computedGetter = function computedGetter() {
+        if (watcher.dirty) {
+          watcher.evaluate();
+        }
+        if (Dep.target) {
+          watcher.depend();
+        }
+        return watcher.value;
+      };
+      getter[id] = computedGetter;
+      return computedGetter;
+    }
+
+    function makeBoundAction(action, store) {
+      return function vuexBoundAction() {
+        for (var _len = arguments.length, args = Array(_len), _key2 = 0; _key2 < _len; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        return action.call.apply(action, [this, store].concat(args));
+      };
+    }
+
+    // option merging
+    var merge = Vue.config.optionMergeStrategies.computed;
+    Vue.config.optionMergeStrategies.vuex = function (toVal, fromVal) {
+      if (!toVal) return fromVal;
+      if (!fromVal) return toVal;
+      return {
+        getters: merge(toVal.getters, fromVal.getters),
+        state: merge(toVal.state, fromVal.state),
+        actions: merge(toVal.actions, fromVal.actions)
+      };
+    };
+  }
+
+  var Vue = void 0;
+  var uid = 0;
+
+  var Store = function () {
+
+    /**
+     * @param {Object} options
+     *        - {Object} state
+     *        - {Object} actions
+     *        - {Object} mutations
+     *        - {Array} middlewares
+     *        - {Boolean} strict
+     */
+
+    function Store() {
+      var _this = this;
+
+      var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+      var _ref$state = _ref.state;
+      var state = _ref$state === undefined ? {} : _ref$state;
+      var _ref$mutations = _ref.mutations;
+      var mutations = _ref$mutations === undefined ? {} : _ref$mutations;
+      var _ref$modules = _ref.modules;
+      var modules = _ref$modules === undefined ? {} : _ref$modules;
+      var _ref$middlewares = _ref.middlewares;
+      var middlewares = _ref$middlewares === undefined ? [] : _ref$middlewares;
+      var _ref$strict = _ref.strict;
+      var strict = _ref$strict === undefined ? false : _ref$strict;
+      babelHelpers.classCallCheck(this, Store);
+
+      this._getterCacheId = 'vuex_store_' + uid++;
+      this._dispatching = false;
+      this._rootMutations = this._mutations = mutations;
+      this._modules = modules;
+      // bind dispatch to self
+      var dispatch = this.dispatch;
+      this.dispatch = function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        dispatch.apply(_this, args);
+      };
+      // use a Vue instance to store the state tree
+      // suppress warnings just in case the user has added
+      // some funky global mixins
+      if (!Vue) {
+        throw new Error('[vuex] must call Vue.use(Vuex) before creating a store instance.');
+      }
+      var silent = Vue.config.silent;
+      Vue.config.silent = true;
+      this._vm = new Vue({
+        data: state
+      });
+      Vue.config.silent = silent;
+      this._setupModuleState(state, modules);
+      this._setupModuleMutations(modules);
+      this._setupMiddlewares(middlewares, state);
+      // add extra warnings in strict mode
+      if (strict) {
+        this._setupMutationCheck();
+      }
+    }
+
+    /**
+     * Getter for the entire state tree.
+     * Read only.
+     *
+     * @return {Object}
+     */
+
+    babelHelpers.createClass(Store, [{
+      key: 'dispatch',
+
+
+      /**
+       * Dispatch an action.
+       *
+       * @param {String} type
+       */
+
+      value: function dispatch(type) {
+        var _this2 = this;
+
+        for (var _len2 = arguments.length, payload = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+          payload[_key2 - 1] = arguments[_key2];
+        }
+
+        // compatibility for object actions, e.g. FSA
+        if ((typeof type === 'undefined' ? 'undefined' : babelHelpers.typeof(type)) === 'object' && type.type && arguments.length === 1) {
+          payload = [type];
+          type = type.type;
+        }
+        var mutation = this._mutations[type];
+        var prevSnapshot = this._prevSnapshot;
+        var state = this.state;
+        var snapshot = void 0,
+            clonedPayload = void 0;
+        if (mutation) {
+          this._dispatching = true;
+          // apply the mutation
+          if (Array.isArray(mutation)) {
+            mutation.forEach(function (m) {
+              return m.apply(undefined, [state].concat(babelHelpers.toConsumableArray(payload)));
+            });
+          } else {
+            mutation.apply(undefined, [state].concat(babelHelpers.toConsumableArray(payload)));
+          }
+          this._dispatching = false;
+          // invoke middlewares
+          if (this._needSnapshots) {
+            snapshot = this._prevSnapshot = deepClone(state);
+            clonedPayload = deepClone(payload);
+          }
+          this._middlewares.forEach(function (m) {
+            if (m.onMutation) {
+              if (m.snapshot) {
+                m.onMutation({ type: type, payload: clonedPayload }, snapshot, prevSnapshot, _this2);
+              } else {
+                m.onMutation({ type: type, payload: payload }, state, _this2);
+              }
+            }
+          });
+        } else {
+          console.warn('[vuex] Unknown mutation: ' + type);
+        }
+      }
+
+      /**
+       * Watch state changes on the store.
+       * Same API as Vue's $watch, except when watching a function,
+       * the function gets the state as the first argument.
+       *
+       * @param {String|Function} expOrFn
+       * @param {Function} cb
+       * @param {Object} [options]
+       */
+
+    }, {
+      key: 'watch',
+      value: function watch(expOrFn, cb, options) {
+        var _this3 = this;
+
+        return this._vm.$watch(function () {
+          return typeof expOrFn === 'function' ? expOrFn(_this3.state) : _this3._vm.$get(expOrFn);
+        }, cb, options);
+      }
+
+      /**
+       * Hot update mutations & modules.
+       *
+       * @param {Object} options
+       *        - {Object} [mutations]
+       *        - {Object} [modules]
+       */
+
+    }, {
+      key: 'hotUpdate',
+      value: function hotUpdate() {
+        var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+        var mutations = _ref2.mutations;
+        var modules = _ref2.modules;
+
+        this._rootMutations = this._mutations = mutations || this._rootMutations;
+        this._setupModuleMutations(modules || this._modules);
+      }
+
+      /**
+       * Attach sub state tree of each module to the root tree.
+       *
+       * @param {Object} state
+       * @param {Object} modules
+       */
+
+    }, {
+      key: '_setupModuleState',
+      value: function _setupModuleState(state, modules) {
+        var setPath = Vue.parsers.path.setPath;
+
+        Object.keys(modules).forEach(function (key) {
+          setPath(state, key, modules[key].state || {});
+        });
+      }
+
+      /**
+       * Bind mutations for each module to its sub tree and
+       * merge them all into one final mutations map.
+       *
+       * @param {Object} updatedModules
+       */
+
+    }, {
+      key: '_setupModuleMutations',
+      value: function _setupModuleMutations(updatedModules) {
+        var modules = this._modules;
+        var getPath = Vue.parsers.path.getPath;
+
+        var allMutations = [this._rootMutations];
+        Object.keys(updatedModules).forEach(function (key) {
+          modules[key] = updatedModules[key];
+        });
+        Object.keys(modules).forEach(function (key) {
+          var module = modules[key];
+          if (!module || !module.mutations) return;
+          // bind mutations to sub state tree
+          var mutations = {};
+          Object.keys(module.mutations).forEach(function (name) {
+            var original = module.mutations[name];
+            mutations[name] = function (state) {
+              for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+                args[_key3 - 1] = arguments[_key3];
+              }
+
+              original.apply(undefined, [getPath(state, key)].concat(args));
+            };
+          });
+          allMutations.push(mutations);
+        });
+        this._mutations = mergeObjects(allMutations);
+      }
+
+      /**
+       * Setup mutation check: if the vuex instance's state is mutated
+       * outside of a mutation handler, we throw en error. This effectively
+       * enforces all mutations to the state to be trackable and hot-reloadble.
+       * However, this comes at a run time cost since we are doing a deep
+       * watch on the entire state tree, so it is only enalbed with the
+       * strict option is set to true.
+       */
+
+    }, {
+      key: '_setupMutationCheck',
+      value: function _setupMutationCheck() {
+        var _this4 = this;
+
+        var Watcher = getWatcher(this._vm);
+        /* eslint-disable no-new */
+        new Watcher(this._vm, '$data', function () {
+          if (!_this4._dispatching) {
+            throw new Error('[vuex] Do not mutate vuex store state outside mutation handlers.');
+          }
+        }, { deep: true, sync: true });
+        /* eslint-enable no-new */
+      }
+
+      /**
+       * Setup the middlewares. The devtools middleware is always
+       * included, since it does nothing if no devtool is detected.
+       *
+       * A middleware can demand the state it receives to be
+       * "snapshots", i.e. deep clones of the actual state tree.
+       *
+       * @param {Array} middlewares
+       * @param {Object} state
+       */
+
+    }, {
+      key: '_setupMiddlewares',
+      value: function _setupMiddlewares(middlewares, state) {
+        var _this5 = this;
+
+        this._middlewares = [devtoolMiddleware].concat(middlewares);
+        this._needSnapshots = middlewares.some(function (m) {
+          return m.snapshot;
+        });
+        if (this._needSnapshots) {
+          console.log('[vuex] One or more of your middlewares are taking state snapshots ' + 'for each mutation. Make sure to use them only during development.');
+        }
+        var initialSnapshot = this._prevSnapshot = this._needSnapshots ? deepClone(state) : null;
+        // call init hooks
+        this._middlewares.forEach(function (m) {
+          if (m.onInit) {
+            m.onInit(m.snapshot ? initialSnapshot : state, _this5);
+          }
+        });
+      }
+    }, {
+      key: 'state',
+      get: function get() {
+        return this._vm._data;
+      },
+      set: function set(v) {
+        throw new Error('[vuex] Vuex root state is read only.');
+      }
+    }]);
+    return Store;
+  }();
+
+  function install(_Vue) {
+    Vue = _Vue;
+    override(Vue);
+  }
+
+  // auto install in dist mode
+  if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  function createLogger() {
+    console.warn('[vuex] Vuex.createLogger has been deprecated.' + 'Use `import createLogger from \'vuex/logger\' instead.');
+  }
+
+  var index = {
+    Store: Store,
+    install: install,
+    createLogger: createLogger
+  };
+
+  return index;
+
+}));
+},{}],35:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

@@ -12,6 +12,7 @@ var Vue = require('vue');
 var ItemsSection = require('./items-section.vue');
 Vue.use(require('vue-resource'));
 
+
 export default{
   components: {
     'items-section': ItemsSection

@@ -12,8 +12,8 @@
         {{ data.day_of_week }}   {{ data.start_hour }}
       </span>
 
-      <span v-on:click="schedule" class="Event-button Event-agendaButton" v-bind:class="{ 'is-schedule': scheduled }">
-        <span class="Event-buttonText js-EventButtonText">{{ button_text }}</span>
+      <span v-on:click="schedule" class="Event-button Event-agendaButton" v-bind:class="{ 'is-schedule': data.is_agended }">
+        <span class="Event-buttonText js-EventButtonText">{{ buttonText }}</span>
         <span class="Event-agendedByCount js-agendedByCount has-tooltip" title="{{ data.agended_by.text }}">{{ data.agended_by.count }}</span>
       </span>
 
@@ -23,7 +23,7 @@
 
       <div class="Event-content">
 
-        <a href="{{ base_url + data.link }}" data-push="true">
+        <a href="{{ itemUrl }}" data-push="true">
           <div class="Event-overlay"></div>
         </a>
 
@@ -43,7 +43,7 @@
             {{ data.subcategories }}
           </span>
           <h2 class="Event-title">
-            <a href="{{ base_url + data.link }}" data-push="true">
+            <a href="{{ itemUrl }}" data-push="true">
               {{ data.name }}
             </a>
           </h2>
@@ -79,13 +79,13 @@
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
+import store from './vuex/store'
 
 export default{
   data(){
     return {
-      base_url: window.location.origin,
-      button_text: "Agendar",
-      scheduled: false
+      itemUrl: '#',
+      buttonText: "Agendar"
     }
   },
 
@@ -96,15 +96,17 @@ export default{
     }
   },
 
-  ready: function(){
-    var _self = this;
-
-
-    // Vue.http({url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET'}).then(function (response) {
-    //   _self.$set('data', response.data);
-    // }, function (response) {
-    //   alert("Ops");
-    // });
+  computed: {
+    buttonText: function(){
+      if(this.data.is_agended){
+        return "Agendado";
+      }else {
+        return "Agendar";
+      }
+    },
+    itemUrl: function(){
+      return window.location.origin + this.data.link
+    }
   },
 
   methods: {
@@ -136,10 +138,10 @@ export default{
       var _agendaCounterRefresh, _updateStateOfButton, _updateStateOfAllItemsButtons, _self;
 
       _self = this;
-      _self.button_text = "Agendando...";
+      _self.buttonText = "Agendando...";
 
       $.ajax({
-        url: _self.base_url + _self.data.actions.schedule
+        url: window.location.origin + _self.data.actions.schedule
       }).done(function(data) {
         _updateStateOfButton(data);
         _updateStateOfAllItemsButtons(data);
@@ -150,7 +152,8 @@ export default{
         var timer;
         clearTimeout(timer);
 
-        _self.$emit('updateAgendaCount', data.count);
+        store.dispatch('updateAgendaCounter', data.count);
+        // _self.$emit('updateAgendaCount', data.count);
 
         if(data.agended){
           _animateAgendaLink("is-adding");
@@ -167,13 +170,7 @@ export default{
       };
 
       _updateStateOfButton = function(data){
-        if (_self.data.agended) {
-          _self.scheduled = true;
-          _self.button_text = "Agendado";
-        } else {
-          _self.scheduled = false;
-          _self.button_text = "Agendar";
-        }
+        _self.data.is_agended = data.agended;
         _self.data.count = data.agended_by_count;
         _self.data.agended_by.title = data.new_title;
       };
