@@ -162,7 +162,7 @@
           <a href="{{ link }}" v-on:click="login" data-push="{{ data_push }}">
             Minha agenda
           </a>
-          <span v-if="data.current_user.agenda.count > 0" class="js-agendaCounter badge is-show">
+          <span v-if="data.currentUser.agenda.count > 0" class="js-agendaCounter badge is-show">
             {{ counter }}
           </span>
         </li>
@@ -241,7 +241,7 @@ export default{
         health: {
           count: 0
         },
-        current_user: {
+        currentUser: {
           agenda: {
             count: 0
           }
@@ -260,8 +260,8 @@ export default{
 
     Vue.http({url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET'}).then(function (response) {
       _self.$set('data', response.data);
-      _self.$set('link', 'user/' + response.data.current_user.username + '/agenda/');
-      store.dispatch('updateAgendaCounter', response.data.current_user.agenda.count);
+      _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
+      store.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);
     }, function (response) {
       alert("Ops");
     });
@@ -269,8 +269,8 @@ export default{
 
   methods: {
     setAgendaLink: function(){
-      if (!current_user.is_guest) {
-        this.link = 'user/' + this.data.current_user.username + '/agenda/';
+      if (!currentUser.isGuest) {
+        this.link = 'user/' + this.data.currentUser.username + '/agenda/';
         this.data_push = true;
         console.log('ok');
       } else {
@@ -280,7 +280,7 @@ export default{
     },
 
     login: function(){
-      if(!data.current_user.is_guest){
+      if(!data.currentUser.isGuest){
         false
       }else{
         Villeme.Ux.loginModal("Você precisa estar logado para ver sua agenda.");

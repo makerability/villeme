@@ -27,7 +27,7 @@
           <div class="AlertCreateEvent-text u-posAbsoluteCenter">
             <span>
               Não há mais eventos no momento.<br/>
-              <a href="{{ data.policies.is_guest_user ? '#' : data.link_to_create }}" v-on:click={{ data.policies.is_guest_user ? login : false }}>Cria evento</a>
+              <a href="{{ data.policies.isGuest_user ? '#' : data.link_to_create }}" v-on:click={{ data.policies.isGuest_user ? login : false }}>Cria evento</a>
             </span>
           </div>
         </div>
@@ -37,28 +37,28 @@
         <div class="EventsSnippet-content">
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">
-              <li each={ data.snippet } v-on:click="saveScroll" class="EventsSnippet-line js-EventNewsfeedTransitions">
+              <li v-for="item in data.snippet" v-on:click="saveScroll" class="EventsSnippet-line js-EventNewsfeedTransitions">
                 <a href="{{ base_url + link }}" data-push="true">
-                  <div class="EventsSnippet-image b-lazy" data-src="{{ data.image.thumb }}"></div>
+                  <div class="EventsSnippet-image b-lazy" data-src="{{ item.image.thumb }}"></div>
                 </a>
                 <div class="EventsSnippet-linePrincipal u-sizeFull">
                   <span class="EventsSnippet-eventName">
-                    <a href="{{ base_url + link }}" data-push="true">{{ data.name }}</a>
+                    <a href="{{ base_url + link }}" data-push="true">{{ item.name }}</a>
                   </span>
                 </div>
                 <div class="EventsSnippet-lineSecond">
                   <span class="EventsSnippet-eventDay EventsSnippet-lineSecondItem">
-                    {{ data.day_of_week }}
+                    {{ item.day_of_week }}
                   </span>
                   <span class="EventsSnippet-eventHour EventsSnippet-lineSecondItem">
-                    {{ data.start_hour }}
+                    {{ item.start_hour }}
                   </span>
                   <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem {{ data.price.highlight }}">
-                    {{ data.price.value }}
+                    {{ item.price.value }}
                   </span>
                   <span v-if="data.rating" class="EventsSnippet-eventRating EventsSnippet-lineSecondItem">
                     <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>
-                    {{ data.rating }}
+                    {{ item.rating }}
                   </span>
                 </div>
               </li>

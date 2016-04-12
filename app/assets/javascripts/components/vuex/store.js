@@ -5,11 +5,26 @@ Vue.use(Vuex)
 
 var store = new Vuex.Store({
   state: {
-    agendaCounter: 0
+    currentUser: {},
+    agendaCounter: 0,
+    isItemOver: false,
+    dataItemOver: {}
   },
   mutations: {
-    updateAgendaCounter (state, mutation){
+    updateCurrentUser: function(state, mutation){
+      state.currentUser = mutation
+    },
+
+    updateAgendaCounter: function(state, mutation){
       state.agendaCounter = mutation
+    },
+
+    updateItemOver: function(state, mutation){
+      state.isItemOver = mutation
+    },
+
+    updateDataItemOver: function(state, mutation){
+      state.dataItemOver = mutation
     }
   }
 })

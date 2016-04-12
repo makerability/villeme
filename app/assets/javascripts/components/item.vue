@@ -104,14 +104,21 @@ export default{
         return "Agendar";
       }
     },
+
     itemUrl: function(){
       return window.location.origin + this.data.link
+    },
+
+    currentUser: function(){
+      return store.state.currentUser
     }
   },
 
   methods: {
     mouseEnterEvents: function(event){
       this.$dispatch('setCounter');
+      store.dispatch('updateItemOver', true);
+      store.dispatch('updateDataItemOver', this.data);
       // this.$dispatch('stopCounting'),
       //
       // function _showElements(){
@@ -120,6 +127,8 @@ export default{
     },
 
     mouseLeaveEvents: function(event){
+      store.dispatch('updateItemOver', false);
+      store.dispatch('updateDataItemOver', {});
       // var delay = 4000;
       //
       // _startCounter();
@@ -153,7 +162,6 @@ export default{
         clearTimeout(timer);
 
         store.dispatch('updateAgendaCounter', data.count);
-        // _self.$emit('updateAgendaCount', data.count);
 
         if(data.agended){
           _animateAgendaLink("is-adding");

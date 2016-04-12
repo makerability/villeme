@@ -18,15 +18,16 @@ module Villeme
               education: create_section_education_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               health: create_section_health_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               trends: create_section_trends_events(city),
-              current_user: {
+              currentUser: {
+                  firstName: user.first_name,
                   username: user.username,
-                  is_guest: user.guest?,
+                  isGuest: user.guest?,
                   agenda: {
                       count: user.agenda_items.upcoming.count
                   },
               },
               policies: {
-                  is_guest_user: user.guest?
+                  isGuestUser: user.guest?
               }
           }
 

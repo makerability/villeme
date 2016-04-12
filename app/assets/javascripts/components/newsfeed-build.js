@@ -30,16 +30,6 @@ exports.default = {
     }
   },
 
-  ready: function ready() {
-    var _self = this;
-
-    // Vue.http({url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET'}).then(function (response) {
-    //   _self.$set('data', response.data);
-    // }, function (response) {
-    //   alert("Ops");
-    // });
-  },
-
   computed: {
     buttonText: function buttonText() {
       if (this.data.is_agended) {
@@ -48,14 +38,21 @@ exports.default = {
         return "Agendar";
       }
     },
+
     itemUrl: function itemUrl() {
       return window.location.origin + this.data.link;
+    },
+
+    currentUser: function currentUser() {
+      return _store2.default.state.currentUser;
     }
   },
 
   methods: {
     mouseEnterEvents: function mouseEnterEvents(event) {
       this.$dispatch('setCounter');
+      _store2.default.dispatch('updateItemOver', true);
+      _store2.default.dispatch('updateDataItemOver', this.data);
       // this.$dispatch('stopCounting'),
       //
       // function _showElements(){
@@ -64,6 +61,8 @@ exports.default = {
     },
 
     mouseLeaveEvents: function mouseLeaveEvents(event) {
+      _store2.default.dispatch('updateItemOver', false);
+      _store2.default.dispatch('updateDataItemOver', {});
       // var delay = 4000;
       //
       // _startCounter();
@@ -96,7 +95,6 @@ exports.default = {
         clearTimeout(timer);
 
         _store2.default.dispatch('updateAgendaCounter', data.count);
-        // _self.$emit('updateAgendaCount', data.count);
 
         if (data.agended) {
           _animateAgendaLink("is-adding");
@@ -168,7 +166,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":6,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],2:[function(require,module,exports){
+},{"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],2:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -238,7 +236,7 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<section v-if=\"data.count > 0\" class=\"Section\" data-anchor=\"{{ data.type }}\">\n\n  <div class=\"Section-header\">\n    <h1 class=\"Section-title\">{{ data.title }}\n      <small>\n        <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n          Ver todos\n        </a>\n      </small>\n    </h1>\n  </div>\n\n  <div class=\"Grid Grid--withGutter\">\n\n\n    <item v-for=\"item in data.items\" :data=\"item\"></item>\n\n\n    <div v-show=\"data.count <= 2 || data.count == 5\" v-if=\"data.snippet.length == 0\" class=\"Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize\">\n      <div class=\"AlertCreateEvent AlertCreateEvent--withBorder\">\n        <div class=\"AlertCreateEvent-text u-posAbsoluteCenter\">\n          <span>\n            Não há mais eventos no momento.<br>\n            <a href=\"{{ data.policies.is_guest_user ? '#' : data.link_to_create }}\" v-on:click=\"{{\" data.policies.is_guest_user=\"\" ?=\"\" login=\"\" :=\"\" false=\"\" }}=\"\">Cria evento</a>\n          </span>\n        </div>\n      </div>\n    </div>\n\n    <div v-if=\"data.snippet.length > 0\" v-hide=\"data.snippet == null\" class=\"EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull\">\n      <div class=\"EventsSnippet-content\">\n        <div class=\"EventsSnippet-scroll\">\n          <ul class=\"EventsSnippet-lineGroup\">\n            <li each=\"{\" data.snippet=\"\" }=\"\" v-on:click=\"saveScroll\" class=\"EventsSnippet-line js-EventNewsfeedTransitions\">\n              <a href=\"{{ base_url + link }}\" data-push=\"true\">\n                <div class=\"EventsSnippet-image b-lazy\" data-src=\"{{ data.image.thumb }}\"></div>\n              </a>\n              <div class=\"EventsSnippet-linePrincipal u-sizeFull\">\n                <span class=\"EventsSnippet-eventName\">\n                  <a href=\"{{ base_url + link }}\" data-push=\"true\">{{ data.name }}</a>\n                </span>\n              </div>\n              <div class=\"EventsSnippet-lineSecond\">\n                <span class=\"EventsSnippet-eventDay EventsSnippet-lineSecondItem\">\n                  {{ data.day_of_week }}\n                </span>\n                <span class=\"EventsSnippet-eventHour EventsSnippet-lineSecondItem\">\n                  {{ data.start_hour }}\n                </span>\n                <span class=\"EventsSnippet-eventPrice EventsSnippet-lineSecondItem {{ data.price.highlight }}\">\n                  {{ data.price.value }}\n                </span>\n                <span v-if=\"data.rating\" class=\"EventsSnippet-eventRating EventsSnippet-lineSecondItem\">\n                  <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n                  {{ data.rating }}\n                </span>\n              </div>\n            </li>\n          </ul>\n\n        </div>\n        <div class=\"EventsSnippet-seeAllEvents\">\n          <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n            ver todos os {{ data.count }} eventos\n          </a>\n        </div>\n      </div>\n    </div>\n\n  </div>\n\n\n\n</section>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<section v-if=\"data.count > 0\" class=\"Section\" data-anchor=\"{{ data.type }}\">\n\n  <div class=\"Section-header\">\n    <h1 class=\"Section-title\">{{ data.title }}\n      <small>\n        <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n          Ver todos\n        </a>\n      </small>\n    </h1>\n  </div>\n\n  <div class=\"Grid Grid--withGutter\">\n\n\n    <item v-for=\"item in data.items\" :data=\"item\"></item>\n\n\n    <div v-show=\"data.count <= 2 || data.count == 5\" v-if=\"data.snippet.length == 0\" class=\"Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize\">\n      <div class=\"AlertCreateEvent AlertCreateEvent--withBorder\">\n        <div class=\"AlertCreateEvent-text u-posAbsoluteCenter\">\n          <span>\n            Não há mais eventos no momento.<br>\n            <a href=\"{{ data.policies.isGuest_user ? '#' : data.link_to_create }}\" v-on:click=\"{{\" data.policies.isguest_user=\"\" ?=\"\" login=\"\" :=\"\" false=\"\" }}=\"\">Cria evento</a>\n          </span>\n        </div>\n      </div>\n    </div>\n\n    <div v-if=\"data.snippet.length > 0\" v-hide=\"data.snippet == null\" class=\"EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull\">\n      <div class=\"EventsSnippet-content\">\n        <div class=\"EventsSnippet-scroll\">\n          <ul class=\"EventsSnippet-lineGroup\">\n            <li v-for=\"item in data.snippet\" v-on:click=\"saveScroll\" class=\"EventsSnippet-line js-EventNewsfeedTransitions\">\n              <a href=\"{{ base_url + link }}\" data-push=\"true\">\n                <div class=\"EventsSnippet-image b-lazy\" data-src=\"{{ item.image.thumb }}\"></div>\n              </a>\n              <div class=\"EventsSnippet-linePrincipal u-sizeFull\">\n                <span class=\"EventsSnippet-eventName\">\n                  <a href=\"{{ base_url + link }}\" data-push=\"true\">{{ item.name }}</a>\n                </span>\n              </div>\n              <div class=\"EventsSnippet-lineSecond\">\n                <span class=\"EventsSnippet-eventDay EventsSnippet-lineSecondItem\">\n                  {{ item.day_of_week }}\n                </span>\n                <span class=\"EventsSnippet-eventHour EventsSnippet-lineSecondItem\">\n                  {{ item.start_hour }}\n                </span>\n                <span class=\"EventsSnippet-eventPrice EventsSnippet-lineSecondItem {{ data.price.highlight }}\">\n                  {{ item.price.value }}\n                </span>\n                <span v-if=\"data.rating\" class=\"EventsSnippet-eventRating EventsSnippet-lineSecondItem\">\n                  <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n                  {{ item.rating }}\n                </span>\n              </div>\n            </li>\n          </ul>\n\n        </div>\n        <div class=\"EventsSnippet-seeAllEvents\">\n          <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n            ver todos os {{ data.count }} eventos\n          </a>\n        </div>\n      </div>\n    </div>\n\n  </div>\n\n\n\n</section>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -254,12 +252,13 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./item.vue":1,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],3:[function(require,module,exports){
+},{"./item.vue":1,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],3:[function(require,module,exports){
 var Vue = require('vue');
 var Newsfeed = require('./newsfeed.vue');
 var SidebarLeft = require('./sidebar-left.vue');
 var ItemsSection = require('./items-section.vue');
 var Item = require('./item.vue');
+var SidebarMap = require('./sidebar-map.vue');
 
 new Vue({
     http: {
@@ -273,11 +272,12 @@ new Vue({
         sidebarLeft: SidebarLeft,
         newsfeed: Newsfeed,
         itemsSection: ItemsSection,
-        item: Item
+        item: Item,
+        sidebarMap: SidebarMap
     }
 });
 
-},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"vue":32}],4:[function(require,module,exports){
+},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"./sidebar-map.vue":6,"vue":33}],4:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -285,8 +285,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _store = require('./vuex/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
+
 var ItemsSection = require('./items-section.vue');
 Vue.use(require('vue-resource'));
 
@@ -321,18 +327,27 @@ exports.default = {
     var _self = this;
 
     Vue.http({ url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET' }).then(function (response) {
-      _self.$set('data', response.data);
-      console.log(response.data);
-    }, function (response) {
-      alert("Ops");
+      var data = response.data;
+      _self.setData(data);
+      _self.setCurrentUser(data.currentUser);
+    }, function (data) {
+      alert("Error");
     });
   },
 
-  methods: {}
+  methods: {
+    setCurrentUser: function setCurrentUser(user) {
+      _store2.default.dispatch('updateCurrentUser', user);
+    },
+
+    setData: function setData(data) {
+      this.$set('data', data);
+    }
+  }
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\"></items-section>\n<items-section :data=\"data.fun\"></items-section>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\"></items-section>\n<items-section :data=\"data.persona\"></items-section>\n<items-section :data=\"data.neighborhood\"></items-section>\n<items-section :data=\"data.fun\"></items-section>\n<items-section :data=\"data.education\"></items-section>\n<items-section :data=\"data.health\"></items-section>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -348,7 +363,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./items-section.vue":2,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],5:[function(require,module,exports){
+},{"./items-section.vue":2,"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],5:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("/* COLORS ------------------------*/\n/* vermelho */\n/* azul */\n/* verde */\n/* cinza */\n/* laranja */\n/* amarelo */\n/* roxo */\n/* branco */\n/* TEXTS ----------------------------------------*/\n/* texto de destaque e de identidade visual */\n/* texto para leitura */\n/* cor para texto de leitura */\n/* tamanho para leitura */\n/* TRANSITION -----------------------*/\n/* SHAPE --------------------------- */\n/* line 70, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.radius {\n  border-radius: 10px; }\n\n/* line 74, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.btn-radius {\n  border-radius: 6px; }\n\n/* line 78, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.circle {\n  border-radius: 100%; }\n\n/* MEDIA QUERIES -------------------- */\n/* line 5, stdin */\n.SidebarLeft {\n  padding-top: 25px;\n  position: relative; }\n  /* line 9, stdin */\n  .SidebarLeft-section {\n    padding: 0 0 25px 0; }\n  /* line 13, stdin */\n  .SidebarLeft-agendaLink {\n    border: 1px solid rgba(0, 0, 0, 0.1);\n    border-radius: 25px;\n    -webkit-transition: all 0.4s ease 0s;\n    transition: all 0.4s ease 0s; }\n    /* line 18, stdin */\n    .SidebarLeft-agendaLink.is-adding {\n      position: relative;\n      background: #ade6bd;\n      border-color: #83da9d; }\n    /* line 24, stdin */\n    .SidebarLeft-agendaLink.is-removing {\n      position: relative;\n      background: rgba(0, 0, 0, 0.1); }\n  /* line 30, stdin */\n  .SidebarLeft-nav {\n    padding: 0;\n    margin: 0;\n    list-style: none; }\n    /* line 35, stdin */\n    .SidebarLeft-nav li {\n      color: #3B5450;\n      font-family: \"Roboto\", helvetica, arial, sans-serif;\n      font-weight: 400;\n      font-size: 14px;\n      padding: 8px 2px 4px 0; }\n      /* line 42, stdin */\n      .SidebarLeft-nav li .badge {\n        background: transparent none repeat scroll 0 0;\n        color: #a8b3b2;\n        display: none;\n        font-family: Helvetica, arial, sans-serif;\n        font-size: 10px;\n        margin-left: 8px;\n        min-width: 17px;\n        padding: 4px 4.5px;\n        position: relative;\n        right: 5px;\n        top: -2px;\n        vertical-align: inherit; }\n        /* line 56, stdin */\n        .SidebarLeft-nav li .badge.is-show {\n          display: inline-block; }\n      /* line 61, stdin */\n      .SidebarLeft-nav li .active {\n        color: #ffffff;\n        background: #5476e9; }\n      /* line 66, stdin */\n      .SidebarLeft-nav li a {\n        padding: 0 10px;\n        color: #597f79;\n        margin: 0;\n        width: 170px; }\n        /* line 72, stdin */\n        .SidebarLeft-nav li a:hover {\n          cursor: pointer; }\n        /* line 76, stdin */\n        .SidebarLeft-nav li a.is-active {\n          color: #38ba5e;\n          font-size: 16px;\n          font-weight: 600;\n          -webkit-transition: all 0.2s ease 0s;\n          transition: all 0.2s ease 0s; }\n        /* line 83, stdin */\n        .SidebarLeft-nav li a .glyphicon {\n          margin: 0 6px 0 0; }\n      /* line 90, stdin */\n      .SidebarLeft-nav li.active a {\n        background: none;\n        color: #38ba5e;\n        margin-right: -1px;\n        font-weight: 500; }\n        /* line 96, stdin */\n        .SidebarLeft-nav li.active a .badge {\n          background: #e9f0ef;\n          color: #38ba5e;\n          border: 1px solid #38ba5e;\n          font-family: Helvetica,arial;\n          font-size: 9px; }\n      /* line 106, stdin */\n      .SidebarLeft-nav li .glyphicon {\n        font-size: 12px;\n        margin: 0 8px 0 0; }\n  /* line 115, stdin */\n  .SidebarLeft ul > li {\n    display: table;\n    height: 32px; }\n  /* line 120, stdin */\n  .SidebarLeft ul > li > a:hover {\n    background: transparent; }\n  /* line 124, stdin */\n  .SidebarLeft ul .sub-nav {\n    margin: 0 0 0 20px; }\n  /* line 128, stdin */\n  .SidebarLeft li.divider {\n    border-top: 1px solid #dce6e4;\n    height: 0;\n    margin: 3px 0;\n    min-height: 0; }\n  /* line 135, stdin */\n  .SidebarLeft--fixed {\n    width: 200px;\n    height: 100%;\n    position: fixed;\n    left: 0;\n    top: 0;\n    background: #3B5450;\n    z-index: 110;\n    padding: 25px 0 0 12px; }\n\n@media (max-width: 1200px) {\n  /* line 148, stdin */\n  :scope {\n    display: none; } }\n")
 'use strict';
 
@@ -389,7 +404,7 @@ exports.default = {
         health: {
           count: 0
         },
-        current_user: {
+        currentUser: {
           agenda: {
             count: 0
           }
@@ -409,8 +424,8 @@ exports.default = {
 
     Vue.http({ url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET' }).then(function (response) {
       _self.$set('data', response.data);
-      _self.$set('link', 'user/' + response.data.current_user.username + '/agenda/');
-      _store2.default.dispatch('updateAgendaCounter', response.data.current_user.agenda.count);
+      _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
+      _store2.default.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);
     }, function (response) {
       alert("Ops");
     });
@@ -418,8 +433,8 @@ exports.default = {
 
   methods: {
     setAgendaLink: function setAgendaLink() {
-      if (!current_user.is_guest) {
-        this.link = 'user/' + this.data.current_user.username + '/agenda/';
+      if (!currentUser.isGuest) {
+        this.link = 'user/' + this.data.currentUser.username + '/agenda/';
         this.data_push = true;
         console.log('ok');
       } else {
@@ -429,7 +444,7 @@ exports.default = {
     },
 
     login: function login() {
-      if (!data.current_user.is_guest) {
+      if (!data.currentUser.isGuest) {
         false;
       } else {
         Villeme.Ux.loginModal("Você precisa estar logado para ver sua agenda.");
@@ -483,7 +498,7 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\">\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\">\n        <a href=\"{{ link }}\" v-on:click=\"login\" data-push=\"{{ data_push }}\">\n          Minha agenda\n        </a>\n        <span v-if=\"data.current_user.agenda.count > 0\" class=\"js-agendaCounter badge is-show\">\n          {{ counter }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\">\n      <li v-if=\"data.today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"today\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.today.count }}</span>\n      </li>\n      <li v-if=\"data.activities_today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"activities-today\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.activities_today.count }}</span>\n      </li>\n      <li v-if=\"data.persona.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"persona\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.persona.count }}</span>\n      </li>\n      <li v-if=\"data.neighborhood.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"neighborhood\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.neighborhood.count }}</span>\n      </li>\n      <li v-if=\"data.fun.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"fun\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.fun.count }}</span>\n      </li>\n      <li v-if=\"data.education.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"learn\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.education.count }}</span>\n      </li>\n      <li v-if=\"data.health.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"health\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.health.count }}</span>\n      </li>\n      <li v-if=\"data.trends.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"trends\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.trends.count }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div id=\"SidebarLeft\" class=\"SidebarLeft js-FixSidebarOnScroll\">\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav\">\n      <li class=\"SidebarLeft-agendaLink js-SidebarLeft-agendaLink\">\n        <a href=\"{{ link }}\" v-on:click=\"login\" data-push=\"{{ data_push }}\">\n          Minha agenda\n        </a>\n        <span v-if=\"data.currentUser.agenda.count > 0\" class=\"js-agendaCounter badge is-show\">\n          {{ counter }}\n        </span>\n      </li>\n    </ul>\n  </section>\n\n  <section class=\"SidebarLeft-section\">\n    <ul class=\"SidebarLeft-nav js-SidebarLeft-nav\">\n      <li v-if=\"data.today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"today\">Eventos hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.today.count }}</span>\n      </li>\n      <li v-if=\"data.activities_today.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"activities-today\">Atividades hoje</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.activities_today.count }}</span>\n      </li>\n      <li v-if=\"data.persona.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"persona\">Indicados p/ mim</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.persona.count }}</span>\n      </li>\n      <li v-if=\"data.neighborhood.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"neighborhood\">No meu bairro</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.neighborhood.count }}</span>\n      </li>\n      <li v-if=\"data.fun.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"fun\">Para se divertir</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.fun.count }}</span>\n      </li>\n      <li v-if=\"data.education.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"learn\">Aprender algo novo</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.education.count }}</span>\n      </li>\n      <li v-if=\"data.health.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"health\">Cuidar da saude</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.health.count }}</span>\n      </li>\n      <li v-if=\"data.trends.count > 0\" v-on:mouseenter=\"navEnter\" v-on:mouseleave=\"navLeave\">\n        <a href=\"#\" data-scroll=\"trends\">Em alta</a>\n        <span class=\"badge\" v-bind:class=\"{ 'is-show': is_hover }\">{{ data.trends.count }}</span>\n      </li>\n    </ul>\n  </section>\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -499,7 +514,116 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":6,"vue":32,"vue-hot-reload-api":7,"vue-resource":21,"vueify-insert-css":33}],6:[function(require,module,exports){
+},{"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],6:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n.isBold{\n  font-weight: bold;\n}\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _store = require('./vuex/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Vue = require('vue');
+Vue.use(require('vue-resource'));
+exports.default = {
+  data: function data() {
+    return {};
+  },
+
+
+  ready: function ready() {},
+
+  computed: {
+    data: function data() {
+      return _store2.default.state.dataItemOver;
+    },
+
+    currentUser: function currentUser() {
+      return _store2.default.state.currentUser;
+    },
+
+    isWalkFriendly: function isWalkFriendly() {
+      var time = this.data.distance.walk.replace('min.', '');
+      if (parseInt(time) < 30) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    isNeighborhoodCountShow: function isNeighborhoodCountShow() {
+      if (_store2.default.state.isItemOver) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+
+    isInfoGroupShow: function isInfoGroupShow() {
+      if (_store2.default.state.isItemOver) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    isAddressShow: function isAddressShow() {
+      if (_store2.default.state.isItemOver) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+
+  events: {
+    itemMouseOver: function itemMouseOver(data) {
+      this.updateMap(data);
+      this.showInfoGroup();
+      this.showAddress();
+      this.hideNeighborhoodCount();
+    },
+
+    itemMouseLeave: function itemMouseLeave(data) {
+      this.hideInfoGroup();
+      this.hideAddress();
+    }
+  },
+
+  methods: {
+
+    updateMap: function updateMap(data) {
+      $('#map').gmap3("get");
+      google.maps.event.trigger(map, "resize");
+      Gmaps.panTo(data.latitude, data.longitude);
+    }
+
+  }
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"SidebarMapBox\">\n\n  <div class=\"SidebarMap js-FixMapOnScroll panel panel-default\">\n    <div class=\"panel-body user-box sidebar u-no-padding\">\n      <div id=\"map\" style=\"width:100%\"></div>\n    </div>\n\n\n    <div v-show=\"{{\" opts.currentuser.isguest=\"\" }}=\"\" class=\"panel-body u-centralize\">\n      &lt;%= link_to_function 'Você precisa estar logado para ver sua localização e o tempo de transporte até o local.', 'Villeme.Ux.loginModal(\"Para ver o tempo ate o local você precisa estar logado.\")' %&gt;\n    </div>\n\n    <div v-hide=\"currentUser.isGuest\">\n      <div v-show=\"isNeighborhoodCountShow\" class=\"SidebarMap-neighborhoodCount panel-body\">\n        <ul class=\"list-group u-margin-0 font-12\">\n          <li class=\"list-item-group\">{{ currentUser.firstName }}, você possui </li>\n        </ul>\n      </div>\n\n      <div v-show=\"isAddressShow\" class=\"SidebarMap-address\">\n        <span><b>{{ data.place.name }}</b><br>{{ data.full_address }}</span>\n      </div>\n\n      <ul v-show=\"isInfoGroupShow\" class=\"SidebarMap-infoGroup\">\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" v-bind:class=\"{ 'isBold': isWalkFriendly }\" title=\"Indo caminhando\"><span> {{ data.distance.walk }} </span> caminhando</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de bicicleta\"><span> {{ data.distance.bike }} </span> pedalando</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de ônibus\"><span> {{ data.distance.bus }} </span> de ônibus</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de carro\"><span> {{ data.distance.car }} </span> dirigindo</span>\n        </li>\n      </ul>\n    </div>\n\n  </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/sidebar-map.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n.isBold{\n  font-weight: bold;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],7:[function(require,module,exports){
 var Vue = require('vue');
 var Vuex = require('vuex');
 
@@ -507,18 +631,33 @@ Vue.use(Vuex)
 
 var store = new Vuex.Store({
   state: {
-    agendaCounter: 0
+    currentUser: {},
+    agendaCounter: 0,
+    isItemOver: false,
+    dataItemOver: {}
   },
   mutations: {
-    updateAgendaCounter (state, mutation){
+    updateCurrentUser: function(state, mutation){
+      state.currentUser = mutation
+    },
+
+    updateAgendaCounter: function(state, mutation){
       state.agendaCounter = mutation
+    },
+
+    updateItemOver: function(state, mutation){
+      state.isItemOver = mutation
+    },
+
+    updateDataItemOver: function(state, mutation){
+      state.dataItemOver = mutation
     }
   }
 })
 
 module.exports = store;
 
-},{"vue":32,"vuex":34}],7:[function(require,module,exports){
+},{"vue":33,"vuex":35}],8:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -818,7 +957,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * Before Interceptor.
  */
@@ -838,7 +977,7 @@ module.exports = {
 
 };
 
-},{"../util":31}],9:[function(require,module,exports){
+},{"../util":32}],10:[function(require,module,exports){
 /**
  * Base client.
  */
@@ -905,7 +1044,7 @@ function parseHeaders(str) {
     return headers;
 }
 
-},{"../../promise":24,"../../util":31,"./xhr":12}],10:[function(require,module,exports){
+},{"../../promise":25,"../../util":32,"./xhr":13}],11:[function(require,module,exports){
 /**
  * JSONP client.
  */
@@ -955,7 +1094,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":24,"../../util":31}],11:[function(require,module,exports){
+},{"../../promise":25,"../../util":32}],12:[function(require,module,exports){
 /**
  * XDomain client (Internet Explorer).
  */
@@ -994,7 +1133,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":24,"../../util":31}],12:[function(require,module,exports){
+},{"../../promise":25,"../../util":32}],13:[function(require,module,exports){
 /**
  * XMLHttp client.
  */
@@ -1046,7 +1185,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":24,"../../util":31}],13:[function(require,module,exports){
+},{"../../promise":25,"../../util":32}],14:[function(require,module,exports){
 /**
  * CORS Interceptor.
  */
@@ -1085,7 +1224,7 @@ function crossOrigin(request) {
     return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
 }
 
-},{"../util":31,"./client/xdr":11}],14:[function(require,module,exports){
+},{"../util":32,"./client/xdr":12}],15:[function(require,module,exports){
 /**
  * Header Interceptor.
  */
@@ -1113,7 +1252,7 @@ module.exports = {
 
 };
 
-},{"../util":31}],15:[function(require,module,exports){
+},{"../util":32}],16:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -1213,7 +1352,7 @@ Http.headers = {
 
 module.exports = _.http = Http;
 
-},{"../promise":24,"../util":31,"./before":8,"./client":9,"./cors":13,"./header":14,"./interceptor":16,"./jsonp":17,"./method":18,"./mime":19,"./timeout":20}],16:[function(require,module,exports){
+},{"../promise":25,"../util":32,"./before":9,"./client":10,"./cors":14,"./header":15,"./interceptor":17,"./jsonp":18,"./method":19,"./mime":20,"./timeout":21}],17:[function(require,module,exports){
 /**
  * Interceptor factory.
  */
@@ -1260,7 +1399,7 @@ function when(value, fulfilled, rejected) {
     return promise.then(fulfilled, rejected);
 }
 
-},{"../promise":24,"../util":31}],17:[function(require,module,exports){
+},{"../promise":25,"../util":32}],18:[function(require,module,exports){
 /**
  * JSONP Interceptor.
  */
@@ -1280,7 +1419,7 @@ module.exports = {
 
 };
 
-},{"./client/jsonp":10}],18:[function(require,module,exports){
+},{"./client/jsonp":11}],19:[function(require,module,exports){
 /**
  * HTTP method override Interceptor.
  */
@@ -1299,7 +1438,7 @@ module.exports = {
 
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * Mime Interceptor.
  */
@@ -1337,7 +1476,7 @@ module.exports = {
 
 };
 
-},{"../util":31}],20:[function(require,module,exports){
+},{"../util":32}],21:[function(require,module,exports){
 /**
  * Timeout Interceptor.
  */
@@ -1369,7 +1508,7 @@ module.exports = function () {
     };
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -1424,7 +1563,7 @@ if (window.Vue) {
 
 module.exports = install;
 
-},{"./http":15,"./promise":24,"./resource":25,"./url":26,"./util":31}],22:[function(require,module,exports){
+},{"./http":16,"./promise":25,"./resource":26,"./url":27,"./util":32}],23:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -1605,7 +1744,7 @@ p.catch = function (onRejected) {
 
 module.exports = Promise;
 
-},{"../util":31}],23:[function(require,module,exports){
+},{"../util":32}],24:[function(require,module,exports){
 /**
  * URL Template v2.0.6 (https://github.com/bramstein/url-template)
  */
@@ -1757,7 +1896,7 @@ exports.encodeReserved = function (str) {
     }).join('');
 };
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Promise adapter.
  */
@@ -1868,7 +2007,7 @@ p.always = function (callback) {
 
 module.exports = Promise;
 
-},{"./lib/promise":22,"./util":31}],25:[function(require,module,exports){
+},{"./lib/promise":23,"./util":32}],26:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -1980,7 +2119,7 @@ Resource.actions = {
 
 module.exports = _.resource = Resource;
 
-},{"./util":31}],26:[function(require,module,exports){
+},{"./util":32}],27:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -2112,7 +2251,7 @@ function serialize(params, obj, scope) {
 
 module.exports = _.url = Url;
 
-},{"../util":31,"./legacy":27,"./query":28,"./root":29,"./template":30}],27:[function(require,module,exports){
+},{"../util":32,"./legacy":28,"./query":29,"./root":30,"./template":31}],28:[function(require,module,exports){
 /**
  * Legacy Transform.
  */
@@ -2160,7 +2299,7 @@ function encodeUriQuery(value, spaces) {
         replace(/%20/g, (spaces ? '%20' : '+'));
 }
 
-},{"../util":31}],28:[function(require,module,exports){
+},{"../util":32}],29:[function(require,module,exports){
 /**
  * Query Parameter Transform.
  */
@@ -2186,7 +2325,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":31}],29:[function(require,module,exports){
+},{"../util":32}],30:[function(require,module,exports){
 /**
  * Root Prefix Transform.
  */
@@ -2204,7 +2343,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":31}],30:[function(require,module,exports){
+},{"../util":32}],31:[function(require,module,exports){
 /**
  * URL Template (RFC 6570) Transform.
  */
@@ -2222,7 +2361,7 @@ module.exports = function (options) {
     return url;
 };
 
-},{"../lib/url-template":23}],31:[function(require,module,exports){
+},{"../lib/url-template":24}],32:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -2346,7 +2485,7 @@ function merge(target, source, deep) {
     }
 }
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.20
@@ -12170,7 +12309,7 @@ if (config.devtools) {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":35}],33:[function(require,module,exports){
+},{"_process":36}],34:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -12190,7 +12329,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*!
  * Vuex v0.6.2
  * (c) 2016 Evan You
@@ -12767,7 +12906,7 @@ exports.insert = function (css) {
   return index;
 
 }));
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

@@ -3,6 +3,7 @@ var Newsfeed = require('./newsfeed.vue');
 var SidebarLeft = require('./sidebar-left.vue');
 var ItemsSection = require('./items-section.vue');
 var Item = require('./item.vue');
+var SidebarMap = require('./sidebar-map.vue');
 
 new Vue({
     http: {
@@ -16,6 +17,7 @@ new Vue({
         sidebarLeft: SidebarLeft,
         newsfeed: Newsfeed,
         itemsSection: ItemsSection,
-        item: Item
+        item: Item,
+        sidebarMap: SidebarMap
     }
 });
