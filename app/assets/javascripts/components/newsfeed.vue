@@ -31,17 +31,7 @@ export default{
   },
 
   events: {
-    'setCounter': function(){
-      this.timeouts = this.timeouts === undefined ? [] : this.timeouts;
-    },
 
-    'stopCounting': function(){
-      i = 0;
-      while (i < this.timeouts.length) {
-        clearTimeout(this.timeouts[i]);
-        i++;
-      }
-    }
   },
 
   ready: function(){

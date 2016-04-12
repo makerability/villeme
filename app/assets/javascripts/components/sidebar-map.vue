@@ -1,6 +1,6 @@
 <template>
 
-  <div class="SidebarMapBox" class="ps-container">
+  <div v-on:mouseenter="stopTimeoutsItemOver" v-on:mouseleave="addTimeoutsItemOver" class="SidebarMapBox" class="ps-container">
 
     <div class="SidebarMap js-FixMapOnScroll panel panel-default">
       <div class="panel-body user-box sidebar u-no-padding">
@@ -8,11 +8,11 @@
       </div>
 
 
-      <div v-show={{ opts.currentUser.isGuest }} class="panel-body u-centralize">
-        <%= link_to_function 'Você precisa estar logado para ver sua localização e o tempo de transporte até o local.', 'Villeme.Ux.loginModal("Para ver o tempo ate o local você precisa estar logado.")' %>
+      <div v-if="currentUser.isGuest" class="panel-body u-centralize">
+        <a v-on:click=" openModal ">Você precisa estar logado para ver sua localização e o tempo de transporte até o local.</a>
       </div>
 
-      <div v-hide="currentUser.isGuest">
+      <div v-if="!currentUser.isGuest">
         <div v-show="isNeighborhoodCountShow" class="SidebarMap-neighborhoodCount panel-body">
           <ul class="list-group u-margin-0 font-12">
             <li class="list-item-group">{{ currentUser.firstName }}, você possui </li>
@@ -110,25 +110,26 @@ export default{
   },
 
   events: {
-    itemMouseOver: function(data){
-      this.updateMap(data);
-      this.showInfoGroup();
-      this.showAddress();
-      this.hideNeighborhoodCount();
-    },
 
-    itemMouseLeave: function(data){
-      this.hideInfoGroup();
-      this.hideAddress();
-    }
   },
 
   methods: {
 
-    updateMap: function(data){
-      $('#map').gmap3("get");
-      google.maps.event.trigger(map, "resize");
-      Gmaps.panTo(data.latitude, data.longitude);
+    stopTimeoutsItemOver: function(){
+      store.dispatch('stopCountingTimeoutsItemOver');
+    },
+
+    addTimeoutsItemOver: function(){
+      var timer = setTimeout(function(){
+                    store.dispatch('updateItemOver', false);
+                    store.dispatch('updateDataItemOver', {});
+                  }, 1500);
+
+      store.dispatch('addTimeoutsItemOver', timer);
+    },
+
+    openModal: function(){
+      Villeme.Ux.loginModal("Para ver o tempo ate o local você precisa estar logado.")
     }
 
   }

@@ -8,7 +8,8 @@ var store = new Vuex.Store({
     currentUser: {},
     agendaCounter: 0,
     isItemOver: false,
-    dataItemOver: {}
+    dataItemOver: {},
+    timeoutsItemOver: []
   },
   mutations: {
     updateCurrentUser: function(state, mutation){
@@ -25,6 +26,22 @@ var store = new Vuex.Store({
 
     updateDataItemOver: function(state, mutation){
       state.dataItemOver = mutation
+    },
+
+    updateTimeoutsItemOver: function(state, mutation){
+      state.timeoutsItemOver = mutation
+    },
+
+    addTimeoutsItemOver: function(state, timer){
+      state.timeoutsItemOver.push(timer)
+    },
+
+    stopCountingTimeoutsItemOver: function(state){
+      i = 0;
+      while (i < state.timeoutsItemOver.length) {
+        clearTimeout(state.timeoutsItemOver[i]);
+        i++;
+      }
     }
   }
 })

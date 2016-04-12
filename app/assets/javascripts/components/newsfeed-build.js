@@ -50,30 +50,18 @@ exports.default = {
 
   methods: {
     mouseEnterEvents: function mouseEnterEvents(event) {
-      this.$dispatch('setCounter');
+      _store2.default.dispatch('stopCountingTimeoutsItemOver');
       _store2.default.dispatch('updateItemOver', true);
       _store2.default.dispatch('updateDataItemOver', this.data);
-      // this.$dispatch('stopCounting'),
-      //
-      // function _showElements(){
-      //   Villeme.Observer.trigger('itemMouseOver', this);
-      // }
     },
 
     mouseLeaveEvents: function mouseLeaveEvents(event) {
-      _store2.default.dispatch('updateItemOver', false);
-      _store2.default.dispatch('updateDataItemOver', {});
-      // var delay = 4000;
-      //
-      // _startCounter();
-      //
-      // function _startCounter(){
-      //   section.timeouts.push(setTimeout(_hideInfoGroup, delay));
-      // }
-      //
-      // function _hideInfoGroup(){
-      //   Villeme.Observer.trigger('itemMouseLeave', item);
-      // }
+      var timer = setTimeout(function () {
+        _store2.default.dispatch('updateItemOver', false);
+        _store2.default.dispatch('updateDataItemOver', {});
+      }, 4000);
+
+      _store2.default.dispatch('addTimeoutsItemOver', timer);
     },
 
     schedule: function schedule(event) {
@@ -309,19 +297,7 @@ exports.default = {
   },
 
 
-  events: {
-    'setCounter': function setCounter() {
-      this.timeouts = this.timeouts === undefined ? [] : this.timeouts;
-    },
-
-    'stopCounting': function stopCounting() {
-      i = 0;
-      while (i < this.timeouts.length) {
-        clearTimeout(this.timeouts[i]);
-        i++;
-      }
-    }
-  },
+  events: {},
 
   ready: function ready() {
     var _self = this;
@@ -581,33 +557,32 @@ exports.default = {
     }
   },
 
-  events: {
-    itemMouseOver: function itemMouseOver(data) {
-      this.updateMap(data);
-      this.showInfoGroup();
-      this.showAddress();
-      this.hideNeighborhoodCount();
-    },
-
-    itemMouseLeave: function itemMouseLeave(data) {
-      this.hideInfoGroup();
-      this.hideAddress();
-    }
-  },
+  events: {},
 
   methods: {
 
-    updateMap: function updateMap(data) {
-      $('#map').gmap3("get");
-      google.maps.event.trigger(map, "resize");
-      Gmaps.panTo(data.latitude, data.longitude);
+    stopTimeoutsItemOver: function stopTimeoutsItemOver() {
+      _store2.default.dispatch('stopCountingTimeoutsItemOver');
+    },
+
+    addTimeoutsItemOver: function addTimeoutsItemOver() {
+      var timer = setTimeout(function () {
+        _store2.default.dispatch('updateItemOver', false);
+        _store2.default.dispatch('updateDataItemOver', {});
+      }, 1500);
+
+      _store2.default.dispatch('addTimeoutsItemOver', timer);
+    },
+
+    openModal: function openModal() {
+      Villeme.Ux.loginModal("Para ver o tempo ate o local você precisa estar logado.");
     }
 
   }
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"SidebarMapBox\">\n\n  <div class=\"SidebarMap js-FixMapOnScroll panel panel-default\">\n    <div class=\"panel-body user-box sidebar u-no-padding\">\n      <div id=\"map\" style=\"width:100%\"></div>\n    </div>\n\n\n    <div v-show=\"{{\" opts.currentuser.isguest=\"\" }}=\"\" class=\"panel-body u-centralize\">\n      &lt;%= link_to_function 'Você precisa estar logado para ver sua localização e o tempo de transporte até o local.', 'Villeme.Ux.loginModal(\"Para ver o tempo ate o local você precisa estar logado.\")' %&gt;\n    </div>\n\n    <div v-hide=\"currentUser.isGuest\">\n      <div v-show=\"isNeighborhoodCountShow\" class=\"SidebarMap-neighborhoodCount panel-body\">\n        <ul class=\"list-group u-margin-0 font-12\">\n          <li class=\"list-item-group\">{{ currentUser.firstName }}, você possui </li>\n        </ul>\n      </div>\n\n      <div v-show=\"isAddressShow\" class=\"SidebarMap-address\">\n        <span><b>{{ data.place.name }}</b><br>{{ data.full_address }}</span>\n      </div>\n\n      <ul v-show=\"isInfoGroupShow\" class=\"SidebarMap-infoGroup\">\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" v-bind:class=\"{ 'isBold': isWalkFriendly }\" title=\"Indo caminhando\"><span> {{ data.distance.walk }} </span> caminhando</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de bicicleta\"><span> {{ data.distance.bike }} </span> pedalando</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de ônibus\"><span> {{ data.distance.bus }} </span> de ônibus</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de carro\"><span> {{ data.distance.car }} </span> dirigindo</span>\n        </li>\n      </ul>\n    </div>\n\n  </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div v-on:mouseenter=\"stopTimeoutsItemOver\" v-on:mouseleave=\"addTimeoutsItemOver\" class=\"SidebarMapBox\">\n\n  <div class=\"SidebarMap js-FixMapOnScroll panel panel-default\">\n    <div class=\"panel-body user-box sidebar u-no-padding\">\n      <div id=\"map\" style=\"width:100%\"></div>\n    </div>\n\n\n    <div v-if=\"currentUser.isGuest\" class=\"panel-body u-centralize\">\n      <a v-on:click=\" openModal \">Você precisa estar logado para ver sua localização e o tempo de transporte até o local.</a>\n    </div>\n\n    <div v-if=\"!currentUser.isGuest\">\n      <div v-show=\"isNeighborhoodCountShow\" class=\"SidebarMap-neighborhoodCount panel-body\">\n        <ul class=\"list-group u-margin-0 font-12\">\n          <li class=\"list-item-group\">{{ currentUser.firstName }}, você possui </li>\n        </ul>\n      </div>\n\n      <div v-show=\"isAddressShow\" class=\"SidebarMap-address\">\n        <span><b>{{ data.place.name }}</b><br>{{ data.full_address }}</span>\n      </div>\n\n      <ul v-show=\"isInfoGroupShow\" class=\"SidebarMap-infoGroup\">\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" v-bind:class=\"{ 'isBold': isWalkFriendly }\" title=\"Indo caminhando\"><span> {{ data.distance.walk }} </span> caminhando</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de bicicleta\"><span> {{ data.distance.bike }} </span> pedalando</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de ônibus\"><span> {{ data.distance.bus }} </span> de ônibus</span>\n        </li>\n        <li class=\"SidebarMap-infoList u-lg-size6of12\">\n          <span class=\"SidebarMap-icon\" title=\"Indo de carro\"><span> {{ data.distance.car }} </span> dirigindo</span>\n        </li>\n      </ul>\n    </div>\n\n  </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -634,7 +609,8 @@ var store = new Vuex.Store({
     currentUser: {},
     agendaCounter: 0,
     isItemOver: false,
-    dataItemOver: {}
+    dataItemOver: {},
+    timeoutsItemOver: []
   },
   mutations: {
     updateCurrentUser: function(state, mutation){
@@ -651,6 +627,22 @@ var store = new Vuex.Store({
 
     updateDataItemOver: function(state, mutation){
       state.dataItemOver = mutation
+    },
+
+    updateTimeoutsItemOver: function(state, mutation){
+      state.timeoutsItemOver = mutation
+    },
+
+    addTimeoutsItemOver: function(state, timer){
+      state.timeoutsItemOver.push(timer)
+    },
+
+    stopCountingTimeoutsItemOver: function(state){
+      i = 0;
+      while (i < state.timeoutsItemOver.length) {
+        clearTimeout(state.timeoutsItemOver[i]);
+        i++;
+      }
     }
   }
 })

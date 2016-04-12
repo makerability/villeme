@@ -116,30 +116,18 @@ export default{
 
   methods: {
     mouseEnterEvents: function(event){
-      this.$dispatch('setCounter');
+      store.dispatch('stopCountingTimeoutsItemOver');
       store.dispatch('updateItemOver', true);
       store.dispatch('updateDataItemOver', this.data);
-      // this.$dispatch('stopCounting'),
-      //
-      // function _showElements(){
-      //   Villeme.Observer.trigger('itemMouseOver', this);
-      // }
     },
 
     mouseLeaveEvents: function(event){
-      store.dispatch('updateItemOver', false);
-      store.dispatch('updateDataItemOver', {});
-      // var delay = 4000;
-      //
-      // _startCounter();
-      //
-      // function _startCounter(){
-      //   section.timeouts.push(setTimeout(_hideInfoGroup, delay));
-      // }
-      //
-      // function _hideInfoGroup(){
-      //   Villeme.Observer.trigger('itemMouseLeave', item);
-      // }
+      var timer = setTimeout(function(){
+                    store.dispatch('updateItemOver', false);
+                    store.dispatch('updateDataItemOver', {});
+                  }, 4000);
+
+      store.dispatch('addTimeoutsItemOver', timer);
     },
 
 
