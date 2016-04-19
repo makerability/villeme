@@ -1,5 +1,4 @@
 #= require gmap3
-#= require gmaps-builder-user
 #= require bLazy/blazy
 
 @Villeme = @Villeme or {}
@@ -10,7 +9,7 @@ Villeme.Newsfeed = ( ->
     $(document).on 'ready page:done', ->
       fixSidebarOnScroll()
       fixMapOnScroll()
-      initGoogleMaps()
+#      initGoogleMaps()
       return
 
     saveScrollToReturnAfterAjax()

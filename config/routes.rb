@@ -23,6 +23,8 @@ CidadeVc::Application.routes.draw do
     namespace :api, constraints: { format: :json } do
       namespace :v1 do
         get 'sections/:city/items', to: 'sections#items'
+        get 'sections/:city/today', to: 'sections#today'
+        get 'maps/:city', to: 'maps#city'
       end
     end
 

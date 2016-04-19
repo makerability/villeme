@@ -9,7 +9,8 @@ var store = new Vuex.Store({
     agendaCounter: 0,
     isItemOver: false,
     dataItemOver: {},
-    timeoutsItemOver: []
+    timeoutsItemOver: [],
+    zoomMap: 13
   },
   mutations: {
     updateCurrentUser: function(state, mutation){
@@ -42,6 +43,10 @@ var store = new Vuex.Store({
         clearTimeout(state.timeoutsItemOver[i]);
         i++;
       }
+    },
+
+    updateZoomMap: function(state, mutation){
+        state.zoomMap = mutation
     }
   }
 })

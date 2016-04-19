@@ -28,25 +28,7 @@ class NewsfeedController < ApplicationController
   end
 
   def city
-    require_relative '../../app/domain/usecases/events/get_events_section'
-    require_relative '../../app/domain/usecases/events/get_activity_section'
-
-    @city = City.find_by(slug: params[:city])
-    @section_items = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user)
-    @section_activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user)
-    @section_items_json = Villeme::UseCases::GetEventsSection.get_all_sections(@city, current_or_guest_user, json: true, upcoming: true)
-    @section_activities_json = Villeme::UseCases::GetActivitiesSection.get_all_sections(@city, current_or_guest_user, json: true)
-    @number_of_events = @section_items[:all].count
-    @message_for_none_events = "Não há eventos no momento em #{@city.name}."
     @feedback = Feedback.new
-
-    # user location
-    gon.latitude = current_or_guest_user.latitude
-    gon.longitude = current_or_guest_user.longitude
-
-    # array with places for map navigator on sidebar
-    gon.events_local_formatted = format_for_map_this(@section_items[:all].concat(@section_activities[:all]))
-
     render :index
   end
 
@@ -56,6 +38,8 @@ class NewsfeedController < ApplicationController
     @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
     @title = "#{get_items_name} acontecendo hoje em #{@city.name}"
     set_items_in_map(current_or_guest_user, @items)
+    @city_ = params[:city]
+    @type_ = "today"
     render :section
   end
 

@@ -96,6 +96,7 @@ export default{
 
   data(){
     return {
+      data: {},
       timeouts: [],
       base_url: window.location.origin
     }
@@ -105,44 +106,68 @@ export default{
     data: {
       default: {},
       type: Object
+    },
+    city: {
+      type: String
+    },
+    type: {
+      type: String
     }
   },
 
   ready: function(){
-    var _self = this;
-
-    var bLazy;
-    setTimeout(function () {
-      blazy(revalidate);
-    }, 600);
-
-    blazy = function(callback){
-      bLazy = new Blazy('');
-      callback();
-    };
-
-    revalidate = function(){
-      setTimeout(function () {
-        bLazy.revalidate();
-      }, 3000);
-    };
-
+    this.fetchData();
+    this.loadImages();
   },
 
   methods: {
-    addTimer(){
-      this.timeouts.push('timer')
+
+    fetchData: function(){
+      var _self = this;
+
+      if(this.data == {}){
+        Vue.http({url: '/pt-BR/api/v1/sections/' + this.city + '/' + this.type + '.json', method: 'GET'}).then(function (response) {
+          var data = response.data;
+          _self.setData(data);
+          _self.setCurrentUser(data.currentUser);
+        }, function (data) {
+          alert("Error")
+        });
+      }
     },
 
-    removeTimer(){
-      this.timeouts.pop()
+    loadImages: function(){
+      var blazy;
+
+      setTimeout(function () {
+        loadBlazy(revalidate);
+      }, 1200);
+
+      loadBlazy = function(callback){
+        blazy = new Blazy('');
+        callback();
+      };
+
+      revalidate = function(){
+        setTimeout(function () {
+          blazy.revalidate();
+        }, 3000);
+      };
     },
 
-    login(){
+    setCurrentUser: function(user){
+      store.dispatch('updateCurrentUser', user)
+    },
+
+    setData: function(data){
+      this.$set('data', data)
+    },
+
+    login: function(){
       Villeme.Ux.loginModal("Você precisa estar logado para criar um evento.");
     },
 
-    saveScroll(){
+    saveScroll: function(){
       window.Villeme.tempScroll = $(window).scrollTop();
     }
   }

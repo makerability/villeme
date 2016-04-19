@@ -18,7 +18,8 @@ exports.default = {
   data: function data() {
     return {
       itemUrl: '#',
-      buttonText: "Agendar"
+      buttonText: "Agendar",
+      zoomTimer: undefined
     };
   },
 
@@ -126,19 +127,19 @@ exports.default = {
     zoomInMap: function zoomInMap() {
       clearInterval(this.zoomTimer);
       this.zoomTimer = setTimeout(function () {
-        Gmaps.zoomTo(15);
+        _store2.default.dispatch('updateZoomMap', 15);
       }, 450);
     },
 
     zoomOutMap: function zoomOutMap() {
       clearInterval(this.zoomTimer);
-      Gmaps.zoomTo(13);
+      _store2.default.dispatch('updateZoomMap', 13);
     }
 
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div v-on:mouseenter=\"mouseEnterEvents\" v-on:mouseleave=\"mouseLeaveEvents\" v-on:click=\"saveScroll\" class=\"Event Event--newsFeed grid Grid-cell u-size4of12 u-lg-size4of12 u-md-size4of12 u-sm-size6of12\">\n\n  <div class=\"Event-buttonsBox item-{{ data.id }}\">\n\n    <span title=\"{{ data.period_that_occurs }}\" class=\"Event-button Event-dayButton Event--newsfeed js-EventDayButton is-schedule has-tooltip\">\n      {{ data.day_of_week }}   {{ data.start_hour }}\n    </span>\n\n    <span v-on:click=\"schedule\" class=\"Event-button Event-agendaButton\" v-bind:class=\"{ 'is-schedule': data.is_agended }\">\n      <span class=\"Event-buttonText js-EventButtonText\">{{ buttonText }}</span>\n      <span class=\"Event-agendedByCount js-agendedByCount has-tooltip\" title=\"{{ data.agended_by.text }}\">{{ data.agended_by.count }}</span>\n    </span>\n\n  </div>\n\n  <div class=\"js-EventNewsfeedTransitions panel panel-default shadow-animation\">\n\n    <div class=\"Event-content\">\n\n      <a href=\"{{ itemUrl }}\" data-push=\"true\">\n        <div class=\"Event-overlay\"></div>\n      </a>\n\n      <div class=\"Event-detailsBox\" v-on:mouseenter=\"zoomInMap\" v-on:mouseleave=\"zoomOutMap\">\n        <div class=\"Event-place\">\n          <span class=\"glyphicon glyphicon-map-marker\"></span>\n          <a href=\"{{ base_url + data.place.link }}\" v-on:click=\"open_place_page\">\n            {{ data.place.name }}\n          </a>\n        </div>\n      </div>\n\n      <div class=\"Event-imageBox b-lazy\" data-src=\"{{ data.image.medium }}\"></div>\n\n      <div class=\"caption\">\n        <span v-if=\"data.subcategories\" class=\"Event-subCat\">\n          {{ data.subcategories }}\n        </span>\n        <h2 class=\"Event-title\">\n          <a href=\"{{ itemUrl }}\" data-push=\"true\">\n            {{ data.name }}\n          </a>\n        </h2>\n        <span class=\"Event-description\">\n          {{ data.description }}\n        </span>\n        <div class=\"Event-infos\">\n          <span class=\"Event-infosPrice  Event-infosItem {{ data.price.highlight }}\">\n            {{ data.price.value }}\n          </span>\n          <span v-if=\"data.rating\" class=\"Event-infosRating Event-infosItem\">\n            <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n            {{ data.rating }}\n          </span>\n          <span v-if=\"data.friends.someone_will\" class=\"Event-infosFriends Event-infosItem\">\n            <div v-for=\"friend in data.friends.will\">\n              <i class=\"has-tooltip avatar-icon\" title=\"{{ friend.name }}  agendou o evento\">\n                <img src=\"{{ friend.avatar.url + friend.avatar.origin == 'facebook' ? '&amp;width=22&amp;height=22' : '' }}\" class=\"img-circle image\" width=\"22\" height=\"22\">\n              </i>\n            </div>\n          </span>\n\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div v-on:mouseenter=\"mouseEnterEvents\" v-on:mouseleave=\"mouseLeaveEvents\" v-on:click=\"saveScroll\" class=\"Event Event--newsFeed grid Grid-cell u-size4of12 u-lg-size4of12 u-md-size4of12 u-sm-size6of12\">\n\n  <div class=\"Event-buttonsBox item-{{ data.id }}\">\n\n    <span title=\"{{ data.period_that_occurs }}\" class=\"Event-button Event-dayButton Event--newsfeed js-EventDayButton is-schedule has-tooltip\">\n      {{ data.day_of_week }}   {{ data.start_hour }}\n    </span>\n\n    <span v-on:click=\"schedule\" class=\"Event-button Event-agendaButton\" v-bind:class=\"{ 'is-schedule': data.is_agended }\">\n      <span class=\"Event-buttonText js-EventButtonText\">{{ buttonText }}</span>\n      <span class=\"Event-agendedByCount js-agendedByCount has-tooltip\" title=\"{{ data.agended_by.text }}\">{{ data.agended_by.count }}</span>\n    </span>\n\n  </div>\n\n  <div class=\"js-EventNewsfeedTransitions panel panel-default shadow-animation\">\n\n    <div class=\"Event-content\">\n\n      <a href=\"{{ itemUrl }}\">\n        <div class=\"Event-overlay\"></div>\n      </a>\n\n      <div class=\"Event-detailsBox\" v-on:mouseenter=\"zoomInMap\" v-on:mouseleave=\"zoomOutMap\">\n        <div class=\"Event-place\">\n          <span class=\"glyphicon glyphicon-map-marker\"></span>\n          <a href=\"{{ base_url + data.place.link }}\" v-on:click=\"open_place_page\">\n            {{ data.place.name }}\n          </a>\n        </div>\n      </div>\n\n      <div class=\"Event-imageBox b-lazy\" data-src=\"{{ data.image.medium }}\"></div>\n\n      <div class=\"caption\">\n        <span v-if=\"data.subcategories\" class=\"Event-subCat\">\n          {{ data.subcategories }}\n        </span>\n        <h2 class=\"Event-title\">\n          <a href=\"{{ itemUrl }}\" data-push=\"true\">\n            {{ data.name }}\n          </a>\n        </h2>\n        <span class=\"Event-description\">\n          {{ data.description }}\n        </span>\n        <div class=\"Event-infos\">\n          <span class=\"Event-infosPrice  Event-infosItem {{ data.price.highlight }}\">\n            {{ data.price.value }}\n          </span>\n          <span v-if=\"data.rating\" class=\"Event-infosRating Event-infosItem\">\n            <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n            {{ data.rating }}\n          </span>\n          <span v-if=\"data.friends.someone_will\" class=\"Event-infosFriends Event-infosItem\">\n            <div v-for=\"friend in data.friends.will\">\n              <i class=\"has-tooltip avatar-icon\" title=\"{{ friend.name }}  agendou o evento\">\n                <img src=\"{{ friend.avatar.url + friend.avatar.origin == 'facebook' ? '&amp;width=22&amp;height=22' : '' }}\" class=\"img-circle image\" width=\"22\" height=\"22\">\n              </i>\n            </div>\n          </span>\n\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -154,7 +155,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],2:[function(require,module,exports){
+},{"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],2:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -175,6 +176,7 @@ exports.default = {
 
   data: function data() {
     return {
+      data: {},
       timeouts: [],
       base_url: window.location.origin
     };
@@ -185,39 +187,67 @@ exports.default = {
     data: {
       default: {},
       type: Object
+    },
+    city: {
+      type: String
+    },
+    type: {
+      type: String
     }
   },
 
   ready: function ready() {
-    var _self = this;
-
-    var bLazy;
-    setTimeout(function () {
-      blazy(revalidate);
-    }, 600);
-
-    blazy = function blazy(callback) {
-      bLazy = new Blazy('');
-      callback();
-    };
-
-    revalidate = function revalidate() {
-      setTimeout(function () {
-        bLazy.revalidate();
-      }, 3000);
-    };
+    this.fetchData();
+    this.loadImages();
   },
 
   methods: {
-    addTimer: function addTimer() {
-      this.timeouts.push('timer');
+
+    fetchData: function fetchData() {
+      var _self = this;
+
+      if (this.city !== undefined) {
+        Vue.http({ url: '/pt-BR/api/v1/sections/' + this.city + '/' + this.type + '.json', method: 'GET' }).then(function (response) {
+          var data = response.data;
+          _self.setData(data);
+          _self.setCurrentUser(data.currentUser);
+        }, function (data) {
+          alert("Error");
+        });
+      }
     },
-    removeTimer: function removeTimer() {
-      this.timeouts.pop();
+
+    loadImages: function loadImages() {
+      var blazy;
+
+      setTimeout(function () {
+        loadBlazy(revalidate);
+      }, 1200);
+
+      loadBlazy = function loadBlazy(callback) {
+        blazy = new Blazy('');
+        callback();
+      };
+
+      revalidate = function revalidate() {
+        setTimeout(function () {
+          blazy.revalidate();
+        }, 3000);
+      };
     },
+
+    setCurrentUser: function setCurrentUser(user) {
+      store.dispatch('updateCurrentUser', user);
+    },
+
+    setData: function setData(data) {
+      this.$set('data', data);
+    },
+
     login: function login() {
       Villeme.Ux.loginModal("Você precisa estar logado para criar um evento.");
     },
+
     saveScroll: function saveScroll() {
       window.Villeme.tempScroll = $(window).scrollTop();
     }
@@ -240,7 +270,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./item.vue":1,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],3:[function(require,module,exports){
+},{"./item.vue":1,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],3:[function(require,module,exports){
 var Vue = require('vue');
 var Newsfeed = require('./newsfeed.vue');
 var SidebarLeft = require('./sidebar-left.vue');
@@ -265,7 +295,7 @@ new Vue({
     }
 });
 
-},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"./sidebar-map.vue":6,"vue":33}],4:[function(require,module,exports){
+},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"./sidebar-map.vue":6,"vue":34}],4:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -291,8 +321,7 @@ exports.default = {
 
   data: function data() {
     return {
-      data: {},
-      timeouts: []
+      data: {}
     };
   },
 
@@ -339,7 +368,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./items-section.vue":2,"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],5:[function(require,module,exports){
+},{"./items-section.vue":2,"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],5:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("/* COLORS ------------------------*/\n/* vermelho */\n/* azul */\n/* verde */\n/* cinza */\n/* laranja */\n/* amarelo */\n/* roxo */\n/* branco */\n/* TEXTS ----------------------------------------*/\n/* texto de destaque e de identidade visual */\n/* texto para leitura */\n/* cor para texto de leitura */\n/* tamanho para leitura */\n/* TRANSITION -----------------------*/\n/* SHAPE --------------------------- */\n/* line 70, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.radius {\n  border-radius: 10px; }\n\n/* line 74, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.btn-radius {\n  border-radius: 6px; }\n\n/* line 78, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.circle {\n  border-radius: 100%; }\n\n/* MEDIA QUERIES -------------------- */\n/* line 5, stdin */\n.SidebarLeft {\n  padding-top: 25px;\n  position: relative; }\n  /* line 9, stdin */\n  .SidebarLeft-section {\n    padding: 0 0 25px 0; }\n  /* line 13, stdin */\n  .SidebarLeft-agendaLink {\n    border: 1px solid rgba(0, 0, 0, 0.1);\n    border-radius: 25px;\n    -webkit-transition: all 0.4s ease 0s;\n    transition: all 0.4s ease 0s; }\n    /* line 18, stdin */\n    .SidebarLeft-agendaLink.is-adding {\n      position: relative;\n      background: #ade6bd;\n      border-color: #83da9d; }\n    /* line 24, stdin */\n    .SidebarLeft-agendaLink.is-removing {\n      position: relative;\n      background: rgba(0, 0, 0, 0.1); }\n  /* line 30, stdin */\n  .SidebarLeft-nav {\n    padding: 0;\n    margin: 0;\n    list-style: none; }\n    /* line 35, stdin */\n    .SidebarLeft-nav li {\n      color: #3B5450;\n      font-family: \"Roboto\", helvetica, arial, sans-serif;\n      font-weight: 400;\n      font-size: 14px;\n      padding: 8px 2px 4px 0; }\n      /* line 42, stdin */\n      .SidebarLeft-nav li .badge {\n        background: transparent none repeat scroll 0 0;\n        color: #a8b3b2;\n        display: none;\n        font-family: Helvetica, arial, sans-serif;\n        font-size: 10px;\n        margin-left: 8px;\n        min-width: 17px;\n        padding: 4px 4.5px;\n        position: relative;\n        right: 5px;\n        top: -2px;\n        vertical-align: inherit; }\n        /* line 56, stdin */\n        .SidebarLeft-nav li .badge.is-show {\n          display: inline-block; }\n      /* line 61, stdin */\n      .SidebarLeft-nav li .active {\n        color: #ffffff;\n        background: #5476e9; }\n      /* line 66, stdin */\n      .SidebarLeft-nav li a {\n        padding: 0 10px;\n        color: #597f79;\n        margin: 0;\n        width: 170px; }\n        /* line 72, stdin */\n        .SidebarLeft-nav li a:hover {\n          cursor: pointer; }\n        /* line 76, stdin */\n        .SidebarLeft-nav li a.is-active {\n          color: #38ba5e;\n          font-size: 16px;\n          font-weight: 600;\n          -webkit-transition: all 0.2s ease 0s;\n          transition: all 0.2s ease 0s; }\n        /* line 83, stdin */\n        .SidebarLeft-nav li a .glyphicon {\n          margin: 0 6px 0 0; }\n      /* line 90, stdin */\n      .SidebarLeft-nav li.active a {\n        background: none;\n        color: #38ba5e;\n        margin-right: -1px;\n        font-weight: 500; }\n        /* line 96, stdin */\n        .SidebarLeft-nav li.active a .badge {\n          background: #e9f0ef;\n          color: #38ba5e;\n          border: 1px solid #38ba5e;\n          font-family: Helvetica,arial;\n          font-size: 9px; }\n      /* line 106, stdin */\n      .SidebarLeft-nav li .glyphicon {\n        font-size: 12px;\n        margin: 0 8px 0 0; }\n  /* line 115, stdin */\n  .SidebarLeft ul > li {\n    display: table;\n    height: 32px; }\n  /* line 120, stdin */\n  .SidebarLeft ul > li > a:hover {\n    background: transparent; }\n  /* line 124, stdin */\n  .SidebarLeft ul .sub-nav {\n    margin: 0 0 0 20px; }\n  /* line 128, stdin */\n  .SidebarLeft li.divider {\n    border-top: 1px solid #dce6e4;\n    height: 0;\n    margin: 3px 0;\n    min-height: 0; }\n  /* line 135, stdin */\n  .SidebarLeft--fixed {\n    width: 200px;\n    height: 100%;\n    position: fixed;\n    left: 0;\n    top: 0;\n    background: #3B5450;\n    z-index: 110;\n    padding: 25px 0 0 12px; }\n\n@media (max-width: 1200px) {\n  /* line 148, stdin */\n  :scope {\n    display: none; } }\n")
 'use strict';
 
@@ -490,7 +519,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],6:[function(require,module,exports){
+},{"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],6:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n.isBold{\n  font-weight: bold;\n}\n")
 'use strict';
 
@@ -502,17 +531,32 @@ var _store = require('./vuex/store');
 
 var _store2 = _interopRequireDefault(_store);
 
+var _gmaps = require('../modules/gmaps.js');
+
+var _gmaps2 = _interopRequireDefault(_gmaps);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
 exports.default = {
   data: function data() {
-    return {};
+    return {
+      map: undefined
+    };
   },
 
 
-  ready: function ready() {},
+  props: {
+    city: {
+      default: undefined,
+      type: String
+    }
+  },
+
+  ready: function ready() {
+    this.fetchData();
+  },
 
   computed: {
     data: function data() {
@@ -521,6 +565,10 @@ exports.default = {
 
     currentUser: function currentUser() {
       return _store2.default.state.currentUser;
+    },
+
+    zoomMap: function zoomMap() {
+      return _store2.default.state.zoomMap;
     },
 
     isWalkFriendly: function isWalkFriendly() {
@@ -557,9 +605,26 @@ exports.default = {
     }
   },
 
-  events: {},
+  watch: {
+    'zoomMap': function zoomMap() {
+      this.map.zoomTo(this.zoomMap);
+    }
+  },
 
   methods: {
+
+    fetchData: function fetchData() {
+      var _self = this;
+
+      if (this.map == undefined) {
+        Vue.http({ url: '/pt-BR/api/v1/maps/' + this.city + '.json', method: 'GET' }).then(function (response) {
+          var data = response.data;
+          _self.map = new _gmaps2.default(data.current_user.latitude, data.current_user.longitude, data.markers);
+        }, function (data) {
+          alert("Error");
+        });
+      }
+    },
 
     stopTimeoutsItemOver: function stopTimeoutsItemOver() {
       _store2.default.dispatch('stopCountingTimeoutsItemOver');
@@ -598,7 +663,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":7,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],7:[function(require,module,exports){
+},{"../modules/gmaps.js":8,"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],7:[function(require,module,exports){
 var Vue = require('vue');
 var Vuex = require('vuex');
 
@@ -610,7 +675,8 @@ var store = new Vuex.Store({
     agendaCounter: 0,
     isItemOver: false,
     dataItemOver: {},
-    timeoutsItemOver: []
+    timeoutsItemOver: [],
+    zoomMap: 13
   },
   mutations: {
     updateCurrentUser: function(state, mutation){
@@ -643,13 +709,293 @@ var store = new Vuex.Store({
         clearTimeout(state.timeoutsItemOver[i]);
         i++;
       }
+    },
+
+    updateZoomMap: function(state, mutation){
+        state.zoomMap = mutation
     }
   }
 })
 
 module.exports = store;
 
-},{"vue":33,"vuex":35}],8:[function(require,module,exports){
+},{"vue":34,"vuex":36}],8:[function(require,module,exports){
+
+var Gmaps = function Gmaps(latitude, longitude, markers) {
+    if(latitude == undefined || longitude == undefined || markers == undefined){
+        return console.log("Error: Gmaps module without params")
+    }
+
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.newMap(markers);
+    this.init();
+};
+Gmaps.prototype.init = function() {
+    Gmaps.buttonToGetLocation();
+    Gmaps.inputToGetLocationOnKeyup();
+};
+Gmaps.prototype.newMap = function(markers) {
+    var style;
+    style = [
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "lightness": 100
+                }, {
+                    "visibility": "simplified"
+                }
+            ]
+        }, {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "visibility": "on"
+                }, {
+                    "color": "#d6defa"
+                }
+            ]
+        }, {
+            "featureType": "poi.business",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        }, {
+            "featureType": "poi",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#dff5e6"
+                }
+            ]
+        }, {
+            "featureType": "road",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#D1D1B8"
+                }
+            ]
+        }, {
+            "featureType": "landscape",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#ffffff"
+                }
+            ]
+        }
+    ];
+    Gmaps.showMapCanvasIfHidden();
+    $("#map").gmap3({
+        map: {
+            options: {
+                center: [this.latitude, this.longitude],
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                },
+                navigationControl: false,
+                scrollwheel: true,
+                streetViewControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL,
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                styles: style
+            }
+        },
+        marker: {
+            values: markers,
+            options: {
+                draggable: false
+            },
+            events: {
+                dragend: function(marker) {
+                    $(this).gmap3({
+                        getaddress: {
+                            latLng: marker.getPosition(),
+                            callback: function(results) {
+                                var content, infowindow, latLng, map;
+                                map = $(this).gmap3("get");
+                                infowindow = $(this).gmap3({
+                                    get: "infowindow"
+                                });
+                                $.each(results[0].address_components, function(x, y) {
+                                    $.each(this, function(name, value) {
+                                        var address;
+                                        if (value[0] === "route") {
+                                            address = y.long_name;
+                                            $("#event_address, #event_place_attributes_address, #address").val(address);
+                                        } else if (value[0] === "street_number") {
+                                            this.number = y.long_name;
+                                            $("#number, #place-number").val(this.number);
+                                        } else if (value[0] === "neighborhood") {
+                                            this.neighborhood = y.long_name;
+                                            $("#neighborhood, #neighborhood-place, #neighborhood-name").val(this.neighborhood);
+                                        }
+                                    });
+                                });
+                                content = (results && results[0] ? "Endereço encontrado!" : "Endereço não encontrado");
+                                if (infowindow) {
+                                    infowindow.open(map, marker);
+                                    infowindow.setContent(content);
+                                } else {
+                                    $(this).gmap3({
+                                        infowindow: {
+                                            anchor: marker,
+                                            options: {
+                                                content: content
+                                            }
+                                        }
+                                    });
+                                }
+                                map = $(this).gmap3("get");
+                                google.maps.event.trigger(map, 'resize');
+                                latLng = results[0].geometry.location;
+                                map.panTo(latLng);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    });
+};
+Gmaps.panTo = function(latitude, longitude) {
+    var latLng, map;
+    latLng = new google.maps.LatLng(latitude, longitude);
+    map = $("#map").gmap3("get");
+    map.panTo(latLng);
+};
+Gmaps.prototype.zoomTo = function(zoom) {
+    var map;
+    map = $("#map").gmap3("get");
+    map.setZoom(zoom);
+};
+Gmaps.centerTo = function(latitude, longitude) {
+    var latLng, map;
+    latLng = new google.maps.LatLng(latitude, longitude);
+    map = $("#map").gmap3("get");
+    map.setCenter(latLng);
+};
+Gmaps.clearMarker = function() {
+    $('#map').gmap3({
+        clear: {
+            name: "marker"
+        }
+    });
+};
+Gmaps.getLocationFromAddress = function(address) {
+    $("#map").gmap3({
+        clear: {
+            name: "marker"
+        },
+        getlatlng: {
+            address: address,
+            callback: function(results) {
+                var latLng, map;
+                if (!results) {
+                    $(".address-place-inputs").css("border-color", "#A94442");
+                    alert("Endereço não encontrado. Tente buscar outro.");
+                } else {
+                    $(".address-place-inputs").css("border-color", "#5fcf80");
+                    $(this).gmap3({
+                        marker: {
+                            latLng: results[0].geometry.location,
+                            options: {
+                                draggable: true,
+                                icon: "/images/marker-default.png"
+                            },
+                            events: {
+                                dragend: function(marker) {
+                                    $(this).gmap3({
+                                        getaddress: {
+                                            latLng: marker.getPosition(),
+                                            callback: function(results) {
+                                                var content, infowindow, latLng, map;
+                                                map = $(this).gmap3("get");
+                                                infowindow = $(this).gmap3({
+                                                    get: "infowindow"
+                                                });
+                                                content = (results && results[0] ? results && results[0].formatted_address : "no address");
+                                                if (infowindow) {
+                                                    $('#address').val(content);
+                                                    infowindow.open(map, marker);
+                                                    infowindow.setContent(content);
+                                                } else {
+                                                    $('#address').val(content);
+                                                    $(this).gmap3({
+                                                        infowindow: {
+                                                            anchor: marker,
+                                                            options: {
+                                                                content: content
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                map = $(this).gmap3("get");
+                                                latLng = results[0].geometry.location;
+                                                map.panTo(latLng);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                    map = $(this).gmap3("get");
+                    latLng = results[0].geometry.location;
+                    map.panTo(latLng);
+                }
+            }
+        }
+    });
+};
+Gmaps.buttonToGetLocation = function() {
+    $('.btn-geocoder-address-for-map').click(function() {
+        var address;
+        address = $('.input-address-search').val();
+        this.getLocationFromAddress(address);
+    });
+};
+Gmaps.inputToGetLocationOnKeyup = function() {
+    var delay;
+    $('#address').keyup(function() {
+        var address;
+        address = this.value;
+        if (address.length > 5) {
+            delay(function() {
+                this.getLocationFromAddress(address);
+            }, 900);
+        }
+    });
+    delay = (function() {
+        var timer;
+        timer = 0;
+        return function(callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+};
+Gmaps.showMapCanvasIfHidden = function() {
+    if ($('#map').css('display') === 'none') {
+        $('#map').show();
+    }
+};
+
+module.exports = Gmaps;
+
+},{}],9:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -949,7 +1295,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * Before Interceptor.
  */
@@ -969,7 +1315,7 @@ module.exports = {
 
 };
 
-},{"../util":32}],10:[function(require,module,exports){
+},{"../util":33}],11:[function(require,module,exports){
 /**
  * Base client.
  */
@@ -1036,7 +1382,7 @@ function parseHeaders(str) {
     return headers;
 }
 
-},{"../../promise":25,"../../util":32,"./xhr":13}],11:[function(require,module,exports){
+},{"../../promise":26,"../../util":33,"./xhr":14}],12:[function(require,module,exports){
 /**
  * JSONP client.
  */
@@ -1086,7 +1432,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":25,"../../util":32}],12:[function(require,module,exports){
+},{"../../promise":26,"../../util":33}],13:[function(require,module,exports){
 /**
  * XDomain client (Internet Explorer).
  */
@@ -1125,7 +1471,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":25,"../../util":32}],13:[function(require,module,exports){
+},{"../../promise":26,"../../util":33}],14:[function(require,module,exports){
 /**
  * XMLHttp client.
  */
@@ -1177,7 +1523,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":25,"../../util":32}],14:[function(require,module,exports){
+},{"../../promise":26,"../../util":33}],15:[function(require,module,exports){
 /**
  * CORS Interceptor.
  */
@@ -1216,7 +1562,7 @@ function crossOrigin(request) {
     return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
 }
 
-},{"../util":32,"./client/xdr":12}],15:[function(require,module,exports){
+},{"../util":33,"./client/xdr":13}],16:[function(require,module,exports){
 /**
  * Header Interceptor.
  */
@@ -1244,7 +1590,7 @@ module.exports = {
 
 };
 
-},{"../util":32}],16:[function(require,module,exports){
+},{"../util":33}],17:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -1344,7 +1690,7 @@ Http.headers = {
 
 module.exports = _.http = Http;
 
-},{"../promise":25,"../util":32,"./before":9,"./client":10,"./cors":14,"./header":15,"./interceptor":17,"./jsonp":18,"./method":19,"./mime":20,"./timeout":21}],17:[function(require,module,exports){
+},{"../promise":26,"../util":33,"./before":10,"./client":11,"./cors":15,"./header":16,"./interceptor":18,"./jsonp":19,"./method":20,"./mime":21,"./timeout":22}],18:[function(require,module,exports){
 /**
  * Interceptor factory.
  */
@@ -1391,7 +1737,7 @@ function when(value, fulfilled, rejected) {
     return promise.then(fulfilled, rejected);
 }
 
-},{"../promise":25,"../util":32}],18:[function(require,module,exports){
+},{"../promise":26,"../util":33}],19:[function(require,module,exports){
 /**
  * JSONP Interceptor.
  */
@@ -1411,7 +1757,7 @@ module.exports = {
 
 };
 
-},{"./client/jsonp":11}],19:[function(require,module,exports){
+},{"./client/jsonp":12}],20:[function(require,module,exports){
 /**
  * HTTP method override Interceptor.
  */
@@ -1430,7 +1776,7 @@ module.exports = {
 
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * Mime Interceptor.
  */
@@ -1468,7 +1814,7 @@ module.exports = {
 
 };
 
-},{"../util":32}],21:[function(require,module,exports){
+},{"../util":33}],22:[function(require,module,exports){
 /**
  * Timeout Interceptor.
  */
@@ -1500,7 +1846,7 @@ module.exports = function () {
     };
 };
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -1555,7 +1901,7 @@ if (window.Vue) {
 
 module.exports = install;
 
-},{"./http":16,"./promise":25,"./resource":26,"./url":27,"./util":32}],23:[function(require,module,exports){
+},{"./http":17,"./promise":26,"./resource":27,"./url":28,"./util":33}],24:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -1736,7 +2082,7 @@ p.catch = function (onRejected) {
 
 module.exports = Promise;
 
-},{"../util":32}],24:[function(require,module,exports){
+},{"../util":33}],25:[function(require,module,exports){
 /**
  * URL Template v2.0.6 (https://github.com/bramstein/url-template)
  */
@@ -1888,7 +2234,7 @@ exports.encodeReserved = function (str) {
     }).join('');
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /**
  * Promise adapter.
  */
@@ -1999,7 +2345,7 @@ p.always = function (callback) {
 
 module.exports = Promise;
 
-},{"./lib/promise":23,"./util":32}],26:[function(require,module,exports){
+},{"./lib/promise":24,"./util":33}],27:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -2111,7 +2457,7 @@ Resource.actions = {
 
 module.exports = _.resource = Resource;
 
-},{"./util":32}],27:[function(require,module,exports){
+},{"./util":33}],28:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -2243,7 +2589,7 @@ function serialize(params, obj, scope) {
 
 module.exports = _.url = Url;
 
-},{"../util":32,"./legacy":28,"./query":29,"./root":30,"./template":31}],28:[function(require,module,exports){
+},{"../util":33,"./legacy":29,"./query":30,"./root":31,"./template":32}],29:[function(require,module,exports){
 /**
  * Legacy Transform.
  */
@@ -2291,7 +2637,7 @@ function encodeUriQuery(value, spaces) {
         replace(/%20/g, (spaces ? '%20' : '+'));
 }
 
-},{"../util":32}],29:[function(require,module,exports){
+},{"../util":33}],30:[function(require,module,exports){
 /**
  * Query Parameter Transform.
  */
@@ -2317,7 +2663,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":32}],30:[function(require,module,exports){
+},{"../util":33}],31:[function(require,module,exports){
 /**
  * Root Prefix Transform.
  */
@@ -2335,7 +2681,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":32}],31:[function(require,module,exports){
+},{"../util":33}],32:[function(require,module,exports){
 /**
  * URL Template (RFC 6570) Transform.
  */
@@ -2353,7 +2699,7 @@ module.exports = function (options) {
     return url;
 };
 
-},{"../lib/url-template":24}],32:[function(require,module,exports){
+},{"../lib/url-template":25}],33:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -2477,7 +2823,7 @@ function merge(target, source, deep) {
     }
 }
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.20
@@ -12301,7 +12647,7 @@ if (config.devtools) {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":36}],34:[function(require,module,exports){
+},{"_process":37}],35:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -12321,7 +12667,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * Vuex v0.6.2
  * (c) 2016 Evan You
@@ -12898,7 +13244,7 @@ exports.insert = function (css) {
   return index;
 
 }));
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

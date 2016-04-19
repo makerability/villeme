@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div id="main-content" class="Main ps-container">
-        <items-section id="section"></items-section>
+        <items-section city="<%= @city_ %>" type="<%= @type_ %>"></items-section>
       </div>
     </div>
   </div>
@@ -35,16 +35,4 @@
 
 <%= javascript_load_dependencies([params[:controller]]) %>
 
-<%= mount_riot_components do %>
-    <script type="text/javascript">
-        $(document).on('ready page:done onpopstate', function(){
-            riot.mount('#section', {
-                data: {
-                    title: "<%= @title %>",
-                    items: <%= raw @items_json.to_json %>,
-                    count: <%= @items_json.count %>
-                }
-            })
-        })
-    </script>
-<% end %>
+<%= javascript_include_tag 'components/newsfeed-build.js' %>

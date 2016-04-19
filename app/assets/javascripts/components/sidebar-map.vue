@@ -53,17 +53,27 @@
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
-import store from './vuex/store'
+import store from './vuex/store';
+import Gmaps from '../modules/gmaps.js';
+
+
 
 export default{
   data(){
     return {
+      map: undefined
+    }
+  },
 
+  props: {
+    city: {
+      default: undefined,
+      type: String
     }
   },
 
   ready: function(){
-
+    this.fetchData();
   },
 
   computed: {
@@ -73,6 +83,10 @@ export default{
 
     currentUser: function(){
       return store.state.currentUser
+    },
+
+    zoomMap: function(){
+      return store.state.zoomMap
     },
 
     isWalkFriendly: function(){
@@ -109,11 +123,26 @@ export default{
     }
   },
 
-  events: {
-
+  watch: {
+    'zoomMap': function(){
+       this.map.zoomTo(this.zoomMap)
+    }
   },
 
   methods: {
+
+    fetchData: function(){
+      var _self = this;
+
+      if(this.map == undefined){
+        Vue.http({url: '/pt-BR/api/v1/maps/' + this.city + '.json', method: 'GET'}).then(function (response) {
+          var data = response.data;
+          _self.map = new Gmaps(data.current_user.latitude, data.current_user.longitude, data.markers);
+        }, function (data) {
+          alert("Error")
+        });
+      }
+    },
 
     stopTimeoutsItemOver: function(){
       store.dispatch('stopCountingTimeoutsItemOver');

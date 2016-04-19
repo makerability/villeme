@@ -23,7 +23,7 @@
 
       <div class="Event-content">
 
-        <a href="{{ itemUrl }}" data-push="true">
+        <a href="{{ itemUrl }}" >
           <div class="Event-overlay"></div>
         </a>
 
@@ -85,7 +85,8 @@ export default{
   data(){
     return {
       itemUrl: '#',
-      buttonText: "Agendar"
+      buttonText: "Agendar",
+      zoomTimer: undefined
     }
   },
 
@@ -195,13 +196,13 @@ export default{
     zoomInMap: function(){
       clearInterval(this.zoomTimer);
       this.zoomTimer = setTimeout(function(){
-        Gmaps.zoomTo(15);
+        store.dispatch('updateZoomMap', 15)
       }, 450);
     },
 
     zoomOutMap: function(){
       clearInterval(this.zoomTimer);
-      Gmaps.zoomTo(13)
+      store.dispatch('updateZoomMap', 13)
     }
 
   }
