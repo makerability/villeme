@@ -1,6 +1,6 @@
 module Villeme
   module NewsfeedModule
-    module Today
+    module Events
       class << self
 
         def get_events_today(city = false, options = {user: nil, json: false, limit: nil})
@@ -34,7 +34,7 @@ module Villeme
           if @city
             Rails.application.routes.url_helpers.newsfeed_city_today_path(
                 city: @city,
-                type: 'Event'
+                resource: 'events'
               )
           else
             nil

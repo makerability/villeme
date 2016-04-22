@@ -11,7 +11,9 @@
   <div class="row">
     <div class="col-lg-12">
       <div id="main-content" class="Main ps-container">
-        <items-section city="<%= @city_ %>" type="<%= @type_ %>"></items-section>
+        <items-section resource="<%= @resource %>"
+                       city="<%= @city %>"
+                       action="<%= @action %>"></items-section>
       </div>
     </div>
   </div>
@@ -21,7 +23,7 @@
 <!-- SIDEBAR -->
 
 <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs u-margin-95-0">
-  <%= render 'sidebar' %>
+  <sidebar-map city="<%= params[:city] %>"></sidebar-map>
 </div>
 
 
@@ -33,6 +35,5 @@
 
 <%= include_gon %>
 
+<%= javascript_load_content 'components/newsfeed-build.js' %>
 <%= javascript_load_dependencies([params[:controller]]) %>
-
-<%= javascript_include_tag 'components/newsfeed-build.js' %>

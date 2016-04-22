@@ -17,11 +17,11 @@ class Persona < ActiveRecord::Base
 	end
 
 	def self.get_names(personas)
-		personas.pluck(:name)
+		personas.joins(:translations).pluck('persona_translations.name')
 	end
 
 	def self.to_query(personas)
-		"persona=#{personas.pluck(:name).join('+')}"
+		"persona=#{personas.joins(:translations).pluck('persona_translations.name').join('+')}"
 	end
 
 	def self.query_to_array(personas_query)

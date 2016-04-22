@@ -255,10 +255,16 @@ export default{
     }
   },
 
+  props: {
+    city: {
+      type: String
+    }
+  },
+
   ready: function(){
     var _self = this;
 
-    Vue.http({url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET'}).then(function (response) {
+    Vue.http({url: '/pt-BR/api/v1/sections/items/' + this.city + '.json', method: 'GET'}).then(function (response) {
       _self.$set('data', response.data);
       _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
       store.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320183859) do
+ActiveRecord::Schema.define(version: 20160422142950) do
 
   create_table "agenda_items", force: :cascade do |t|
     t.integer  "item_id"
@@ -369,7 +369,6 @@ ActiveRecord::Schema.define(version: 20160320183859) do
   add_index "persona_translations", ["persona_id"], name: "index_persona_translations_on_persona_id"
 
   create_table "personas", force: :cascade do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

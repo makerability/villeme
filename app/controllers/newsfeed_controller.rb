@@ -28,18 +28,18 @@ class NewsfeedController < ApplicationController
   end
 
   def city
+    @resource = 'items'
+    @city = params[:city]
+    @action = ''
     @feedback = Feedback.new
     render :index
   end
 
   def today
-    @city = City.find_by(slug: params[:city])
-    @items = get_item_class.all_today(@city)
-    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
-    @title = "#{get_items_name} acontecendo hoje em #{@city.name}"
-    set_items_in_map(current_or_guest_user, @items)
-    @city_ = params[:city]
-    @type_ = "today"
+    @resource = params[:resource]
+    @city = params[:city]
+    @action = 'today'
+    @feedback = Feedback.new
     render :section
   end
 
@@ -91,6 +91,16 @@ class NewsfeedController < ApplicationController
 
   def set_event
     @event = Event.find(params[:id])
+  end
+
+  def get_resource
+    if params[:type] == 'Event'
+      'events'
+    elsif params[:type] == 'Activity'
+      'activities'
+    else
+      'items'
+    end
   end
 
   def get_item_class(options = {text: false})

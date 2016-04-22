@@ -67,8 +67,22 @@ export default{
 
   props: {
     city: {
-      default: undefined,
+      type: String,
+      required: true
+    },
+
+    action: {
+      default: '',
       type: String
+    },
+
+    type: {
+      type: String
+    },
+
+    resource: {
+      type: String,
+      default: 'items'
     }
   },
 
@@ -77,8 +91,17 @@ export default{
   },
 
   computed: {
+
     data: function(){
       return store.state.dataItemOver
+    },
+
+    getAction: function(){
+      if(this.action != ''){
+        return '/' + this.action
+      }else{
+        return ''
+      }
     },
 
     currentUser: function(){
@@ -135,7 +158,7 @@ export default{
       var _self = this;
 
       if(this.map == undefined){
-        Vue.http({url: '/pt-BR/api/v1/maps/' + this.city + '.json', method: 'GET'}).then(function (response) {
+        Vue.http({url: '/pt-BR/api/v1/geolocations/' + _self.resource + '/' + _self.city + _self.getAction + '.json', method: 'GET'}).then(function (response) {
           var data = response.data;
           _self.map = new Gmaps(data.current_user.latitude, data.current_user.longitude, data.markers);
         }, function (data) {

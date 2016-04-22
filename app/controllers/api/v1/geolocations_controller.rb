@@ -1,16 +1,46 @@
-class Api::V1::MapsController < Api::V1::ApiController
+class Api::V1::GeolocationsController < Api::V1::ApiController
 
   require_relative '../../../domain/usecases/events/get_events_section'
   require_relative '../../../domain/usecases/events/get_activity_section'
+  require_relative '../../../domain/newsfeed/get_events_today'
 
-  def city
+  def all
     city = City.find_by(slug: params[:city])
     section_items = Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, upcoming: true)
     section_activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(city, current_or_guest_user, upcoming: true)
     respond_with format_for_map_this(section_items[:all].concat(section_activities[:all]))
   end
 
+  def today
+    city = City.find_by(slug: params[:city])
+    section_items = get_item_class.all_today(city: city)
+    respond_with format_for_map_this(section_items)
+  end
+
+
   private
+
+  def get_item_class(options = {text: false})
+    if params[:resource] == 'events'
+      Event
+    elsif params[:resource] == 'activities'
+      Activity
+    else
+      options[:text] ? 'Item' : Item
+    end
+  end
+
+  def get_items_name
+    if params[:type] != nil
+      case params[:type]
+        when 'Event' then 'Eventos'
+        when 'Activity' then 'Atividades'
+        else 'Items'
+      end
+    else
+      'Items'
+    end
+  end
 
   def format_for_map_this(events)
     letter = ('A'..'Z').to_a
@@ -111,5 +141,6 @@ class Api::V1::MapsController < Api::V1::ApiController
       end
     end
   end
+
 
 end

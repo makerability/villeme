@@ -3,12 +3,12 @@
 </style>
 
 <template>
-  <items-section :data="data.today"></items-section>
-  <items-section :data="data.persona"></items-section>
-  <items-section :data="data.neighborhood"></items-section>
-  <items-section :data="data.fun"></items-section>
-  <items-section :data="data.education"></items-section>
-  <items-section :data="data.health"></items-section>
+  <items-section :data="data.today" api="false"></items-section>
+  <items-section :data="data.persona" api="false"></items-section>
+  <items-section :data="data.neighborhood" api="false"></items-section>
+  <items-section :data="data.fun" api="false"></items-section>
+  <items-section :data="data.education" api="false"></items-section>
+  <items-section :data="data.health" api="false"></items-section>
 </template>
 
 <script>
@@ -29,14 +29,16 @@ export default{
     }
   },
 
-  events: {
-
+  props: {
+    city: {
+      type: String
+    }
   },
 
   ready: function(){
     var _self = this;
 
-    Vue.http({url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET'}).then(function (response) {
+    Vue.http({url: '/pt-BR/api/v1/sections/items/' + _self.city + '.json', method: 'GET'}).then(function (response) {
       var data = response.data;
       _self.setData(data);
       _self.setCurrentUser(data.currentUser);

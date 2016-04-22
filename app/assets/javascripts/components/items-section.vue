@@ -96,21 +96,27 @@ export default{
 
   data(){
     return {
-      data: {},
       timeouts: [],
       base_url: window.location.origin
     }
   },
 
   props: {
+    api: {
+      type: Boolean,
+      default: true
+    },
     data: {
-      default: {},
       type: Object
+    },
+    resource: {
+      default: 'items',
+      type: String
     },
     city: {
       type: String
     },
-    type: {
+    action: {
       type: String
     }
   },
@@ -120,13 +126,31 @@ export default{
     this.loadImages();
   },
 
+  computed: {
+    getAction: function(){
+      if(this.action != undefined){
+        return '/' + this.action
+      }else{
+        return ''
+      }
+    },
+
+    getResource: function(){
+      if(this.resource == ''){
+        return 'items'
+      }else{
+        return this.resource
+      }
+    }
+  },
+
   methods: {
 
     fetchData: function(){
-      var _self = this;
+      if(this.api == true){
+        var _self = this;
 
-      if(this.data == {}){
-        Vue.http({url: '/pt-BR/api/v1/sections/' + this.city + '/' + this.type + '.json', method: 'GET'}).then(function (response) {
+        Vue.http({url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getAction + '.json', method: 'GET'}).then(function (response) {
           var data = response.data;
           _self.setData(data);
           _self.setCurrentUser(data.currentUser);

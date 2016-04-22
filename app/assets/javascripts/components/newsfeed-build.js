@@ -176,7 +176,6 @@ exports.default = {
 
   data: function data() {
     return {
-      data: {},
       timeouts: [],
       base_url: window.location.origin
     };
@@ -184,14 +183,21 @@ exports.default = {
 
 
   props: {
+    api: {
+      type: Boolean,
+      default: true
+    },
     data: {
-      default: {},
       type: Object
+    },
+    resource: {
+      default: 'items',
+      type: String
     },
     city: {
       type: String
     },
-    type: {
+    action: {
       type: String
     }
   },
@@ -201,13 +207,31 @@ exports.default = {
     this.loadImages();
   },
 
+  computed: {
+    getAction: function getAction() {
+      if (this.action != undefined) {
+        return '/' + this.action;
+      } else {
+        return '';
+      }
+    },
+
+    getResource: function getResource() {
+      if (this.resource == '') {
+        return 'items';
+      } else {
+        return this.resource;
+      }
+    }
+  },
+
   methods: {
 
     fetchData: function fetchData() {
-      var _self = this;
+      if (this.api == true) {
+        var _self = this;
 
-      if (this.city !== undefined) {
-        Vue.http({ url: '/pt-BR/api/v1/sections/' + this.city + '/' + this.type + '.json', method: 'GET' }).then(function (response) {
+        Vue.http({ url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getAction + '.json', method: 'GET' }).then(function (response) {
           var data = response.data;
           _self.setData(data);
           _self.setCurrentUser(data.currentUser);
@@ -326,12 +350,16 @@ exports.default = {
   },
 
 
-  events: {},
+  props: {
+    city: {
+      type: String
+    }
+  },
 
   ready: function ready() {
     var _self = this;
 
-    Vue.http({ url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET' }).then(function (response) {
+    Vue.http({ url: '/pt-BR/api/v1/sections/items/' + _self.city + '.json', method: 'GET' }).then(function (response) {
       var data = response.data;
       _self.setData(data);
       _self.setCurrentUser(data.currentUser);
@@ -352,7 +380,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\"></items-section>\n<items-section :data=\"data.persona\"></items-section>\n<items-section :data=\"data.neighborhood\"></items-section>\n<items-section :data=\"data.fun\"></items-section>\n<items-section :data=\"data.education\"></items-section>\n<items-section :data=\"data.health\"></items-section>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\" api=\"false\"></items-section>\n<items-section :data=\"data.persona\" api=\"false\"></items-section>\n<items-section :data=\"data.neighborhood\" api=\"false\"></items-section>\n<items-section :data=\"data.fun\" api=\"false\"></items-section>\n<items-section :data=\"data.education\" api=\"false\"></items-section>\n<items-section :data=\"data.health\" api=\"false\"></items-section>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -424,10 +452,16 @@ exports.default = {
   },
 
 
+  props: {
+    city: {
+      type: String
+    }
+  },
+
   ready: function ready() {
     var _self = this;
 
-    Vue.http({ url: '/pt-BR/api/v1/sections/rio-de-janeiro/items.json', method: 'GET' }).then(function (response) {
+    Vue.http({ url: '/pt-BR/api/v1/sections/items/' + this.city + '.json', method: 'GET' }).then(function (response) {
       _self.$set('data', response.data);
       _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
       _store2.default.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);
@@ -549,8 +583,22 @@ exports.default = {
 
   props: {
     city: {
-      default: undefined,
+      type: String,
+      required: true
+    },
+
+    action: {
+      default: '',
       type: String
+    },
+
+    type: {
+      type: String
+    },
+
+    resource: {
+      type: String,
+      default: 'items'
     }
   },
 
@@ -559,8 +607,17 @@ exports.default = {
   },
 
   computed: {
+
     data: function data() {
       return _store2.default.state.dataItemOver;
+    },
+
+    getAction: function getAction() {
+      if (this.action != '') {
+        return '/' + this.action;
+      } else {
+        return '';
+      }
     },
 
     currentUser: function currentUser() {
@@ -617,7 +674,7 @@ exports.default = {
       var _self = this;
 
       if (this.map == undefined) {
-        Vue.http({ url: '/pt-BR/api/v1/maps/' + this.city + '.json', method: 'GET' }).then(function (response) {
+        Vue.http({ url: '/pt-BR/api/v1/geolocations/' + _self.resource + '/' + _self.city + _self.getAction + '.json', method: 'GET' }).then(function (response) {
           var data = response.data;
           _self.map = new _gmaps2.default(data.current_user.latitude, data.current_user.longitude, data.markers);
         }, function (data) {

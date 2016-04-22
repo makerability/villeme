@@ -22,9 +22,10 @@ CidadeVc::Application.routes.draw do
 
     namespace :api, constraints: { format: :json } do
       namespace :v1 do
-        get 'sections/:city/items', to: 'sections#items'
-        get 'sections/:city/today', to: 'sections#today'
-        get 'maps/:city', to: 'maps#city'
+        get 'sections/:resource/:city', to: 'sections#all'
+        get 'sections/:resource/:city/today', to: 'sections#today'
+        get 'geolocations/:resource/:city', to: 'geolocations#all'
+        get 'geolocations/:resource/:city/today', to: 'geolocations#today'
       end
     end
 
@@ -114,7 +115,7 @@ CidadeVc::Application.routes.draw do
     get ':city', to: 'newsfeed#city', as: :newsfeed_city
 
     # =Sections
-    get ':city/today&type=(:type)', to: 'newsfeed#today', as: :newsfeed_city_today
+    get ':city/today', to: 'newsfeed#today', as: :newsfeed_city_today
     get ':city/persona=(:personas)', to: 'newsfeed#persona', as: :newsfeed_city_persona
     get ':city/category=(:categories)', to: 'newsfeed#category', as: :newsfeed_city_category
     get ':city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_city_neighborhood
