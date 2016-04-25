@@ -77,7 +77,6 @@ exports.default = {
         Vue.http({ url: '/pt-BR/api/v1/users/' + _self.user + '/agenda.json', method: 'GET' }).then(function (response) {
           var data = response.data;
           _self.setData(data);
-          _self.setCurrentUser(data.currentUser);
         }, function (data) {
           alert("Error");
         });
@@ -101,10 +100,6 @@ exports.default = {
           blazy.revalidate();
         }, 3000);
       };
-    },
-
-    setCurrentUser: function setCurrentUser(user) {
-      store.dispatch('updateCurrentUser', user);
     },
 
     setData: function setData(data) {
@@ -361,7 +356,7 @@ exports.default = {
 
     Vue.http({ url: '/pt-BR/api/v1/sections/items/' + this.city + '.json', method: 'GET' }).then(function (response) {
       _self.$set('data', response.data);
-      _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
+      _self.$set('link', 'users/' + response.data.currentUser.username + '/agenda');
       _store2.default.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);
     }, function (response) {
       alert("Ops");
@@ -371,7 +366,7 @@ exports.default = {
   methods: {
     setAgendaLink: function setAgendaLink() {
       if (!currentUser.isGuest) {
-        this.link = 'user/' + this.data.currentUser.username + '/agenda/';
+        this.link = 'users/' + this.data.currentUser.username + '/agenda';
         this.data_push = true;
         console.log('ok');
       } else {

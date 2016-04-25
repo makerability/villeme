@@ -132,7 +132,6 @@ export default{
         Vue.http({url: '/pt-BR/api/v1/users/' + _self.user + '/agenda.json', method: 'GET'}).then(function (response) {
           var data = response.data;
           _self.setData(data);
-          _self.setCurrentUser(data.currentUser);
         }, function (data) {
           alert("Error")
         });
@@ -156,10 +155,6 @@ export default{
           blazy.revalidate();
         }, 3000);
       };
-    },
-
-    setCurrentUser: function(user){
-      store.dispatch('updateCurrentUser', user)
     },
 
     setData: function(data){
