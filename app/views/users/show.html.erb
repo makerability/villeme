@@ -38,11 +38,11 @@
           <% if current_or_guest_user.guest? %>
               <li class="list-group-item u-centralize font-12">Você precisa estar logado e ser amigo de <%= @user.first_name %> para ver seus eventos.</li>
           <% elsif current_user == @user %>
-              <% @user.agenda_items.each do |item| %>
+              <% @user.items_agenda.each do |item| %>
                   <li class="list-group-item"><%= link_to item.name, item %> <span class="pull-right"><%= item.day_of_week css: "grey-font f-weight-300" %></span></li>
               <% end %>
           <% elsif current_user.are_friends? @user %>
-              <% @user.agenda_items.each do |item| %>
+              <% @user.items_agenda.each do |item| %>
                   <li class="list-group-item"><%= link_to item.name, item %> <span class="pull-right"><%= item.day_of_week css: "grey-font f-weight-300" %></span></li>
               <% end %>
           <% else %>

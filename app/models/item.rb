@@ -117,7 +117,7 @@ class Item < ActiveRecord::Base
   def agended?(user)
     if user.nil?
       false
-    elsif user.agenda_items.include?(self)
+    elsif user.items_agenda.include?(self)
       true
     else
       false

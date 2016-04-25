@@ -3,19 +3,19 @@ module Villeme
     class << self
 
       def all_categories_in_city(categories, city, options = {user: nil, slug: false, upcoming: true, json: false, limit: false})
-        name_or_slug_key = options[:slug] ? { slug: categories } : { name: categories }
 
         items = if options[:limit] and city.try(:items)
                   if options[:upcoming]
-                    city.items.includes(:categories).where(categories: name_or_slug_key).limit(options[:limit]).upcoming
+                    git lg
+                    git city.items.includes(categories: :translations).where(category_translations: { name: categories }).limit(options[:limit]).upcoming
                   else
-                    city.items.includes(:categories).where(categories: name_or_slug_key).limit(options[:limit])
+                    city.items.includes(categories: :translations).where(category_translations: { name: categories }).limit(options[:limit])
                   end
                 elsif city.try(:items)
                   if options[:upcoming]
-                    city.items.includes(:categories).where(categories: name_or_slug_key).upcoming
+                    city.items.includes(categories: :translations).where(category_translations: { name: categories }).upcoming
                   else
-                    city.items.includes(:categories).where(categories: name_or_slug_key)
+                    city.items.includes(categories: :translations).where(category_translations: { name: categories })
                   end
                 else
                   Item.none

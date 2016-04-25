@@ -57,7 +57,7 @@ describe Event, type: :model do
       city = create(:city)
              allow(city).to receive(:items).and_return(Event.all)
 
-      expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: true).count).to eq(2)
+      expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: false).count).to eq(2)
     end
   end
 

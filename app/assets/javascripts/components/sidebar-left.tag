@@ -8,7 +8,7 @@
           <a href="{ link }" onclick="{ login }" data-push="{ data_push }">
             Minha agenda
           </a>
-          <span if={ opts.current_user.agenda_items > 0 } class="js-agendaCounter badge is-show">
+          <span if={ opts.current_user.items_agenda > 0 } class="js-agendaCounter badge is-show">
             { count }
           </span>
         </li>
@@ -71,7 +71,7 @@
     var self = this;
 
     initialize(){
-      this.count = opts.current_user.agenda_items;
+      this.count = opts.current_user.items_agenda;
       this.setAgendaLink();
     }
 

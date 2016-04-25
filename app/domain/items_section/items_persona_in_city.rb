@@ -4,7 +4,7 @@ module Villeme
 
       def all_persona_in_city(personas, city, options = {limit: false, user: nil, upcoming: true, json: false})
         if options[:limit] and city.try(:items)
-          city.items.includes({personas: :translations}).where(personas: { name: personas }).limit(options[:limit])
+          city.items.includes({personas: :translations}).where(personas_translations: { name: personas }).limit(options[:limit])
         elsif city.try(:items)
           items = if options[:upcoming]
                     city.items.includes({personas: :translations}).where(persona_translations: {name: personas}).upcoming

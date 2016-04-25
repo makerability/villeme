@@ -23,7 +23,7 @@ module Villeme
                   username: user.username,
                   isGuest: user.guest?,
                   agenda: {
-                      count: user.agenda_items.upcoming.count
+                      count: user.items_agenda.upcoming.count
                   },
               },
               policies: {

@@ -24,7 +24,7 @@ describe 'See my schedule Events', js: true do
       @user.agendas << Agenda.new(item_id: event_a.id, user_id: @user.id)
       @user.agendas << Agenda.new(item_id: event_b.id, user_id: @user.id)
 
-      visit("/en/user/#{@user.username}/agenda")
+      visit("/en/users/#{@user.username}/agenda")
 
       expect(page).to have_content('First Event scheduled')
       expect(page).to have_content('Second Event scheduled')

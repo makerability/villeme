@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   has_many :feedbacks
   has_many :tips
   has_many :agendas, class_name: 'Agenda'
-  has_many :agenda_items,
+  has_many :items_agenda,
            -> { uniq },
            through: :agendas,
            source: :item,
@@ -181,7 +181,7 @@ class User < ActiveRecord::Base
   end
 
   def agended?(event)
-    self.agenda_items.include?(event) ? true : false
+    self.items_agenda.include?(event) ? true : false
   end
 
   def schedule(item)

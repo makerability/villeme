@@ -73,11 +73,8 @@ class NewsfeedController < ApplicationController
   end
 
   def agenda
-    @items = current_user.agenda_items.upcoming
-    @items_json = Event.items_to_json(@items, user: current_or_guest_user).as_json
-    @title = "Minha agenda de Eventos e Atividades"
-    set_items_in_map(current_user, @items)
-    render :section
+    @user = current_or_guest_user.username
+    render :agenda
   end
 
 

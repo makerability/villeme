@@ -1,0 +1,42 @@
+
+
+<!-- HEAD -->
+
+<%= stylesheet_link_tag 'suit-components-grid/index.css', 'suit-utils-size/index.css', 'suit-utils-position/index.css', 'modules/Event' %>
+
+<!-- MAIN -->
+
+<!-- <sidebar-left-fixed></sidebar-left-fixed> -->
+
+<div class="u-lg-size2of12 u-md-size2of12 u-sm-size2of12 u-floatLeft">
+  <!--<sidebar-left city="<%# @city %>"></sidebar-left>-->
+</div>
+
+<div class="u-lg-size7of12 u-md-size9of12 u-sm-size9of12 u-floatLeft">
+  <div id="main-content" class="Main ps-container">
+    <agenda user="<%= @user %>"></agenda>
+  </div>
+</div>
+
+
+<!-- SIDEBAR -->
+
+<div class="u-lg-size3of12 u-md-size3of12 u-sm-size4of12 u-floatRight">
+  <!--<sidebar-map city="<%# @city %>"-->
+               <!--action="<%# @action %>"-->
+               <!--resource="<%# @resource %>"></sidebar-map>-->
+</div>
+
+
+
+
+<!-- JS/CSS SECONDARIES -->
+
+
+<%= stylesheet_link_tag params[:controller] %>
+
+<%= include_gon %>
+
+<%= javascript_load_content 'components/agenda-build.js' %>
+<%= javascript_load_dependencies [params[:controller]] %>
+

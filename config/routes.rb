@@ -24,6 +24,7 @@ CidadeVc::Application.routes.draw do
       namespace :v1 do
         get 'sections/:resource/:city', to: 'sections#all'
         get 'sections/:resource/:city/today', to: 'sections#today'
+        get 'users/:user/agenda', to: 'users#agenda'
         get 'geolocations/:resource/:city', to: 'geolocations#all'
         get 'geolocations/:resource/:city/today', to: 'geolocations#today'
       end
@@ -104,7 +105,7 @@ CidadeVc::Application.routes.draw do
     # post "bussola/selecionado"
 
     # =Agenda
-    get 'user/:user/agenda/', to: 'newsfeed#agenda', as: :agenda
+    get 'users/:user/agenda/', to: 'newsfeed#agenda', as: :agenda
 
     # =Profile
     get 'user/:id/events', to: 'profiles#events', as: :user_events

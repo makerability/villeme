@@ -1,4 +1,143 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Vue = require('vue');
+var SidebarLeft = require('./sidebar-left.vue');
+var Agenda = require('./agenda.vue');
+var Item = require('./item.vue');
+var SidebarMap = require('./sidebar-map.vue');
+
+new Vue({
+    http: {
+        root: '/root',
+        headers: {
+            Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+        }
+    },
+    el: 'body',
+    components: {
+        sidebarLeft: SidebarLeft,
+        agenda: Agenda,
+        item: Item,
+        sidebarMap: SidebarMap
+    }
+});
+
+},{"./agenda.vue":2,"./item.vue":3,"./sidebar-left.vue":4,"./sidebar-map.vue":5,"vue":33}],2:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+var Vue = require('vue');
+var Item = require('./item.vue');
+Vue.use(require('vue-resource'));
+
+exports.default = {
+
+  components: {
+    'item': Item
+  },
+
+  data: function data() {
+    return {
+      timeouts: [],
+      base_url: window.location.origin
+    };
+  },
+
+
+  props: {
+    api: {
+      type: Boolean,
+      default: true
+    },
+    data: {
+      type: Object
+    },
+    user: {
+      type: String
+    }
+  },
+
+  ready: function ready() {
+    this.fetchData();
+    this.loadImages();
+  },
+
+  computed: {},
+
+  methods: {
+
+    fetchData: function fetchData() {
+      if (this.api == true) {
+        var _self = this;
+
+        Vue.http({ url: '/pt-BR/api/v1/users/' + _self.user + '/agenda.json', method: 'GET' }).then(function (response) {
+          var data = response.data;
+          _self.setData(data);
+          _self.setCurrentUser(data.currentUser);
+        }, function (data) {
+          alert("Error");
+        });
+      }
+    },
+
+    loadImages: function loadImages() {
+      var blazy;
+
+      setTimeout(function () {
+        loadBlazy(revalidate);
+      }, 1200);
+
+      loadBlazy = function loadBlazy(callback) {
+        blazy = new Blazy('');
+        callback();
+      };
+
+      revalidate = function revalidate() {
+        setTimeout(function () {
+          blazy.revalidate();
+        }, 3000);
+      };
+    },
+
+    setCurrentUser: function setCurrentUser(user) {
+      store.dispatch('updateCurrentUser', user);
+    },
+
+    setData: function setData(data) {
+      this.$set('data', data);
+    },
+
+    login: function login() {
+      Villeme.Ux.loginModal("Você precisa estar logado para criar um evento.");
+    },
+
+    saveScroll: function saveScroll() {
+      window.Villeme.tempScroll = $(window).scrollTop();
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<section v-if=\"data.count > 0\" class=\"Section\" data-anchor=\"{{ data.type }}\">\n\n  <div class=\"Section-header\">\n    <h1 class=\"Section-title\">{{ data.title }}\n      <small>\n        <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n          Ver todos\n        </a>\n      </small>\n    </h1>\n  </div>\n\n  <div class=\"Grid Grid--withGutter\">\n\n\n    <item v-for=\"item in data.items\" :data=\"item\"></item>\n\n\n    <div v-show=\"data.count <= 2 || data.count == 5\" v-if=\"data.snippet.length == 0\" class=\"Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize\">\n      <div class=\"AlertCreateEvent AlertCreateEvent--withBorder\">\n        <div class=\"AlertCreateEvent-text u-posAbsoluteCenter\">\n          <span>\n            Não há mais eventos no momento.<br>\n            <a href=\"{{ data.policies.isGuest_user ? '#' : data.link_to_create }}\" v-on:click=\"{{\" data.policies.isguest_user=\"\" ?=\"\" login=\"\" :=\"\" false=\"\" }}=\"\">Cria evento</a>\n          </span>\n        </div>\n      </div>\n    </div>\n\n    <div v-if=\"data.snippet.length > 0\" v-hide=\"data.snippet == null\" class=\"EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull\">\n      <div class=\"EventsSnippet-content\">\n        <div class=\"EventsSnippet-scroll\">\n          <ul class=\"EventsSnippet-lineGroup\">\n            <li v-for=\"item in data.snippet\" v-on:click=\"saveScroll\" class=\"EventsSnippet-line js-EventNewsfeedTransitions\">\n              <a href=\"{{ base_url + link }}\" data-push=\"true\">\n                <div class=\"EventsSnippet-image b-lazy\" data-src=\"{{ item.image.thumb }}\"></div>\n              </a>\n              <div class=\"EventsSnippet-linePrincipal u-sizeFull\">\n                <span class=\"EventsSnippet-eventName\">\n                  <a href=\"{{ base_url + link }}\" data-push=\"true\">{{ item.name }}</a>\n                </span>\n              </div>\n              <div class=\"EventsSnippet-lineSecond\">\n                <span class=\"EventsSnippet-eventDay EventsSnippet-lineSecondItem\">\n                  {{ item.day_of_week }}\n                </span>\n                <span class=\"EventsSnippet-eventHour EventsSnippet-lineSecondItem\">\n                  {{ item.start_hour }}\n                </span>\n                <span class=\"EventsSnippet-eventPrice EventsSnippet-lineSecondItem {{ data.price.highlight }}\">\n                  {{ item.price.value }}\n                </span>\n                <span v-if=\"data.rating\" class=\"EventsSnippet-eventRating EventsSnippet-lineSecondItem\">\n                  <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n                  {{ item.rating }}\n                </span>\n              </div>\n            </li>\n          </ul>\n\n        </div>\n        <div class=\"EventsSnippet-seeAllEvents\">\n          <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n            ver todos os {{ data.count }} eventos\n          </a>\n        </div>\n      </div>\n    </div>\n\n  </div>\n\n\n\n</section>\n\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/agenda.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./item.vue":3,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],3:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
 'use strict';
 
@@ -155,248 +294,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],2:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-
-var Vue = require('vue');
-var Item = require('./item.vue');
-Vue.use(require('vue-resource'));
-
-exports.default = {
-
-  components: {
-    'item': Item
-  },
-
-  data: function data() {
-    return {
-      timeouts: [],
-      base_url: window.location.origin
-    };
-  },
-
-
-  props: {
-    api: {
-      type: Boolean,
-      default: true
-    },
-    data: {
-      type: Object
-    },
-    resource: {
-      default: 'items',
-      type: String
-    },
-    city: {
-      type: String
-    },
-    action: {
-      type: String
-    }
-  },
-
-  ready: function ready() {
-    this.fetchData();
-    this.loadImages();
-  },
-
-  computed: {
-    getAction: function getAction() {
-      if (this.action != undefined) {
-        return '/' + this.action;
-      } else {
-        return '';
-      }
-    },
-
-    getResource: function getResource() {
-      if (this.resource == '') {
-        return 'items';
-      } else {
-        return this.resource;
-      }
-    }
-  },
-
-  methods: {
-
-    fetchData: function fetchData() {
-      if (this.api == true) {
-        var _self = this;
-
-        Vue.http({ url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getAction + '.json', method: 'GET' }).then(function (response) {
-          var data = response.data;
-          _self.setData(data);
-          _self.setCurrentUser(data.currentUser);
-        }, function (data) {
-          alert("Error");
-        });
-      }
-    },
-
-    loadImages: function loadImages() {
-      var blazy;
-
-      setTimeout(function () {
-        loadBlazy(revalidate);
-      }, 1200);
-
-      loadBlazy = function loadBlazy(callback) {
-        blazy = new Blazy('');
-        callback();
-      };
-
-      revalidate = function revalidate() {
-        setTimeout(function () {
-          blazy.revalidate();
-        }, 3000);
-      };
-    },
-
-    setCurrentUser: function setCurrentUser(user) {
-      store.dispatch('updateCurrentUser', user);
-    },
-
-    setData: function setData(data) {
-      this.$set('data', data);
-    },
-
-    login: function login() {
-      Villeme.Ux.loginModal("Você precisa estar logado para criar um evento.");
-    },
-
-    saveScroll: function saveScroll() {
-      window.Villeme.tempScroll = $(window).scrollTop();
-    }
-  }
-};
-if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<section v-if=\"data.count > 0\" class=\"Section\" data-anchor=\"{{ data.type }}\">\n\n  <div class=\"Section-header\">\n    <h1 class=\"Section-title\">{{ data.title }}\n      <small>\n        <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n          Ver todos\n        </a>\n      </small>\n    </h1>\n  </div>\n\n  <div class=\"Grid Grid--withGutter\">\n\n\n    <item v-for=\"item in data.items\" :data=\"item\"></item>\n\n\n    <div v-show=\"data.count <= 2 || data.count == 5\" v-if=\"data.snippet.length == 0\" class=\"Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull u-centralize\">\n      <div class=\"AlertCreateEvent AlertCreateEvent--withBorder\">\n        <div class=\"AlertCreateEvent-text u-posAbsoluteCenter\">\n          <span>\n            Não há mais eventos no momento.<br>\n            <a href=\"{{ data.policies.isGuest_user ? '#' : data.link_to_create }}\" v-on:click=\"{{\" data.policies.isguest_user=\"\" ?=\"\" login=\"\" :=\"\" false=\"\" }}=\"\">Cria evento</a>\n          </span>\n        </div>\n      </div>\n    </div>\n\n    <div v-if=\"data.snippet.length > 0\" v-hide=\"data.snippet == null\" class=\"EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull\">\n      <div class=\"EventsSnippet-content\">\n        <div class=\"EventsSnippet-scroll\">\n          <ul class=\"EventsSnippet-lineGroup\">\n            <li v-for=\"item in data.snippet\" v-on:click=\"saveScroll\" class=\"EventsSnippet-line js-EventNewsfeedTransitions\">\n              <a href=\"{{ base_url + link }}\" data-push=\"true\">\n                <div class=\"EventsSnippet-image b-lazy\" data-src=\"{{ item.image.thumb }}\"></div>\n              </a>\n              <div class=\"EventsSnippet-linePrincipal u-sizeFull\">\n                <span class=\"EventsSnippet-eventName\">\n                  <a href=\"{{ base_url + link }}\" data-push=\"true\">{{ item.name }}</a>\n                </span>\n              </div>\n              <div class=\"EventsSnippet-lineSecond\">\n                <span class=\"EventsSnippet-eventDay EventsSnippet-lineSecondItem\">\n                  {{ item.day_of_week }}\n                </span>\n                <span class=\"EventsSnippet-eventHour EventsSnippet-lineSecondItem\">\n                  {{ item.start_hour }}\n                </span>\n                <span class=\"EventsSnippet-eventPrice EventsSnippet-lineSecondItem {{ data.price.highlight }}\">\n                  {{ item.price.value }}\n                </span>\n                <span v-if=\"data.rating\" class=\"EventsSnippet-eventRating EventsSnippet-lineSecondItem\">\n                  <span class=\"Event-infosRatingStar glyphicon glyphicon-star\"></span>\n                  {{ item.rating }}\n                </span>\n              </div>\n            </li>\n          </ul>\n\n        </div>\n        <div class=\"EventsSnippet-seeAllEvents\">\n          <a href=\"{{ data.link }}\" data-push=\"true\" v-on:click=\"saveScroll\">\n            ver todos os {{ data.count }} eventos\n          </a>\n        </div>\n      </div>\n    </div>\n\n  </div>\n\n\n\n</section>\n\n"
-if (module.hot) {(function () {  module.hot.accept()
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/items-section.vue"
-  module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n\n"] = false
-    document.head.removeChild(__vueify_style__)
-  })
-  if (!module.hot.data) {
-    hotAPI.createRecord(id, module.exports)
-  } else {
-    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
-  }
-})()}
-},{"./item.vue":1,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],3:[function(require,module,exports){
-var Vue = require('vue');
-var Newsfeed = require('./newsfeed.vue');
-var SidebarLeft = require('./sidebar-left.vue');
-var ItemsSection = require('./items-section.vue');
-var Item = require('./item.vue');
-var SidebarMap = require('./sidebar-map.vue');
-
-new Vue({
-    http: {
-        root: '/root',
-        headers: {
-            Authorization: 'Basic YXBpOnBhc3N3b3Jk'
-        }
-    },
-    el: 'body',
-    components: {
-        sidebarLeft: SidebarLeft,
-        newsfeed: Newsfeed,
-        itemsSection: ItemsSection,
-        item: Item,
-        sidebarMap: SidebarMap
-    }
-});
-
-},{"./item.vue":1,"./items-section.vue":2,"./newsfeed.vue":4,"./sidebar-left.vue":5,"./sidebar-map.vue":6,"vue":34}],4:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _store = require('./vuex/store');
-
-var _store2 = _interopRequireDefault(_store);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Vue = require('vue');
-
-var ItemsSection = require('./items-section.vue');
-Vue.use(require('vue-resource'));
-
-exports.default = {
-  components: {
-    'items-section': ItemsSection
-  },
-
-  data: function data() {
-    return {
-      data: {}
-    };
-  },
-
-
-  props: {
-    city: {
-      type: String
-    }
-  },
-
-  ready: function ready() {
-    var _self = this;
-
-    Vue.http({ url: '/pt-BR/api/v1/sections/items/' + _self.city + '.json', method: 'GET' }).then(function (response) {
-      var data = response.data;
-      _self.setData(data);
-      _self.setCurrentUser(data.currentUser);
-    }, function (data) {
-      alert("Error");
-    });
-  },
-
-  methods: {
-    setCurrentUser: function setCurrentUser(user) {
-      _store2.default.dispatch('updateCurrentUser', user);
-    },
-
-    setData: function setData(data) {
-      this.$set('data', data);
-    }
-  }
-
-};
-if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\" api=\"false\"></items-section>\n<items-section :data=\"data.persona\" api=\"false\"></items-section>\n<items-section :data=\"data.neighborhood\" api=\"false\"></items-section>\n<items-section :data=\"data.fun\" api=\"false\"></items-section>\n<items-section :data=\"data.education\" api=\"false\"></items-section>\n<items-section :data=\"data.health\" api=\"false\"></items-section>\n"
-if (module.hot) {(function () {  module.hot.accept()
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  var id = "/home/jonatas/jonatassalgado/villeme/app/assets/javascripts/components/newsfeed.vue"
-  module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n\n"] = false
-    document.head.removeChild(__vueify_style__)
-  })
-  if (!module.hot.data) {
-    hotAPI.createRecord(id, module.exports)
-  } else {
-    hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
-  }
-})()}
-},{"./items-section.vue":2,"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],5:[function(require,module,exports){
+},{"./vuex/store":6,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],4:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("/* COLORS ------------------------*/\n/* vermelho */\n/* azul */\n/* verde */\n/* cinza */\n/* laranja */\n/* amarelo */\n/* roxo */\n/* branco */\n/* TEXTS ----------------------------------------*/\n/* texto de destaque e de identidade visual */\n/* texto para leitura */\n/* cor para texto de leitura */\n/* tamanho para leitura */\n/* TRANSITION -----------------------*/\n/* SHAPE --------------------------- */\n/* line 70, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.radius {\n  border-radius: 10px; }\n\n/* line 74, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.btn-radius {\n  border-radius: 6px; }\n\n/* line 78, /home/jonatas/jonatassalgado/villeme/app/assets/stylesheets/_variables.scss */\n.circle {\n  border-radius: 100%; }\n\n/* MEDIA QUERIES -------------------- */\n/* line 5, stdin */\n.SidebarLeft {\n  padding-top: 25px;\n  position: relative; }\n  /* line 9, stdin */\n  .SidebarLeft-section {\n    padding: 0 0 25px 0; }\n  /* line 13, stdin */\n  .SidebarLeft-agendaLink {\n    border: 1px solid rgba(0, 0, 0, 0.1);\n    border-radius: 25px;\n    -webkit-transition: all 0.4s ease 0s;\n    transition: all 0.4s ease 0s; }\n    /* line 18, stdin */\n    .SidebarLeft-agendaLink.is-adding {\n      position: relative;\n      background: #ade6bd;\n      border-color: #83da9d; }\n    /* line 24, stdin */\n    .SidebarLeft-agendaLink.is-removing {\n      position: relative;\n      background: rgba(0, 0, 0, 0.1); }\n  /* line 30, stdin */\n  .SidebarLeft-nav {\n    padding: 0;\n    margin: 0;\n    list-style: none; }\n    /* line 35, stdin */\n    .SidebarLeft-nav li {\n      color: #3B5450;\n      font-family: \"Roboto\", helvetica, arial, sans-serif;\n      font-weight: 400;\n      font-size: 14px;\n      padding: 8px 2px 4px 0; }\n      /* line 42, stdin */\n      .SidebarLeft-nav li .badge {\n        background: transparent none repeat scroll 0 0;\n        color: #a8b3b2;\n        display: none;\n        font-family: Helvetica, arial, sans-serif;\n        font-size: 10px;\n        margin-left: 8px;\n        min-width: 17px;\n        padding: 4px 4.5px;\n        position: relative;\n        right: 5px;\n        top: -2px;\n        vertical-align: inherit; }\n        /* line 56, stdin */\n        .SidebarLeft-nav li .badge.is-show {\n          display: inline-block; }\n      /* line 61, stdin */\n      .SidebarLeft-nav li .active {\n        color: #ffffff;\n        background: #5476e9; }\n      /* line 66, stdin */\n      .SidebarLeft-nav li a {\n        padding: 0 10px;\n        color: #597f79;\n        margin: 0;\n        width: 170px; }\n        /* line 72, stdin */\n        .SidebarLeft-nav li a:hover {\n          cursor: pointer; }\n        /* line 76, stdin */\n        .SidebarLeft-nav li a.is-active {\n          color: #38ba5e;\n          font-size: 16px;\n          font-weight: 600;\n          -webkit-transition: all 0.2s ease 0s;\n          transition: all 0.2s ease 0s; }\n        /* line 83, stdin */\n        .SidebarLeft-nav li a .glyphicon {\n          margin: 0 6px 0 0; }\n      /* line 90, stdin */\n      .SidebarLeft-nav li.active a {\n        background: none;\n        color: #38ba5e;\n        margin-right: -1px;\n        font-weight: 500; }\n        /* line 96, stdin */\n        .SidebarLeft-nav li.active a .badge {\n          background: #e9f0ef;\n          color: #38ba5e;\n          border: 1px solid #38ba5e;\n          font-family: Helvetica,arial;\n          font-size: 9px; }\n      /* line 106, stdin */\n      .SidebarLeft-nav li .glyphicon {\n        font-size: 12px;\n        margin: 0 8px 0 0; }\n  /* line 115, stdin */\n  .SidebarLeft ul > li {\n    display: table;\n    height: 32px; }\n  /* line 120, stdin */\n  .SidebarLeft ul > li > a:hover {\n    background: transparent; }\n  /* line 124, stdin */\n  .SidebarLeft ul .sub-nav {\n    margin: 0 0 0 20px; }\n  /* line 128, stdin */\n  .SidebarLeft li.divider {\n    border-top: 1px solid #dce6e4;\n    height: 0;\n    margin: 3px 0;\n    min-height: 0; }\n  /* line 135, stdin */\n  .SidebarLeft--fixed {\n    width: 200px;\n    height: 100%;\n    position: fixed;\n    left: 0;\n    top: 0;\n    background: #3B5450;\n    z-index: 110;\n    padding: 25px 0 0 12px; }\n\n@media (max-width: 1200px) {\n  /* line 148, stdin */\n  :scope {\n    display: none; } }\n")
 'use strict';
 
@@ -463,7 +361,7 @@ exports.default = {
 
     Vue.http({ url: '/pt-BR/api/v1/sections/items/' + this.city + '.json', method: 'GET' }).then(function (response) {
       _self.$set('data', response.data);
-      _self.$set('link', 'users/' + response.data.currentUser.username + '/agenda');
+      _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
       _store2.default.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);
     }, function (response) {
       alert("Ops");
@@ -473,7 +371,7 @@ exports.default = {
   methods: {
     setAgendaLink: function setAgendaLink() {
       if (!currentUser.isGuest) {
-        this.link = 'users/' + this.data.currentUser.username + '/agenda';
+        this.link = 'user/' + this.data.currentUser.username + '/agenda/';
         this.data_push = true;
         console.log('ok');
       } else {
@@ -553,7 +451,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],6:[function(require,module,exports){
+},{"./vuex/store":6,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],5:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("\n.isBold{\n  font-weight: bold;\n}\n")
 'use strict';
 
@@ -720,7 +618,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../modules/gmaps.js":8,"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],7:[function(require,module,exports){
+},{"../modules/gmaps.js":7,"./vuex/store":6,"vue":33,"vue-hot-reload-api":8,"vue-resource":22,"vueify-insert-css":34}],6:[function(require,module,exports){
 var Vue = require('vue');
 var Vuex = require('vuex');
 
@@ -776,7 +674,7 @@ var store = new Vuex.Store({
 
 module.exports = store;
 
-},{"vue":34,"vuex":36}],8:[function(require,module,exports){
+},{"vue":33,"vuex":35}],7:[function(require,module,exports){
 
 var Gmaps = function Gmaps(latitude, longitude, markers) {
     if(latitude == undefined || longitude == undefined || markers == undefined){
@@ -1052,7 +950,7 @@ Gmaps.showMapCanvasIfHidden = function() {
 
 module.exports = Gmaps;
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -1352,7 +1250,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * Before Interceptor.
  */
@@ -1372,7 +1270,7 @@ module.exports = {
 
 };
 
-},{"../util":33}],11:[function(require,module,exports){
+},{"../util":32}],10:[function(require,module,exports){
 /**
  * Base client.
  */
@@ -1439,7 +1337,7 @@ function parseHeaders(str) {
     return headers;
 }
 
-},{"../../promise":26,"../../util":33,"./xhr":14}],12:[function(require,module,exports){
+},{"../../promise":25,"../../util":32,"./xhr":13}],11:[function(require,module,exports){
 /**
  * JSONP client.
  */
@@ -1489,7 +1387,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":26,"../../util":33}],13:[function(require,module,exports){
+},{"../../promise":25,"../../util":32}],12:[function(require,module,exports){
 /**
  * XDomain client (Internet Explorer).
  */
@@ -1528,7 +1426,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":26,"../../util":33}],14:[function(require,module,exports){
+},{"../../promise":25,"../../util":32}],13:[function(require,module,exports){
 /**
  * XMLHttp client.
  */
@@ -1580,7 +1478,7 @@ module.exports = function (request) {
     });
 };
 
-},{"../../promise":26,"../../util":33}],15:[function(require,module,exports){
+},{"../../promise":25,"../../util":32}],14:[function(require,module,exports){
 /**
  * CORS Interceptor.
  */
@@ -1619,7 +1517,7 @@ function crossOrigin(request) {
     return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host);
 }
 
-},{"../util":33,"./client/xdr":13}],16:[function(require,module,exports){
+},{"../util":32,"./client/xdr":12}],15:[function(require,module,exports){
 /**
  * Header Interceptor.
  */
@@ -1647,7 +1545,7 @@ module.exports = {
 
 };
 
-},{"../util":33}],17:[function(require,module,exports){
+},{"../util":32}],16:[function(require,module,exports){
 /**
  * Service for sending network requests.
  */
@@ -1747,7 +1645,7 @@ Http.headers = {
 
 module.exports = _.http = Http;
 
-},{"../promise":26,"../util":33,"./before":10,"./client":11,"./cors":15,"./header":16,"./interceptor":18,"./jsonp":19,"./method":20,"./mime":21,"./timeout":22}],18:[function(require,module,exports){
+},{"../promise":25,"../util":32,"./before":9,"./client":10,"./cors":14,"./header":15,"./interceptor":17,"./jsonp":18,"./method":19,"./mime":20,"./timeout":21}],17:[function(require,module,exports){
 /**
  * Interceptor factory.
  */
@@ -1794,7 +1692,7 @@ function when(value, fulfilled, rejected) {
     return promise.then(fulfilled, rejected);
 }
 
-},{"../promise":26,"../util":33}],19:[function(require,module,exports){
+},{"../promise":25,"../util":32}],18:[function(require,module,exports){
 /**
  * JSONP Interceptor.
  */
@@ -1814,7 +1712,7 @@ module.exports = {
 
 };
 
-},{"./client/jsonp":12}],20:[function(require,module,exports){
+},{"./client/jsonp":11}],19:[function(require,module,exports){
 /**
  * HTTP method override Interceptor.
  */
@@ -1833,7 +1731,7 @@ module.exports = {
 
 };
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * Mime Interceptor.
  */
@@ -1871,7 +1769,7 @@ module.exports = {
 
 };
 
-},{"../util":33}],22:[function(require,module,exports){
+},{"../util":32}],21:[function(require,module,exports){
 /**
  * Timeout Interceptor.
  */
@@ -1903,7 +1801,7 @@ module.exports = function () {
     };
 };
 
-},{}],23:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * Install plugin.
  */
@@ -1958,7 +1856,7 @@ if (window.Vue) {
 
 module.exports = install;
 
-},{"./http":17,"./promise":26,"./resource":27,"./url":28,"./util":33}],24:[function(require,module,exports){
+},{"./http":16,"./promise":25,"./resource":26,"./url":27,"./util":32}],23:[function(require,module,exports){
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -2139,7 +2037,7 @@ p.catch = function (onRejected) {
 
 module.exports = Promise;
 
-},{"../util":33}],25:[function(require,module,exports){
+},{"../util":32}],24:[function(require,module,exports){
 /**
  * URL Template v2.0.6 (https://github.com/bramstein/url-template)
  */
@@ -2291,7 +2189,7 @@ exports.encodeReserved = function (str) {
     }).join('');
 };
 
-},{}],26:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Promise adapter.
  */
@@ -2402,7 +2300,7 @@ p.always = function (callback) {
 
 module.exports = Promise;
 
-},{"./lib/promise":24,"./util":33}],27:[function(require,module,exports){
+},{"./lib/promise":23,"./util":32}],26:[function(require,module,exports){
 /**
  * Service for interacting with RESTful services.
  */
@@ -2514,7 +2412,7 @@ Resource.actions = {
 
 module.exports = _.resource = Resource;
 
-},{"./util":33}],28:[function(require,module,exports){
+},{"./util":32}],27:[function(require,module,exports){
 /**
  * Service for URL templating.
  */
@@ -2646,7 +2544,7 @@ function serialize(params, obj, scope) {
 
 module.exports = _.url = Url;
 
-},{"../util":33,"./legacy":29,"./query":30,"./root":31,"./template":32}],29:[function(require,module,exports){
+},{"../util":32,"./legacy":28,"./query":29,"./root":30,"./template":31}],28:[function(require,module,exports){
 /**
  * Legacy Transform.
  */
@@ -2694,7 +2592,7 @@ function encodeUriQuery(value, spaces) {
         replace(/%20/g, (spaces ? '%20' : '+'));
 }
 
-},{"../util":33}],30:[function(require,module,exports){
+},{"../util":32}],29:[function(require,module,exports){
 /**
  * Query Parameter Transform.
  */
@@ -2720,7 +2618,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":33}],31:[function(require,module,exports){
+},{"../util":32}],30:[function(require,module,exports){
 /**
  * Root Prefix Transform.
  */
@@ -2738,7 +2636,7 @@ module.exports = function (options, next) {
     return url;
 };
 
-},{"../util":33}],32:[function(require,module,exports){
+},{"../util":32}],31:[function(require,module,exports){
 /**
  * URL Template (RFC 6570) Transform.
  */
@@ -2756,7 +2654,7 @@ module.exports = function (options) {
     return url;
 };
 
-},{"../lib/url-template":25}],33:[function(require,module,exports){
+},{"../lib/url-template":24}],32:[function(require,module,exports){
 /**
  * Utility functions.
  */
@@ -2880,7 +2778,7 @@ function merge(target, source, deep) {
     }
 }
 
-},{}],34:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.20
@@ -12704,7 +12602,7 @@ if (config.devtools) {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":37}],35:[function(require,module,exports){
+},{"_process":36}],34:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -12724,7 +12622,7 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*!
  * Vuex v0.6.2
  * (c) 2016 Evan You
@@ -13301,7 +13199,7 @@ exports.insert = function (css) {
   return index;
 
 }));
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -13394,4 +13292,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[3]);
+},{}]},{},[1]);

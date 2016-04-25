@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422142950) do
+ActiveRecord::Schema.define(version: 20160425180147) do
 
   create_table "agenda_items", force: :cascade do |t|
     t.integer  "item_id"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20160422142950) do
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id"
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"

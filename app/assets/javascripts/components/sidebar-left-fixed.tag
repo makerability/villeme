@@ -8,8 +8,8 @@
           <a href="{ link }" onclick="{ login }" data-push="{ data_push }">
             Minha agenda
           </a>
-          <span if={ opts.current_user.agenda_items > 0 } class="js-agendaCounter badge is-show">
-            { opts.current_user.agenda_items }
+          <span if={ opts.current_user.items_agenda > 0 } class="js-agendaCounter badge is-show">
+            { opts.current_user.items_agenda }
           </span>
         </li>
         <li if={ opts.today > 0 } onmouseenter={ navEnter } onmouseleave={ navLeave }>

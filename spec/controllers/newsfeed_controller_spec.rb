@@ -93,11 +93,11 @@ describe NewsfeedController do
       end
 
       it 'should render section template' do
-        allow(@user).to receive_message_chain(:agenda_items, :upcoming).and_return(nil)
+        allow(@user).to receive_message_chain(:items_agenda, :upcoming).and_return(nil)
 
         get :agenda, locale: :en, user: @user
 
-        expect(response).to render_template(:section)
+        expect(response).to render_template(:agenda)
       end
 
     end

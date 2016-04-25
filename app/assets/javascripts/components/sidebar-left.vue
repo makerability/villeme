@@ -266,7 +266,7 @@ export default{
 
     Vue.http({url: '/pt-BR/api/v1/sections/items/' + this.city + '.json', method: 'GET'}).then(function (response) {
       _self.$set('data', response.data);
-      _self.$set('link', 'user/' + response.data.currentUser.username + '/agenda/');
+      _self.$set('link', 'users/' + response.data.currentUser.username + '/agenda');
       store.dispatch('updateAgendaCounter', response.data.currentUser.agenda.count);
     }, function (response) {
       alert("Ops");
@@ -276,7 +276,7 @@ export default{
   methods: {
     setAgendaLink: function(){
       if (!currentUser.isGuest) {
-        this.link = 'user/' + this.data.currentUser.username + '/agenda/';
+        this.link = 'users/' + this.data.currentUser.username + '/agenda';
         this.data_push = true;
         console.log('ok');
       } else {

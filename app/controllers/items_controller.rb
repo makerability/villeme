@@ -129,11 +129,11 @@ class ItemsController < ApplicationController
     elsif agended(@item)
       current_user.unschedule(@item)
       agended_by_count = @item.agended_by_count
-      render json: {agended: false, event: "event-#{@item.id}", count: current_user.agenda_items.upcoming.count, agended_by_count: agended_by_count[:count], new_title: agended_by_count[:text]}
+      render json: {agended: false, event: "event-#{@item.id}", count: current_user.items_agenda.upcoming.count, agended_by_count: agended_by_count[:count], new_title: agended_by_count[:text]}
     else
       current_user.schedule(@item)
       agended_by_count = @item.agended_by_count
-      render json: {agended: true, event: "event-#{@item.id}", count: current_user.agenda_items.upcoming.count, agended_by_count: agended_by_count[:count], new_title: agended_by_count[:text]}
+      render json: {agended: true, event: "event-#{@item.id}", count: current_user.items_agenda.upcoming.count, agended_by_count: agended_by_count[:count], new_title: agended_by_count[:text]}
     end
   end
 
