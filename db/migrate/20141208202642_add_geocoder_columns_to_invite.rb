@@ -1,7 +1,7 @@
 class AddGeocoderColumnsToInvite < ActiveRecord::Migration
   def change
-    add_column :invites, :latitude, :string
-    add_column :invites, :longitude, :string
+    add_column :invites, :latitude, :float, default: 0
+    add_column :invites, :longitude, :float, default: 0
     add_column :invites, :route, :string
     add_column :invites, :neighborhood_name, :string
     add_column :invites, :city_name, :string
