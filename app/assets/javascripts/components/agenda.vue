@@ -145,12 +145,12 @@ export default{
         loadBlazy(revalidate);
       }, 1200);
 
-      loadBlazy = function(callback){
+      var loadBlazy = function(callback){
         blazy = new Blazy('');
         callback();
       };
 
-      revalidate = function(){
+      var revalidate = function(){
         setTimeout(function () {
           blazy.revalidate();
         }, 3000);
