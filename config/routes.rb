@@ -27,6 +27,7 @@ CidadeVc::Application.routes.draw do
         get 'users/:user/agenda', to: 'users#agenda'
         get 'geolocations/:resource/:city', to: 'geolocations#all'
         get 'geolocations/:resource/:city/today', to: 'geolocations#today'
+        get 'geolocations/:resource/:city/persona', to: 'geolocations#persona'
       end
     end
 
@@ -117,7 +118,7 @@ CidadeVc::Application.routes.draw do
 
     # =Sections
     get ':city/today', to: 'newsfeed#today', as: :newsfeed_city_today
-    get ':city/persona=(:personas)', to: 'newsfeed#persona', as: :newsfeed_city_persona
+    get ':city/personas/:personas', to: 'newsfeed#persona', as: :newsfeed_city_persona
     get ':city/category=(:categories)', to: 'newsfeed#category', as: :newsfeed_city_category
     get ':city/:neighborhood', to: 'newsfeed#neighborhood', as: :newsfeed_city_neighborhood
 

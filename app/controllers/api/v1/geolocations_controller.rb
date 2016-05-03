@@ -17,6 +17,13 @@ class Api::V1::GeolocationsController < Api::V1::ApiController
     respond_with format_for_map_this(section_items)
   end
 
+  def persona
+    city = City.find_by(slug: params[:city])
+    personas = Persona.query_to_array(params[:personas])
+    items = Event.all_persona_in_city(personas, city)
+    respond_with format_for_map_this(items)
+  end
+
 
   private
 

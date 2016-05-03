@@ -44,13 +44,12 @@ class NewsfeedController < ApplicationController
   end
 
   def persona
-    @city = City.find_by(slug: params[:city])
-    personas = Persona.query_to_array(params[:personas])
-    @items = Event.all_persona_in_city(personas, @city)
-    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
-    @title = "Eventos indicados para você em #{@city.name}"
-    set_items_in_map(current_or_guest_user, @items)
-    render :section
+    @resource = 'items'
+    @city = params[:city]
+    @action = 'personas'
+    @params = params[:personas]
+    @feedback = Feedback.new
+    render :index
   end
 
   def neighborhood
