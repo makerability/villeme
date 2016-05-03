@@ -40,7 +40,7 @@ class NewsfeedController < ApplicationController
     @city = params[:city]
     @action = 'today'
     @feedback = Feedback.new
-    render :section
+    render :index
   end
 
   def persona

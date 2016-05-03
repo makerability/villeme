@@ -13,7 +13,7 @@ class Api::V1::GeolocationsController < Api::V1::ApiController
 
   def today
     city = City.find_by(slug: params[:city])
-    section_items = get_item_class.all_today(city: city)
+    section_items = get_item_class.all_today(city)
     respond_with format_for_map_this(section_items)
   end
 
