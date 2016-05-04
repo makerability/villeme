@@ -8,7 +8,7 @@ The official repo is https://github.com/makerability/villeme
 
 ## Status
 
-[![Build Status](https://snap-ci.com/jonatassalgado/villeme/branch/master/build_image)](https://snap-ci.com/jonatassalgado/villeme/branch/master) [![Circle CI](https://circleci.com/gh/jonatassalgado/villeme/tree/master.svg?style=svg)](https://circleci.com/gh/jonatassalgado/villeme/tree/master) [![Code Climate](https://codeclimate.com/github/makerability/villeme/badges/gpa.svg)](https://codeclimate.com/github/makerability/villeme) [![Coverage Status](https://img.shields.io/coveralls/jonatassalgado/villeme.svg)](https://coveralls.io/r/jonatassalgado/villeme?branch=master) 
+[![Build Status](https://snap-ci.com/jonatassalgado/villeme/branch/master/build_image)](https://snap-ci.com/jonatassalgado/villeme/branch/master) [![Circle CI](https://circleci.com/gh/jonatassalgado/villeme/tree/master.svg?style=svg)](https://circleci.com/gh/jonatassalgado/villeme/tree/master) [![Code Climate](https://codeclimate.com/github/makerability/villeme/badges/gpa.svg)](https://codeclimate.com/github/makerability/villeme) [![Coverage Status](https://img.shields.io/coveralls/jonatassalgado/villeme.svg)](https://coveralls.io/r/jonatassalgado/villeme?branch=master)
 
 ## Dependencies
 
@@ -16,7 +16,7 @@ To run app in **development** you need to have:
 
 * [Git](http://git-scm.com/)
 * [Ruby](https://www.ruby-lang.org) 2.2.3 with Rbenv ([Ubuntu](http://goo.gl/GV3jz9)/[Mac](http://goo.gl/iopwFk))
-* Rails 4.0.3 ([Ubuntu](http://goo.gl/85rKbk)/[Mac](http://goo.gl/Zq6Rgv))
+* Rails 4.2.6 ([Ubuntu](http://goo.gl/85rKbk)/[Mac](http://goo.gl/Zq6Rgv))
 
 To run app **test** locale you need to have (not necessary, but recommended):
 
@@ -29,11 +29,12 @@ To run app **test** locale you need to have (not necessary, but recommended):
 
 1. Clone the project: `$ git clone https://github.com/makerability/villeme.git`
 2. Enter project folder: `$ cd villeme`
-3. Install the gems (dependencies): `$ bundle install`
-4. Compile assets (js, css, images): `$ bundle exec rake assets:precompile`
-5. Create the database: `$ bundle exec rake db:schema:load`
+3. Install postgreSQL packages : `$ sudo apt-get install libpq-dev`
+4. Install the gems (dependencies): `$ bundle install`
+5. Compile assets (js, css, images): `$ bundle exec rake assets:precompile`
+6. Create the database: `$ bundle exec rake db:schema:load`
 7. Install imagemagick for Ubuntu: `sudo apt-get install imagemagick`
-6. Create faker data with seed: `$ bundle exec rake db:seed`
+8. Create faker data with seed: `$ bundle exec rake db:seed`
 
 If everything goes OK, you can now run the project!
 
