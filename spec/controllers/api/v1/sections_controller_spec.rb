@@ -7,19 +7,28 @@ describe Api::V1::SectionsController do
     @city = create(:city)
   end
 
-  describe '#all' do
+  describe '#show' do
 
     it 'should load with success' do
-      get :all, resource: :items, city: @city.slug, format: :json
+      get :show, resource: :items, city: @city.slug, format: :json
 
       expect(response.status).to eq(200)
     end
   end
 
-  describe '#today' do
+  describe '#show ? when: :today' do
 
     it 'should load with success' do
-      get :today, resource: :items, city: @city.slug, format: :json
+      get :show, resource: :items, city: @city.slug, when: :today, format: :json
+
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe '#show ? personas: :activist' do
+
+    it 'should load with success' do
+      get :show, resource: :items, city: @city.slug, personas: :activist, format: :json
 
       expect(response.status).to eq(200)
     end
