@@ -86,6 +86,7 @@
 
 var Vue = require('vue');
 var Item = require('./item.vue');
+import store from './vuex/store';
 Vue.use(require('vue-resource'));
 
 export default{
@@ -116,7 +117,7 @@ export default{
     city: {
       type: String
     },
-    action: {
+    params: {
       type: String
     }
   },
@@ -127,9 +128,9 @@ export default{
   },
 
   computed: {
-    getAction: function(){
-      if(this.action != undefined){
-        return '/' + this.action
+    getParams: function(){
+      if(this.params != undefined){
+        return '?' + this.params
       }else{
         return ''
       }
@@ -150,7 +151,7 @@ export default{
       if(this.api == true){
         var _self = this;
 
-        Vue.http({url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getAction + '.json', method: 'GET'}).then(function (response) {
+        Vue.http({url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getParams, method: 'GET'}).then(function (response) {
           var data = response.data;
           _self.setData(data);
           _self.setCurrentUser(data.currentUser);

@@ -5,15 +5,32 @@ class Api::V1::SectionsController < Api::V1::ApiController
   require_relative '../../../domain/newsfeed/get_events_today'
   require_relative '../../../domain/newsfeed/get_activities_today'
   require_relative '../../../domain/newsfeed/get_items_agenda'
+  require_relative '../../../domain/newsfeed/get_events_persona'
 
-	def all
-		city = City.find_by(slug: params[:city])
-		section_items = Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, json: true, upcoming: true)
-		respond_with section_items
+	def show
+    city = City.find_by(slug: params[:city])
+
+    if params[:when]
+      date_filter(city)
+    elsif params[:personas]
+      persona_filter(city)
+    else
+      show_all(city)
+    end
 	end
 
-  def today
-    city = City.find_by(slug: params[:city])
+
+  private
+
+  def show_all(city)
+    respond_with Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, json: true, upcoming: true)
+  end
+
+  def persona_filter(city)
+    respond_with Villeme::NewsfeedModule.get_events_persona(params[:personas], city, user: current_or_guest_user,  json: true, upcoming: true, snippet: false)
+  end
+
+  def date_filter(city)
     if params[:resource] == 'events'
       respond_with Villeme::NewsfeedModule::Events.get_events_today(city, user: current_or_guest_user, json: true)
     elsif params[:resource] == 'activities'
@@ -22,6 +39,5 @@ class Api::V1::SectionsController < Api::V1::ApiController
       respond_with Villeme::NewsfeedModule::Events.get_events_today(city, user: current_or_guest_user, json: true)
     end
   end
-
 
 end
