@@ -1,4 +1,4 @@
-<% if params[:controller] == 'items' and params[:action] == 'show' and @item %>
+<% if params[:controller] == 'items' and params[:params] == 'show' and @item %>
     <meta property="og:site_name" content="Villeme" />
     <meta property="og:title" content="<%= Villeme::ShareRules.title(@item) %>" />
     <meta property="og:description" content="<%= strip_tags @item.try(:description_with_limit) %>" />

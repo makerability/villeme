@@ -71,7 +71,7 @@ export default{
       required: true
     },
 
-    action: {
+    params: {
       default: '',
       type: String
     },
@@ -96,9 +96,9 @@ export default{
       return store.state.dataItemOver
     },
 
-    getAction: function(){
+    getParams: function(){
       if(this.action != ''){
-        return '/' + this.action
+        return '?' + this.params
       }else{
         return ''
       }
@@ -158,7 +158,7 @@ export default{
       var _self = this;
 
       if(this.map == undefined){
-        Vue.http({url: '/pt-BR/api/v1/geolocations/' + _self.resource + '/' + _self.city + _self.getAction + '.json', method: 'GET'}).then(function (response) {
+        Vue.http({url: '/pt-BR/api/v1/geolocations/' + _self.resource + '/' + _self.city + _self.getAction, method: 'GET'}).then(function (response) {
           var data = response.data;
           _self.map = new Gmaps(data.current_user.latitude, data.current_user.longitude, data.markers);
         }, function (data) {

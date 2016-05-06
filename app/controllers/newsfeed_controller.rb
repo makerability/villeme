@@ -30,7 +30,7 @@ class NewsfeedController < ApplicationController
   def city
     @resource = 'items'
     @city = params[:city]
-    @action = ''
+    @params = ''
     @feedback = Feedback.new
     render :index
   end
@@ -38,18 +38,17 @@ class NewsfeedController < ApplicationController
   def today
     @resource = params[:resource]
     @city = params[:city]
-    @action = 'today'
+    @params = 'when=today'
     @feedback = Feedback.new
-    render :index
+    render :section
   end
 
   def persona
     @resource = 'items'
     @city = params[:city]
-    @action = 'personas'
-    @params = params[:personas]
+    @params = "personas=#{params[:personas]}"
     @feedback = Feedback.new
-    render :index
+    render :section
   end
 
   def neighborhood

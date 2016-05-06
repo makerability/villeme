@@ -20,14 +20,11 @@ CidadeVc::Application.routes.draw do
     # =Welcome
     root to: 'welcome#index', as: :welcome
 
-    namespace :api, constraints: { format: :json } do
+    namespace :api, defaults: { format: :json } do
       namespace :v1 do
-        get 'sections/:resource/:city', to: 'sections#all'
-        get 'sections/:resource/:city/today', to: 'sections#today'
+        get 'sections/:resource/:city', to: 'sections#show'
         get 'users/:user/agenda', to: 'users#agenda'
         get 'geolocations/:resource/:city', to: 'geolocations#all'
-        get 'geolocations/:resource/:city/today', to: 'geolocations#today'
-        get 'geolocations/:resource/:city/persona', to: 'geolocations#persona'
       end
     end
 

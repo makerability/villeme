@@ -163,9 +163,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _store = require('./vuex/store');
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue');
 var Item = require('./item.vue');
+
 Vue.use(require('vue-resource'));
 
 exports.default = {
@@ -197,7 +203,7 @@ exports.default = {
     city: {
       type: String
     },
-    action: {
+    params: {
       type: String
     }
   },
@@ -208,9 +214,9 @@ exports.default = {
   },
 
   computed: {
-    getAction: function getAction() {
-      if (this.action != undefined) {
-        return '/' + this.action;
+    getParams: function getParams() {
+      if (this.params != undefined) {
+        return '?' + this.params;
       } else {
         return '';
       }
@@ -231,7 +237,7 @@ exports.default = {
       if (this.api == true) {
         var _self = this;
 
-        Vue.http({ url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getAction + '.json', method: 'GET' }).then(function (response) {
+        Vue.http({ url: '/pt-BR/api/v1/sections/' + _self.getResource + '/' + _self.city + _self.getParams, method: 'GET' }).then(function (response) {
           var data = response.data;
           _self.setData(data);
           _self.setCurrentUser(data.currentUser);
@@ -261,7 +267,7 @@ exports.default = {
     },
 
     setCurrentUser: function setCurrentUser(user) {
-      store.dispatch('updateCurrentUser', user);
+      _store2.default.dispatch('updateCurrentUser', user);
     },
 
     setData: function setData(data) {
@@ -294,7 +300,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./item.vue":1,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],3:[function(require,module,exports){
+},{"./item.vue":1,"./vuex/store":7,"vue":34,"vue-hot-reload-api":9,"vue-resource":23,"vueify-insert-css":35}],3:[function(require,module,exports){
 var Vue = require('vue');
 var Newsfeed = require('./newsfeed.vue');
 var SidebarLeft = require('./sidebar-left.vue');
@@ -587,7 +593,7 @@ exports.default = {
       required: true
     },
 
-    action: {
+    params: {
       default: '',
       type: String
     },
@@ -612,9 +618,9 @@ exports.default = {
       return _store2.default.state.dataItemOver;
     },
 
-    getAction: function getAction() {
+    getParams: function getParams() {
       if (this.action != '') {
-        return '/' + this.action;
+        return '?' + this.params;
       } else {
         return '';
       }
@@ -674,7 +680,7 @@ exports.default = {
       var _self = this;
 
       if (this.map == undefined) {
-        Vue.http({ url: '/pt-BR/api/v1/geolocations/' + _self.resource + '/' + _self.city + _self.getAction + '.json', method: 'GET' }).then(function (response) {
+        Vue.http({ url: '/pt-BR/api/v1/geolocations/' + _self.resource + '/' + _self.city + _self.getAction, method: 'GET' }).then(function (response) {
           var data = response.data;
           _self.map = new _gmaps2.default(data.current_user.latitude, data.current_user.longitude, data.markers);
         }, function (data) {

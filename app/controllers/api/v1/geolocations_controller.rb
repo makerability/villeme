@@ -6,24 +6,20 @@ class Api::V1::GeolocationsController < Api::V1::ApiController
 
   def all
     city = City.find_by(slug: params[:city])
-    section_items = Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, upcoming: true)
-    section_activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(city, current_or_guest_user, upcoming: true)
-    respond_with format_for_map_this(section_items[:all].concat(section_activities[:all]))
-  end
 
-  def today
-    city = City.find_by(slug: params[:city])
-    section_items = get_item_class.all_today(city)
-    respond_with format_for_map_this(section_items)
+    if params[:personas]
+      personas = Persona.query_to_array(params[:personas])
+      items = Event.all_persona_in_city(personas, city)
+      respond_with format_for_map_this(items)
+    elsif params[:date]
+      section_items = get_item_class.all_today(city)
+      respond_with format_for_map_this(section_items)
+    else
+      section_items = Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, upcoming: true)
+      section_activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(city, current_or_guest_user, upcoming: true)
+      respond_with format_for_map_this(section_items[:all].concat(section_activities[:all]))
+    end
   end
-
-  def persona
-    city = City.find_by(slug: params[:city])
-    personas = Persona.query_to_array(params[:personas])
-    items = Event.all_persona_in_city(personas, city)
-    respond_with format_for_map_this(items)
-  end
-
 
   private
 

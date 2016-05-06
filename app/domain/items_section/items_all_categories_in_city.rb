@@ -6,8 +6,7 @@ module Villeme
 
         items = if options[:limit] and city.try(:items)
                   if options[:upcoming]
-                    git lg
-                    git city.items.includes(categories: :translations).where(category_translations: { name: categories }).limit(options[:limit]).upcoming
+                    city.items.includes(categories: :translations).where(category_translations: { name: categories }).limit(options[:limit]).upcoming
                   else
                     city.items.includes(categories: :translations).where(category_translations: { name: categories }).limit(options[:limit])
                   end

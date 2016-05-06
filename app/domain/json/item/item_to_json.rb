@@ -8,7 +8,7 @@ module Villeme
         @user = options[:user]
 
         @distance = calculate_distance_from_user_to_item
-        @action = define_action_name_to_url
+        @params = define_action_name_to_url
 
         create_json
       end
@@ -59,7 +59,7 @@ module Villeme
       end
 
       def create_link
-        "/#{@action}/#{@item.slug}"
+        "/#{@params}/#{@item.slug}"
       end
 
       def get_item_longitude
