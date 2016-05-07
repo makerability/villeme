@@ -8,7 +8,7 @@ The official repo is https://github.com/makerability/villeme
 
 ## Status
 
-[![Build Status](https://snap-ci.com/jonatassalgado/villeme/branch/master/build_image)](https://snap-ci.com/jonatassalgado/villeme/branch/master) [![Circle CI](https://circleci.com/gh/jonatassalgado/villeme/tree/master.svg?style=svg)](https://circleci.com/gh/jonatassalgado/villeme/tree/master) [![Code Climate](https://codeclimate.com/github/makerability/villeme/badges/gpa.svg)](https://codeclimate.com/github/makerability/villeme) [![Coverage Status](https://img.shields.io/coveralls/jonatassalgado/villeme.svg)](https://coveralls.io/r/jonatassalgado/villeme?branch=master)
+[![Build Status](https://snap-ci.com/jonatassalgado/villeme/branch/master/build_image)](https://snap-ci.com/jonatassalgado/villeme/branch/master) [![Code Climate](https://codeclimate.com/github/makerability/villeme/badges/gpa.svg)](https://codeclimate.com/github/makerability/villeme) [![Coverage Status](https://img.shields.io/coveralls/jonatassalgado/villeme.svg)](https://coveralls.io/r/jonatassalgado/villeme?branch=master)
 
 ## Dependencies
 
@@ -29,12 +29,13 @@ To run app **test** locale you need to have (not necessary, but recommended):
 
 1. Clone the project: `$ git clone https://github.com/makerability/villeme.git`
 2. Enter project folder: `$ cd villeme`
-3. Install postgreSQL packages : `$ sudo apt-get install libpq-dev`
-4. Install the gems (dependencies): `$ bundle install`
-5. Compile assets (js, css, images): `$ bundle exec rake assets:precompile`
-6. Create the database: `$ bundle exec rake db:schema:load`
-7. Install imagemagick for Ubuntu: `sudo apt-get install imagemagick`
-8. Create faker data with seed: `$ bundle exec rake db:seed`
+3. Install imagemagick for Ubuntu: `sudo apt-get install imagemagick`
+4. Install postgreSQL packages : `$ sudo apt-get install libpq-dev`
+5. Install GEMs: `$ bundle install`
+6. Install NPM modules: `$ sudo npm install`
+7. Compile assets (js, css, images): `$ bundle exec rake assets:precompile`
+8. Create the database: `$ bundle exec rake db:schema:load`
+9. Create faker data with seed: `$ bundle exec rake db:seed`
 
 If everything goes OK, you can now run the project!
 
