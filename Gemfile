@@ -6,7 +6,7 @@ ruby '2.2.3'
 gem 'rails', '4.2.6'
 
 
-group :development, :test do 
+group :development, :test do
 	gem 'sqlite3'
 	gem 'faker'
   gem 'better_errors'
@@ -17,12 +17,15 @@ group :development, :test do
 	gem 'poltergeist'
 	gem 'shoulda-matchers', '~> 3.1'
 	gem 'factory_girl_rails', '~> 4.0'
-	gem 'database_cleaner'
 	gem 'timecop'
 	gem 'bullet'
 	gem 'sitemap_generator'
 	gem 'coveralls', require: false
 	gem 'simplecov', require: false
+end
+
+group :test do
+  gem 'database_cleaner'
 end
 
 group :development do

@@ -387,7 +387,7 @@
           <div class="footer">
 
             <%= link_to 'Cancelar', root_path %>
-            <%= f.button :submit, params[:params] == 'new' ? 'Criar evento' : 'Salvar alterações', class: 'Button Button--primary Button--large', id: 'submit' %>
+            <%= f.button :submit, params[:action] == 'new' ? 'Criar evento' : 'Salvar alterações', class: 'Button Button--primary Button--large', id: 'submit' %>
 
           </div>
 

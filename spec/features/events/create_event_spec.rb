@@ -32,31 +32,32 @@ feature 'Create an event', js: true do
     scenario 'should create an event' do
       visit('/en/events/new')
 
-        sleep 3
+      sleep 3
 
-        page.fill_in 'event[name]', with: @activity_attributes.name
-        page.evaluate_script("$('.jqte_editor').text('#{@activity_attributes.description}')")
-        page.fill_in 'event[date_start]', with: Date.current.strftime('%d/%m/%Y')
-        page.fill_in 'event[date_finish]', with: (Date.current + 10).strftime('%d/%m/%Y')
-        # page.check 'Monday'
-        # page.check 'Sunday'
+      page.fill_in 'event[name]', with: @activity_attributes.name
+      page.evaluate_script("$('.jqte_editor').text('#{@activity_attributes.description}')")
+      page.fill_in 'event[date_start]', with: Date.current.strftime('%d/%m/%Y')
+      page.fill_in 'event[date_finish]', with: (Date.current + 10).strftime('%d/%m/%Y')
+      # page.check 'Monday'
+      # page.check 'Sunday'
 
-        sleep 3
+      sleep 3
 
-        page.fill_in 'event[hour_start_first]', with: '09:00'
-        page.fill_in 'event[hour_finish_first]', with: '20:30'
-        attach_file 'event[image]', "#{Rails.root}/public/images/default-event-image.jpg"
-        # fill_in '#event_cost_fake', with: '10,00'
-        page.fill_in 'event[place_attributes][name]', with: 'Parque da Redenção'
-          find_field('event[place_attributes][name]').native.send_keys(:return)
+      page.fill_in 'event[hour_start_first]', with: '09:00'
+      page.fill_in 'event[hour_finish_first]', with: '20:30'
+      attach_file 'event[image]', "#{Rails.root}/public/images/default-event-image.jpg"
+      # fill_in '#event_cost_fake', with: '10,00'
+      page.fill_in 'event[place_attributes][name]', with: 'Parque da Redenção'
+      find_field('event[place_attributes][name]').native.send_keys(:return)
 
-        sleep 3
+      sleep 3
 
-        page.execute_script("$('.criar-lugar').show()")
-        page.fill_in 'event[address]', with: @activity_attributes.address
+      page.execute_script("$('.criar-lugar').show()")
+      page.fill_in 'event[address]', with: @activity_attributes.address
 
 
       page.click_button 'Criar evento'
+
 
       sleep 3
 
