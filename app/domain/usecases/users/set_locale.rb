@@ -17,7 +17,6 @@ module Villeme
         set_i18n_locale_from_user_ip(@user_ip)
       end
 
-
       private
 
       def set_user_locale
@@ -108,3 +107,4 @@ module Villeme
     end
   end
 end
+
