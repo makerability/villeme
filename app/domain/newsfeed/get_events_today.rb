@@ -3,7 +3,7 @@ module Villeme
     module Events
       class << self
 
-        def get_events_today(city = false, options = {user: nil, json: false, limit: nil})
+        def get_events_today(city = false, options = {user: nil, json: false, limit: nil, principal_size: 2, snippet_size: 12, snippet: true})
           @city = city
           @options = options
 
@@ -42,11 +42,31 @@ module Villeme
         end
 
         def get_principal_events(events)
-          events.count <= 2 ? events[0...2] : events[0...5]
+          if is_snippet?
+            events[0...get_principal_size]
+          else
+            events
+          end
         end
 
         def get_snippet_events(events)
-          events.count <= 2 ? events[2...12] : events[5...15]
+          if is_snippet?
+            events[get_principal_size..get_snippet_size]
+          else
+            Event.none
+          end
+        end
+
+        def get_principal_size
+          @options[:principal_size].nil? ? 2 : @options[:principal_size]
+        end
+
+        def get_snippet_size
+          @options[:snippet_size].nil? ? 12 : @options[:snippet_size]
+        end
+
+        def is_snippet?
+          @options[:snippet] == nil ? true : @options[:snippet]
         end
 
         def create_title

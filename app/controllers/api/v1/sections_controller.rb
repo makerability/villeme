@@ -32,11 +32,11 @@ class Api::V1::SectionsController < Api::V1::ApiController
 
   def date_filter(city)
     if params[:resource] == 'events'
-      respond_with Villeme::NewsfeedModule::Events.get_events_today(city, user: current_or_guest_user, json: true)
+      respond_with Villeme::NewsfeedModule::Events.get_events_today(city, user: current_or_guest_user, json: true, snippet: false)
     elsif params[:resource] == 'activities'
       respond_with Villeme::NewsfeedModule::Today.get_activities_today(city, user: current_or_guest_user, json: true)
     else
-      respond_with Villeme::NewsfeedModule::Events.get_events_today(city, user: current_or_guest_user, json: true)
+      respond_with Villeme::NewsfeedModule::Events.get_events_today(city, user: current_or_guest_user, json: true, snippet: false)
     end
   end
 

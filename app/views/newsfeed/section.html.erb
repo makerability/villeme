@@ -7,24 +7,24 @@
 
 <!-- MAIN -->
 
-<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-  <div class="row">
-    <div class="col-lg-12">
-      <div id="main-content" class="Main ps-container">
-        <items-section resource="<%= @resource %>"
-                       city="<%= @city %>"
-                       params="<%= @params %>"
-                       :api="<%= @api %>"
-                       :data="<%= @data %>"></items-section>
-      </div>
-    </div>
+<div class="u-lg-size2of12 u-md-size2of12 u-sm-size2of12 u-floatLeft">
+  <sidebar-left city="<%= @city %>"></sidebar-left>
+</div>
+
+<div class="u-lg-size7of12 u-md-size9of12 u-sm-size9of12 u-floatLeft">
+  <div id="main-content" class="Main ps-container">
+    <items-section resource="<%= @resource %>"
+                   city="<%= @city %>"
+                   params="<%= @params %>"
+                   :api="<%= @api %>"
+                   :data="<%= @data %>"></items-section>
   </div>
 </div>
 
 
 <!-- SIDEBAR -->
 
-<div class="col-lg-3 col-md-3 col-sm-4 hidden-xs u-margin-95-0">
+<div class="u-lg-size3of12 u-md-size3of12 u-sm-size4of12 u-floatRight">
   <sidebar-map city="<%= params[:city] %>"
                params="<%= @params %>"></sidebar-map>
 </div>
