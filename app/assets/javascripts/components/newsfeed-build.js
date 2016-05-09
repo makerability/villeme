@@ -740,7 +740,14 @@ var store = new Vuex.Store({
     currentUser: {},
     agendaCounter: 0,
     isItemOver: false,
-    dataItemOver: {},
+    dataItemOver: {
+      distance: {
+        walk: 0,
+        bike: 0,
+        bus: 0,
+        car: 0
+      }
+    },
     timeoutsItemOver: [],
     zoomMap: 13
   },
