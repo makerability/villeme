@@ -3,6 +3,8 @@ module Villeme
     class << self
 
       def all_categories_in_city(categories, city, options = {user: nil, slug: false, upcoming: true, json: false, limit: false})
+        categories = categories_to_capitalize(categories)
+
 
         items = if options[:limit] and city.try(:items)
                   if options[:upcoming]
@@ -26,6 +28,18 @@ module Villeme
           items
         end
       end
+
+
+      private
+
+      def categories_to_capitalize(categories)
+        if categories.class == Array
+          categories.map { |category| category.capitalize }
+        else
+          categories.capitalize
+        end
+      end
+
 
     end
   end

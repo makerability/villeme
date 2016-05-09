@@ -45,19 +45,38 @@ describe Event, type: :model do
   end
 
   describe '.all_categories_in_city' do
-    it 'should return 2 events from leisure and art categories' do
-      categories = [build(:category), build(:category, name: 'Art', slug: 'art')]
+    context 'when categories params it is capitalize' do
+      it 'should return 2 events from leisure and art categories' do
+        categories = [build(:category), build(:category, name: 'Art', slug: 'art')]
 
-      2.times do
-        event = FactoryGirl.create(:event, name: Faker::Lorem.sentence(2, false, 4))
-        event.categories << categories
+        2.times do
+          event = FactoryGirl.create(:event, name: Faker::Lorem.sentence(2, false, 4))
+          event.categories << categories
+        end
+        create(:event)
+
+        city = create(:city)
+               allow(city).to receive(:items).and_return(Event.all)
+
+        expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: false).count).to eq(2)
       end
-      create(:event)
+    end
 
-      city = create(:city)
-             allow(city).to receive(:items).and_return(Event.all)
+    context 'when categories params it is downcase' do
+      it 'should return 2 events from leisure and art categories' do
+        categories = [build(:category), build(:category, name: 'Art', slug: 'art')]
 
-      expect(Event.all_categories_in_city(['Leisure', 'Art'], city, upcoming: false).count).to eq(2)
+        2.times do
+          event = FactoryGirl.create(:event, name: Faker::Lorem.sentence(2, false, 4))
+          event.categories << categories
+        end
+        create(:event)
+
+        city = create(:city)
+               allow(city).to receive(:items).and_return(Event.all)
+
+        expect(Event.all_categories_in_city(['leisure', 'art'], city, upcoming: false).count).to eq(2)
+      end
     end
   end
 
