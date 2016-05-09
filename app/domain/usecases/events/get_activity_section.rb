@@ -3,12 +3,12 @@ module Villeme
     class GetActivitiesSection
       class << self
 
-        require_relative '../../newsfeed/get_activities_today'
+        require_relative '../../sections/mount_activities_today'
 
         def get_all_sections(city, user, options = {json: false})
           data = {
               all: get_section_all_events(city),
-              today: Villeme::NewsfeedModule::Activities.get_activities_today(city, user: user, json: options[:json]),
+              today: Villeme::MountSections::Activities.get_activities_today(city, user: user, json: options[:json]),
               policies: {
                   is_guest_user: user.guest?
               }

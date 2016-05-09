@@ -2,7 +2,7 @@ class Api::V1::GeolocationsController < Api::V1::ApiController
 
   require_relative '../../../domain/usecases/events/get_events_section'
   require_relative '../../../domain/usecases/events/get_activity_section'
-  require_relative '../../../domain/newsfeed/get_events_today'
+  require_relative '../../../domain/sections/mount_events_today'
 
   def all
     city = City.find_by(slug: params[:city])

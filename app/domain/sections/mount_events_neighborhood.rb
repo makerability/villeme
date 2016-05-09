@@ -1,5 +1,5 @@
 module Villeme
-  module NewsfeedModule
+  module MountSections
     module Neighborhood
       class << self
 

@@ -1,5 +1,5 @@
 module Villeme
-  module NewsfeedModule
+  module MountSections
     class << self
 
       def get_events_persona(personas, city, options = {user: nil, upcoming: true, json: false, limit: nil, principal_size: 2, snippet_size: 12, snippet: true})

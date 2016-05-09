@@ -1,7 +1,7 @@
 module Villeme
-  module NewsfeedModule
+  module MountSections
     module Agenda
-      require_relative '../../domain/items_section/items_agenda'
+      require_relative '../../domain/items/get_items_agenda'
 
       class << self
 

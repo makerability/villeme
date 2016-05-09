@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   require_relative '../domain/usecases/geolocalization/get_geocoder_attributes'
   require_relative '../domain/usecases/geolocalization/geocode_event'
   require_relative '../domain/json/item/item_to_json'
-  require_relative '../domain/items_section/items_section'
+  require_relative '../domain/items/get_items_section'
 
   after_validation :geocode_event, unless: 'address.nil?'
 

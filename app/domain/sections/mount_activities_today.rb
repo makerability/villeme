@@ -1,5 +1,5 @@
 module Villeme
-  module NewsfeedModule
+  module MountSections
     module Activities
       class << self
 
