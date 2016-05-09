@@ -440,10 +440,10 @@ puts '=========== Itens fakers creator ==========='
 puts "\n"
 puts "\n"
 
-types_array = ['Event', 'Activity']
+types_array = ['Event', 'Event', 'Activity']
 images_array = ['a', 'b', 'd', 'e', 'f']
 
-30.times do
+50.times do
   place = Place.order("RANDOM()").first
   faker_address = Faker::Address
   item = Item.new(
@@ -535,4 +535,3 @@ if admin.save
 else
 	puts "It's not possible to create the Admin"
 end
-
