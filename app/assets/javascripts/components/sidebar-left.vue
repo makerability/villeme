@@ -175,13 +175,13 @@
           <a href="#" data-scroll="today">Eventos hoje</a>
           <span class="badge" v-bind:class="{ 'is-show': is_hover }">{{ data.today.count }}</span>
         </li>
-        <li v-if="data.activities_today.count > 0" v-on:mouseenter="navEnter" v-on:mouseleave="navLeave">
-          <a href="#" data-scroll="activities-today">Atividades hoje</a>
-          <span class="badge" v-bind:class="{ 'is-show': is_hover }">{{ data.activities_today.count }}</span>
-        </li>
         <li v-if="data.persona.count > 0" v-on:mouseenter="navEnter" v-on:mouseleave="navLeave">
           <a href="#" data-scroll="persona">Indicados p/ mim</a>
           <span class="badge" v-bind:class="{ 'is-show': is_hover }">{{ data.persona.count }}</span>
+        </li>
+        <li v-if="data.activitiesToday.count > 0" v-on:mouseenter="navEnter" v-on:mouseleave="navLeave">
+          <a href="#" data-scroll="activitiesToday">Atividades hoje</a>
+          <span class="badge" v-bind:class="{ 'is-show': is_hover }">{{ data.activitiesToday.count }}</span>
         </li>
         <li v-if="data.neighborhood.count > 0" v-on:mouseenter="navEnter" v-on:mouseleave="navLeave">
           <a href="#" data-scroll="neighborhood">No meu bairro</a>
@@ -246,7 +246,7 @@ export default{
             count: 0
           }
         },
-        activities_today: {
+        activitiesToday: {
           count: 0
         }
       },
