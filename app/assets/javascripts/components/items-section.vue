@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div v-if="data.snippet.length > 0" v-hide="data.snippet == null" class="EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull">
+      <div v-if="data.snippet.length > 0" v-show="data.snippet != null" class="EventsSnippet Grid-cell u-size4of12 u-lg-size4of12 u-md-sizeFull">
         <div class="EventsSnippet-content">
           <div class="EventsSnippet-scroll">
             <ul class="EventsSnippet-lineGroup">
@@ -53,7 +53,7 @@
                   <span class="EventsSnippet-eventHour EventsSnippet-lineSecondItem">
                     {{ item.start_hour }}
                   </span>
-                  <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem {{ data.price.highlight }}">
+                  <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem">
                     {{ item.price.value }}
                   </span>
                   <span v-if="data.rating" class="EventsSnippet-eventRating EventsSnippet-lineSecondItem">
@@ -108,7 +108,10 @@ export default{
       default: true
     },
     data: {
-      type: Object
+      type: Object,
+      default: function(){
+        return {count: 0}
+      }
     },
     resource: {
       default: 'items',
