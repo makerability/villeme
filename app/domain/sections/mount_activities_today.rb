@@ -43,15 +43,15 @@ module Villeme
 
         def get_principal_activities(activities)
           if is_snippet?
-            events[0...get_principal_size]
+            activities[0...get_principal_size]
           else
-            events
+            activities
           end
         end
 
         def get_snippet_activities(activities)
           if is_snippet?
-            events[get_principal_size..get_snippet_size]
+            activities[get_principal_size..get_snippet_size]
           else
             Event.none
           end
