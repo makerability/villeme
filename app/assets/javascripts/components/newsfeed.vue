@@ -5,6 +5,7 @@
 <template>
   <items-section :data="data.today" api="false"></items-section>
   <items-section :data="data.persona" api="false"></items-section>
+  <items-section :data="data.activitiesToday" api="false"></items-section>
   <items-section :data="data.neighborhood" api="false"></items-section>
   <items-section :data="data.fun" api="false"></items-section>
   <items-section :data="data.education" api="false"></items-section>

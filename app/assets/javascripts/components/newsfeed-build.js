@@ -386,7 +386,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\" api=\"false\"></items-section>\n<items-section :data=\"data.persona\" api=\"false\"></items-section>\n<items-section :data=\"data.neighborhood\" api=\"false\"></items-section>\n<items-section :data=\"data.fun\" api=\"false\"></items-section>\n<items-section :data=\"data.education\" api=\"false\"></items-section>\n<items-section :data=\"data.health\" api=\"false\"></items-section>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<items-section :data=\"data.today\" api=\"false\"></items-section>\n<items-section :data=\"data.persona\" api=\"false\"></items-section>\n<items-section :data=\"data.activitiesToday\" api=\"false\"></items-section>\n<items-section :data=\"data.neighborhood\" api=\"false\"></items-section>\n<items-section :data=\"data.fun\" api=\"false\"></items-section>\n<items-section :data=\"data.education\" api=\"false\"></items-section>\n<items-section :data=\"data.health\" api=\"false\"></items-section>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

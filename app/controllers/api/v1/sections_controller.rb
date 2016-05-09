@@ -3,9 +3,9 @@ class Api::V1::SectionsController < Api::V1::ApiController
   require_relative '../../../domain/usecases/events/get_events_section'
   require_relative '../../../domain/usecases/events/get_activity_section'
   require_relative '../../../domain/sections/mount_events_today'
-  require_relative '../../../domain/sections/mount_activities_today'
   require_relative '../../../domain/sections/mount_items_agenda'
   require_relative '../../../domain/sections/mount_events_persona'
+  require_relative '../../../domain/newsfeed/mount_newsfeed'
 
 	def show
     city = City.find_by(slug: params[:city])
@@ -23,7 +23,7 @@ class Api::V1::SectionsController < Api::V1::ApiController
   private
 
   def show_all(city)
-    respond_with Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, json: true, upcoming: true)
+    respond_with Villeme::MountNewsfeed.get_all_sections(city, current_or_guest_user, json: true, upcoming: true)
   end
 
   def persona_filter(city)
