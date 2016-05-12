@@ -52,7 +52,7 @@
           </span>
           <div class="Event-infos">
             <span class="Event-infosPrice  Event-infosItem {{ data.price.highlight }}">
-              {{ data.price.value }}
+              {{ data.price.currency }} {{ data.price.value }}
             </span>
             <span v-if="data.rating" class="Event-infosRating Event-infosItem">
               <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>

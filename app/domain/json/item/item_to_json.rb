@@ -30,7 +30,7 @@ module Villeme
             period_that_occurs: @item.period_that_occurs,
             start_hour: @item.start_hour,
             image: create_image_json,
-            price: create_price_json,
+            price: @item.price,
             rating: @item.rates_media,
             friends: create_friends_json,
             distance: create_distance_json,
@@ -40,13 +40,6 @@ module Villeme
             is_agended: @item.agended?(@user),
             all_day: @item.allday,
             all_year: @item.all_year
-        }
-      end
-
-      def create_price_json
-        {
-            value: @item.price[:value],
-            highlight: @item.price[:css_attributes]
         }
       end
 

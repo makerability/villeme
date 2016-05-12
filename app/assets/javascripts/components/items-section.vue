@@ -54,7 +54,7 @@
                     {{ item.start_hour }}
                   </span>
                   <span class="EventsSnippet-eventPrice EventsSnippet-lineSecondItem">
-                    {{ item.price.value }}
+                    {{ item.price.currency }}  {{ item.price.value }}
                   </span>
                   <span v-if="data.rating" class="EventsSnippet-eventRating EventsSnippet-lineSecondItem">
                     <span class="Event-infosRatingStar glyphicon glyphicon-star"></span>
