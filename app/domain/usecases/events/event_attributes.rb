@@ -34,14 +34,16 @@ module Villeme
         def price(entity)
           response = Hash.new(value: nil, currency: nil)
 
-          if I18n.locale == 'pt-BR'
-            response[:value] = "%.2f" % entity.cost
+          if entity.cost.nil?
+            return response
+          elsif I18n.locale == 'pt-BR'
+            response[:value] = '%.2f' % entity.cost
             response[:currency] = 'R$'
           elsif I18n.locale == :en
-            response[:value] = "%.2f" % entity.cost
+            response[:value] = '%.2f' % entity.cost
             response[:currency] = 'R$'
           else
-            response[:value] = "%.2f" % entity.cost
+            response[:value] = '%.2f' % entity.cost
           end
 
           return response
@@ -61,9 +63,11 @@ module Villeme
         def get_start_hour(entity)
           if entity.allday?
             'AM-PM'
-          else
+          elsif !entity.hour_start_first.nil?
             hour = entity.hour_start_first.strftime('%H:%M')
             hour.include?(':00') ? hour.chomp(':00') << 'h' : hour << 'h'
+          else
+            ''
           end
         end
 

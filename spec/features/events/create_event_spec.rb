@@ -59,7 +59,7 @@ feature 'Create an event', js: true do
       page.click_button 'Criar evento'
 
 
-      sleep 3
+      sleep 10
 
       expect(page).to have_css('.EventSingle')
       expect(page).to have_text(@activity_attributes.name)
