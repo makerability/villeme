@@ -198,7 +198,8 @@ class ItemsController < ApplicationController
         :subcategory_ids => [],
         :category_ids => [],
         :persona_ids => [],
-        :week_ids => []
+        :week_ids => [],
+        :place_attributes => []
     )
   end
 
