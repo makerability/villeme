@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {"type": "string"},
+    "items": {"type": "array"},
+    "snippet": {"type": "array"},
+    "count": {"type": "integer"},
+    "link": {"type": "string"},
+    "link_to_create": {"type": "string"},
+    "type": {"type": "string"}
+  },
+  "additionalProperties": false
+}

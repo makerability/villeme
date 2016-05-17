@@ -5,6 +5,7 @@ class Api::V1::SectionsController < Api::V1::ApiController
   require_relative '../../../domain/sections/mount_events_today'
   require_relative '../../../domain/sections/mount_items_agenda'
   require_relative '../../../domain/sections/mount_events_persona'
+  require_relative '../../../domain/sections/mount_events_categories'
   require_relative '../../../domain/newsfeed/mount_newsfeed'
 
 	def show
@@ -29,7 +30,7 @@ class Api::V1::SectionsController < Api::V1::ApiController
   end
 
   def category_filter(city)
-    respond_with "abc"
+    respond_with Villeme::MountSections.get_events_categories(params[:categories], city, user: current_or_guest_user, json: true, upcoming: true, snippet: false)
   end
 
   def persona_filter(city)
