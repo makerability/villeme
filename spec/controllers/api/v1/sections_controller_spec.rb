@@ -34,4 +34,13 @@ describe Api::V1::SectionsController do
     end
   end
 
+  describe '#category ? categories: :leisure' do
+
+    it 'should load with success' do
+      get :show, resource: :items, city: @city.slug, categories: :leisure, format: :json
+
+      expect(response.status).to eq(200)
+    end
+  end
+
 end

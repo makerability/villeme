@@ -14,6 +14,8 @@ class Api::V1::SectionsController < Api::V1::ApiController
       date_filter(city)
     elsif params[:personas]
       persona_filter(city)
+    elsif params[:categories]
+      category_filter(city)
     else
       show_all(city)
     end
@@ -24,6 +26,10 @@ class Api::V1::SectionsController < Api::V1::ApiController
 
   def show_all(city)
     respond_with Villeme::MountNewsfeed.get_all_sections(city, current_or_guest_user, json: true, upcoming: true)
+  end
+
+  def category_filter(city)
+    respond_with "abc"
   end
 
   def persona_filter(city)

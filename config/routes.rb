@@ -4,7 +4,7 @@ CidadeVc::Application.routes.draw do
 
   post '/rate' => 'rater#create', :as => 'rate'
 
-  # Devise
+  # =Devise
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
@@ -20,6 +20,8 @@ CidadeVc::Application.routes.draw do
     # =Welcome
     root to: 'welcome#index', as: :welcome
 
+
+    # =Api
     namespace :api, defaults: { format: :json } do
       namespace :v1 do
         get 'sections/:resource/:city', to: 'sections#show'
