@@ -26,6 +26,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+	gem 'json-schema'
 end
 
 group :development do
@@ -108,7 +109,7 @@ gem 'aws-sdk', '< 2.0'
 gem 'gon'
 
 # i18n
-gem 'rails-i18n', '~> 4.0.0' 
+gem 'rails-i18n', '~> 4.0.0'
 
 # jQuery turbo links
 gem 'jquery-turbolinks'
