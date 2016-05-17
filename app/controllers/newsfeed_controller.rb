@@ -61,12 +61,10 @@ class NewsfeedController < ApplicationController
   end
 
   def category
-    @city = City.find_by(slug: params[:city])
-    categories = Category.query_to_array(params[:categories])
-    @items = Item.all_categories_in_city(categories, @city)
-    @items_json = Item.items_to_json(@items, user: current_or_guest_user).as_json
-    @title = "Eventos nas categorias #{params[:categories]}"
-    set_items_in_map(current_or_guest_user, @items)
+    @resource = 'items'
+    @city = params[:city]
+    @params = "categories=#{params[:categories]}"
+    @feedback = Feedback.new
     render :section
   end
 

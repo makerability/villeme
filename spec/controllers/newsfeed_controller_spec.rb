@@ -85,9 +85,7 @@ describe NewsfeedController do
 
 
   describe '#agenda' do
-
     context 'current_user logged in and invited' do
-
       before(:each) do
         set_user_logged_in
       end
@@ -99,9 +97,23 @@ describe NewsfeedController do
 
         expect(response).to render_template(:agenda)
       end
-
     end
+  end
 
+
+  describe '#category' do
+    context 'current_user logged in and invited' do
+      before(:each) do
+        set_user_logged_in
+        @city = create(:city, name: 'Albany', launch: true)
+      end
+
+      it 'should render section template' do
+        get :category, locale: :en, city: @city, categories: ['Leisure', 'Culture']
+
+        expect(response).to render_template(:section)
+      end
+    end
   end
 
 
