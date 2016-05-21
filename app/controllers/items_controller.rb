@@ -54,6 +54,10 @@ class ItemsController < ApplicationController
     set_current_user_lat_long_in_gon
     set_array_of_places_in_gon
 
+    if get_item_route == 'items'
+      render template: "#{get_item_route}/new", layout: 'centralize-lg' and return
+    end
+
     render template: "#{get_item_route}/new"
   end
 

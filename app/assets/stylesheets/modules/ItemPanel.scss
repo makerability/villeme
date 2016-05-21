@@ -1,6 +1,8 @@
 @import 'variables';
 
 .ItemPanel{
+  text-align: center;
+  padding: 45px;
 
   &:hover{
     color: $green;

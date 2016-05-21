@@ -124,7 +124,6 @@
         dinheiroConvertido = dinheiro.replace(",", ".").replace("R$","")
         $("#event_cost").val(dinheiroConvertido)
         return
-
       return
 
 
@@ -134,6 +133,7 @@
         $(this).hide()
         $(".not-required-block").show()
         return
+
 
       return
 
@@ -228,12 +228,8 @@
         sub: false
         sup: false
         focus: ->
-          $(".jqte_editor").animate
+          $(".jqte_editor").css
             'height': 360
-          return
-        blur: ->
-          $(".jqte_editor").animate
-            'height': 100
           return
       return
 
@@ -278,4 +274,3 @@
   return
 
 ) jQuery
-
