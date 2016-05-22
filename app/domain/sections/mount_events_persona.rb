@@ -49,10 +49,7 @@ module Villeme
 
       def create_link
         if @city and @personas
-          Rails.application.routes.url_helpers.newsfeed_city_persona_path(
-              city: @city,
-              personas: @personas
-          )
+          "?#{{personas: @personas.map(&:capitalize)}.to_query}"
         else
           nil
         end

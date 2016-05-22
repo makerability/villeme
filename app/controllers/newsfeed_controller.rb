@@ -30,12 +30,10 @@ class NewsfeedController < ApplicationController
   def city
     if params[:categories]
       category_section
+    elsif params[:personas]
+      persona_section
     else
-      @resource = 'items'
-      @city = params[:city]
-      @params = ''
-      @feedback = Feedback.new
-      render :index
+      newsfeed
     end
   end
 
@@ -43,14 +41,6 @@ class NewsfeedController < ApplicationController
     @resource = params[:resource]
     @city = params[:city]
     @params = 'when=today'
-    @feedback = Feedback.new
-    render :section
-  end
-
-  def persona
-    @resource = 'items'
-    @city = params[:city]
-    @params = "personas=#{params[:personas]}"
     @feedback = Feedback.new
     render :section
   end
@@ -72,10 +62,26 @@ class NewsfeedController < ApplicationController
 
   private
 
+  def newsfeed
+    @resource = 'items'
+    @city = params[:city]
+    @params = ''
+    @feedback = Feedback.new
+    render :index
+  end
+
   def category_section
     @resource = 'items'
     @city = params[:city]
     @params = {categories: params[:categories]}.to_query
+    @feedback = Feedback.new
+    render :section
+  end
+
+  def persona_section
+    @resource = 'items'
+    @city = params[:city]
+    @params = {personas: params[:personas]}.to_query
     @feedback = Feedback.new
     render :section
   end
