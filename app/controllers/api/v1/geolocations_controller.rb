@@ -15,9 +15,7 @@ class Api::V1::GeolocationsController < Api::V1::ApiController
       section_items = get_item_class.all_today(city)
       respond_with format_for_map_this(section_items)
     else
-      section_items = Villeme::UseCases::GetEventsSection.get_all_sections(city, current_or_guest_user, upcoming: true)
-      section_activities = Villeme::UseCases::GetActivitiesSection.get_all_sections(city, current_or_guest_user, upcoming: true)
-      respond_with format_for_map_this(section_items[:all].concat(section_activities[:all]))
+      respond_with format_for_map_this(city.items.upcoming)
     end
   end
 
