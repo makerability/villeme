@@ -30,11 +30,11 @@ class Api::V1::SectionsController < Api::V1::ApiController
   end
 
   def category_filter(city)
-    respond_with Villeme::MountSections.get_events_categories(params[:categories], city, user: current_or_guest_user, json: true, upcoming: true, snippet: false)
+    respond_with Villeme::MountSections::Categories.get_events_categories(params[:categories], city, user: current_or_guest_user, json: true, upcoming: true, snippet: false)
   end
 
   def persona_filter(city)
-    respond_with Villeme::MountSections.get_events_persona(params[:personas], city, user: current_or_guest_user, json: true, upcoming: true, snippet: false)
+    respond_with Villeme::MountSections::Personas.get_events_persona(params[:personas], city, user: current_or_guest_user, json: true, upcoming: true, snippet: false)
   end
 
   def date_filter(city)

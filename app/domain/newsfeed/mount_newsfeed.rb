@@ -12,7 +12,7 @@ module Villeme
         data = {
           all: get_section_all_events(city),
           today: Villeme::MountSections::Events.get_events_today(city, user: user, json: options[:json]),
-          persona: Villeme::MountSections.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
+          persona: Villeme::MountSections::Personas.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
           neighborhood: Villeme::MountSections::Neighborhood.get_events_neighborhood(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
           fun: create_section_fun_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
           education: create_section_education_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
@@ -49,7 +49,7 @@ module Villeme
           items: events_all_fun.count <= 2 ? events_all_fun[0...2] : events_all_fun[0...5],
           snippet: events_all_fun.count <= 2 ? events_all_fun[2...12] : events_all_fun[5...15],
           count: events_all_fun.count,
-          link: Rails.application.routes.url_helpers.newsfeed_city_category_path(city: city, categories: Category.to_query(Newsfeed.configs[:sections][:fun].map(&:capitalize), key: false)),
+          link: "?#{{categories: Newsfeed.configs[:sections][:fun].map(&:capitalize)}.to_query}",
           link_to_create: '/events/new',
           type: 'fun'
         }

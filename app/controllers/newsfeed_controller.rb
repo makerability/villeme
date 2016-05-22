@@ -28,11 +28,15 @@ class NewsfeedController < ApplicationController
   end
 
   def city
-    @resource = 'items'
-    @city = params[:city]
-    @params = ''
-    @feedback = Feedback.new
-    render :index
+    if params[:categories]
+      category_section
+    else
+      @resource = 'items'
+      @city = params[:city]
+      @params = ''
+      @feedback = Feedback.new
+      render :index
+    end
   end
 
   def today
@@ -60,14 +64,6 @@ class NewsfeedController < ApplicationController
     render :section
   end
 
-  def category
-    @resource = 'items'
-    @city = params[:city]
-    @params = "categories=#{params[:categories]}"
-    @feedback = Feedback.new
-    render :section
-  end
-
   def agenda
     @user = current_or_guest_user.username
     render :agenda
@@ -75,6 +71,14 @@ class NewsfeedController < ApplicationController
 
 
   private
+
+  def category_section
+    @resource = 'items'
+    @city = params[:city]
+    @params = {categories: params[:categories]}.to_query
+    @feedback = Feedback.new
+    render :section
+  end
 
   def set_items_in_map(user, events)
     gon.latitude = user.latitude

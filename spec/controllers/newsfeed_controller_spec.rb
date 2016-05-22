@@ -3,20 +3,20 @@ require 'rails_helper'
 describe NewsfeedController do
 
   describe '#index' do
-    context 'when current_user logged in, invited and have a #city_slug' do
+    context 'when current_user logged in, invited and have a city_slug' do
       before(:each) do
         set_user_logged_in
         allow(@user).to receive(:city_slug).and_return(:albany)
         create(:city, name: 'Albany')
       end
-      it 'should redirect to newsfeed#city' do
+      it 'should redirect to newsfeed/city' do
         get :index, locale: :en
 
         expect(response).to redirect_to(newsfeed_city_path(:albany))
       end
     end
 
-    context 'when current_user logged, invited and DO NOT have a #city_slug' do
+    context 'when current_user logged, invited and DO NOT have a city_slug' do
       before(:each) do
         set_user_logged_in({city_name: 'Rio de Janeiro'})
         allow(@user).to receive(:city_slug).and_return false
@@ -61,6 +61,27 @@ describe NewsfeedController do
 
   end
 
+
+  describe "#city" do
+    context "current_user logged in and invited" do
+      context "with categories params" do
+
+        before(:each) do
+          set_user_logged_in
+          @city = create(:city, name: 'Albany', launch: true)
+        end
+
+        it 'should render section template' do
+          get :city, locale: :en, city: @city, categories: ['Leisure', 'Culture']
+
+          expect(response).to render_template(:section)
+        end
+
+      end
+    end
+  end
+
+
   describe '#persona' do
 
     context 'current_user logged in and invited' do
@@ -101,20 +122,6 @@ describe NewsfeedController do
   end
 
 
-  describe '#category' do
-    context 'current_user logged in and invited' do
-      before(:each) do
-        set_user_logged_in
-        @city = create(:city, name: 'Albany', launch: true)
-      end
-
-      it 'should render section template' do
-        get :category, locale: :en, city: @city, categories: ['Leisure', 'Culture']
-
-        expect(response).to render_template(:section)
-      end
-    end
-  end
 
 
 end

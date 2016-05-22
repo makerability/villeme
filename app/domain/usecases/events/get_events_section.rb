@@ -12,7 +12,7 @@ module Villeme
           data = {
               all: get_section_all_events(city),
               today: Villeme::MountSections::Events.get_events_today(city, user: user, json: options[:json]),
-              persona: Villeme::MountSections.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
+              persona: Villeme::MountSections::Personas.get_events_persona(user.personas_name, city, user: user, json: options[:json], upcoming: options[:upcoming]),
               neighborhood: Villeme::MountSections::Neighborhood.get_events_neighborhood(user.neighborhood, user: user, json: options[:json], upcoming: options[:upcoming]),
               fun: create_section_fun_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),
               education: create_section_education_events(city, user: user, json: options[:json], slug: true, upcoming: options[:upcoming]),

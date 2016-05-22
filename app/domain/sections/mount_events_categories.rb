@@ -1,6 +1,7 @@
 module Villeme
   module MountSections
-    class << self
+    module Categories
+    extend self
 
       def get_events_categories(categories, city, options = {user: nil, upcoming: true, json: false, limit: nil, principal_size: 2, snippet_size: 12, snippet: true})
         @categories = categories
@@ -16,7 +17,7 @@ module Villeme
 
       def create_json(events)
         {
-            title: 'Eventos indicados para você',
+            title: "Eventos de #{get_categories_name}",
             items: get_principal_events(events),
             snippet: get_snippet_events(events),
             count: events.count,
@@ -24,6 +25,14 @@ module Villeme
             link_to_create: '/events/new',
             type: 'category'
         }
+      end
+
+      def get_categories_name
+        if @categories.is_a? Array
+          @categories.map(&:capitalize).join(" e ")
+        else
+          @categories.capitalize
+        end
       end
 
       def get_principal_events(events)
@@ -48,10 +57,7 @@ module Villeme
 
       def create_link
         if @city and @categories
-          Rails.application.routes.url_helpers.newsfeed_city_category_path(
-              city: @city,
-              categories: Category.find_by(slug: @categories)
-          )
+          "?#{{categories: @categories}.to_query}"
         else
           ""
         end
