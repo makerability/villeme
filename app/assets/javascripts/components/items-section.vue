@@ -1,3 +1,5 @@
+// out: .
+
 <style>
 
 </style>
@@ -27,7 +29,7 @@
           <div class="AlertCreateEvent-text u-posAbsoluteCenter">
             <span>
               Não há mais eventos no momento.<br/>
-              <a href="{{ data.policies.isGuest_user ? '#' : data.link_to_create }}" v-on:click={{ data.policies.isGuest_user ? login : false }}>Cria evento</a>
+              <a href="{{ data.policies.isGuestUser ? '#' : data.link_to_create }}" v-on:click={{ data.policies.isGuestUser ? login : false }}>Cria evento</a>
             </span>
           </div>
         </div>
