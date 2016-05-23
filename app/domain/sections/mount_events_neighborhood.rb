@@ -44,10 +44,7 @@ module Villeme
 
         def create_link
           if @neighborhood and @neighborhood.city
-            Rails.application.routes.url_helpers.newsfeed_city_neighborhood_path(
-              city: @neighborhood.try(:city),
-              neighborhood: @neighborhood
-              )
+            "?#{{neighborhoods: @neighborhood.name}.to_query}"
           else
             nil
           end

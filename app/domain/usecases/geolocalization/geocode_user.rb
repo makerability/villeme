@@ -57,10 +57,14 @@ module Villeme
       end
 
       def get_geocoder_for_neighborhood(geocoder)
-        if neighborhood_empty?(geocoder)
+        if neighborhood_empty?(geocoder) && sublocality_empty?(geocoder)
           nil
         else
-          geocoder.address_components_of_type(:neighborhood).first["long_name"]
+          if neighborhood_empty?(geocoder) == false
+            geocoder.address_components_of_type(:neighborhood).first["long_name"]
+          elsif sublocality_empty?(geocoder) == false
+            geocoder.address_components_of_type(:sublocality).first["long_name"]
+          end
         end
       end
 
@@ -93,6 +97,10 @@ module Villeme
 
       def route_or_bus_station_empty?(geocoder)
         geocoder.address_components_of_type(:bus_station).empty? && geocoder.address_components_of_type(:route).empty?
+      end
+
+      def sublocality_empty?(geocoder)
+        geocoder.address_components_of_type(:sublocality).first["long_name"].empty?
       end
 
 

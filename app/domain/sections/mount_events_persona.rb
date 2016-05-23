@@ -49,7 +49,11 @@ module Villeme
 
       def create_link
         if @city and @personas
-          "?#{{personas: @personas.map(&:capitalize)}.to_query}"
+          if @personas.is_a? Array
+            "?#{{personas: @personas.map(&:capitalize)}.to_query}"
+          else
+            "?#{{personas: @personas}.to_query}"
+          end
         else
           nil
         end

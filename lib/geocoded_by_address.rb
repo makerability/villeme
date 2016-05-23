@@ -37,9 +37,17 @@ module GeocodedByAddress
 
   def get_geocoder_for_neighborhood(geocoder)
     if neighborhood_empty?(geocoder)
-      nil
+      get_geocoder_for_sublocality(geocoder)
     else
       geocoder.address_components_of_type(:neighborhood).first["long_name"]
+    end
+  end
+
+  def get_geocoder_for_sublocality(geocoder)
+    if geocoder.address_components_of_type(:sublocality).empty?
+      nil
+    else
+      geocoder.address_components_of_type(:sublocality).first["long_name"]
     end
   end
 

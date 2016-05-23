@@ -82,27 +82,27 @@ describe NewsfeedController do
   end
 
 
-  describe '#persona' do
-
-    context 'current_user logged in and invited' do
-
-      before(:each) do
-        set_user_logged_in
-      end
-
-      it 'should render section template' do
-        allow(@user).to receive(:persona).and_return(create(:persona))
-        allow(@user).to receive(:city).and_return(create(:city))
-        allow(controller).to receive(:current_user){ @user }
-
-        get :persona, locale: :en, city: @user.city, personas: "#{@user.personas_query}"
-
-        expect(response).to render_template(:section)
-      end
-
-    end
-
-  end
+  # describe '#persona' do
+  #
+  #   context 'current_user logged in and invited' do
+  #
+  #     before(:each) do
+  #       set_user_logged_in
+  #     end
+  #
+  #     it 'should render section template' do
+  #       allow(@user).to receive(:persona).and_return(create(:persona))
+  #       allow(@user).to receive(:city).and_return(create(:city))
+  #       allow(controller).to receive(:current_user){ @user }
+  #
+  #       get :persona, locale: :en, city: @user.city, personas: "#{@user.personas_query}"
+  #
+  #       expect(response).to render_template(:section)
+  #     end
+  #
+  #   end
+  #
+  # end
 
 
   describe '#agenda' do

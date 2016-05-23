@@ -56,7 +56,7 @@ module Villeme
       end
 
       def create_link
-        if @city and @categories
+        if @categories
           "?#{{categories: @categories}.to_query}"
         else
           ""
