@@ -32,6 +32,8 @@ class NewsfeedController < ApplicationController
       category_section
     elsif params[:personas]
       persona_section
+    elsif params[:neighborhoods]
+      neighborhood_section
     else
       newsfeed
     end
@@ -68,6 +70,14 @@ class NewsfeedController < ApplicationController
     @params = ''
     @feedback = Feedback.new
     render :index
+  end
+
+  def neighborhood_section
+    @resource = 'items'
+    @city = params[:city]
+    @params = {neighborhoods: params[:neighborhoods]}.to_query
+    @feedback = Feedback.new
+    render :section
   end
 
   def category_section
