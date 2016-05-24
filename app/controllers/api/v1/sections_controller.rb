@@ -6,6 +6,7 @@ class Api::V1::SectionsController < Api::V1::ApiController
   require_relative '../../../domain/sections/mount_items_agenda'
   require_relative '../../../domain/sections/mount_events_persona'
   require_relative '../../../domain/sections/mount_events_categories'
+  require_relative '../../../domain/sections/mount_events_neighborhood'
   require_relative '../../../domain/newsfeed/mount_newsfeed'
 
 	def show
@@ -17,6 +18,8 @@ class Api::V1::SectionsController < Api::V1::ApiController
       persona_filter(city)
     elsif params[:categories]
       category_filter(city)
+    elsif params[:neighborhoods]
+      neighborhood_filter(city)
     else
       show_all(city)
     end
@@ -35,6 +38,10 @@ class Api::V1::SectionsController < Api::V1::ApiController
 
   def persona_filter(city)
     respond_with Villeme::MountSections::Personas.get_events_persona(params[:personas], city, user: current_or_guest_user, json: true, upcoming: true, snippet: false)
+  end
+
+  def neighborhood_filter(city)
+    respond_with Villeme::MountSections::Neighborhood.get_events_neighborhood(params[:neighborhoods], user: current_or_guest_user, json: true, upcoming: true, snippet: false)
   end
 
   def date_filter(city)

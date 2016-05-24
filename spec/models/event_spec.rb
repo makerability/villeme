@@ -89,7 +89,7 @@ describe Event, type: :model do
       user = build(:user, neighborhood_name: 'Pine Hills')
              allow(user).to receive(:neighborhood).and_return build(:neighborhood, name: 'Pine Hills')
 
-      expect(Event.all_in_neighborhood(user.neighborhood, upcoming: false).count).to eq(3)
+      expect(Event.all_in_neighborhood(user.neighborhood_name, upcoming: false).count).to eq(3)
     end
   end
 

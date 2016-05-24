@@ -3,8 +3,8 @@ module Villeme
     module Neighborhood
       class << self
 
-        def get_events_neighborhood(neighborhood, options = {user: nil, upcoming: true, json: false, limit: nil})
-          @neighborhood = neighborhood
+        def get_events_neighborhood(neighborhoods, options = {user: nil, upcoming: true, json: false, limit: nil})
+          @neighborhoods = neighborhoods
           @options = options
 
           create_json(events_neighborhood)
@@ -21,17 +21,17 @@ module Villeme
               count: events.count,
               link: create_link,
               link_to_create: '/events/new',
-              neighborhood_name: @neighborhood.try(:name),
+              neighborhood_name: @neighborhoods,
               type: 'neighborhood'
           }
         end
 
         def events_neighborhood
-          Event.all_in_neighborhood(@neighborhood, @options)
+          Event.all_in_neighborhood(@neighborhoods, @options)
         end
 
         def create_title
-          "Eventos acontecendo no bairro #{@neighborhood.try(:name)}"
+          "Eventos acontecendo no bairro #{get_neighborhoods_name}"
         end
 
         def get_principal_events(events)
@@ -43,10 +43,22 @@ module Villeme
         end
 
         def create_link
-          if @neighborhood and @neighborhood.city
-            "?#{{neighborhoods: @neighborhood.name}.to_query}"
+          if @neighborhoods
+            if @neighborhoods.is_a? Array
+              "?#{{neighborhoods: @neighborhoods.map(&:capitalize)}.to_query}"
+            else
+              "?#{{neighborhoods: @neighborhoods}.to_query}"
+            end
           else
             nil
+          end
+        end
+
+        def get_neighborhoods_name
+          if @neighborhoods.is_a? Array
+            @neighborhoods.map(&:capitalize).join(" e ")
+          else
+            @neighborhoods.capitalize
           end
         end
 
