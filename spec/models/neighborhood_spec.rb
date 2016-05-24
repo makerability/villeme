@@ -6,8 +6,8 @@ describe Neighborhood, type: :model do
 
   describe '#places' do
     it 'should return places from neighborhood' do
-      create(:place, name: 'City Sandwich', neighborhood_name: 'Park South')
-      create(:place, name: 'New York Museum', neighborhood_name: 'Park South')
+      create(:place, name: 'City Sandwich', neighborhood_name: 'Capitol Hill')
+      create(:place, name: 'New York Museum', neighborhood_name: 'Capitol Hill')
       create(:place, name: 'Albany Central School', neighborhood_name: 'Park North', address: nil)
 
       expect(neighborhood.places.count).to eq(2)

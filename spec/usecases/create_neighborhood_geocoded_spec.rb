@@ -16,8 +16,8 @@ describe 'UseCases::CreateNeighborhoodGeocoded' do
         expect(@result).to be_truthy
       end
 
-      it 'should create a Neighborhood with Park South name' do
-        expect(Neighborhood.last.name).to eq('Park South')
+      it 'should create a Neighborhood with Capitol Hill name' do
+        expect(Neighborhood.last.name).to eq('Capitol Hill')
       end
 
       it 'should create a Neighborhood with New York state_name' do

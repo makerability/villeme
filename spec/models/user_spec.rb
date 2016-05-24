@@ -25,7 +25,7 @@ describe User, type: :model do
 
   describe '#neighborhood' do
     it 'should return neighborhood for user' do
-      neighborhood = create(:neighborhood, name: 'Park South')
+      neighborhood = create(:neighborhood, name: 'Capitol Hill')
 
       expect(user.neighborhood).to eq(neighborhood)
     end
@@ -69,8 +69,8 @@ describe User, type: :model do
 
   describe '#events_from_neighborhood' do
     it 'should return events going in neighborhood of user' do
-      create(:event, name: 'Campus Party', neighborhood_name: 'Park South', address: '544 Madison Ave, Albany, NY 12208, USA')
-      create(:event, name: 'Hackathon', neighborhood_name: 'Park South', address: '544 Madison Ave, Albany, NY 12208, USA')
+      create(:event, name: 'Campus Party', neighborhood_name: 'Capitol Hill', address: '544 Madison Ave, Albany, NY 12208, USA')
+      create(:event, name: 'Hackathon', neighborhood_name: 'Capitol Hill', address: '544 Madison Ave, Albany, NY 12208, USA')
       create(:neighborhood)
 
       expect(user.events_from_neighborhood.count).to eq(2)
@@ -79,8 +79,8 @@ describe User, type: :model do
 
   describe '#quantity_of_events_from_neighborhood' do
     it 'should return a number of events going in neighborhood of user' do
-      create(:event, name: 'Campus Party', neighborhood_name: 'Park South', address: '544 Madison Ave, Albany, NY 12208, USA')
-      create(:event, name: 'Hackathon', neighborhood_name: 'Park South', address: '544 Madison Ave, Albany, NY 12208, USA')
+      create(:event, name: 'Campus Party', neighborhood_name: 'Capitol Hill', address: '544 Madison Ave, Albany, NY 12208, USA')
+      create(:event, name: 'Hackathon', neighborhood_name: 'Capitol Hill', address: '544 Madison Ave, Albany, NY 12208, USA')
       create(:neighborhood)
 
       expect(user.quantity_of_events_from_neighborhood).to eq(2)
@@ -91,8 +91,8 @@ describe User, type: :model do
     it 'should return events from user persona' do
       user = create(:user, persona_id: 1)
       events = []
-      events << create(:event, name: 'Campus Party', neighborhood_name: 'Park South', persona_id: 1)
-      events << create(:event, name: 'Hackathon', neighborhood_name: 'Park South', persona_id: 1)
+      events << create(:event, name: 'Campus Party', neighborhood_name: 'Capitol Hill', persona_id: 1)
+      events << create(:event, name: 'Hackathon', neighborhood_name: 'Capitol Hill', persona_id: 1)
 
       expect(user.events_from_persona).to eq(events)
     end
@@ -102,8 +102,8 @@ describe User, type: :model do
     it 'should return quantity of events from user persona' do
       user = create(:user, persona_id: 1)
       events = []
-      events << create(:event, name: 'Campus Party', neighborhood_name: 'Park South', persona_id: 1)
-      events << create(:event, name: 'Hackathon', neighborhood_name: 'Park South', persona_id: 1)
+      events << create(:event, name: 'Campus Party', neighborhood_name: 'Capitol Hill', persona_id: 1)
+      events << create(:event, name: 'Hackathon', neighborhood_name: 'Capitol Hill', persona_id: 1)
 
       expect(user.quantity_of_events_from_persona).to eq(2)
     end

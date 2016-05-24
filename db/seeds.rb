@@ -144,7 +144,7 @@ NEIGHBORHOODS = [
         country_code: 'BR'
     },
     {
-        name: 'Park South',
+        name: 'Capitol Hill',
         city_name: 'Albany',
         latitude: 42.650379,
         longitude: -73.7793652,
@@ -315,7 +315,7 @@ PLACES = [
         name: 'New York State Museum',
         route: 'Madison Ave',
         street_number: '222',
-        neighborhood_name: 'Park South',
+        neighborhood_name: 'Capitol Hill',
         city_name: 'Albany',
         latitude: 42.6497478302915,
         longitude: -73.7614809697085,

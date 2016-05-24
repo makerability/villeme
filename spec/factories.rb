@@ -16,7 +16,7 @@ FactoryGirl.define do
     address '544 Madison Ave, Albany, NY 12208, USA'
     password 'password'
     password_confirmation 'password'
-    neighborhood_name 'Park South'
+    neighborhood_name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
     country_name 'United States'
@@ -39,7 +39,7 @@ FactoryGirl.define do
     address '544 Madison Ave, Albany, NY 12208, USA'
     password 'password'
     password_confirmation 'password'
-    neighborhood_name 'Park South'
+    neighborhood_name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
     country_name 'United States'
@@ -125,7 +125,7 @@ FactoryGirl.define do
 
   factory :place do
     name 'New York State Museum'
-    neighborhood_name 'Park South'
+    neighborhood_name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
     country_name 'United States'
@@ -137,7 +137,7 @@ FactoryGirl.define do
 
   factory :place_faker, class: Place do
     name {Faker::Lorem.sentence(1, false, 2)}
-    neighborhood_name 'Park South'
+    neighborhood_name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
     country_name 'United States'
@@ -163,7 +163,7 @@ FactoryGirl.define do
   end
 
   factory :neighborhood do
-    name 'Park South'
+    name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
     state_code 'NY'
@@ -204,7 +204,7 @@ FactoryGirl.define do
     email 'user@gmail.com'
     name 'John Doe'
     persona 'Entrepreuner'
-    neighborhood_name 'Park South'
+    neighborhood_name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
     country_name 'United States'
