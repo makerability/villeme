@@ -8,7 +8,6 @@ module Villeme
         @city = city
         @options = options
 
-
         create_json(events_category)
       end
 

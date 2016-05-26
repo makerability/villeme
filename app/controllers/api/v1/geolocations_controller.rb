@@ -8,8 +8,7 @@ class Api::V1::GeolocationsController < Api::V1::ApiController
     city = City.find_by(slug: params[:city])
 
     if params[:personas]
-      personas = Persona.query_to_array(params[:personas])
-      items = Event.all_persona_in_city(personas, city)
+      items = Event.all_persona_in_city(params[:personas], city)
       respond_with format_for_map_this(items)
     elsif params[:date]
       section_items = get_item_class.all_today(city)
