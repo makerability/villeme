@@ -28,7 +28,7 @@ class NewsfeedController < ApplicationController
   end
 
   def city
-    if params[:categories]
+    if params.key?('categories')
       category_section
     elsif params[:personas]
       persona_section
@@ -81,6 +81,9 @@ class NewsfeedController < ApplicationController
   end
 
   def category_section
+    if params[:categories].blank? or params[:categories][0].blank?
+      redirect_to newsfeed_city_path(current_or_guest_user.city_slug), notice: "Esta categoria ainda não existe" and return
+    end
     @resource = 'items'
     @city = params[:city]
     @params = {categories: params[:categories]}.to_query
