@@ -7,13 +7,13 @@
             <div class="item has-tooltip glyphicon glyphicon-cog" data-placement="right" title="Configurações"></div>
           <% end %>
         <% end %>
-      </li>    
+      </li>
       <li>
         <% if user_signed_in? %>
-          <%= link_to sair_path  do %>
+          <%= link_to sign_out_path  do %>
             <div class="item has-tooltip glyphicon glyphicon-log-out" data-placement="right" title="Sair"></div>
           <% end %>
         <% end %>
-      </li>    
+      </li>
     </ul>
   </div>

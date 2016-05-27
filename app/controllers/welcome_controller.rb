@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 class WelcomeController < ApplicationController
 
 	include InviteModule
@@ -7,8 +6,7 @@ class WelcomeController < ApplicationController
 	layout 'welcome'
 
 	def index
-
-		if user_signed_in? && current_user.invited
+		if user_signed_in? and current_user.invited
 			redirect_to root_path and return
 		end
 
@@ -20,12 +18,7 @@ class WelcomeController < ApplicationController
   	end
 
     @cities = City.limit(5).order(:goal)
-
     @invites = Invite.all
-
   end
-
-
-
 
 end
