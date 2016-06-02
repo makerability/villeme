@@ -213,6 +213,7 @@ FactoryGirl.define do
     latitude 42.6531078197085
     longitude -73.7729633802915
     key 'qowiqmas01231ljadao'
+    password nil
   end
 
 

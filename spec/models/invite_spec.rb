@@ -4,6 +4,11 @@ describe Invite, type: :model do
 
   let(:invite){ build(:invite) }
 
+  describe "#new" do
+    subject { invite }
+    it{ is_expected.to have_attributes({email: 'user@gmail.com', name: 'John Doe', password: nil, key: 'qowiqmas01231ljadao' }) }
+  end
+
   describe '#save' do
     subject { invite }
     it { is_expected.to be_truthy }

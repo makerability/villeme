@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
 
   # acesso somente para admin
   before_action :is_admin, except: :create
-  
+
 
   layout 'fullwidth_layout'
 
@@ -32,15 +32,12 @@ class InvitesController < ApplicationController
   # POST /invites
   # POST /invites.json
   def create
-
     if invite_not_exist?
-      invite_attributes = create_key_for_active_account(invite_params)
-      @invite = Invite.new(invite_attributes)
-      save_and_redirect_to_welcome(invite_attributes)
+      @invite = Invite.new(format_attributes(invite_params))
+      save_and_redirect_to_welcome
     else
       redirect_to welcome_path, notice: I18n.t('invite_create.repeated', user_name: invite_params[:name].split.first)
     end
-
   end
 
 
@@ -94,28 +91,25 @@ class InvitesController < ApplicationController
                                      :city_sugest,
                                      :locale,
                                      :key,
+                                     :password,
                                      :persona_ids => []
       )
     end
 end
 
-
-
-# Helper Methods
-
-def create_key_for_active_account(invite)
+def format_attributes(invite)
   require 'securerandom'
   key_for_active_account = SecureRandom.urlsafe_base64
-  values = invite
-  values[:key] = key_for_active_account
-  values
+  invite[:key] = key_for_active_account
+  invite[:password] = Devise.friendly_token[0, 6]
+  return invite
 end
 
 
-def save_and_redirect_to_welcome(values)
+def save_and_redirect_to_welcome
   if @invite.save
     InviteMailer.welcome_email(@invite).deliver unless Rails.env.test?
-    redirect_to welcome_path, notice: I18n.t('invite_create.valid', user_name: values[:name].split.first)
+    redirect_to welcome_path, notice: I18n.t('invite_create.valid', user_name: @invite.name.split.first)
   else
     redirect_to welcome_path, alert: I18n.t('invite_create.invalid')
   end

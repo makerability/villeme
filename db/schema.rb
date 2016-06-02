@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425180147) do
+ActiveRecord::Schema.define(version: 20160602012713) do
 
   create_table "agenda_items", force: :cascade do |t|
     t.integer  "item_id"
@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20160425180147) do
     t.string   "full_address"
     t.string   "formatted_address"
     t.boolean  "invited",           default: false
+    t.string   "password"
   end
 
   add_index "invites", ["user_id"], name: "index_invites_on_user_id"

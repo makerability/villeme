@@ -2,22 +2,22 @@ require 'rails_helper'
 
 describe WelcomeController, type: :controller do
 
-  describe '#index' do
+  describe 'GET #index' do
 
-    context 'current_user logged in' do
+    context 'current_user.signed_in? == TRUE' do
       before(:each) do
         set_user_logged_in
         allow(@user).to receive(:city_slug).and_return(:albany)
         allow(controller).to receive(:current_user) { @user }
       end
-      it 'should redirected to NewsfeedController#index' do
+      it 'should redirected to root' do
         get :index, locale: :en
 
         expect(response).to redirect_to(root_path)
       end
     end
 
-    context 'current_user NOT logged in' do
+    context 'current_user.signed_in? == FALSE' do
       before(:each) do
         set_current_user_nil
       end
@@ -29,37 +29,33 @@ describe WelcomeController, type: :controller do
       end
     end
 
-    context 'params[:key]' do
-      context 'current_user has an VALID invite key and' do
-        context 'signed_in? FALSE' do
-          it 'should redirect to sign in' do
-            set_current_user_nil
-            invited_user = build(:user, email: 'test@gmail.com')
-            allow(User).to receive(:find_by) { invited_user }
-            invite = build(:invite, email: 'test@gmail.com')
-            allow(Invite).to receive(:find_by) { invite }
+    context 'when params[:key]' do
+      context 'when current_user.signed_in? == FALSE' do
+        it 'should redirect to sign in' do
+          set_current_user_nil
+          invited_user = build(:user, email: 'test@gmail.com')
+          allow(User).to receive(:find_by) { invited_user }
+          invite = build(:invite, email: 'test@gmail.com')
+          allow(Invite).to receive(:find_by) { invite }
 
-            get :index, key: invite.key
+          get :index, key: invite.key
 
-            expect(response).to redirect_to sign_in_path
-          end
-        end
-
-        context 'signed_in? TRUE' do
-          it 'should redirect to newsfeed' do
-            set_user_logged_in
-            invited_user = build(:user, email: 'test@gmail.com')
-            allow(User).to receive(:find_by) { invited_user }
-            invite = build(:invite, email: 'test@gmail.com')
-
-            get :index, key: invite.key
-
-            expect(response).to redirect_to root_path
-          end
+          expect(response).to redirect_to sign_in_path
         end
       end
+      context 'when current_user.signed_in? == TRUE' do
+        it 'should redirect to newsfeed' do
+          set_user_logged_in
+          invited_user = build(:user, email: 'test@gmail.com')
+          allow(User).to receive(:find_by) { invited_user }
+          invite = build(:invite, email: 'test@gmail.com')
 
-      context 'current_user has an INVALID invite key' do
+          get :index, key: invite.key
+
+          expect(response).to redirect_to root_path
+        end
+      end
+      context 'when params[:key].valid? == FALSE' do
         context 'signed_in? FALSE' do
           it 'should redirect to welcome page' do
             set_current_user_nil
