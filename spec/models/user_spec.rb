@@ -1,9 +1,14 @@
 require 'rails_helper'
+require_relative '../shared/user_example.rb'
+require_relative '../shared/neighborhood_example.rb'
 require_relative '../../app/domain/policies/geocoder/entity_geocoded'
 
 describe User, type: :model do
 
-  let(:user){ build(:user) }
+  include_examples "user example" do
+    let(:user) { build(:user) }
+  end
+  include_examples "neighborhood example"
 
   describe 'associations' do
     it{ is_expected.to have_and_belong_to_many :personas }
@@ -28,10 +33,10 @@ describe User, type: :model do
   end
 
   describe '#neighborhood' do
-    it 'should return neighborhood for user' do
-      neighborhood = create(:neighborhood, name: 'Capitol Hill')
+    it 'does return Capitol Hill' do
+      neighborhood = build(:neighborhood, name: 'Capitol Hill')
 
-      expect(user.neighborhood).to eq(neighborhood)
+      expect(user.neighborhood.name).to eq('Capitol Hill')
     end
   end
 
@@ -134,14 +139,10 @@ describe User, type: :model do
   end
 
   describe '#percentage_of_current_level' do
+
     it 'should return percentage completed of current level' do
       create(:level, name: 'Ovo', points: 0, nivel: 1)
       create(:level, name: 'Pintinho', points: 30, nivel: 2)
-      allow(user).to receive(:add_points).and_return double(Merit, id: 1, score_id: 1, num_points: 10)
-      allow(user).to receive(:points).and_return 10
-      allow(user).to receive_message_chain(:level, :points).and_return 0
-      allow(user).to receive_message_chain(:level, :nivel).and_return 1
-      allow(user).to receive_message_chain(:next_level, :points).and_return 30
 
       expect(user.percentage_of_current_level).to eq(33)
     end
