@@ -33,7 +33,7 @@ class InvitesController < ApplicationController
   # POST /invites.json
   def create
     if invite_not_exist?
-      @invite = Invite.new(format_attributes(invite_params))
+      @invite = Invite.new(invite_params)
       save_and_redirect_to_welcome
     else
       redirect_to welcome_path, notice: I18n.t('invite_create.repeated', user_name: invite_params[:name].split.first)
@@ -91,20 +91,10 @@ class InvitesController < ApplicationController
                                      :city_sugest,
                                      :locale,
                                      :key,
-                                     :password,
                                      :persona_ids => []
       )
     end
 end
-
-def format_attributes(invite)
-  require 'securerandom'
-  key_for_active_account = SecureRandom.urlsafe_base64
-  invite[:key] = key_for_active_account
-  invite[:password] = Devise.friendly_token[0, 6]
-  return invite
-end
-
 
 def save_and_redirect_to_welcome
   if @invite.save
@@ -114,7 +104,6 @@ def save_and_redirect_to_welcome
     redirect_to welcome_path, alert: I18n.t('invite_create.invalid')
   end
 end
-
 
 def invite_not_exist?
   searchable_invite = Invite.where(email: invite_params[:email]).first

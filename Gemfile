@@ -22,6 +22,7 @@ group :development, :test do
 	gem 'sitemap_generator'
 	gem 'coveralls', require: false
 	gem 'simplecov', require: false
+	gem 'byebug'
 end
 
 group :test do

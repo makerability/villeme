@@ -42,6 +42,15 @@ describe WelcomeController, type: :controller do
 
           expect(response).to redirect_to sign_in_path
         end
+        it 'does invite.password == user.password' do
+          set_current_user_nil
+          invite = create(:invite, email: 'test@gmail.com')
+          allow(Invite).to receive(:find_by) { invite }
+
+          get :index, key: invite.key
+
+          expect(User.find_by(email: 'test@gmail.com').valid_password? invite.password).to eq(true)
+        end
       end
       context 'when current_user.signed_in? == TRUE' do
         it 'should redirect to newsfeed' do

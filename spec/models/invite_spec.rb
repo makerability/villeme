@@ -4,22 +4,28 @@ describe Invite, type: :model do
 
   let(:invite){ build(:invite) }
 
+  describe 'validations' do
+    subject{ invite }
+    it{ is_expected.to be_valid }
+  end
+
   describe "#new" do
     subject { invite }
     it{ is_expected.to have_attributes({email: 'user@gmail.com', name: 'John Doe', password: nil, key: 'qowiqmas01231ljadao' }) }
   end
 
   describe '#save' do
-    subject { invite }
-    it { is_expected.to be_truthy }
+    subject { create(:invite) }
+
+    it "does be true" do
+      expect(subject).to be_truthy
+    end
+    it "does create a password" do
+      expect(subject.password.length).to eq(8)
+    end
   end
 
-  describe 'validations' do
-    subject{ invite }
-    it{ is_expected.to be_valid }
-  end
-
-  describe '.geocoded_by_address' do
+  describe '#geocoded_by_address' do
     it('should geocoded country') { expect(invite.country_code).to eq('US') }
     it('should geocoded state') { expect(invite.state_name).to eq('New York') }
     it('should geocoded city') { expect(invite.city_name).to eq('Albany') }

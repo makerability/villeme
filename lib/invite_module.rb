@@ -28,7 +28,7 @@ module InviteModule
     user = User.create({
       name: invite.name,
       email: invite.email,
-      password: Devise.friendly_token[0, 6],
+      password: invite.password,
       invited: true,
       address: invite.address})
 

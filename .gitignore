@@ -20,6 +20,9 @@ keys.txt
 /log/*.log
 /tmp
 
+#ignore Byebug
+.byebug_history
+
 # Ignore Node Modules
 node_modules/
 

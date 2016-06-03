@@ -1,7 +1,7 @@
 # encoding: utf-8
 class WelcomeController < ApplicationController
 
-	include InviteModule
+	require_relative '../domain/invites/create_user_from_invite'
 
 	layout 'welcome'
 
@@ -11,12 +11,14 @@ class WelcomeController < ApplicationController
 		end
 
 		if params[:key]
-			create_user_from_invite(params[:key])
-  		@invite = Invite.new
-		else
-  		@invite = Invite.new
+			if Villeme::InvitesDomain.create_user_from_invite(params[:key])
+				redirect_to sign_in_path and return
+			else
+				redirect_to welcome_path and return
+			end
   	end
 
+		@invite = Invite.new
     @cities = City.limit(5).order(:goal)
     @invites = Invite.all
   end
