@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   require_relative '../../app/domain/policies/user/account_complete'
   require_relative '../../app/domain/usecases/users/set_locale'
   require_relative '../../app/domain/policies/user/user_is_invited'
+  require_relative '../../app/domain/users/create_guest_user'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -64,17 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def create_guest_user
-    user = User.new(guest: true, email: "guest_#{Time.now.to_i}#{rand(100)}@example.com")
-           user.personas << Persona.first
-           user.city = params[:city].blank? ? City.where(launch: true).first : City.friendly.find(params[:city])
-           user.neighborhood_name = user.city.neighborhoods.first.name
-    session[:guest_user_id] = user.id
-
-    if user.save
-      user
-    else
-      false
-    end
+    UserDomain.create_guest_user(params, session)
   end
 
 
