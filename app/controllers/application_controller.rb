@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   require_relative '../../app/domain/policies/user/account_complete'
   require_relative '../../app/domain/usecases/users/set_locale'
+  require_relative '../../app/domain/policies/user/user_is_invited'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -164,14 +165,10 @@ class ApplicationController < ActionController::Base
 
 
 	def is_invited
-    if current_or_guest_user.invited?
+    if UserPolicies.user_is_invited?(current_or_guest_user)
       true
-    elsif current_or_guest_user.guest?
-      true
-    elsif current_or_guest_user.invited? == false and current_or_guest_user.provider == 'facebook'
-      redirect_to welcome_path, notice: "#{current_user.name.split.first}, você precisa de um convite para acessar. Solicite abaixo!"
     else
-      redirect_to welcome_path, notice: "#{current_user.name.split.first}, você precisa de um convite para acessar. Solicite abaixo!"
+      redirect_to welcome_path, notice: "#{current_or_guest_user.first_name}, você precisa de um convite para acessar. Solicite abaixo!"
     end
   end
 
