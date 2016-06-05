@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   require_relative '../../services/account/is_account_complete'
   require_relative '../../domain/avatar/avatar_module'
   require_relative '../../domain/levels/levels_module'
+  require_relative '../../domain/user/get_username'
 
   # =Facebook oauth
   extend FacebookOauth
@@ -114,6 +115,10 @@ class User < ActiveRecord::Base
   # =User Actions
   def first_name
     name ? name.split.first : nil
+  end
+
+  def username
+    UserDomain::UsernameValue.get_username(self)
   end
 
   def persona

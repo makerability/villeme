@@ -18,7 +18,7 @@
       <%= f.input :avatar, as: :file, label: false, input_html: {class: ""}, wrapper_html: false %>
     </div>
 
-    <%= f.input :username, required: true, label: 'Nome de usuário', input_html:{ value: Villeme::Users.create_username(current_user), :'data-bv-notempty-message' => "O nome de usuário deve ser preechido.", pattern: "^[a-z0-9_-]{2,30}$", :'data-bv-regexp-message' => "O nome de usuário deve ter somente letras, números, hífen e underscore.", :'data-bv-stringlength-max' => "30", :'data-bv-stringlength-min' => "2",  :'data-bv-stringlength-message' => "O nome de usuário deve ter menos que 30 e mais que 2 caracteres.", :'data-bv-greaterthan-message' => "O nome de usuário deve ser maior que 2 caracteres."} %>
+    <%= f.input :username, required: true, label: 'Nome de usuário', input_html:{value: current_user.username, :'data-bv-notempty-message' => "O nome de usuário deve ser preechido.", pattern: "^[a-z0-9_-]{2,30}$", :'data-bv-regexp-message' => "O nome de usuário deve ter somente letras, números, hífen e underscore.", :'data-bv-stringlength-max' => "30", :'data-bv-stringlength-min' => "2", :'data-bv-stringlength-message' => "O nome de usuário deve ter menos que 30 e mais que 2 caracteres.", :'data-bv-greaterthan-message' => "O nome de usuário deve ser maior que 2 caracteres."} %>
 
     <%= f.input :email, required: true, as: :email, label: 'Email', input_html:{ :'data-bv-emailaddress' => true, :'data-bv-emailaddress-message' => "Este email não é valido."} %>
 
