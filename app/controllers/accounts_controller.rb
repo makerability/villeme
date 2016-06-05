@@ -3,8 +3,8 @@
 class AccountsController < ApplicationController
 
   require_relative '../domain/usecases/geolocalization/create_object_geocoded'
-  require_relative '../domain/usecases/users/set_account_completed'
-  require_relative '../domain/users/create_username'
+  require_relative '../domain/account/set_account_completed'
+  require_relative '../domain/user/create_username'
 
   before_action :is_logged
 
@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
 
   def update
 
-    Villeme::UseCases::SetAccountCompleted.set_completed(current_user)
+    AccountDomain.set_completed(current_user)
     Villeme::UseCases::CreateObjectGeocoded.new(user_params[:address]).create_objects
 
     respond_to do |format|
@@ -44,7 +44,6 @@ class AccountsController < ApplicationController
       @event = Event.find(params[:id])
     end  
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :username, :email, :avatar, :address, :persona_ids => [])
     end  

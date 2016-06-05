@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   require_relative '../../app/domain/policies/user/account_complete'
   require_relative '../../app/domain/usecases/users/set_locale'
   require_relative '../../app/domain/policies/user/user_is_invited'
-  require_relative '../../app/domain/users/create_guest_user'
+  require_relative '../../app/domain/user/create_guest_user'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
