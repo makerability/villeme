@@ -2,17 +2,17 @@ class User < ActiveRecord::Base
 
 
   # =User Dependencies
-  require_relative '../domain/usecases/events/get_events'
-  require_relative '../repositories/friends/friends_from_facebook_on_villeme'
-  require_relative '../repositories/friends/friends_from_facebook'
-  require_relative '../services/friends/ranking_friends'
-  require_relative '../domain/agenda/agenda_module'
-  require_relative '../domain/notifies/notifies_modules'
-  require_relative '../domain/usecases/cities/get_city_slug'
-  require_relative '../domain/usecases/geolocalization/geocode_user'
-  require_relative '../services/account/is_account_complete'
-  require_relative '../domain/avatar/avatar_module'
-  require_relative '../domain/levels/levels_module'
+  require_relative '../../domain/usecases/events/get_events'
+  require_relative '../../repositories/friends/friends_from_facebook_on_villeme'
+  require_relative '../../repositories/friends/friends_from_facebook'
+  require_relative '../../services/friends/ranking_friends'
+  require_relative '../../domain/agenda/agenda_module'
+  require_relative '../../domain/notifies/notifies_modules'
+  require_relative '../../domain/usecases/cities/get_city_slug'
+  require_relative '../../domain/usecases/geolocalization/geocode_user'
+  require_relative '../../services/account/is_account_complete'
+  require_relative '../../domain/avatar/avatar_module'
+  require_relative '../../domain/levels/levels_module'
 
   # =Facebook oauth
   extend FacebookOauth

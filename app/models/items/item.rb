@@ -1,11 +1,15 @@
 # encoding: utf-8
 class Item < ActiveRecord::Base
 
-  require_relative '../domain/usecases/events/event_attributes'
-  require_relative '../domain/usecases/geolocalization/get_geocoder_attributes'
-  require_relative '../domain/usecases/geolocalization/geocode_event'
-  require_relative '../domain/json/item/item_to_json'
-  require_relative '../domain/items/get_items_section'
+  require_relative '../../domain/usecases/events/event_attributes'
+  require_relative '../../domain/usecases/geolocalization/get_geocoder_attributes'
+  require_relative '../../domain/usecases/geolocalization/geocode_event'
+  require_relative '../../domain/json/item/item_to_json'
+  require_relative '../../domain/items/get_items_section'
+  require_relative '../../domain/usecases/events/event_attributes'
+  require_relative '../../domain/usecases/dates/get_next_day_occur_human_readable'
+  require_relative '../../domain/usecases/weeks/get_day_of_week'
+  require_relative '../../domain/usecases/dates/get_next_day_occur_human_readable'
 
   after_validation :geocode_event, unless: 'address.nil?'
 
@@ -170,20 +174,16 @@ class Item < ActiveRecord::Base
   # Retorna o dia da semana que o evento acontece
 
   def day_of_week
-    require_relative '../../app/domain/usecases/weeks/get_day_of_week'
-    require_relative '../../app/domain/usecases/dates/get_next_day_occur_human_readable'
     Villeme::UseCases::Dates.new(self).get_next_day_occur_human_readable
   rescue
     nil
   end
 
   def today?
-    require_relative '../../app/domain/usecases/dates/get_next_day_occur_human_readable'
     Villeme::UseCases::Dates.new(self).today?
   end
 
   def start_hour
-    require_relative '../domain/usecases/events/event_attributes'
     Villeme::UseCases::EventAttributes.get_start_hour(self)
   end
 

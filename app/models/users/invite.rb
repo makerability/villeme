@@ -1,6 +1,6 @@
 class Invite < ActiveRecord::Base
 
-  require_relative '../../app/domain/usecases/geolocalization/geocode_invite'
+  require_relative '../../../app/domain/usecases/geolocalization/geocode_invite'
   include GeocodedActions
 
   belongs_to :user
