@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/account/set_account_completed'
+require_relative '../../app/services/account/set_account_completed'
 
 describe 'UseCases::SetAccountCompleted' do
 
@@ -9,7 +9,7 @@ describe 'UseCases::SetAccountCompleted' do
       user = build(:user, account_complete: false)
       allow(user).to receive(:personas).and_return([1])
 
-      result = AccountDomain.set_completed(user)
+      result = AccountService.set_completed(user)
 
       expect(result).to be_truthy
     end
@@ -18,7 +18,7 @@ describe 'UseCases::SetAccountCompleted' do
       user = build(:user, account_complete: false)
       allow(user).to receive(:personas).and_return([1])
 
-      AccountDomain.set_completed(user)
+      AccountService.set_completed(user)
 
       expect(user.account_complete).to be_truthy
     end
@@ -29,7 +29,7 @@ describe 'UseCases::SetAccountCompleted' do
       user = build(:user, account_complete: false)
       allow(user).to receive(:personas).and_return([])
 
-      result = AccountDomain.set_completed(user)
+      result = AccountService.set_completed(user)
 
       expect(result).to be_falsey
     end

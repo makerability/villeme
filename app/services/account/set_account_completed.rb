@@ -1,6 +1,6 @@
-module AccountDomain
+module AccountService
 
-  require_relative '../../domain/policies/user/account_complete.rb'
+  require_relative '../../../app/services/account/is_account_complete'
 
   extend self
 
@@ -17,7 +17,7 @@ module AccountDomain
   private
 
   def account_completed?(user)
-    Villeme::Policies::AccountComplete.is_complete?(user)
+    AccountService.is_account_complete?(user)
   end
 
 

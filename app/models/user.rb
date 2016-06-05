@@ -3,14 +3,14 @@ class User < ActiveRecord::Base
 
   # =User Dependencies
   require_relative '../domain/usecases/events/get_events'
-  require_relative '../domain/friends/friends_from_facebook_on_villeme'
-  require_relative '../domain/friends/friends_from_facebook'
-  require_relative '../domain/friends/ranking_friends'
+  require_relative '../repositories/friends/friends_from_facebook_on_villeme'
+  require_relative '../repositories/friends/friends_from_facebook'
+  require_relative '../services/friends/ranking_friends'
   require_relative '../domain/agenda/agenda_module'
   require_relative '../domain/notifies/notifies_modules'
   require_relative '../domain/usecases/cities/get_city_slug'
   require_relative '../domain/usecases/geolocalization/geocode_user'
-  require_relative '../domain/policies/user/account_complete'
+  require_relative '../services/account/is_account_complete'
   require_relative '../domain/avatar/avatar_module'
   require_relative '../domain/levels/levels_module'
 
@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
   end
 
   def account_complete?
-    Villeme::Policies::AccountComplete.is_complete?(self)
+    AccountService.is_account_complete?(self)
   end
 
   def get_avatar_url
@@ -200,16 +200,16 @@ class User < ActiveRecord::Base
     self.pending_friends.exists?(friend)
   end
 
-  def friends_from_facebook
-    Villeme::FriendsModule.get_friends_from_facebook(self)
+  def facebook_friends
+    FriendsRepository.get_friends_from_facebook(self)
   end
 
-  def friends_from_facebook_on_villeme
-    Villeme::FriendsModule.friends_from_facebook_on_villeme(self)
+  def facebook_friends_on_villeme
+    FriendsRepository.facebook_friends_on_villeme(self)
   end
 
   def ranking_of_friends
-    Villeme::FriendsModule.get_ranking(self)
+    FriendsService.ranking_friends(self)
   end
 
   def which_friends_will_this_event?(event, options = {})

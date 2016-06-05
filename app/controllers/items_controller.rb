@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  require_relative '../../app/domain/policies/user/account_complete'
+  require_relative '../../app/services/account/is_account_complete'
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :schedule]
 
@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
 
   def new
 
-    unless Villeme::Policies::AccountComplete.is_complete?(current_user)
+    unless AccountService.is_account_complete?(current_user)
       redirect_to root_path, alert: 'Você precisa estar com o perfil completo para criar um evento!'
     end
 

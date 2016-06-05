@@ -3,7 +3,7 @@
 class AccountsController < ApplicationController
 
   require_relative '../domain/usecases/geolocalization/create_object_geocoded'
-  require_relative '../domain/account/set_account_completed'
+  require_relative '../services/account/set_account_completed'
   require_relative '../domain/user/create_username'
 
   before_action :is_logged
@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
 
   def update
 
-    AccountDomain.set_completed(current_user)
+    AccountService.set_completed(current_user)
     Villeme::UseCases::CreateObjectGeocoded.new(user_params[:address]).create_objects
 
     respond_to do |format|

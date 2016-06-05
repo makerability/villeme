@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/policies/user/account_complete'
+require_relative '../../app/services/account/is_account_complete'
 
 describe 'Policies::AccountComplete' do
   describe '.is_complete' do
@@ -9,7 +9,7 @@ describe 'Policies::AccountComplete' do
         user = double('User', attributes_for(:user))
         allow(user).to receive(:personas).and_return([1])
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_truthy
       end
@@ -20,7 +20,7 @@ describe 'Policies::AccountComplete' do
         user = double(attributes_for(:user, name: nil))
         allow(user).to receive(:persona_id).and_return(1)
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_falsey
       end
@@ -31,7 +31,7 @@ describe 'Policies::AccountComplete' do
         user = double(attributes_for(:user, username: nil))
         allow(user).to receive(:persona_id).and_return(1)
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_falsey
       end
@@ -42,7 +42,7 @@ describe 'Policies::AccountComplete' do
         user = double(attributes_for(:user, email: nil))
         allow(user).to receive(:persona_id).and_return(1)
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_falsey
       end
@@ -53,7 +53,7 @@ describe 'Policies::AccountComplete' do
         user = double(attributes_for(:user))
         allow(user).to receive(:personas).and_return([])
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_falsey
       end
@@ -64,7 +64,7 @@ describe 'Policies::AccountComplete' do
         user = double(attributes_for(:user, latitude: nil))
         allow(user).to receive(:personas).and_return([1])
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_falsey
       end
@@ -75,7 +75,7 @@ describe 'Policies::AccountComplete' do
         user = double(attributes_for(:user, longitude: nil))
         allow(user).to receive(:personas).and_return([1])
 
-        result = Villeme::Policies::AccountComplete.is_complete?(user)
+        result = AccountService.is_account_complete?(user)
 
         expect(result).to be_falsey
       end

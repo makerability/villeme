@@ -1,10 +1,10 @@
 
 class ApplicationController < ActionController::Base
 
-  require_relative '../../app/domain/policies/user/account_complete'
+  require_relative '../../app/services/account/is_account_complete'
   require_relative '../../app/domain/usecases/users/set_locale'
   require_relative '../../app/domain/policies/user/user_is_invited'
-  require_relative '../../app/domain/user/create_guest_user'
+  require_relative '../../app/factories/user/create_guest_user'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def create_guest_user
-    UserDomain.create_guest_user(params, session)
+    UserFactory.create_guest_user(params, session)
   end
 
 
@@ -145,7 +145,7 @@ class ApplicationController < ActionController::Base
 
 	# Verifica se a conta do user esta completa
 	def is_complete
-		unless user_signed_in? && Villeme::Policies::AccountComplete.is_complete?(current_user)
+		unless user_signed_in? && AccountService.is_account_complete?(current_user)
 			redirect_to user_account_path(current_user), notice: "Agora só falta completar sua conta"
 		end
 	end

@@ -1,4 +1,4 @@
-module UserDomain
+module UserFactory
 
   extend self
 
@@ -37,9 +37,9 @@ module UserDomain
 
   def save_user
     if @user.save
-      return @user
+      @user
     else
-      return false
+      false
     end
   end
 
