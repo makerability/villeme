@@ -28,6 +28,7 @@ end
 group :test do
   gem 'database_cleaner'
 	gem 'json-schema'
+	gem "codeclimate-test-reporter", require: nil
 end
 
 group :development do

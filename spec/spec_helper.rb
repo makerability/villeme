@@ -17,6 +17,7 @@
 
 ENV["RAILS_ENV"] = 'test'
 
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'devise'
 require 'factory_girl'
@@ -31,6 +32,9 @@ require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'simplecov'
 require 'coveralls'
+require "codeclimate-test-reporter"
+
+CodeClimate::TestReporter.start
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
