@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160602012713) do
   add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id"
 
   create_table "categories", force: :cascade do |t|
+    t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -156,8 +157,8 @@ ActiveRecord::Schema.define(version: 20160602012713) do
     t.datetime "updated_at"
     t.string   "locale",            default: "en"
     t.string   "address"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.float    "latitude",          default: 0.0
+    t.float    "longitude",         default: 0.0
     t.string   "route"
     t.string   "neighborhood_name"
     t.string   "city_name"
@@ -369,6 +370,7 @@ ActiveRecord::Schema.define(version: 20160602012713) do
   add_index "persona_translations", ["persona_id"], name: "index_persona_translations_on_persona_id"
 
   create_table "personas", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
