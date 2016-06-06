@@ -6,14 +6,14 @@ class User < ActiveRecord::Base
   require_relative '../../repositories/friends/friends_from_facebook_on_villeme'
   require_relative '../../repositories/friends/friends_from_facebook'
   require_relative '../../services/friends/ranking_friends'
-  require_relative '../../domain/agenda/agenda_module'
+  require_relative '../../services/friends/which_friends_will_this_event'
   require_relative '../../domain/notifies/notifies_modules'
   require_relative '../../domain/usecases/cities/get_city_slug'
   require_relative '../../domain/usecases/geolocalization/geocode_user'
   require_relative '../../services/account/is_account_complete'
-  require_relative '../../domain/avatar/avatar_module'
   require_relative '../../domain/levels/levels_module'
-  require_relative '../../domain/user/get_username'
+  require_relative '../../domain/user/avatar_url_value'
+  require_relative '../../domain/user/username_value'
 
   # =Facebook oauth
   extend FacebookOauth
@@ -178,11 +178,11 @@ class User < ActiveRecord::Base
   end
 
   def get_avatar_url
-    Villeme::AvatarModule.get_avatar_url(self)
+    UserDomain::AvatarUrlValue.get_avatar_url(self)
   end
 
   def get_avatar_origin
-    Villeme::AvatarModule.get_avatar_origin(self)
+    UserDomain::AvatarUrlValue.get_avatar_origin(self)
   end
 
   def agended?(event)
@@ -218,7 +218,7 @@ class User < ActiveRecord::Base
   end
 
   def which_friends_will_this_event?(event, options = {})
-    Villeme::AgendaModule.which_friends_will_this_event?(self, event, options)
+    FriendsService.which_friends_will_this_event?(self, event, options)
   end
 
   def requested_friendships_notifies

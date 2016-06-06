@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
 
   require_relative '../domain/usecases/geolocalization/create_object_geocoded'
   require_relative '../services/account/set_account_completed'
-  require_relative '../domain/user/get_username'
+  require_relative '../domain/user/username_value'
 
   before_action :is_logged
 
@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
-    end  	
+    end
   end
 
 
@@ -42,10 +42,10 @@ class AccountsController < ApplicationController
 
     def set_event
       @event = Event.find(params[:id])
-    end  
+    end
 
     def user_params
       params.require(:user).permit(:name, :username, :email, :avatar, :address, :persona_ids => [])
-    end  
+    end
 
 end
