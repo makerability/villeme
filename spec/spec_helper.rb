@@ -30,17 +30,9 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'database_cleaner'
-require 'simplecov'
-require 'coveralls'
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 
 CodeClimate::TestReporter.start
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-]
-SimpleCov.start
 
 Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = 5
