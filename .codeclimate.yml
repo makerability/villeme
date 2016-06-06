@@ -1,9 +1,48 @@
-languages:
-  Ruby: true
-  JavaScript: true
-  PHP: true
+---
+engines:
+  brakeman:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  csslint:
+    enabled: true
+  coffeelint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  rubocop:
+    enabled: true
+ratings:
+  paths:
+  - "**.erb"
+  - "**.haml"
+  - "**.rb"
+  - "**.rhtml"
+  - "**.slim"
+  - "**.css"
+  - "**.coffee"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
 exclude_paths:
-- "app/assets/javascripts/components/*"
-- "vendor/*"
-- "spec/*"
+- vendor/*
+- db/*
+- spec/*
+- app/assets/javascripts/components/*
 - "*.vue"
+- Gemfile.lock
+- app/assets/javascripts/jquery-raty.js
+- lib/facebook_oauth.rb
