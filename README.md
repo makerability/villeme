@@ -36,7 +36,7 @@ Villeme is a "open startup", where anyone can contribute.
 
 #### Current tasks
 
-Open https://github.com/jonatassalgado/villeme/issuesWe or use Zenhub. For see our tasks in a Kanban [just add Zenhub extension for your browser](https://www.zenhub.com/) and after come to this repository.
+Open https://github.com/jonatassalgado/villeme/issues or use Zenhub. For see our tasks in a Kanban [just add Zenhub extension for your browser](https://www.zenhub.com/) and after come to this repository.
 
 #### Submitting a Feature
 
