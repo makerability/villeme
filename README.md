@@ -14,12 +14,12 @@ Rails 4.2.6 ([Ubuntu](http://goo.gl/85rKbk)/[Mac](http://goo.gl/Zq6Rgv))
 
 ##### Setup the project
 
-1. Clone the project: `$ git clone https://github.com/makerability/villeme.git`
+1. Clone the project: `$ git clone https://github.com/jonatassalgado/villeme.git`
 2. Enter project folder: `$ cd villeme`
 3. Install imagemagick for Ubuntu: `sudo apt-get install imagemagick`
 4. Install postgreSQL packages : `$ sudo apt-get install libpq-dev`
-5. Install GEMs: `$ bundle install`
-6. Install NPM modules: `$ sudo npm install`
+5. Install Gems: `$ bundle install`
+6. Install Npm modules: `$ sudo npm install`
 7. Compile assets (js, css, images): `$ bundle exec rake assets:precompile`
 8. Create the database: `$ bundle exec rake db:schema:load`
 9. Create faker data with seed: `$ bundle exec rake db:seed`
