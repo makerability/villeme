@@ -4,7 +4,7 @@
 
 The easiest way to find events, activities and services in your city.
 
-#### Getting started
+## Getting started
 
 ##### Dependencies
 
@@ -30,32 +30,33 @@ Rails 4.2.6 ([Ubuntu](http://goo.gl/85rKbk)/[Mac](http://goo.gl/Zq6Rgv))
 
 https://github.com/jonatassalgado/villeme/wiki/Erros-can-occur-in-setup
 
-#### Collaborate
+## Collaborate
 
 Villeme is a "open startup", where anyone can contribute.
 
-##### Current tasks
+#### Current tasks
 
-We use Zenhub. For see our tasks just add extension for your browser [here](https://www.zenhub.com/) and after come to this repository.
+Open https://github.com/jonatassalgado/villeme/issuesWe or use Zenhub. For see our tasks in a Kanban [just add Zenhub extension for your browser](https://www.zenhub.com/) and after come to this repository.
 
-##### Style Guide
+#### Submitting a Feature
 
-Go to [frontify.com/villeme-style-guide](https://app.frontify.com/d/sirfXbGEnYuj/villeme-style-guide). If you want to edit, request access (the tool accept only people in team can edit).
+Open https://github.com/jonatassalgado/villeme/wiki/Submitting-a-Feature
 
-##### Star to Colaborate
+
+###### How to start to colaborate
 
 https://github.com/jonatassalgado/villeme/wiki/Start-to-Colaborate
 
-#### Submitting a Feature
-Also called history, task or issue.
-https://github.com/jonatassalgado/villeme/wiki/Submitting-a-Feature
+###### Style Guide
 
-##### Team
+Go to [frontify.com/villeme-style-guide](https://app.frontify.com/d/sirfXbGEnYuj/villeme-style-guide). If you want to edit, request access (the tool accept only people in team can edit).
+
+## Team
 
 Founder: [Jonatas Eduardo (John)](https://www.facebook.com/jonataseduardo/) from Brazil.
 
 
-##### License
+## License
 
 Copyright (C) 2014  Jonatas Eduardo Vedoi Salgado
 
