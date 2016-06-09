@@ -1,4 +1,5 @@
 require "rails_helper"
+require "byebug"
 
 describe "/sections" do
   describe "/:resource" do
