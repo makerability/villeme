@@ -1,6 +1,7 @@
 @import 'variables';
 
 .Button{
+  background: #DDDDDD;
   border: 0;
   border-radius: 6px;
   cursor: pointer;
@@ -8,6 +9,10 @@
   font-size: 12px;
   font-family: $font-family-default;
   color: $font-color-default;
+
+  &:hover{
+    background: scale_color(#DDDDDD, $lightness: 10%);
+  }
 
   & .glyphicon{
     font-size: 11px;
@@ -27,7 +32,7 @@
 
   &--large{
     font-size: 16px;
-    padding: 0.85em 1.5em;
+    padding: 1em 1.5em;
     font-weight: 600;
 
     & .glyphicon{
@@ -45,6 +50,10 @@
       font-size: 20px;
       padding: 0 12px;
     }
+  }
+
+  &--sizeFull{
+    width: 100%;
   }
 
   &--primary{
@@ -66,11 +75,11 @@
   }
 
   &--facebook{
-    background-color: #297fb8;
+    background-color: #3B5998;
     color: $white;
 
     &:hover{
-      background: scale_color(#297fb8, $lightness: 10%);
+      background: scale_color(#3B5998, $lightness: 10%);
     }
   }
 
@@ -117,9 +126,6 @@
     font-size: 13px;
   }
 
-  &:hover{
-
-  }
 
   &:disabled{
     background: scale_color($grey, $lightness: 90%);

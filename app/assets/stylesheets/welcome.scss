@@ -23,12 +23,14 @@ body{
   margin: 0px -30px 45px -30px;
   overflow: hidden;
   padding: 10px 50px 15px 50px;
-//  background-color: #fff;
-//  border-bottom: 1px solid #f1f1f1;
 
   &-facebookButton{
     margin: 0 0 0 25px;
     float: left;
+  }
+
+  &-signIn{
+    cursor: pointer;
   }
 }
 
@@ -461,7 +463,7 @@ span {
   }
 
   &.is-blur{
-    
+
   }
 }
 
@@ -545,6 +547,3 @@ footer{
   }
 
 }
-
-
-

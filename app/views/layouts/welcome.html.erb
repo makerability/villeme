@@ -57,13 +57,13 @@
           <div class="fb-like" data-href="https://www.facebook.com/app.Villeme" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
         </div>
       </div>
-  
+
       <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 links-translate u-align-right a_p-0-12">
-         <a onclick="Villeme.Ux.loginModal()" id="sign_in" class="has-tooltip", rel="nofollow"  title=" <%= t('welcome.tooltip.have_an_invitation') %>" data-placement="left"><%= t('welcome.first_screen.sign_in') %></a>
+         <a href="#" onclick="Villeme.Ux.loginModal()" id="sign_in" class="Header-signIn has-tooltip" rel="nofollow"  title=" <%= t('welcome.tooltip.have_an_invitation') %>" data-placement="left"><%= t('welcome.first_screen.sign_in') %></a>
         <%# link_to("EN", locale: :en) if I18n.locale == :'pt-BR' %>
         <%# link_to("PT", locale: :'pt-BR') if I18n.locale == :en %>
       </div>
-    
+
     </div>
 
   </div>
@@ -73,10 +73,10 @@
     <div class="OuterWrapper">
 
       <div class="col-lg-12 col-md-12 col-sm-12">
-  
+
         <div class="col-lg-7 col-md-7 col-sm-7 u-no-padding">
-  
-  
+
+
           <!-- Plataforms -->
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 plataforms hidden-xs u-no-padding">
             <% if FEATURE_TRY_VILLEME_SWITCH and Item.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
@@ -86,18 +86,18 @@
                     </div>
                 <% end %>
                 <%= image_tag 'welcome/desktop-with-printscreen.png', width: '936', class: 'u-blurOnHover' %>
-            <% else %>    
+            <% else %>
                 <%= image_tag 'welcome/desktop-with-printscreen.png', width: '936' %>
             <% end %>
-            
+
           </div>
-  
-  
+
+
         </div>
-  
+
         <div class="col-lg-5 col-md-5 col-sm-5 u-no-padding">
-  
-  
+
+
           <!-- Slogan -->
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="slogan">
@@ -107,11 +107,11 @@
               <span><%= t('welcome.first_screen.sub_slogan').html_safe %></span>
             </div>
           </div>
-  
-  
+
+
           <div class="col-lg-11 col-md-12 col-sm-12 col-xs-12">
             <div class="LoginBox">
-  
+
               <!-- invite -->
               <div class="Button Button--primary Button--large Button--callToAction Button--alignCenter has-modal hidden-xs">
                 <div class="row">
@@ -123,17 +123,17 @@
                   </div>
                 </div>
               </div>
-  
+
               <!-- invite -->
               <div class="Button Button--callToAction Button--large Button--alignCenter has-modal visible-xs">
                 <span class="Button-text"><%= t('welcome.first_screen.request_invite') %></span><br/>
                 <span class="Button-description" style="position: relative; top: -3px; opacity: 0.65;"><%= t('welcome.first_screen.request_invite_free') %></span>
               </div>
-  
+
             </div>
           </div>
-  
-  
+
+
           <div class="col-lg-12 col-md-12 col-sm-12 hidden-md hidden-sm hidden-xs u-margin-15-0">
             <ul class="ListValues">
               <div class="col-lg-12 col-md-2 col-sm-2 u-no-padding">
@@ -168,7 +168,7 @@
               </div>
             </ul>
           </div>
-  
+
         </div>
       </div>
     </div>
@@ -271,15 +271,15 @@
   <div class="OuterWrapper">
     <div class=" default row extra-padding">
       <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1">
-  
-  
+
+
         <div class="row">
-  
+
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 centralize-xs" style="margin: 0px 0px 65px;">
             <h2 class="green-font"><%= t('welcome.attributes.offers') %>:</h2>
           </div>
-  
-  
+
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2 align-left-lg align-left-md centralize-sm centralize-xs p-45-15">
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-sm-offset-3 col-md-offset-0 col-xs-offset-4">
@@ -291,7 +291,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2 align-left-lg align-left-md centralize-sm centralize-xs p-45-15">
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-lg-offset-0 col-md-offset-0 col-sm-offset-4 col-xs-offset-3">
@@ -303,7 +303,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2 align-left-lg align-left-md centralize-sm centralize-xs p-45-15">
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-lg-offset-0 col-md-offset-0 col-sm-offset-4 col-xs-offset-3">
@@ -315,9 +315,9 @@
               </div>
             </div>
           </div>
-  
+
           <div class="clear"></div>
-  
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2 align-left-lg align-left-md centralize-sm centralize-xs p-45-15">
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-lg-offset-0 col-md-offset-0 col-sm-offset-4 col-xs-offset-3">
@@ -329,7 +329,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2 align-left-lg align-left-md centralize-sm centralize-xs p-45-15">
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-lg-offset-0 col-md-offset-0 col-sm-offset-4 col-xs-offset-3">
@@ -341,8 +341,8 @@
               </div>
             </div>
           </div>
-  
-  
+
+
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-2 align-left-lg align-left-md centralize-sm centralize-xs p-45-15">
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-lg-offset-0 col-md-offset-0 col-sm-offset-4 col-xs-offset-3">
@@ -354,8 +354,8 @@
               </div>
             </div>
           </div>
-  
-  
+
+
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 centralize-lg">
             <% if FEATURE_TRY_VILLEME_SWITCH and Event.where(city_name: 'Porto Alegre').upcoming.count > 5 %>
                 <%= link_to newsfeed_city_path('porto-alegre') do %>
@@ -367,9 +367,9 @@
                 <h4><%= t('welcome.attributes.more') %></h4>
             <% end %>
           </div>
-  
-  
-  
+
+
+
         </div>
       </div>
     </div>
@@ -386,24 +386,24 @@
   <div class="OuterWrapper">
     <div class="row" style="padding: 25px 0px 0px; margin: 0px;">
       <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1">
-  
-  
+
+
         <div class="row">
-  
-  
+
+
           <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
             <h2 class="green-font"><%= t('welcome.proposition.title').html_safe %></h2>
             <span><%= t('welcome.proposition.description_html', link: link_to('neste link', 'http://goo.gl/LHlnbj', class: 'hasBorder')) %></span>
           </div>
-  
+
           <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 visible-lg visible-md u-centralize">
             <%= image_tag('welcome/city.png', class: 'city-img') %>
           </div>
-  
-  
+
+
         </div>
-  
-  
+
+
       </div>
     </div><!--/row-->
   </div>
@@ -420,19 +420,19 @@
 <div class="container-fluid hidden-xs">
   <div class="OuterWrapper">
     <div class="extra-padding">
-  
+
       <div class="row">
-  
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 u-centralize">
           <h2 class="green-font"><%= t('welcome.want_invite.title') %></h2>
           <span><%= t('welcome.want_invite.description') %></span>
         </div>
-  
-  
+
+
         <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-0 col-sm-offset-0 col-xs-offset-0">
-  
+
           <ul class="goals">
-  
+
             <% number = 0 %>
             <% @cities.each do |city| %>
                 <%
@@ -443,7 +443,7 @@
                      contador = "#{t('welcome.want_invite.need')} #{city.goal} #{t('welcome.want_invite.people_to_launch')}"
                    end
                 %>
-  
+
                 <li>
                   <%= "<span class='number body-grey font-18'> #{number += 1} </span> ".html_safe unless ativado %>
                   <%= "<span class='number body-grey font-18'><span class='glyphicon glyphicon-ok' style='float: left; padding: 5px;'></span></span> ".html_safe if ativado %>
@@ -452,19 +452,19 @@
                   <%= "<div> <span class='pull-right has-modal has-tooltip rounded font-16 green-btn' title='#{t('welcome.tooltip.i_want_invite_for')} #{city.name}' data-city='#{city.id}'>#{t('welcome.want_invite.i_want_to')}</span> </div>".html_safe if ativado %>
                   <span class="people font-18"><%= contador %></span>
                 </li>
-  
+
             <% end %>
-  
+
             <li>
               <span class="people has-modal has-tooltip" title="<%= t('welcome.tooltip.your_city_dont_exist') %>" style="cursor:pointer"><%= t('welcome.want_invite.new_city') %></span>
             </li>
-  
+
           </ul>
-  
+
         </div>
-  
+
       </div>
-  
+
     </div>
   </div>
 </div>
@@ -476,19 +476,19 @@
 <!-- Container 6 -->
 
 <div class="container-fluid p-30-0">
-  <div class="OuterWrapper">  
+  <div class="OuterWrapper">
     <div class=" default row">
-  
+
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-10 col-lg-offset-0 col-xs-offset-1 u-centralize">
         <h3><%= t('welcome.footer.title') %></h3>
       </div>
-  
-  
+
+
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-10 col-lg-offset-0 col-xs-offset-1 u-centralize blue-font">
         <div class="fb-like" data-href="https://www.facebook.com/app.Villeme" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
       </div>
-  
-  
+
+
     </div><!--/row-->
   </div>
 </div> <!-- /container -->
