@@ -1,12 +1,19 @@
 module Villeme
   module MountSections
     module Categories
-    extend self
+      extend self
 
-      def get_events_categories(categories, city, options = {user: nil, upcoming: true, json: false, limit: nil, principal_size: 2, snippet_size: 12, snippet: true})
+      def get_events_categories(categories, city, options = {})
+        @options = options
         @categories = categories
         @city = city
-        @options = options
+        @user = options.fetch(:user, nil)
+        @upcoming = options.fetch(:upcoming, true)
+        @json = options.fetch(:json, false)
+        @limit = options.fetch(:limit, nil)
+        @principal_size = options.fetch(:principal_size, 2)
+        @snippet_size = options.fetch(:snippet_size, 12)
+        @snippet = options.fetch(:snippet, true)
 
         create_json(events_category)
       end
@@ -63,15 +70,15 @@ module Villeme
       end
 
       def get_principal_size
-        @options[:principal_size].nil? ? 2 : @options[:principal_size]
+        @principal_size.nil? ? 2 : @principal_size
       end
 
       def get_snippet_size
-        @options[:snippet_size].nil? ? 12 : @options[:snippet_size]
+        @snippet_size.nil? ? 12 : @snippet_size
       end
 
       def is_snippet?
-        @options[:snippet] == nil ? true : @options[:snippet]
+        @snippet == nil ? true : @snippet
       end
 
     end
