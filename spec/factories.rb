@@ -4,7 +4,7 @@ FactoryGirl.define do
 
   factory :user do
     name 'John Doe'
-    email {Faker::Internet.email}
+    email { Faker::Internet.email }
     username 'johndoe'
     locale 'en'
     account_complete true
@@ -23,7 +23,6 @@ FactoryGirl.define do
     level
     after(:create) {|user| user.personas << create(:persona)}
   end
-
 
   factory :admin, class: User do
     name 'Admin User'
@@ -47,6 +46,12 @@ FactoryGirl.define do
     after(:create) {|user| user.personas << create(:persona)}
   end
 
+  factory :week do
+    name 'Sunday'
+    slug 'sunday'
+    binary 0
+    organizer_id 7
+  end
 
   factory :event do
     name 'Campus Party'
@@ -73,10 +78,11 @@ FactoryGirl.define do
     moderate 1
     type 'Event'
     slug 'campus-party'
+
   end
 
   factory :event_faker, class: Event do
-    name {Faker::Lorem.sentence(2, false, 3)}
+    sequence(:name) { |n| "#{Faker::Hipster.sentence(1, false, 3)} #{n}" }
     description Faker::Lorem.paragraph(5..30)
     neighborhood_name 'Pine Hills'
     city_name 'Albany'
@@ -90,13 +96,18 @@ FactoryGirl.define do
     date_start Date.parse('2014-11-17')
     date_finish Date.parse('2014-11-28')
     hour_start_first Faker::Time.between(Date.today, Date.tomorrow, :all)
-    place_id 1
     image_file_name 'test.jpg'
     image_content_type 'image/jpg'
     image_file_size 1024
     moderate 1
     type 'Event'
     slug 'campus-party'
+    place { create(:place_faker) }
+    after(:create) do |event_faker|
+      event_faker.weeks << create(:week)
+      event_faker.categories << create(:category)
+      event_faker.personas << create(:persona)
+    end
   end
 
   factory :activity do
@@ -136,7 +147,7 @@ FactoryGirl.define do
   end
 
   factory :place_faker, class: Place do
-    name {Faker::Lorem.sentence(1, false, 2)}
+    sequence(:name) { |n| "#{Faker::Company.name} #{n}" }
     neighborhood_name 'Capitol Hill'
     city_name 'Albany'
     state_name 'New York'
@@ -156,7 +167,7 @@ FactoryGirl.define do
   end
 
   factory :city_faker, class: City do
-    name {Faker::Lorem.sentence(2, false, 4)}
+    sequence(:name) { |n| "#{Faker::Address.city} #{n}" }
     goal 250
     address '544 Madison Ave, Albany, NY 12208, USA'
     slug 'albany'
@@ -174,7 +185,7 @@ FactoryGirl.define do
   end
 
   factory :neighborhood_faker, class: Neighborhood do
-    name {Faker::Lorem.sentence(2, false, 2)}
+    sequence(:name) { |n| "#{Faker::Address.street_address} #{n}" }
     city_name 'Albany'
     state_name 'New York'
     state_code 'NY'
@@ -197,7 +208,7 @@ FactoryGirl.define do
   end
 
   factory :persona_faker, class: Persona do
-    name {Faker::Lorem.sentence(2, false, 3)}
+    sequence(:name) { |n| "#{Faker::Superhero.power} #{n}" }
   end
 
   factory :invite do
@@ -214,6 +225,7 @@ FactoryGirl.define do
     longitude -73.7729633802915
     key 'qowiqmas01231ljadao'
     password nil
+    after(:create) {|user| user.personas << create(:persona)}
   end
 
 

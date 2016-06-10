@@ -1,0 +1,41 @@
+@import "variables";
+
+.Checkbox {
+
+  & label {
+    background: #edeff0 none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block;
+    float: left;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    margin: 0 6px 6px 0;
+    padding: 6px 25px 6px 6px;
+    width: auto;
+  }
+
+  & input:hover + label {
+    background-color:$green;
+    color: $white;
+  }
+
+  & input:checked + label {
+    background-color:$green;
+    color:$white !important;
+    border:1px solid $green;
+  }
+
+  & input:checked:hover + label {
+    background-color:#edeff0;
+    color:$grey !important;
+    border:1px solid #ccc;
+  }
+
+  & input {
+    margin: 0 10px 0 6px !important;
+    position: relative !important;
+    top: 4px;
+  }
+
+}

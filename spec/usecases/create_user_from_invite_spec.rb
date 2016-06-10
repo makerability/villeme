@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../app/domain/invites/create_user_from_invite'
+require_relative '../../app/services/invite/create_user_from_invite'
 
 describe 'InvitesDomain' do
 
@@ -12,7 +12,7 @@ describe 'InvitesDomain' do
     end
     context "when invite_key == dsakjeianasoid" do
       it "does return true" do
-        output = Villeme::InvitesDomain.create_user_from_invite('dsakjeianasoid')
+        output = InviteService.create_user_from_invite('dsakjeianasoid')
         expect(output).to eq(true)
       end
     end
@@ -21,7 +21,7 @@ describe 'InvitesDomain' do
         allow(Invite).to receive(:find_by).with(key: 'invalid').and_return nil
       end
       it "does return false" do
-        output = Villeme::InvitesDomain.create_user_from_invite('invalid')
+        output = InviteService.create_user_from_invite('invalid')
         expect(output).to eq(false)
       end
     end

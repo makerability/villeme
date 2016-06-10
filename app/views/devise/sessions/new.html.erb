@@ -10,11 +10,11 @@
 	  <div class="form-inputs">
 	    <%= f.input :email, :required => false, :autofocus => true %>
 	    <%= f.input :password, :required => false %>
-	    <%= f.input :remember_me, input_html:{class: ''}, wrapper_html: {class: ''}, :as => :boolean if devise_mapping.rememberable? %>
+	    <%= f.input :remember_me, input_html:{class: ''}, wrapper_html: {class: 'checkbox'}, :as => :boolean if devise_mapping.rememberable? %>
 	  </div>
 
 	  <div class="form-actions">
-	    <%= f.button :submit, 'Entrar', class: 'Button Button--large Button--primary pull-right' %>
+	    <input type="submit" value="Entrar" class="Button Button--primary pull-right">
 	  </div>
 	<% end %>
 

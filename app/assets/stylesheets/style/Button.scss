@@ -3,10 +3,11 @@
 .Button{
   background: #DDDDDD;
   border: 0;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   padding: 0.65em;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 500;
   font-family: $font-family-default;
   color: $font-color-default;
 
@@ -25,7 +26,7 @@
     font-weight: 200;
 
     & .glyphicon{
-      font-size: 10px;
+      font-size: 12px;
       padding: 0 6px;
     }
   }

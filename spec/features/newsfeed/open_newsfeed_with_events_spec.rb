@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe 'Open the newsfeed with two events', js: true do
 
   before(:all) do
@@ -91,4 +90,3 @@ describe 'Open the newsfeed with two events', js: true do
   end
 
 end
-

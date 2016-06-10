@@ -80,6 +80,9 @@ pt-BR:
       schedule_one_click_html: "Agende com apenas um clique"
       categories_html: "Eventos de lazer, saúde, esporte, educação e cultura"
       open_colaborative_html: "É <b>grátis</b>, de <b>código aberto</b> e <b>colaborativo</b>"
+    login_modal:
+      facebook_button: "Entrar  com facebook"
+      email_button: "Entrar com email"
   dictionary:
     show_events_number_in_neighborhood: "Você %{count} perto de você ou no seu bairro."
     no_have_events: "não possui eventos"

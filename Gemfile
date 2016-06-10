@@ -11,11 +11,6 @@ group :development, :test do
 	gem 'faker'
   gem 'better_errors'
 	gem 'binding_of_caller'
-	gem 'rspec'
-	gem 'rspec-rails'
-	gem 'capybara'
-	gem 'poltergeist'
-	gem 'shoulda-matchers', '~> 3.1'
 	gem 'factory_girl_rails', '~> 4.0'
 	gem 'timecop'
 	gem 'bullet'
@@ -24,9 +19,15 @@ group :development, :test do
 end
 
 group :test do
+	gem 'selenium-webdriver', require: false
+	gem 'poltergeist', require: false
+	gem 'capybara'
   gem 'database_cleaner'
 	gem 'json-schema'
 	gem 'codeclimate-test-reporter', require: nil
+	gem 'rspec'
+	gem 'rspec-rails'
+	gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do

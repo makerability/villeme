@@ -71,6 +71,9 @@ en:
       address_hint: "The address is not stored"
       address_placeholder: "Example: 3030A 16th Street, California - USA"
       persona_tooltip: "This will help to separate the events that may interest you more. For example, the profile 'Artist' will see film events, music and art more often."
+    login_modal:
+      facebook_button: "Login with facebook"
+      email_button: "Login with email"
     tooltip:
       have_an_invitation: "If ou have an invitation"
       i_want_invite_for: "Want a invitation to"

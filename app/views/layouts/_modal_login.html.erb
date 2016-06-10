@@ -14,16 +14,18 @@
           <span class="js-ModalLogin-alert"></span>
         </div>
 
-        <button type="button" class="Button Button--primary Button--large Button--sizeFull u-centralize u-margin-0-0-15-0">Entrar com email</button>
+        <%= link_to sign_in_path do %>
+        <button type="button" class="Button Button--primary Button--large Button--sizeFull u-centralize u-margin-0-0-15-0 has-tooltip" title="<%= t('welcome.tooltip.have_an_invitation') %>" data-placement="left"><%= t('welcome.login_modal.email_button') %></button>
+        <% end %>
 
-        <%= link_to user_omniauth_authorize_path(:facebook), class: "has-tooltip", title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'top' do %>
-          <button class="Button Button--facebook Button--large Button--sizeFull u-centralize">Entrar com facebook</button>
+        <%= link_to user_omniauth_authorize_path(:facebook), class: "has-tooltip", title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'left' do %>
+        <button class="Button Button--facebook Button--large Button--sizeFull u-centralize"><%= t('welcome.login_modal.facebook_button') %>k</button>
         <% end %>
 
         <span class="block">ou</span>
 
         <%= link_to welcome_path do %>
-            <button class="Button Button--large Button--sizeFull u-centralize u-margin-0-0-15-0"><%= t('welcome.first_screen.request_invite') %></button>
+        <button class="Button Button--large Button--sizeFull u-centralize u-margin-0-0-15-0"><%= t('welcome.first_screen.request_invite') %></button>
         <% end %>
 
       </div>

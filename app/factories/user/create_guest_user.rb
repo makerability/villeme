@@ -28,7 +28,7 @@ module UserFactory
   end
 
   def assings_neighborhood_to_user
-    @user.neighborhood_name = @user.city.neighborhoods.first.name
+    @user.neighborhood_name = @user.city.try(:neighborhoods).try(:first).try(:name)
   end
 
   def assigns_session_to_user

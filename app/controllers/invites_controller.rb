@@ -1,11 +1,7 @@
 # encoding: utf-8
-
 class InvitesController < ApplicationController
   before_action :set_invite, only: [:show, :edit, :update, :destroy]
-
-  # acesso somente para admin
   before_action :is_admin, except: :create
-
 
   layout 'fullwidth_layout'
 
@@ -66,8 +62,6 @@ class InvitesController < ApplicationController
     end
   end
 
-
-  # Envia o convite para o usuario
   def send_invite
     @invite = Invite.find_by(key: params[:key])
     InviteMailer.send_key(@invite).deliver
@@ -76,24 +70,24 @@ class InvitesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invite
-      @invite = Invite.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invite
+    @invite = Invite.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def invite_params
-      params.require(:invite).permit(:user_id,
-                                     :email,
-                                     :name,
-                                     :address,
-                                     :persona_sugest,
-                                     :city_sugest,
-                                     :locale,
-                                     :key,
-                                     :persona_ids => []
-      )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def invite_params
+    params.require(:invite).permit(:user_id,
+    :email,
+    :name,
+    :address,
+    :persona_sugest,
+    :city_sugest,
+    :locale,
+    :key,
+    :persona_ids => []
+    )
+  end
 end
 
 def save_and_redirect_to_welcome

@@ -73,7 +73,7 @@ module SectionService
       if @neighborhoods.is_a? Array
         @neighborhoods.map(&:capitalize).join(" e ")
       else
-        @neighborhoods.capitalize
+        @neighborhoods.try(:capitalize)
       end
     end
 
