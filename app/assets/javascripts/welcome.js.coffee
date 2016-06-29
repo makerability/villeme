@@ -26,22 +26,22 @@ $(document).ready ->
     return
 
   # esconde head ao rolar tela
-#  h = window.innerHeight
-#  if h > 750
-#    $("#header-hide-on-scroll, #header-hide-on-scroll-dark").height h
-#    $("#header-hide-on-scroll-dark").css "margin-top", -h
-#  else
-#    $("#header-hide-on-scroll, #header-hide-on-scroll-dark").height 750
-#    $("#header-hide-on-scroll-dark").css "margin-top", -750
+  #  h = window.innerHeight
+  #  if h > 750
+  #    $("#header-hide-on-scroll, #header-hide-on-scroll-dark").height h
+  #    $("#header-hide-on-scroll-dark").css "margin-top", -h
+  #  else
+  #    $("#header-hide-on-scroll, #header-hide-on-scroll-dark").height 750
+  #    $("#header-hide-on-scroll-dark").css "margin-top", -750
 
-#  $(window).on "scroll", ->
-#    st = $(this).scrollTop()
-#    $("#header-hide-on-scroll").css "opacity", (1 - st / h)
-#    $("#header-hide-on-scroll").css "background-position", "0px " + (0 - (st / 2)).toString() + "px"
-#    $(".plataforms").css "top", (h / 9) + (st / 4)
-#
-#
-#    return
+  #  $(window).on "scroll", ->
+  #    st = $(this).scrollTop()
+  #    $("#header-hide-on-scroll").css "opacity", (1 - st / h)
+  #    $("#header-hide-on-scroll").css "background-position", "0px " + (0 - (st / 2)).toString() + "px"
+  #    $(".plataforms").css "top", (h / 9) + (st / 4)
+  #
+  #
+  #    return
 
 
   $(".plataforms img").hover (->
@@ -59,21 +59,21 @@ $(document).ready ->
 
 
   #troca a fotografia de fundo
-#  setTimeout( ->
-#    $("#header-hide-on-scroll").animate
-#      opacity: 1
-#    , 1200
-#
-#    $(".plataforms").animate
-#      top: 25
-#    , 800
-#
-#    $("#header-hide-on-scroll-dark").animate
-#      opacity: 0
-#    , 1200
-#
-#  , 2500
-#  )
+  #  setTimeout( ->
+  #    $("#header-hide-on-scroll").animate
+  #      opacity: 1
+  #    , 1200
+  #
+  #    $(".plataforms").animate
+  #      top: 25
+  #    , 800
+  #
+  #    $("#header-hide-on-scroll-dark").animate
+  #      opacity: 0
+  #    , 1200
+  #
+  #  , 2500
+  #  )
 
 
   # Gmail em breve
@@ -110,7 +110,7 @@ $(document).ready ->
             return
           ), ->
           handleNoGeolocation true
-          return
+        return
     , 650)
     return
 

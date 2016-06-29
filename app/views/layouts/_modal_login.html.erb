@@ -1,11 +1,12 @@
-
 <div class="modal js-ModalLogin fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="Modal Modal--centralized">
 
       <div class="modal-header">
         <span type="button" class="Modal-closeButton" data-dismiss="modal" aria-hidden="true">&times;</span>
-        <h4 class="modal-title u-centralize"><b>Entrar ou solicitar convite</b></h4>
+        <h4 class="modal-title u-centralize">
+          <b>Entrar ou solicitar convite</b>
+        </h4>
       </div>
 
       <div class="Modal-body">
@@ -15,18 +16,22 @@
         </div>
 
         <%= link_to sign_in_path do %>
-        <button type="button" class="Button Button--primary Button--large Button--sizeFull u-centralize u-margin-0-0-15-0 has-tooltip" title="<%= t('welcome.tooltip.have_an_invitation') %>" data-placement="left"><%= t('welcome.login_modal.email_button') %></button>
+          <button type="button" class="Button Button--primary Button--large Button--sizeFull u-centralize u-margin-0-0-15-0 has-tooltip" title="<%= t('welcome.tooltip.have_an_invitation') %>" data-placement="left">
+            <%= t('welcome.login_modal.email_button') %>
+          </button>
         <% end %>
 
         <%= link_to user_omniauth_authorize_path(:facebook), class: "has-tooltip", title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'left' do %>
-        <button class="Button Button--facebook Button--large Button--sizeFull u-centralize"><%= t('welcome.login_modal.facebook_button') %>k</button>
+          <button class="Button Button--facebook Button--large Button--sizeFull u-centralize">
+            <%= t('welcome.login_modal.facebook_button') %>
+          </button>
         <% end %>
 
         <span class="block">ou</span>
 
-        <%= link_to welcome_path do %>
-        <button class="Button Button--large Button--sizeFull u-centralize u-margin-0-0-15-0"><%= t('welcome.first_screen.request_invite') %></button>
-        <% end %>
+        <button onclick="Villeme.Ux.loginModal(null, Villeme.Ux.openRequestInviteModal)" class="Button Button--large Button--sizeFull u-centralize u-margin-0-0-15-0">
+          <%= t('welcome.first_screen.request_invite') %>
+        </button>
 
       </div>
 
