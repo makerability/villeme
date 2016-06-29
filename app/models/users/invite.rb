@@ -10,7 +10,7 @@ class Invite < ActiveRecord::Base
   validates :email, presence: true, length: 6..140
 
   after_validation :geocode_invite, unless: 'address.nil?'
-  after_validation :create_key_and_password
+  after_validation :create_key_and_password, on: :create
 
   private
 

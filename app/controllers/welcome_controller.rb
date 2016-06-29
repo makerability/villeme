@@ -12,9 +12,9 @@ class WelcomeController < ApplicationController
 
 		if params[:key]
 			if InviteService.create_user_from_invite(params[:key])
-				redirect_to sign_in_path and return
+				redirect_to sign_in_path, alert: 'Faça login com a senha enviada por email.' and return
 			else
-				redirect_to welcome_path and return
+				redirect_to welcome_path, alert: 'Este convite já foi utilizado ou é invalido.' and return
 			end
 		end
 
