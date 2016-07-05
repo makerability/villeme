@@ -21,7 +21,7 @@
           </button>
         <% end %>
 
-        <%= link_to user_omniauth_authorize_path(:facebook), class: "has-tooltip", title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'left' do %>
+        <%= link_to omniauth_authorize_path(:user, :facebook), class: "has-tooltip", title: t('welcome.tooltip.have_an_invitation'), 'data-placement' => 'left' do %>
           <button class="Button Button--facebook Button--large Button--sizeFull u-centralize">
             <%= t('welcome.login_modal.facebook_button') %>
           </button>
