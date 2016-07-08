@@ -182,10 +182,14 @@ Villeme.Gmap = ( ->
         minLength: 3
         delay: 500
         appendTo: "#modal .modal-body"
+        messages:
+          noResults: ''
+          results: ''
         open: ->
           $(".ui-autocomplete").css
             "display": "absolute"
             "max-width": "auto"
+            "background": "#fcfcfc"
             "width": _config.autocompleteWidth
 
           return
